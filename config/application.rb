@@ -24,5 +24,7 @@ module TravisAssets
     # config.serve_static_assets = true
     # config.static_cache_control = "public, max-age=31536000"
 
+    config.i18n.default_locale = :en
+    config.i18n.load_path += Dir[Rails.root.join('locales', '*.{rb,yml}').to_s]
   end
 end
