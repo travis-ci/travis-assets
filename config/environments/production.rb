@@ -21,9 +21,11 @@ TravisAssets::Application.configure do
   # config.assets.digest = true
 
   config.assets.digest  = false
-  config.assets.prefix = '12345'
+  config.assets.prefix = ENV['COMMIT_SHA'] || 'commit-sha-missing'
 
   config.assets.precompile += %w(mobile.css mobile.js)
+
+  config.static_cache_control = "public, max-age=31536000"
 
   # Defaults to Rails.root.join("public/assets")
   # config.assets.manifest = YOUR_PATH
