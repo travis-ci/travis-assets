@@ -11,6 +11,7 @@ group :assets do
   gem 'compass',            '0.12.alpha.4'
   gem 'i18n-js',            '~> 2.1.2'
   gem 'localeapp-i18n-js',  :git => 'git://github.com/randym/localeapp-i18n-js'
+  gem 'ember-rails'
 end
 
 group :development do
