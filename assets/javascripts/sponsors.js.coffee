@@ -17,7 +17,7 @@ $.extend Sponsors,
   PACKAGES: ['platinum', 'gold', 'silver']
   SPEED: 15000
   load: (callback) ->
-    $.get '/sponsors.json', (bundles) =>
+    $.get 'http://travis-assets-staging.heroku.com/sponsors.json', (bundles) =>
       callback(Sponsors.decksFrom(bundles))
   decksFrom: (bundles) ->
     decks = { banner: [], text: [] }

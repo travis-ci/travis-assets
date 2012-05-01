@@ -59,8 +59,9 @@ end
 
 require 'fileutils'
 
-source = root.join('assets/images')
+source = root.join('assets')
 target = root.join("public/#{version}")
 
 `mkdir -p #{target}`
-`cp -r #{source} #{target}`
+`cp -r #{source.join('images')} #{target}`
+`cp -r #{source.join('static')}/* #{target}`
