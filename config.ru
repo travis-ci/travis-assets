@@ -1,20 +1,14 @@
-$: << 'lib'
-
-require 'travis/assets'
 require 'sinatra'
 
 class App < Sinatra::Base
   configure do
-    set :root, File.expand_path('.')
-    set :public_folder, "#{settings.root}/public}"
-    set :cachebust, Digest::SHA1.hexdigest(Travis::Assets.version)
-
-    # compile assets at startup
-    system('rake assets:precompile');
+    set :root, File.dirname(__FILE__)
+    set :public_folder, lambda { "#{root}/public" }
   end
 
-  # use rake-pipline middleware during development
   configure :development do
+    $: << 'lib'
+    require 'travis/assets'
     require 'rake-pipeline'
     require 'rake-pipeline/middleware'
     use Rake::Pipeline::Middleware, "#{settings.root}/AssetFile"
