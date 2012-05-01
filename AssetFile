@@ -9,7 +9,7 @@ root    = Travis::Assets.root
 version = Travis::Assets.version = project.digested_tmpdir.split('-').last[0..7]
 puts "Assets version: #{version}"
 
-Compass.add_configuration({:project_path => root.to_s}, "implied")
+Compass.add_configuration({:project_path => root.to_s}, 'implied')
 
 Travis::Assets.clear
 Travis::Assets::I18n.export # turn this shit into a filter
