@@ -1,0 +1,44 @@
+$: << 'lib'
+
+require 'travis/assets'
+require 'rake-pipeline-web-filters'
+require 'rake-pipeline-web-filters/helpers'
+
+Filters = Rake::Pipeline::Web::Filters
+
+# TODO ChainedFilter chokes if key is a string
+register :coffee, Filters::CoffeeScriptFilter
+register :hjs,    Filters::HandlebarsFilter
+register :scss,   Filters::SassFilter
+register :erb,    Travis::Assets::TiltFilter
+
+root = 'assets/javascripts'
+paths = File.read('Manifest').split("\n").map(&:strip).reject { |path| path.empty? }
+paths = paths.map do |path|
+  path[-1] == '/' ? Dir["#{root}/#{path}/**/*.{js,coffee,hjs}"] : "#{path}.{js,coffee,hjs}"
+end
+
+paths.flatten!
+paths.map! { |path| path.gsub("#{root}/", '') }
+paths.map! { |path| path.gsub(/.hjs|.coffee/, '') }
+
+puts "Version: #{Travis::Assets.write_version}"
+
+output 'public'
+
+input root do
+  match '*.{js,jst}' do
+    neuter
+    concat paths, "#{Travis::Assets.version}/application.js"
+  end
+end
+
+input 'assets/stylesheets', 'application.css.scss.erb' do
+  match 'application.css' do
+    concat "#{Travis::Assets.version}/application.css"
+  end
+end
+
+target = "public/#{Travis::Assets.version}"
+`mkdir -p #{target}`
+`cp -r assets/images/* #{target}`

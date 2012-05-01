@@ -1,7 +1,10 @@
-#!/usr/bin/env rake
-# Add your own tasks in files placed in lib/tasks ending in .rake,
-# for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
+require 'rubygems'
+require 'bundler/setup'
+require 'rake-pipeline'
 
-require File.expand_path('../config/application', __FILE__)
-
-TravisAssets::Application.load_tasks
+namespace :assets do
+  desc "Precompile assets using Rake::Pipeline"
+  task :precompile do
+    Rake::Pipeline::Project.new('Assetfile').invoke
+  end
+end

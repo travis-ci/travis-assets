@@ -1,17 +1,24 @@
-require 'rails'
+require 'digest/md5'
 
 module Travis
-  class Assets < Rails::Railtie
-    config.root = Pathname.new(File.expand_path('../../..', __FILE__))
+  module Assets
+    autoload :TiltFilter, 'travis/assets/tilt_filter'
+    autoload :Engine,     'travis/assets/engine'
 
-    initializer 'add paths' do |app|
-      ['', 'images', 'javascripts', 'stylesheets'].each do |path|
-        app.assets.prepend_path(config.root.join('app/assets').join(path).to_s)
+    class << self
+      def version
+        File.read('VERSION')
       end
-    end
 
-    initializer 'add assets to precompile', :group => :all do |app|
-      app.config.assets.precompile += %w(application.js application.css)
+      def write_version
+        digest.to_s[0..7].tap do |version|
+          File.open('VERSION', 'w+') { |f| f.write(version) }
+        end
+      end
+
+      def digest
+        Digest::MD5.new << `ls -lR assets`
+      end
     end
   end
 end
