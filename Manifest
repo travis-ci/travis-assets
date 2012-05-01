@@ -1,22 +1,25 @@
-vendor/jquery-1.7
-vendor/jquery.timeago
-vendor/jquery.cookie
-vendor/jquery.tipsy
-vendor/ember-0.9.6.min
-vendor/sproutcore-datastore
-vendor/sproutcore-2.0/
-vendor/pusher-1.6.min
-vendor/highcharts
-vendor/ansiparse
-vendor/facebox
+vendor/jquery-1.7.js
+vendor/jquery.timeago.js
+vendor/jquery.cookie.js
+vendor/jquery.tipsy.js
+vendor/ember-0.9.6.js
+vendor/sproutcore-datastore.js
+vendor/sproutcore-2.0/**/*.js*
 
-lib/
-app/
-app
-sponsors/
-sponsors
+vendor/ansiparse.js
+vendor/facebox.js
+vendor/highcharts.js
+vendor/pusher-1.6.min.js
+vendor/i18n.js
 
-i18n
-i18n/translations
-localeapp-i18n-js
+app.js
+lib/**/*.js*
+app/controllers/tabs.js
+app/**/*.js*
+app/templates/**/*.jst.hjs
+
+sponsors/**/*.js.coffee
+sponsors.js.coffee
+
+i18n/translations.js
 

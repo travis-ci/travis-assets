@@ -1,24 +1,56 @@
+require 'pathname'
 require 'digest/md5'
 
 module Travis
   module Assets
-    autoload :TiltFilter, 'travis/assets/tilt_filter'
-    autoload :Engine,     'travis/assets/engine'
+    autoload :Filters, 'travis/assets/filters'
+    autoload :I18n,    'travis/assets/i18n'
+    autoload :Railtie, 'travis/assets/railtie'
+
+    VERSION_FILE = '.version'
+    KEEP_VERSIONS = 3
 
     class << self
-      def version
-        File.read('VERSION')
+      def version=(version)
+        @version = version
+        version_file.open('w+') { |f| f.write(version) }
       end
 
-      def write_version
-        digest.to_s[0..7].tap do |version|
-          File.open('VERSION', 'w+') { |f| f.write(version) }
+      def version
+        @version ||= version_file.read
+      end
+
+      def root
+        @root ||= Pathname.new(File.expand_path('../../..', __FILE__))
+      end
+
+      def clear
+        versions[0..-(KEEP_VERSIONS + 1)].each do |version|
+          `rm -rf #{root}/public/#{version}`
         end
       end
 
-      def digest
-        Digest::MD5.new << `ls -lR assets`
+      def paths(base)
+        manifest.map { |path| expand(base, path) }.flatten
       end
+
+      protected
+
+        def version_file
+          @version_file ||= root.join(VERSION_FILE)
+        end
+
+        def versions
+          `ls -tr1 #{root.join('public')}`.split("\n")
+        end
+
+        def expand(base, path)
+          Dir["#{base}/#{path}"].map { |path| path.gsub("#{base}/", '') }
+        end
+
+        def manifest
+          root.join('Manifest').read.split("\n").map(&:strip).reject { |path| path.empty? }
+        end
     end
   end
 end

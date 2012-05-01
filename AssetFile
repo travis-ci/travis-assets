@@ -1,44 +1,66 @@
 $: << 'lib'
 
 require 'travis/assets'
+require 'compass'
 require 'rake-pipeline-web-filters'
 require 'rake-pipeline-web-filters/helpers'
 
+root    = Travis::Assets.root
+version = Travis::Assets.version = project.digested_tmpdir.split('-').last[0..7]
+puts "Assets version: #{version}"
+
+Compass.add_configuration({:project_path => root.to_s}, "implied")
+
+Travis::Assets.clear
+Travis::Assets::I18n.export # turn this shit into a filter
+
+
 Filters = Rake::Pipeline::Web::Filters
 
-# TODO ChainedFilter chokes if key is a string
 register :coffee, Filters::CoffeeScriptFilter
-register :hjs,    Filters::HandlebarsFilter
 register :scss,   Filters::SassFilter
-register :erb,    Travis::Assets::TiltFilter
+register :erb,    Travis::Assets::Filters::Tilt
+register :hjs,    Travis::Assets::Filters::Handlebars
 
-root = 'assets/javascripts'
-paths = File.read('Manifest').split("\n").map(&:strip).reject { |path| path.empty? }
-paths = paths.map do |path|
-  path[-1] == '/' ? Dir["#{root}/#{path}/**/*.{js,coffee,hjs}"] : "#{path}.{js,coffee,hjs}"
-end
+tmpdir root.join('tmp')
+output root.join('public')
 
-paths.flatten!
-paths.map! { |path| path.gsub("#{root}/", '') }
-paths.map! { |path| path.gsub(/.hjs|.coffee/, '') }
 
-puts "Version: #{Travis::Assets.write_version}"
+paths = Travis::Assets.paths(root.join('assets/javascripts'))
 
-output 'public'
-
-input root do
-  match '*.{js,jst}' do
-    neuter
-    concat paths, "#{Travis::Assets.version}/application.js"
+input root.join('assets/javascripts'), "{#{paths.join(',')}}" do
+  match '*' do
+    paths.map! { |path| path.gsub(/.hjs|.coffee/, '') }
+    concat paths, "#{version}/javascripts/application.js"
   end
 end
 
-input 'assets/stylesheets', 'application.css.scss.erb' do
-  match 'application.css' do
-    concat "#{Travis::Assets.version}/application.css"
-  end
+input root.join('assets/javascripts'), 'jasmine/**/*.js' do
+  concat "#{version}/javascripts/jasmine.js"
 end
 
-target = "public/#{Travis::Assets.version}"
+input root.join('assets/stylesheets'), 'application.css*' do
+  concat "#{version}/stylesheets/application.css"
+end
+
+input root.join('assets/stylesheets'), 'mobile.css*' do
+  concat "#{version}/stylesheets/mobile.css"
+end
+
+input root.join('assets/stylesheets'), 'jasmine.css*' do
+  concat "#{version}/stylesheets/jasmine.css"
+end
+
+
+# how to use the copy filter with binary data?
+# input 'assets/images' do
+#   copy "#{version}/images"
+# end
+
+require 'fileutils'
+
+source = root.join('assets/images')
+target = root.join("public/#{version}")
+
 `mkdir -p #{target}`
-`cp -r assets/images/* #{target}`
+`cp -r #{source} #{target}`

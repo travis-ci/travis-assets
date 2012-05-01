@@ -11,10 +11,6 @@
 @import "compass";
 @import "facebox.scss";
 
-#tab_pull_requests {
-  display: none;
-}
-
 html {
   margin: 0;
   padding: 0;
@@ -82,7 +78,7 @@ caption {
     height: 30px;
     margin: 4px 40px 0 22px;
     text-indent: -9999px;
-    background: url(<%= asset_path 'logo.png' %>) no-repeat;
+    background: url(<%= asset_path 'images/logo.png' %>) no-repeat;
   }
   ul {
     list-style-type: none;
@@ -294,7 +290,7 @@ caption {
 #main .summary .number a,
 #main #builds td:first-child a,
 #main #builds .build td:first-child a {
-  background-image: url(<%= asset_path 'icons/status.yellow.png' %>);
+  background-image: url(<%= asset_path 'images/icons/status.yellow.png' %>);
   padding-left: 20px;
   background-repeat: no-repeat;
 }
@@ -302,7 +298,7 @@ caption {
 #main .green .summary .number a,
 #main #builds .green td:first-child a,
 #main #builds .build.green td:first-child a {
-  background-image: url(<%= asset_path 'icons/status.green.png' %>);
+  background-image: url(<%= asset_path 'images/icons/status.green.png' %>);
   color: green;
   padding-left: 20px;
   background-repeat: no-repeat;
@@ -312,7 +308,7 @@ caption {
 #main .red .summary .number a,
 #main #builds .red td:first-child a,
 #main #builds .build.red td:first-child a {
-  background-image: url(<%= asset_path 'icons/status.red.png' %>);
+  background-image: url(<%= asset_path 'images/icons/status.red.png' %>);
   color: #c00;
   padding-left: 20px;
   background-repeat: no-repeat;
@@ -373,10 +369,10 @@ caption {
       background: no-repeat 0px 2px;
       color: #999;
       &.watchers {
-        background-image: url(<%= asset_path 'icons/github-watchers.png' %>);
+        background-image: url(<%= asset_path 'images/icons/github-watchers.png' %>);
       }
       &.forks {
-        background-image: url(<%= asset_path 'icons/github-forks.png' %>);
+        background-image: url(<%= asset_path 'images/icons/github-forks.png' %>);
       }
     }
   }
@@ -396,7 +392,7 @@ caption {
     text-decoration: none;
     text-align: right;
     color: #999;
-    background: url(<%= asset_path 'icons/github-admin.png' %>) no-repeat right 1px;
+    background: url(<%= asset_path 'images/icons/github-admin.png' %>) no-repeat right 1px;
     text-indent: -999px;
     overflow: hidden;
     z-index: 60;
@@ -543,12 +539,12 @@ caption {
     .fold {
       height: 16px;
       overflow: hidden;
-      background: #444 url(<%= asset_path 'icons/log.fold.closed.2.png' %>) no-repeat 99.5% 2px;
+      background: #444 url(<%= asset_path 'images/icons/log.fold.closed.2.png' %>) no-repeat 99.5% 2px;
       cursor: pointer;
 
       &.open {
         height: auto;
-        background-image: url(<%= asset_path 'icons/log.fold.open.2.png' %>);
+        background-image: url(<%= asset_path 'images/icons/log.fold.open.2.png' %>);
       }
     }
 
@@ -731,19 +727,19 @@ caption {
       -moz-border-radius: 8px;
       -webkit-border-radius: 8px;
       /* background: url(/assets/icons/status.square.gray.png); created, starting, stopping */
-      background: url(<%= asset_path 'icons/status.square.green.png' %>);
+      background: url(<%= asset_path 'images/icons/status.square.green.png' %>);
     }
     &.waiting .icon {
-      background: url(<%= asset_path 'icons/status.square.green.png' %>);
+      background: url(<%= asset_path 'images/icons/status.square.green.png' %>);
     }
     &.working .icon {
-      /* background: url(/assets/icons/status.square.yellow.png); */
+      /* background: url(/assets/images/icons/status.square.yellow.png); */
     }
     &.errored .icon {
-      background: url(<%= asset_path 'icons/status.square.red.png' %>);
+      background: url(<%= asset_path 'images/icons/status.square.red.png' %>);
     }
     &.stopped .icon {
-      background: url(<%= asset_path 'icons/status.square.gray.png' %>);
+      background: url(<%= asset_path 'images/icons/status.square.gray.png' %>);
     }
   }
   .placeholder,
@@ -910,7 +906,7 @@ caption {
 }
 
 .list.loading h4 {
-  background: url(<%= asset_path 'spinner.gif' %>) no-repeat 4px right;
+  background: url(<%= asset_path 'images/spinner.gif' %>) no-repeat 4px right;
   padding-right: 15px;
 }
 
@@ -1099,16 +1095,16 @@ ul#tokens {
         height: 20px;
         width: 20px;
         padding-right: 0;
-        background: url(<%= asset_path 'icons/github-admin.png' %>) no-repeat 3px 4px;
+        background: url(<%= asset_path 'images/icons/github-admin.png' %>) no-repeat 3px 4px;
       }
       .switch {
         height: 20px;
         width: 80px;
         margin-left: 10px;
-        background: url(<%= asset_path 'off.png' %>) no-repeat;
+        background: url(<%= asset_path 'images/off.png' %>) no-repeat;
         cursor: pointer;
         &.active {
-          background: url(<%= asset_path 'on.png' %>) no-repeat;
+          background: url(<%= asset_path 'images/on.png' %>) no-repeat;
         }
       }
     }
@@ -1172,13 +1168,13 @@ ul#tokens {
 
 #main #allow_failure_builds td:first-child a,
 #main #allow_failure_builds .build td:first-child a {
-  background-image: url(<%= asset_path 'icons/status.green.png' %>);
+  background-image: url(<%= asset_path 'images/icons/status.green.png' %>);
   padding-left: 20px;
   background-repeat: no-repeat;
 }
 #main #allow_failure_builds .green td:first-child a,
 #main #allow_failure_builds .build.green td:first-child a {
-  background-image: url(<%= asset_path 'icons/status.green.png' %>);
+  background-image: url(<%= asset_path 'images/icons/status.green.png' %>);
   color: green;
   padding-left: 20px;
   background-repeat: no-repeat;
@@ -1188,7 +1184,7 @@ ul#tokens {
 #main .red .summary .number a,
 #main #allow_failure_builds .red td:first-child a,
 #main #allow_failure_builds .build.red td:first-child a {
-  background-image: url(<%= asset_path 'icons/status.red.png' %>);
+  background-image: url(<%= asset_path 'images/icons/status.red.png' %>);
   color: #c00;
   padding-left: 20px;
   background-repeat: no-repeat;
@@ -1241,7 +1237,7 @@ ul#tokens {
   margin-left: 10px;
   display: inline-block;
   width: 16px;
-  background: url(<%= asset_path 'icons/help.png' %>) no-repeat scroll 0 0 transparent;
+  background: url(<%= asset_path 'images/icons/help.png' %>) no-repeat scroll 0 0 transparent;
 }
 .context_help_caption {
   text-align: left;
@@ -1273,13 +1269,13 @@ pre {
 /* Branch Summary */
 #main #branch_summary td:first-child a,
 #main #branch_summary .build td:first-child a {
-  background-image: url(<%= asset_path 'icons/status.yellow.png' %>);
+  background-image: url(<%= asset_path 'images/icons/status.yellow.png' %>);
   padding-left: 20px;
   background-repeat: no-repeat;
 }
 #main #branch_summary .green td:first-child a,
 #main #branch_summary .build.green td:first-child a {
-  background-image: url(<%= asset_path 'icons/status.green.png' %>);
+  background-image: url(<%= asset_path 'images/icons/status.green.png' %>);
   color: green;
   padding-left: 20px;
   background-repeat: no-repeat;
@@ -1289,7 +1285,7 @@ pre {
 #main .red .summary .number a,
 #main #branch_summary .red td:first-child a,
 #main #branch_summary .build.red td:first-child a {
-  background-image: url(<%= asset_path 'icons/status.red.png' %>);
+  background-image: url(<%= asset_path 'images/icons/status.red.png' %>);
   color: #c00;
   padding-left: 20px;
   background-repeat: no-repeat;

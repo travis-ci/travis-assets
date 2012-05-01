@@ -1,4 +1,3 @@
-require 'vendor.js'
 // __DEBUG__ = true;
 // Ember.LOG_BINDINGS = true;
 

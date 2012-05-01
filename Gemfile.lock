@@ -91,6 +91,10 @@ GEM
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
+    rack-contrib (1.1.0)
+      rack (>= 0.9.1)
+    rack-protection (1.2.0)
+      rack
     rack-ssl (1.3.2)
       rack
     rack-test (0.6.1)
@@ -116,6 +120,10 @@ GEM
     rest-client (1.6.7)
       mime-types (>= 1.16)
     sass (3.1.16)
+    sinatra (1.3.2)
+      rack (~> 1.3, >= 1.3.6)
+      rack-protection (~> 1.2)
+      tilt (~> 1.3, >= 1.3.3)
     sprockets (2.1.3)
       hike (~> 1.2)
       rack (~> 1.0)
@@ -136,5 +144,8 @@ DEPENDENCIES
   compass (= 0.12.alpha.4)
   i18n-js (~> 2.1.2)
   localeapp-i18n-js!
+  rack
+  rack-contrib
   rake-pipeline!
   rake-pipeline-web-filters!
+  sinatra
