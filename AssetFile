@@ -17,10 +17,10 @@ Travis::Assets::I18n.export # turn this shit into a filter
 
 Filters = Rake::Pipeline::Web::Filters
 
-register :coffee, Filters::CoffeeScriptFilter
-register :scss,   Filters::SassFilter
 register :erb,    Travis::Assets::Filters::Tilt
 register :hjs,    Travis::Assets::Filters::Handlebars
+register :coffee, Filters::CoffeeScriptFilter
+register :scss,   Filters::SassFilter
 
 tmpdir root.join('tmp')
 output root.join('public')
