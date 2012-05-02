@@ -1,10 +1,11 @@
 require 'sinatra'
 
 class App < Sinatra::Base
-  configure do
-    set :root, File.dirname(__FILE__)
-    set :public_folder, lambda { "#{root}/public" }
-  end
+  disable :protection
+
+  set :root, File.dirname(__FILE__)
+  set :public_folder, lambda { "#{root}/public" }
+  set :static_cache_control, :public
 
   configure :development do
     $: << 'lib'
