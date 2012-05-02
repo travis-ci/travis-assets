@@ -64,4 +64,4 @@ target = root.join("public/#{version}")
 
 `mkdir -p #{target}`
 `cp -r #{source.join('images')} #{target}`
-`cp -r #{source.join('static')}/* #{target}`
+# `cp -r #{source.join('static')}/* #{target}`

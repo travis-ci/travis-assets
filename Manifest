@@ -19,7 +19,7 @@ app/**/*.js*
 app/templates/**/*.jst.hjs
 
 sponsors/**/*.js.coffee
-sponsors.js.coffee.erb
+sponsors.js.coffee
 
 i18n/translations.js
 
