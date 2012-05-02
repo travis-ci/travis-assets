@@ -7,7 +7,7 @@ module Travis
     autoload :I18n,    'travis/assets/i18n'
     autoload :Railtie, 'travis/assets/railtie'
 
-    VERSION_FILE = '.version'
+    VERSION_FILE = 'public/current'
     KEEP_VERSIONS = 3
 
     class << self
