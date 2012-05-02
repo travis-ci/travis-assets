@@ -69,11 +69,14 @@ $.extend Sponsor.prototype,
   render: ->
     node = $('<li></li>')
     html = if @type == 'banner'
-      '<a href="' + @data.url + '"><img src="' + @data.image + '"></a>' + @data.text
+      '<a href="' + @data.url + '"><img src="' + @img_url(@data.image) + '"></a>' + @data.text
     else
       @data.link
     node.append($(html))
     node
+  img_url: (path)->
+    "http://#{Travis.assets.host}/#{Travis.assets.version}/images/sponsors/#{path}"
+
 
 $.fn.sponsors = (decks, options) ->
   new Sponsors(@, decks, options).run()
