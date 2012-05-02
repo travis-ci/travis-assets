@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'sinatra'
+gem 'unicorn'
 
 group :assets do
   gem 'rake-pipeline', :git => 'https://github.com/livingsocial/rake-pipeline.git'
