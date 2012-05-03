@@ -10,6 +10,10 @@ module Travis
     KEEP_VERSIONS = 5
 
     class << self
+      def update_version
+        Version.new(root).update
+      end
+
       def version
         @version ||= Version.new(root).version
       end

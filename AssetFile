@@ -11,7 +11,7 @@ puts "Assets version: #{version}"
 
 Compass.add_configuration({:project_path => root.to_s}, 'implied')
 
-Travis::Assets.expire
+# Travis::Assets.expire
 Travis::Assets::I18n.export # turn this shit into a filter
 
 

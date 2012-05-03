@@ -9,11 +9,14 @@ module Travis
 
       def initialize(root)
         @root = root
-        write
       end
 
       def version
         @version ||= digest.to_s[0..7]
+      end
+
+      def update
+        write
       end
 
       protected
