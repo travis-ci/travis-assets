@@ -36,7 +36,7 @@
 
   {{#if content.sponsor.name}}
     <p class="sponsor">
-    {{i18n "jobs.messages.sponsored_by"}}
+      {{i18n "jobs.messages.sponsored_by"}}
       <a {{bindAttr href="content.sponsor.url"}}>{{content.sponsor.name}}</a>
     </p>
   {{/if}}

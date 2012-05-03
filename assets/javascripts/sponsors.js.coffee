@@ -75,7 +75,7 @@ $.extend Sponsor.prototype,
     node.append($(html))
     node
   img_url: (path)->
-    "http://#{Travis.assets.host}/#{Travis.assets.version}/images/sponsors/#{path}"
+    "https://love.travis-ci.org/images/sponsors/#{path}"
 
 
 $.fn.sponsors = (decks, options) ->
