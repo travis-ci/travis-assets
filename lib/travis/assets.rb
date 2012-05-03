@@ -1,31 +1,25 @@
 require 'pathname'
-require 'digest/md5'
 
 module Travis
   module Assets
     autoload :Filters, 'travis/assets/filters'
     autoload :I18n,    'travis/assets/i18n'
     autoload :Railtie, 'travis/assets/railtie'
+    autoload :Version, 'travis/assets/version'
 
-    VERSION_FILE = 'public/current'
-    KEEP_VERSIONS = 3
+    KEEP_VERSIONS = 5
 
     class << self
-      def version=(version)
-        @version = version
-        version_file.open('w+') { |f| f.write(version) }
-      end
-
       def version
-        @version ||= version_file.read
+        @version ||= Version.new(root).version
       end
 
       def root
         @root ||= Pathname.new(File.expand_path('../../..', __FILE__))
       end
 
-      def clear
-        versions[0..-(KEEP_VERSIONS + 1)].each do |version|
+      def expire
+        expired_versions.each do |version|
           `rm -rf #{root}/public/#{version}`
         end
       end
@@ -36,12 +30,12 @@ module Travis
 
       protected
 
-        def version_file
-          @version_file ||= root.join(VERSION_FILE)
+        def expired_versions
+          Array(versions.reverse[(KEEP_VERSIONS - 1)..-1])
         end
 
         def versions
-          `ls -tr1 #{root.join('public')}`.split("\n")
+          `ls -tr1 #{root.join('public')}`.split("\n") - ['current']
         end
 
         def expand(base, path)

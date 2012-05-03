@@ -135,3 +135,4 @@ $.ajaxSetup({
 if (window.console && window.console.log) {
   // Pusher.log = function(message) { window.console.log(arguments); };
 }
+
