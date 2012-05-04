@@ -64,11 +64,18 @@ GEM
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
+    diff-lcs (1.1.3)
     erubis (2.7.0)
     execjs (1.3.1)
       multi_json (~> 1.0)
+    ffi (1.0.11)
     fssm (0.2.9)
     gli (1.6.0)
+    guard (1.0.2)
+      ffi (>= 0.5.0)
+      thor (~> 0.14.6)
+    guard-rspec (0.7.0)
+      guard (>= 0.10.0)
     hike (1.2.1)
     i18n (0.6.0)
     i18n-js (2.1.2)
@@ -86,7 +93,10 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    metaclass (0.0.1)
     mime-types (1.18)
+    mocha (0.11.3)
+      metaclass (~> 0.0.1)
     multi_json (1.3.4)
     polyglot (0.3.3)
     rack (1.4.1)
@@ -119,6 +129,14 @@ GEM
       json (~> 1.4)
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    rspec (2.10.0)
+      rspec-core (~> 2.10.0)
+      rspec-expectations (~> 2.10.0)
+      rspec-mocks (~> 2.10.0)
+    rspec-core (2.10.0)
+    rspec-expectations (2.10.0)
+      diff-lcs (~> 1.1.3)
+    rspec-mocks (2.10.0)
     sass (3.1.16)
     sinatra (1.3.2)
       rack (~> 1.3, >= 1.3.6)
@@ -146,9 +164,12 @@ PLATFORMS
 DEPENDENCIES
   coffee-script
   compass (= 0.12.alpha.4)
+  guard-rspec
   i18n-js (~> 2.1.2)
   localeapp-i18n-js!
+  mocha
   rake-pipeline!
   rake-pipeline-web-filters!
+  rspec
   sinatra
   unicorn

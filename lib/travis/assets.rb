@@ -1,54 +1,69 @@
 require 'pathname'
+require 'singleton'
+require 'forwardable'
+require 'rake-pipeline'
 
 module Travis
-  module Assets
-    autoload :Filters, 'travis/assets/filters'
-    autoload :I18n,    'travis/assets/i18n'
-    autoload :Railtie, 'travis/assets/railtie'
-    autoload :Version, 'travis/assets/version'
+  class Assets
+    autoload :Filters,    'travis/assets/filters'
+    autoload :I18n,       'travis/assets/i18n'
+    autoload :Manifest,   'travis/assets/manifest'
+    autoload :Middleware, 'travis/assets/middleware'
+    autoload :Dsl,        'travis/assets/dsl'
+    autoload :Project,    'travis/assets/project'
+    autoload :Railtie,    'travis/assets/railtie'
+    autoload :Version,    'travis/assets/version'
 
     KEEP_VERSIONS = 5
 
-    class << self
-      def update_version
-        Version.new(root).update
-      end
+    include Singleton
 
-      def version
-        @version ||= Version.new(root).version
-      end
+    class << self
+      extend Forwardable
+
+      attr_writer :root
+      def_delegators :instance, :version, :paths, :update_version, :expire, :versions
 
       def root
         @root ||= Pathname.new(File.expand_path('../../..', __FILE__))
       end
-
-      def expire
-        expired_versions.each do |version|
-          `rm -rf #{root}/public/#{version}`
-        end
-      end
-
-      def paths(base)
-        manifest.map { |path| expand(base, path) }.flatten
-      end
-
-      protected
-
-        def expired_versions
-          Array(versions.reverse[(KEEP_VERSIONS - 1)..-1])
-        end
-
-        def versions
-          `ls -tr1 #{root.join('public')}`.split("\n") - ['current']
-        end
-
-        def expand(base, path)
-          Dir["#{base}/#{path}"].map { |path| path.gsub("#{base}/", '') }
-        end
-
-        def manifest
-          root.join('Manifest').read.split("\n").map(&:strip).reject { |path| path.empty? }
-        end
     end
+
+    attr_reader :root, :manifest, :version
+
+    def initialize(root = self.class.root)
+      @root = root
+      @manifest = Manifest.new(root)
+      @version = Version.new(root)
+    end
+
+    def paths(base)
+      manifest.paths(base)
+    end
+
+    def version
+      @version.hash
+    end
+
+    def update_version
+      @version.update
+    end
+
+    def expire
+      expired_versions.each do |version|
+        puts "removing expired version #{version}"
+        `rm -rf #{root}/public/#{version}`
+      end
+    end
+
+    def versions
+      `ls -tr1 #{root.join('public')}`.split("\n") - ['current']
+    end
+
+    protected
+
+      def expired_versions
+        Array(versions.reverse[KEEP_VERSIONS..-1])
+      end
   end
 end

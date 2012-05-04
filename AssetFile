@@ -5,64 +5,57 @@ require 'compass'
 require 'rake-pipeline-web-filters'
 require 'rake-pipeline-web-filters/helpers'
 
-root    = Travis::Assets.root
+Travis::Assets.update_version
+
+root = project.root
 version = Travis::Assets.version
-puts "Assets version: #{version}"
+# puts "Assets version: #{version}"
 
 Compass.add_configuration({:project_path => root.to_s}, 'implied')
 
-# Travis::Assets.expire
-Travis::Assets::I18n.export # turn this shit into a filter
-
-
-Filters = Rake::Pipeline::Web::Filters
-
 register :erb,    Travis::Assets::Filters::Tilt
 register :hjs,    Travis::Assets::Filters::Handlebars
-register :coffee, Filters::CoffeeScriptFilter
-register :scss,   Filters::SassFilter
+register :coffee, Rake::Pipeline::Web::Filters::CoffeeScriptFilter
+register :scss,   Rake::Pipeline::Web::Filters::SassFilter
 
-tmpdir root.join('tmp')
-output root.join('public')
+tmpdir 'tmp'
+output "public/#{version}"
 
 
-paths = Travis::Assets.paths(root.join('assets/javascripts'))
+paths = Travis::Assets.paths('javascripts')
 
-input root.join('assets/javascripts'), "{#{paths.join(',')}}" do
-  match '*' do
-    paths.map! { |path| path.gsub(/.hjs|.coffee/, '') }
-    concat paths, "#{version}/javascripts/application.js"
-  end
+input 'assets/javascripts', "{#{paths.join(',')}}" do
+  paths.map! { |path| path.gsub(/.hjs|.coffee/, '') }
+  concat paths, 'javascripts/application.js'
 end
 
-input root.join('assets/javascripts'), 'jasmine/**/*.js' do
-  concat "#{version}/javascripts/jasmine.js"
+input 'assets/javascripts', 'jasmine/**/*.js' do
+  concat 'javascripts/jasmine.js'
 end
 
-input root.join('assets/stylesheets'), 'application.css*' do
-  concat "#{version}/stylesheets/application.css"
+input 'assets/stylesheets', 'application.css*' do
+  concat 'stylesheets/application.css'
 end
 
-input root.join('assets/stylesheets'), 'mobile.css*' do
-  concat "#{version}/stylesheets/mobile.css"
+input 'assets/stylesheets', 'mobile.css*' do
+  concat 'stylesheets/mobile.css'
 end
 
-input root.join('assets/stylesheets'), 'jasmine.css*' do
-  concat "#{version}/stylesheets/jasmine.css"
+input 'assets/stylesheets', 'jasmine.css*' do
+  concat 'stylesheets/jasmine.css'
 end
 
 
-# how to use the copy filter with binary data?
-# input 'assets/images' do
-#   copy "#{version}/images"
-# end
-
-require 'fileutils'
-
-source = root.join('assets')
-target = root.join("public/#{version}")
-
-`mkdir -p #{target}`
-`cp -r #{source.join('images')} #{target}`
-# `cp -r #{source.join('static')}/* #{target}`
-
+# # how to use the copy filter with binary data?
+# # input 'assets/images' do
+# #   copy "#{version}/images"
+# # end
+#
+# require 'fileutils'
+#
+# source = root.join('assets')
+# target = root.join("public/#{version}")
+#
+# `mkdir -p #{target}`
+# `cp -r #{source.join('images')} #{target}`
+# # `cp -r #{source.join('static')}/* #{target}`

@@ -1,5 +1,5 @@
 module Travis
-  module Assets
+  class Assets
     module Filters
       class Handlebars < Rake::Pipeline::Web::Filters::HandlebarsFilter
         def initialize(*args)

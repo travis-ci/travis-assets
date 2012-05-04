@@ -12,3 +12,9 @@ group :assets do
   gem 'i18n-js',            '~> 2.1.2'
   gem 'localeapp-i18n-js',  :git => 'git://github.com/randym/localeapp-i18n-js'
 end
+
+group :test do
+  gem 'rspec'
+  gem 'mocha'
+  gem 'guard-rspec'
+end

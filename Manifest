@@ -16,7 +16,6 @@ app.js
 lib/**/*.js*
 app/controllers/tabs.js
 app/**/*.js*
-app/templates/**/*.jst.hjs
 
 sponsors/**/*.js.coffee
 sponsors.js.coffee

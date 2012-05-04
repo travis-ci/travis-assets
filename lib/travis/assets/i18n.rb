@@ -1,9 +1,11 @@
+# TODO stolen from i18n_js. need to turn this crap into a rake-pipeline filter
+#
 require 'fileutils'
 require 'i18n'
 require 'json'
 
 module Travis
-  module Assets
+  class Assets
     module I18n
       extend self
 

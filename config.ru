@@ -1,4 +1,7 @@
+$: << 'lib'
+
 require 'sinatra'
+require 'travis/assets'
 
 class App < Sinatra::Base
   disable :protection
@@ -10,9 +13,7 @@ class App < Sinatra::Base
   configure :development do
     $: << 'lib'
     require 'travis/assets'
-    require 'rake-pipeline'
-    require 'rake-pipeline/middleware'
-    use Rake::Pipeline::Middleware, "#{settings.root}/AssetFile"
+    use Travis::Assets::Middleware, settings.root
   end
 
   not_found do

@@ -1,5 +1,5 @@
 module Travis
-  module Assets
+  class Assets
     module Filters
       class Tilt < Rake::Pipeline::Web::Filters::TiltFilter
         def initialize(*args)
@@ -7,6 +7,7 @@ module Travis
         end
 
         def asset_path(path)
+          puts "using version #{version}"
           "/#{version}/#{path}"
         end
 
