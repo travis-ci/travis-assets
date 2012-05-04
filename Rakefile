@@ -3,6 +3,7 @@ $: << 'lib'
 require 'rubygems'
 require 'bundler/setup'
 require 'travis/assets'
+require 'faraday'
 
 namespace :assets do
   # this task is named compile, not precompile, so that heroku won't try to run it
@@ -10,6 +11,22 @@ namespace :assets do
   task :compile do
     Travis::Assets::I18n.export # turn this shit into a filter
     Travis::Assets::Project.new(File.dirname(__FILE__)).invoke
-    Travis::Assets.expire
+
+    fetch = ->(url) do
+      response = Faraday.get(url)
+      raise("can not fetch #{url}") unless response.success?
+      response.body
+    end
+
+    hosts = %w(
+      travis-assets.herokuapp.com
+      travis-assets-staging.herokuapp.com
+    )
+
+    current = hosts.map do |host|
+      fetch.call("http://#{host}/current")
+    end
+
+    Travis::Assets.expire(keep: current)
   end
 end

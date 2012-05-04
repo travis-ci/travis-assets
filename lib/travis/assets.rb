@@ -49,8 +49,10 @@ module Travis
       @version.update
     end
 
-    def expire
+    def expire(options = { keep: nil })
+      keep = Array(options[:keep])
       expired_versions.each do |version|
+        next if keep.include?(version)
         puts "removing expired version #{version}"
         `rm -rf #{root}/public/#{version}`
       end
