@@ -20,7 +20,7 @@ module Travis
         end
 
         def current_path
-          path.sub(%(^/(#{version})), current)
+          path.sub(version, current)
         end
 
         protected

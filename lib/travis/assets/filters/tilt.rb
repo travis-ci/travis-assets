@@ -7,7 +7,6 @@ module Travis
         end
 
         def asset_path(path)
-          puts "using version #{version}"
           "/#{version}/#{path}"
         end
 

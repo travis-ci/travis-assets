@@ -12,6 +12,18 @@ namespace :assets do
     Travis::Assets::I18n.export # turn this shit into a filter
     Travis::Assets::Project.new(File.dirname(__FILE__)).invoke
 
+    # TODO move this to a pipeline in AssetFile
+    require 'pathname'
+    require 'fileutils'
+
+    root   = Pathname.new(File.dirname(__FILE__))
+    source = root.join('assets')
+    target = root.join("public/#{Travis::Assets.version}")
+
+    `mkdir -p #{target}`
+    `cp -r #{source.join('images')} #{target}`
+
+
     fetch = ->(url) do
       response = Faraday.get(url)
       raise("can not fetch #{url}") unless response.success?
@@ -28,5 +40,7 @@ namespace :assets do
     end
 
     Travis::Assets.expire(keep: current)
+
+
   end
 end

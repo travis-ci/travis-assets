@@ -16,7 +16,10 @@ module Travis
       end
 
       def call(env)
-        rebuild
+        # Rebuilding assets on every request bumps the page reload time to ~15sec which
+        # is unacceptable. Should use guard or something similar for asset dev instead.
+        #
+        # rebuild
 
         path = env['PATH_INFO']
         asset = Asset.new(root, path, versions, current)
@@ -33,7 +36,7 @@ module Travis
       private
 
         def redirect_to(path)
-          [301, { 'Content-Type' => 'text', 'Location' => path }, '']
+          [301, { 'Content-Type' => 'text', 'Location' => path }, ['']]
         end
 
         def project

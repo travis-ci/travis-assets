@@ -46,16 +46,7 @@ input 'assets/stylesheets', 'jasmine.css*' do
 end
 
 
-# # how to use the copy filter with binary data?
-# # input 'assets/images' do
-# #   copy "#{version}/images"
-# # end
-#
-# require 'fileutils'
-#
-# source = root.join('assets')
-# target = root.join("public/#{version}")
-#
-# `mkdir -p #{target}`
-# `cp -r #{source.join('images')} #{target}`
-# # `cp -r #{source.join('static')}/* #{target}`
+# how to use the copy filter with binary data?
+# input 'assets/images' do
+#   copy "#{version}/images"
+# end
