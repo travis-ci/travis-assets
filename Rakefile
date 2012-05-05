@@ -14,6 +14,7 @@ namespace :assets do
     Travis::Assets.update_version
     puts "Assets version: #{Travis::Assets.version}"
 
+    `rm -rf tmp/rake-pipeline-*`
     Travis::Assets::Project.new(File.dirname(__FILE__)).invoke
 
     # TODO move this to a pipeline in AssetFile
