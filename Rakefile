@@ -10,6 +10,10 @@ namespace :assets do
   desc "Precompile assets using Rake::Pipeline"
   task :compile do
     Travis::Assets::I18n.export # turn this shit into a filter
+
+    Travis::Assets.update_version
+    puts "Assets version: #{Travis::Assets.version}"
+
     Travis::Assets::Project.new(File.dirname(__FILE__)).invoke
 
     # TODO move this to a pipeline in AssetFile
@@ -40,7 +44,5 @@ namespace :assets do
     end
 
     Travis::Assets.expire(keep: current)
-
-
   end
 end

@@ -7,14 +7,8 @@ module Travis
         end
 
         def asset_path(path)
-          "/#{version}/#{path}"
+          "/#{Travis::Assets.version}/#{path}"
         end
-
-        protected
-
-          def version
-            @version ||= Travis::Assets.version
-          end
       end
     end
   end

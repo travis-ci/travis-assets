@@ -5,11 +5,8 @@ require 'compass'
 require 'rake-pipeline-web-filters'
 require 'rake-pipeline-web-filters/helpers'
 
-Travis::Assets.update_version
-
 root = project.root
 version = Travis::Assets.version
-# puts "Assets version: #{version}"
 
 Compass.add_configuration({:project_path => root.to_s}, 'implied')
 
