@@ -23,17 +23,20 @@ Travis.Repository = Travis.Record.extend(Travis.Helpers.Common, {
 
   branchSummary: function() {
     builds = this.get('branch_summary');
-    var p_slug = this.get('slug')
-    $.each(builds, function(index, build) {
-      build['formattedCommit'] = build.commit.substr(0,7);
-      build['color'] = Travis.Helpers.Common.colorForResult(build.status);
-      build['started_at'] = Travis.Helpers.Common.timeAgoInWords(build.started_at);
-      build['finished_at'] = Travis.Helpers.Common.timeAgoInWords(build.finished_at);
-      build['build_url'] = '#!/' + p_slug + '/builds/' + build.build_id;
-      build['commit_url'] = 'http://github.com/' + p_slug + '/commit/' + build.commit;
+    if(builds.length) {
+      $.each(builds, function(index, build) {
+        build['formattedCommit'] = build.commit.substr(0,7);
+        build['color'] = Travis.Helpers.Common.colorForResult(build.status);
+        build['started_at'] = Travis.Helpers.Common.timeAgoInWords(build.started_at);
+        build['finished_at'] = Travis.Helpers.Common.timeAgoInWords(build.finished_at);
+        build['build_url'] = '#!/' + this.get('slug') + '/builds/' + build.build_id;
+        build['commit_url'] = 'http://github.com/' + this.get('slug') + '/commit/' + build.commit;
 
-    });
-    return builds;
+      });
+      return builds;
+    } else {
+      return [];
+    }
   }.property().cacheable(),
 
   builds: function() {
