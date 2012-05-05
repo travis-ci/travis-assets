@@ -21,5 +21,5 @@ class App < Sinatra::Base
   end
 end
 
-# use Rack::Deflater
+use Rack::Deflater
 run App
