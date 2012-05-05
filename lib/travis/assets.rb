@@ -14,7 +14,7 @@ module Travis
     autoload :Railtie,    'travis/assets/railtie'
     autoload :Version,    'travis/assets/version'
 
-    KEEP_VERSIONS = 5
+    KEEP_VERSIONS = 3
 
     include Singleton
 
@@ -42,7 +42,7 @@ module Travis
     end
 
     def version
-      @version.hash
+      @version.read
     end
 
     def update_version

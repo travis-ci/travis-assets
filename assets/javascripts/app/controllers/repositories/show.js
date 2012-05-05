@@ -74,6 +74,7 @@ Travis.Controllers.Repositories.Show = Ember.Object.extend({
   }.property('params'),
 
   _updateGithubStats: function() {
+    return
     if(window.__TESTING__) return;
     var repository = this.get('repository');
     if(repository && repository.get('slug')) $.getJSON('http://github.com/api/v2/json/repos/show/' + repository.get('slug') + '?callback=?', function(data) {

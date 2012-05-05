@@ -12,8 +12,8 @@ module Travis
         @root = root
       end
 
-      def hash
-        @hash ||= digest.to_s[0..7]
+      def read
+        file.read
       end
 
       def update
@@ -30,6 +30,10 @@ module Travis
 
         def write(version)
           file.open('w+') { |f| f.write(version) }
+        end
+
+        def hash
+          @hash ||= digest.to_s[0..7]
         end
 
         def digest

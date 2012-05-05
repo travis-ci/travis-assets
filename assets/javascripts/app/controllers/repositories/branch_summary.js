@@ -5,7 +5,7 @@ Travis.Controllers.Repositories.BranchSummary = Ember.Object.extend({
     this._super();
     this.view = Ember.View.create({
       controller: this,
-      repositoryBinding: 'controller.repository',
+      branchesBinding: 'controller.repository.branchSummary',
       templateName: 'app/templates/repositories/branch_summary'
     });
   },
@@ -17,10 +17,4 @@ Travis.Controllers.Repositories.BranchSummary = Ember.Object.extend({
       this.view.destroy();
     }
   },
-
-  _repositoryRefresher: function() {
-    if((this.getPath('repository.status') & Ember.Record.READY) && (this.getPath('repository.branch_summary') === null)) {
-      this.get('repository').refresh();
-    }
-  }.observes('repository.status'),
 });
