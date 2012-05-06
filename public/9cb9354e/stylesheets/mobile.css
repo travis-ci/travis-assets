@@ -57,7 +57,7 @@ header h1 {
   height: 30px;
   margin: 4px auto;
   text-indent: -9999px;
-  background: url(/e4e42ba3/logo.png) no-repeat;
+  background: url(/9cb9354e/logo.png) no-repeat;
 }
 
 /* line 61, /output/mobile.css.scss.erb */
@@ -249,7 +249,7 @@ ul.info li a {
 .matrix li.green .status,
 #repository h2 .status.green,
 #builds li.green .status {
-  background-image: url(/e4e42ba3/icons/status.green.png);
+  background-image: url(/9cb9354e/icons/status.green.png);
 }
 
 /* line 236, /output/mobile.css.scss.erb */
@@ -257,7 +257,7 @@ ul.info li a {
 .matrix li.red .status,
 #repository h2 .status.red,
 #builds li.red .status {
-  background-image: url(/e4e42ba3/icons/status.red.png);
+  background-image: url(/9cb9354e/icons/status.red.png);
 }
 
 /* line 243, /output/mobile.css.scss.erb */
@@ -265,7 +265,7 @@ ul.info li a {
 .matrix li.yellow .status,
 #repository h2 .status.yellow,
 #builds li.yellow .status {
-  background-image: url(/e4e42ba3/icons/status.yellow.png);
+  background-image: url(/9cb9354e/icons/status.yellow.png);
 }
 
 /* line 247, /output/mobile.css.scss.erb */
@@ -367,13 +367,13 @@ ul.info li a {
 .log .fold {
   height: 16px;
   overflow: hidden;
-  background: #444444 url(/e4e42ba3/icons/log.fold.closed.2.png) no-repeat 99.5% 2px;
+  background: #444444 url(/9cb9354e/icons/log.fold.closed.2.png) no-repeat 99.5% 2px;
   cursor: pointer;
 }
 /* line 345, /output/mobile.css.scss.erb */
 .log .fold.open {
   height: auto;
-  background-image: url(/e4e42ba3/icons/log.fold.open.2.png);
+  background-image: url(/9cb9354e/icons/log.fold.open.2.png);
 }
 /* line 353, /output/mobile.css.scss.erb */
 .log .bold {

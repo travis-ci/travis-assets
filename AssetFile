@@ -47,3 +47,13 @@ end
 # input 'assets/images' do
 #   copy "#{version}/images"
 # end
+
+root   = Pathname.new(File.dirname(__FILE__))
+source = root.join('assets')
+target = root.join("public/#{Travis::Assets.version}")
+
+`mkdir -p #{target}`
+`cp -r #{source.join('images')} #{target}`
+
+
+

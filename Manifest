@@ -2,7 +2,7 @@ vendor/jquery-1.7.js
 vendor/jquery.timeago.js
 vendor/jquery.cookie.js
 vendor/jquery.tipsy.js
-vendor/ember-0.9.6.js
+vendor/ember-0.9.7.1.js
 vendor/sproutcore-datastore.js
 vendor/sproutcore-2.0/**/*.js*
 

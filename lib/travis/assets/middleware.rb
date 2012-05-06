@@ -18,7 +18,7 @@ module Travis
       def call(env)
         # Rebuilding assets on every request bumps the page reload time to ~15sec which
         # is unacceptable. Should use guard or something similar for asset dev instead.
-        #
+
         # rebuild
 
         path = env['PATH_INFO']
