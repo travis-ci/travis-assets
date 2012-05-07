@@ -18,7 +18,6 @@ register :scss,   Rake::Pipeline::Web::Filters::SassFilter
 tmpdir 'tmp'
 output "public/#{version}"
 
-
 paths = Travis::Assets.paths('javascripts')
 
 input 'assets/javascripts', "{#{paths.join(',')}}" do
@@ -48,12 +47,9 @@ end
 #   copy "#{version}/images"
 # end
 
-root   = Pathname.new(File.dirname(__FILE__))
-source = root.join('assets')
-target = root.join("public/#{Travis::Assets.version}")
-
-`mkdir -p #{target}`
-`cp -r #{source.join('images')} #{target}`
-
-
-
+# root   = Pathname.new(File.dirname(__FILE__))
+# source = root.join('assets')
+# target = root.join("public/#{Travis::Assets.version}")
+#
+# `mkdir -p #{target}`
+# `cp -r #{source.join('images')} #{target}`

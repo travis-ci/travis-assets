@@ -9,7 +9,7 @@ namespace :assets do
   # this task is named compile, not precompile, so that heroku won't try to run it
   desc "Precompile assets using Rake::Pipeline"
   task :compile do
-    Travis::Assets::I18n.export # turn this shit into a filter
+    # Travis::Assets::I18n.export # turn this shit into a filter
 
     Travis::Assets.update_version
     puts "Assets version: #{Travis::Assets.version}"
@@ -26,15 +26,18 @@ namespace :assets do
       response.body
     end
 
-    hosts = %w(
-      travis-assets.herokuapp.com
-      travis-assets-staging.herokuapp.com
-    )
+    begin
+      hosts = %w(
+        travis-assets.herokuapp.com
+        travis-assets-staging.herokuapp.com
+      )
 
-    current = hosts.map do |host|
-      fetch.call("http://#{host}/current")
+      current = hosts.map do |host|
+        fetch.call("http://#{host}/current")
+      end
+
+      Travis::Assets.expire(keep: current)
+    rescue SocketError => e
     end
-
-    Travis::Assets.expire(keep: current)
   end
 end
