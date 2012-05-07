@@ -21,10 +21,8 @@ module Travis
 
         # rebuild
 
-        path = env['PATH_INFO']
-        asset = Asset.new(root, path, versions, current)
-
-        if path == '/current' or asset.serve?
+        asset = Asset.new(root, env['PATH_INFO'], versions, current)
+        if asset.serve?
           files.call(env)
         elsif asset.redirect?
           redirect_to(asset.current_path)

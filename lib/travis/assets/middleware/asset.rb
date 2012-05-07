@@ -12,7 +12,7 @@ module Travis
         end
 
         def serve?
-          version? && current?
+          current? || path == '/current'
         end
 
         def redirect?
@@ -30,15 +30,15 @@ module Travis
           end
 
           def outdated?
-            !!current
+            !current?
           end
 
           def version
-            @version ||= path.split('/')[1]
+            @version ||= path =~ %r(^/([\w]+)/(?:images|javascripts|stylesheets|static)) && $1
           end
 
           def version?
-            versions.include?(version)
+            !!version
           end
       end
     end
