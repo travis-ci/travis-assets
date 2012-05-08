@@ -9,6 +9,13 @@ module Travis
           @path = path
           @versions = versions
           @current = current
+
+          puts "current #{current}"
+          puts "version #{version}"
+          puts "serve? #{serve?.inspect}"
+          puts "redirect? #{redirect?.inspect}"
+          puts "version? #{version?.inspect}"
+          puts "outdated? #{outdated?.inspect}"
         end
 
         def serve?

@@ -15,6 +15,7 @@ namespace :assets do
     puts "Assets version: #{Travis::Assets.version}"
 
     Travis::Assets::Project.new(File.dirname(__FILE__)).invoke
+    Travis::Assets.update_version
 
     # TODO move this to a pipeline in AssetFile
     require 'pathname'

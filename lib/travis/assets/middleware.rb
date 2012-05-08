@@ -11,17 +11,21 @@ module Travis
         @app = app
         @root = root
         @files = Rack::File.new("#{root}/public")
-        @versions = Travis::Assets.versions
-        @current = Travis::Assets.version
       end
 
       def call(env)
         # Rebuilding assets on every request bumps the page reload time to ~15sec which
         # is unacceptable. Should use guard or something similar for asset dev instead.
 
+        # Maybe this strategy would help?
+        #
+        # http://jimneath.org/2012/05/05/precompile-assets-using-a-git-hook.html
+        # git diff-index --name-only HEAD | egrep '^app/assets' >/dev/null
+        #
         # rebuild
 
-        asset = Asset.new(root, env['PATH_INFO'], versions, current)
+        asset = Asset.new(root, env['PATH_INFO'], Travis::Assets.versions, Travis::Assets.version)
+
         if asset.serve?
           files.call(env)
         elsif asset.redirect?

@@ -42201,7 +42201,6 @@ I18n.p = I18n.pluralize;
 // __DEBUG__ = true;
 // Ember.LOG_BINDINGS = true;
 
-
 var Travis = Ember.Application.create({
   Controllers: { Repositories: {}, Builds: {}, Jobs: {} }, Models: {}, Helpers: {}, Views: {},
 

@@ -29,6 +29,10 @@ input 'assets/javascripts', 'jasmine/**/*.js' do
   concat 'javascripts/jasmine.js'
 end
 
+input 'assets/javascripts', 'pro.js*' do
+  concat 'javascripts/pro.js'
+end
+
 input 'assets/stylesheets', 'application.css*' do
   concat 'stylesheets/application.css'
 end
@@ -39,6 +43,10 @@ end
 
 input 'assets/stylesheets', 'jasmine.css*' do
   concat 'stylesheets/jasmine.css'
+end
+
+input 'assets/stylesheets', 'pro.css*' do
+  concat 'stylesheets/pro.css'
 end
 
 

@@ -19,6 +19,7 @@ module Guard
     end
 
     def run_on_change(paths)
+      puts "change: #{paths.inspect}"
       run
     end
 

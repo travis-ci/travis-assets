@@ -1,0 +1,57 @@
+@import "mixins.css.scss";
+@import "compass";
+
+#top {
+  position: absolute; /* this should probably be in travis-ci */
+
+  #navigation li:nth-child(2) {
+    display: none;
+  }
+
+  .profile {
+    margin-right: 10px;
+    ul {
+      right: 15px;
+    }
+  }
+}
+
+#main {
+  padding-right: 30px;
+
+  #repository .github-stats,
+  #repository .tools {
+    display: none;
+  }
+}
+
+#profile #main {
+  p.notice,
+  form[action=profile],
+  h4,
+  p.tip,
+  #service_hooks {
+    display: none;
+  }
+}
+
+#session {
+  #main {
+    margin: 200px auto 0 auto;
+    padding: 25px 50px;
+
+    width: 300px;
+    border: 10px solid #bbb;
+    @include border-radius(8px);
+  }
+
+  h1 {
+    margin-bottom: 1em;
+    color: #333;
+  }
+
+  p {
+    color: #333;
+  }
+}
+
