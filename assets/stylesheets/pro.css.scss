@@ -3,6 +3,7 @@
 
 #top {
   position: absolute; /* this should probably be in travis-ci */
+  overflow: visible;
 
   #navigation li:nth-child(2) {
     display: none;
