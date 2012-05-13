@@ -25,6 +25,10 @@ input 'assets/javascripts', "{#{paths.join(',')}}" do
   concat paths, 'javascripts/application.js'
 end
 
+input 'assets/javascripts', "{vendor.js*,mobile.js*,app/helpers/*.js,app/models/*.js,mobile/**/*.js}" do
+  concat 'javascripts/mobile.js'
+end
+
 input 'assets/javascripts', 'jasmine/**/*.js' do
   concat 'javascripts/jasmine.js'
 end
