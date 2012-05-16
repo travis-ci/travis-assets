@@ -25,8 +25,30 @@ input 'assets/javascripts', "{#{paths.join(',')}}" do
   concat paths, 'javascripts/application.js'
 end
 
-input 'assets/javascripts', "{vendor.js*,mobile.js*,app/helpers/*.js,app/models/*.js,mobile/**/*.js}" do
-  concat 'javascripts/mobile.js'
+# TODO: Maybe make a mobile manifest?
+# The goal is to eventually bake the mobile and full site together.
+# --Henrik Hodne, May 16th, 2012
+mobile_paths = %w(
+  vendor/jquery-1.7.js
+  vendor/jquery.timeago.js
+  vendor/jquery.cookie.js
+  vendor/jquery.tipsy.js
+  vendor/ember-0.9.6.min.js
+  vendor/sproutcore-datastore.js
+  vendor/sproutcore-2.0/**/*.js
+  vendor/pusher-1.6.min.js
+  vendor/highcharts.js
+  vendor/ansiparse.js
+  vendor/facebox.js
+  mobile.js
+  app/helpers/*.js
+  app/models/*.js
+  mobile/**/*.js
+)
+
+input 'assets/javascripts', "{#{mobile_paths.join(',')}}" do
+  mobile_paths.map! { |path| path.gsub(/.hjs|.coffee/, '') }
+  concat mobile_paths, 'javascripts/mobile.js'
 end
 
 input 'assets/javascripts', 'jasmine/**/*.js' do
