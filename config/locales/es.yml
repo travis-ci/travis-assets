@@ -88,9 +88,9 @@ es:
     about:
       alpha: Esto es alpha.
       messages:
-        alpha: Por favor <strong>no</strong> considereis esto un servicio estable.
-          Estamos estamos aún lejos de ello! Más información <a href='https://github.com/travis-ci'>aquí.</a>
-      join: Únetenos y ayudanos!
+        alpha: Por favor <strong>no</strong> consideres este servicio como estable.
+          ¡Estamos aún lejos de ello! Más información <a href='https://github.com/travis-ci'>aquí.</a>
+      join: Únete y ayudanos!
       mailing_list: Lista de Correos
       repository: Repositorio
       twitter: Twitter
@@ -99,9 +99,9 @@ es:
       email: Correo electrónico
       github: Github
       message:
-        your_repos: ! "  Activa los interruptores para inicial el  Travis service
-          hook para tus proyectos, y haz un Push en GitHub.<br />\n  Para probar varias
-          versiones de ruby, mira"
+        your_repos: ! "  Activa los interruptores para activar el Travis <code>service
+          hook</code> en tus proyectos, y haz un Push en GitHub.<br />\n  Para 
+          probar varias versiones de ruby\:"
         config: como configurar tus propias opciones para el Build
       messages:
         notice: ! "Para comenzar, por favor lee nuestra <a href=\"http://about.travis-ci.org/docs/user/getting-started/\">Guía
