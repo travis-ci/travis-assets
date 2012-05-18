@@ -25,8 +25,40 @@ input 'assets/javascripts', "{#{paths.join(',')}}" do
   concat paths, 'javascripts/application.js'
 end
 
-input 'assets/javascripts', "{vendor.js*,mobile.js*,app/helpers/*.js,app/models/*.js,mobile/**/*.js}" do
-  concat 'javascripts/mobile.js'
+# TODO: Maybe make a mobile manifest?
+# The goal is to eventually bake the mobile and full site together.
+# --Henrik Hodne, May 16th, 2012
+mobile_paths = %w(
+  vendor/jquery-1.7.js
+  vendor/jquery.timeago.js
+  vendor/jquery.cookie.js
+  vendor/jquery.tipsy.js
+  vendor/ember-0.9.7.1.js
+  vendor/sproutcore-datastore.js
+  vendor/sproutcore-2.0/**/*.js*
+  vendor/ansiparse.js
+  vendor/highcharts.js
+  vendor/pusher-1.6.min.js
+  vendor/i18n.js
+  mobile.js
+  lib/**/*.js
+  app/helpers/**/*.js*
+  app/models/**/*.js*
+  mobile/**/*.js*
+)
+
+
+mobile_paths.map! do |path|
+  base = Travis::Assets.root.join('assets').join('javascripts')
+  paths = Dir[base.join(path).to_s]
+  paths.map { |path| path.gsub("#{base}/", '') }
+end
+
+mobile_paths.flatten!
+
+input 'assets/javascripts', "{#{mobile_paths.join(',')}}" do
+  mobile_paths.map! { |path| path.gsub(/.hjs|.coffee/, '') }
+  concat mobile_paths, 'javascripts/mobile.js'
 end
 
 input 'assets/javascripts', 'jasmine/**/*.js' do
