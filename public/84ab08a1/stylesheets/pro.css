@@ -1,0 +1,69 @@
+/* line 36, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/_mixins.css.scss */
+.spinner {
+  width: 16px;
+  height: 8px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 20px;
+  height: 20px;
+}
+
+/* line 4, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+#top {
+  position: absolute;
+  /* this should probably be in travis-ci */
+  overflow: visible;
+}
+/* line 8, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+#top #navigation li:nth-child(2) {
+  display: none;
+}
+/* line 12, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+#top .profile {
+  margin-right: 10px;
+}
+/* line 14, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+#top .profile ul {
+  right: 15px;
+}
+
+/* line 20, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+#main {
+  padding-right: 30px;
+}
+/* line 24, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+#main #repository .github-stats,
+#main #repository .tools {
+  display: none;
+}
+
+/* line 34, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+#profile #main p.notice,
+#profile #main form[action=profile],
+#profile #main h4,
+#profile #main p.tip,
+#profile #main #service_hooks {
+  display: none;
+}
+
+/* line 40, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+#session #main {
+  margin: 200px auto 0 auto;
+  padding: 25px 50px;
+  width: 300px;
+  border: 10px solid #bbb;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+  border-radius: 8px;
+}
+/* line 49, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+#session h1 {
+  margin-bottom: 1em;
+  color: #333;
+}
+/* line 54, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+#session p {
+  color: #333;
+}

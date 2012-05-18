@@ -1,0 +1,5 @@
+<div id="repository">
+  {{view Travis.Views.Repositories.Show}}
+  {{view Ember.CollectionView classNames="tab" viewName="tab"}}
+</div>
+

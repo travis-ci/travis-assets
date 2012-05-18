@@ -66,6 +66,7 @@ en:
     started_at: Started
     duration: Duration
     finished_at: Finished
+    show_more: Show more
   layouts:
     top:
       home: Home

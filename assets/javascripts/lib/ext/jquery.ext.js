@@ -30,8 +30,8 @@ $.fn.extend({
   activateTab: function(tab) {
     Utils.activateTab(this, tab);
   },
-  readableTime: function() {
-    $(this).each(function() { $(this).text(Utils.readableTime(parseInt($(this).attr('title')))); })
+  timeInWords: function() {
+    $(this).each(function() { $(this).text(Utils.timeInWords(parseInt($(this).attr('title')))); })
   },
   updateGithubStats: function(repository) {
     Utils.updateGithubStats(repository, $(this));
@@ -72,14 +72,31 @@ $.extend({
     }
     return true;
   },
-  any: function(array, callback) {
+  detect: function(array, callback) {
     var args  = Array.prototype.slice.apply(arguments);
     var callback = args.pop();
     var array = args.pop() || this;
     for(var i = 0; i < array.length; i++) {
-      if(callback(array[i])) return true;
+      if(callback(array[i])) return array[i];
     }
-    return false;
+  },
+  detect: function(array, callback) {
+    var args  = Array.prototype.slice.apply(arguments);
+    var callback = args.pop();
+    var array = args.pop() || this;
+    for(var i = 0; i < array.length; i++) {
+      if(callback(array[i])) return array[i];
+    }
+  },
+  select: function(array, callback) {
+    var args  = Array.prototype.slice.apply(arguments);
+    var callback = args.pop();
+    var array = args.pop() || this;
+    var result = []
+    for(var i = 0; i < array.length; i++) {
+      if(callback(array[i])) result.push(array[i]);
+    }
+    return result;
   },
   slice: function(object, key) {
     var keys   = Array.prototype.slice.apply(arguments);

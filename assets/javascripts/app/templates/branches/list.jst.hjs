@@ -1,0 +1,18 @@
+<table id="branch_summary">
+  <thead>
+    <tr>
+      <th>{{t "repositories.branch"}}</th>
+      <th>{{t "repositories.commit"}}</th>
+      <th>{{t "repositories.message"}}</th>
+      <th>{{t "repositories.started_at"}}</th>
+      <th>{{t "repositories.finished_at"}}</th>
+    </tr>
+  </thead>
+  {{#collection tagName="tbody" contentBinding="branches" itemViewClass="Travis.Views.Branches.Item" itemClassBinding="color"}}
+    <td class="number"><a {{bindAttr href="content.buildUrl"}}>{{content.commit.branch}}</a></td>
+    <td class="commit"><a {{bindAttr href="content.commitUrl"}}>{{formatSha content.commit.sha}}</a></td>
+    <td class="message">{{{formatMessage content.commit.message short="true"}}}</td>
+    <td class="duration" {{bindAttr title="content.started_at"}}>{{formatTime content.started_at}}</td>
+    <td class="finished_at timeago" {{bindAttr title="content.finished_at"}}>{{formatTime content.finished_at}}</td>
+  {{/collection}}
+</table>

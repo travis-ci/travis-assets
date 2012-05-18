@@ -1,52 +1,44 @@
-<div {{bindAttr class="content.color"}}>
+<div {{bindAttr class="color"}}>
   <dl class="summary clearfix">
     <div class="left">
-      <dt>{{i18n "builds.name"}}</dt>
-
-      <dd class="number"><a {{bindAttr href="content.url"}}>{{content.number}}</a></dd>
-      <dt class="finished_at_label">{{i18n "builds.finished_at"}}</dt>
-      <dd class="finished_at timeago" {{bindAttr title="content.finished_at"}}>{{content.formattedFinishedAt}}</dd>
-      <dt>{{i18n "builds.duration"}}</dt>
-      <dd class="duration" {{bindAttr title="content.started_at"}}>{{content.formattedDuration}}</dd>
+      <dt>{{t "builds.name"}}</dt>
+      <dd class="number"><a {{bindAttr href="build.url"}}>{{build.number}}</a></dd>
+      <dt class="finished_at_label">{{t "builds.finished_at"}}</dt>
+      <dd class="finished_at timeago" {{bindAttr title="build.finished_at"}}>{{formatTime build.finished_at}}</dd>
+      <dt>{{t "builds.duration"}}</dt>
+      <dd class="duration" {{bindAttr title="build.started_at"}}>{{formatDuration build.duration}}</dd>
     </div>
 
     <div class="right">
-      <dt>{{i18n "builds.commit"}}</dt>
-      <dd class="commit-hash"><a {{bindAttr href="content.urlGithubCommit"}}>{{content.formattedCommit}}</a></dd>
-      {{#if content.compare_url}}
-        <dt>{{i18n "builds.compare"}}</dt>
-        <dd class="compare_view"><a {{bindAttr href="content.compare_url"}}>{{content.formattedCompareUrl}}</a></dd>
+      <dt>{{t "builds.commit"}}</dt>
+      <dd class="commit-hash"><a {{bindAttr href="build.urlGithubCommit"}}>{{formatCommit commit}}</a></dd>
+      {{#if commit.compare_url}}
+        <dt>{{t "builds.compare"}}</dt>
+        <dd class="compare_view"><a {{bindAttr href="commit.compare_url"}}>{{pathFrom commit.compare_url}}</a></dd>
       {{/if}}
-      {{#if content.author_name}}
-        <dt>{{i18n "builds.author"}}</dt>
-        <dd class="author"><a {{bindAttr href="content.urlAuthor"}}>{{content.author_name}}</a></dd>
+      {{#if commit.author_name}}
+        <dt>{{t "builds.author"}}</dt>
+        <dd class="author"><a {{bindAttr href="commit.urlAuthor"}}>{{commit.author_name}}</a></dd>
       {{/if}}
-      {{#if content.committer_name}}
-        <dt>{{i18n "builds.committer"}}</dt>
-        <dd class="committer"><a {{bindAttr href="content.urlCommitter"}}>{{content.committer_name}}</a></dd>
+      {{#if commit.committer_name}}
+        <dt>{{t "builds.committer"}}</dt>
+        <dd class="committer"><a {{bindAttr href="build.urlCommitter"}}>{{commit.committer_name}}</a></dd>
       {{/if}}
     </div>
 
-    <dt>{{i18n "builds.message"}}</dt>
-    <dd class="commit-message">{{{content.formattedMessage}}}</dd>
+    <dt>{{t "builds.message"}}</dt>
+    <dd class="commit-message">{{{formatMessage commit.message}}}</dd>
 
-    {{#if content.isMatrix}}
+    {{#if build.isMatrix}}
     {{else}}
-      <dt>{{i18n "builds.config"}}</dt>
-      <dd class="config">{{content.formattedConfig}}</dd>
+      <dt>{{t "builds.config"}}</dt>
+      <dd class="config">{{formatConfig build.config}}</dd>
     {{/if}}
   </dl>
 
-  {{#if content.isMatrix}}
-    {{view Ember.View templateName="app/templates/jobs/list" repositoryBinding="repository" contentBinding="content"}}
+  {{#if build.isMatrix}}
+    {{view Travis.Views.Jobs.List buildBinding="build"}}
   {{else}}
-    <pre class="log">{{{content.matrix.firstObject.formattedLog}}}</pre>
-
-    {{#if content.matrix.firstObject.sponsor.name}}
-      <p class="sponsor">
-      {{i18n "builds.messages.sponsored_by"}}
-        <a {{bindAttr href="content.matrix.firstObject.sponsor.url"}}>{{content.matrix.firstObject.sponsor.name}}</a>
-      </p>
-    {{/if}}
+    {{view Travis.Views.Jobs.Log jobBinding="build.jobs.firstObject"}}
   {{/if}}
 </div>

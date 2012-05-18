@@ -1,0 +1,11 @@
+{{#if job.log}}
+  <pre class="log">{{{formatLog job.log}}}</pre>
+
+  {{#if job.sponsor.name}}
+    <p class="sponsor">
+    {{t "builds.messages.sponsored_by"}}
+      <a {{bindAttr href="job.sponsor.url"}}>{{job.sponsor.name}}</a>
+    </p>
+  {{/if}}
+{{/if}}
+

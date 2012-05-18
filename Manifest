@@ -2,9 +2,10 @@ vendor/jquery-1.7.js
 vendor/jquery.timeago.js
 vendor/jquery.cookie.js
 vendor/jquery.tipsy.js
-vendor/ember-0.9.7.1.js
-vendor/sproutcore-datastore.js
-vendor/sproutcore-2.0/**/*.js*
+vendor/ember-ffaf987.js
+vendor/ember-data-087241.js
+vendor/ember-layout.js
+vendor/sproutcore-2.0/routes.js
 
 vendor/ansiparse.js
 vendor/facebox.js
@@ -12,13 +13,17 @@ vendor/highcharts.js
 vendor/pusher-1.6.min.js
 vendor/i18n.js
 
-app.js
 lib/**/*.js*
-app/controllers/tabs.js
-app/**/*.js*
+app/controllers/*.js.coffee
+app/views/*.js.coffee
+app/states/*.js.coffee
+
+app/helpers/**/*.js*
+app/models/**/*.js*
+app/templates/**/*.jst*
+app/boot.js.coffee
 
 sponsors/**/*.js.coffee
 sponsors.js.coffee
 
 i18n/translations.js
-

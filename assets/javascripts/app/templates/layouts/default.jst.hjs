@@ -1,0 +1,11 @@
+{{view Travis.Views.Layouts.Left id="left" viewName="left"}}
+{{view Travis.Views.Layouts.Main id="main" viewName="main"}}
+{{view Travis.Views.Layouts.Right id="right" viewName="right" class="maximized"}}
+
+<div id="github">
+  <a href="https://github.com/travis-ci" title="Fork me on GitHub">
+    {{t "layouts.application.fork_me"}}
+  </a>
+</div>
+
+<div id="flash-messages"></div>

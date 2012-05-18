@@ -1,0 +1,19 @@
+<div id="search_box">
+  {{view Ember.TextField viewName="searchBox"}}
+</div>
+
+<ul class="tabs">
+  <li id="tab_recent" class="active">
+    <h5><a href="#" {{action "click"}}>{{t "layouts.application.recent"}}</a></h5>
+  </li>
+  {{#if current_user}}
+    <li id="tab_my_repositories" data-github-id="{{current_user.login}}">
+      <h5><a href="#" {{action "click"}}>{{t "layouts.application.my_repositories"}}</a></h5>
+    </li>
+  {{/if}}
+  <li id="tab_search">
+    <h5><a href="#" {{action "click"}}>{{t "layouts.application.search"}}</a></h5>
+  </li>
+</ul>
+
+{{view Ember.CollectionView classNames="tab" viewName="tab"}}

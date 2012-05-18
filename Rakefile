@@ -9,7 +9,7 @@ namespace :assets do
   # this task is named compile, not precompile, so that heroku won't try to run it
   desc "Precompile assets using Rake::Pipeline"
   task :compile do
-    # Travis::Assets::I18n.export # turn this shit into a filter
+    # Travis::Assets::I18n.export # TODO turn this shit into a filter
 
     Travis::Assets.update_version
     puts "Assets version: #{Travis::Assets.version}"

@@ -1,0 +1,31 @@
+<div class="tools">
+  <a {{action toggle}}></a>
+  <div class="content">
+    <p>
+      <label>{{t "repositories.branch"}}:</label>
+      <select {{action update on="change"}}>
+        <option></option>
+        {{#each repository.branches}}
+          <option>{{commit.branch}}</option>
+        {{/each}}
+      </select>
+    </p>
+    <p>
+      <label>{{t "repositories.image_url"}}:</label>
+      <input type="text" class="url" {{bindAttr value="imageUrl"}}>
+    </p>
+    <p>
+      <label>{{t "repositories.markdown"}}:</label>
+      <input type="text" class="markdown" {{bindAttr value="markdown"}}>
+    </p>
+    <p>
+      <label>{{t "repositories.textile"}}:</label>
+      <input type="text" class="textile" {{bindAttr value="textile"}}>
+    </p>
+    <p>
+      <label>{{t "repositories.rdoc"}}:</label>
+      <input type="text" class="rdoc" {{bindAttr value="rdoc"}}>
+    </p>
+  </div>
+</div>
+
