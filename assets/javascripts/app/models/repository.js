@@ -58,15 +58,15 @@ Travis.Repository = Travis.Record.extend(Travis.Helpers.Common, {
   }.property('color', 'selected').cacheable(),
 
   urlCurrent: function() {
-    return '#!/' + this.getPath('slug');
+    return '#/' + this.getPath('slug');
   }.property('slug').cacheable(),
 
   urlBuilds: function() {
-    return '#!/' + this.get('slug') + '/builds';
+    return '#/' + this.get('slug') + '/builds';
   }.property('slug').cacheable(),
 
   urlLastBuild: function() {
-    return '#!/' + this.get('slug') + '/builds/' + this.get('last_build_id');
+    return '#/' + this.get('slug') + '/builds/' + this.get('last_build_id');
   }.property('last_build_id').cacheable(),
 
   urlGithub: function() {
@@ -86,11 +86,11 @@ Travis.Repository = Travis.Record.extend(Travis.Helpers.Common, {
   }.property('slug').cacheable(),
 
   urlBranches: function() {
-    return '#!/' + this.get('slug') + '/branch_summary';
+    return '#/' + this.get('slug') + '/branch_summary';
   }.property('slug').cacheable(),
 
   urlPullRequests: function() {
-    return '#!/' + this.get('slug') + '/pull_requests';
+    return '#/' + this.get('slug') + '/pull_requests';
   }.property('slug').cacheable(),
 
   urlStatusImage: function() {

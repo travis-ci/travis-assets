@@ -12,17 +12,17 @@ var Travis = Ember.Application.create({
   },
 
   home: function() {
-    Ember.routes.add('!/:owner/:name/jobs/:id', function(params) {
+    Ember.routes.add('/:owner/:name/jobs/:id', function(params) {
       Travis.set('params', params);
       Travis.transitionTo('#job_page');
     });
 
-    Ember.routes.add('!/:owner/:name/builds/:id', function(params) {
+    Ember.routes.add('/:owner/:name/builds/:id', function(params) {
       Travis.set('params', params);
       Travis.transitionTo('#jobs_list');
     });
 
-    Ember.routes.add('!/:owner/:name', function(params) {
+    Ember.routes.add('/:owner/:name', function(params) {
       Travis.set('params', params);
       Travis.transitionTo('#builds_list');
     });
@@ -32,10 +32,10 @@ var Travis = Ember.Application.create({
       Travis.transitionTo('#repositories_list');
     });
 
-    // Ember.routes.add('!/:owner/:name/jobs/:id',   function(params) { Travis.main.activate('job',    params) });
-    // Ember.routes.add('!/:owner/:name/builds/:id', function(params) { Travis.main.activate('build',  params) });
-    // Ember.routes.add('!/:owner/:name/builds',     function(params) { Travis.main.activate('builds', params) });
-    // Ember.routes.add('!/:owner/:name',            function(params) { Travis.main.activate('builds', params) });
+    // Ember.routes.add('/:owner/:name/jobs/:id',   function(params) { Travis.main.activate('job',    params) });
+    // Ember.routes.add('/:owner/:name/builds/:id', function(params) { Travis.main.activate('build',  params) });
+    // Ember.routes.add('/:owner/:name/builds',     function(params) { Travis.main.activate('builds', params) });
+    // Ember.routes.add('/:owner/:name',            function(params) { Travis.main.activate('builds', params) });
     // Ember.routes.add('',                          function(params) { Travis.main.activate('list',   params) });
 
   },

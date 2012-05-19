@@ -112,7 +112,7 @@ Travis.Job = Travis.Record.extend(Travis.Helpers.Common, {
   }.property('message'),
 
   url: function() {
-    return '#!/' + this.getPath('repository.slug') + '/jobs/' + this.get('id');
+    return '#/' + this.getPath('repository.slug') + '/jobs/' + this.get('id');
   }.property('repository', 'id'),
 });
 

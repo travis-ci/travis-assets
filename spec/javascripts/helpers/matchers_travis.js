@@ -21,7 +21,7 @@ $.extend(jasmine, {
 
     var expected = {
       'a:nth-child(1)': repository.get('slug'),
-      'a:nth-child(2)': { text: '#' + repository.get('last_build_number'), href: '#!/%@/builds/%@'.fmt(repository.get('slug'), repository.get('last_build_id')) },
+      'a:nth-child(2)': { text: '#' + repository.get('last_build_number'), href: '#/%@/builds/%@'.fmt(repository.get('slug'), repository.get('last_build_id')) },
       '.duration':      { title: repository.get('last_build_started_at'), text: repository.get('formattedLastBuildDuration') },
       '.finished_at':   { title: repository.get('last_build_finished_at'), text: repository.get('formattedLastBuildFinishedAt') }
     };

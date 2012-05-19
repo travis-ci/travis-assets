@@ -100,7 +100,7 @@ Travis.Build = Travis.Record.extend(Travis.Helpers.Common, {
   }.property('message'),
 
   url: function() {
-    return '#!/' + this.getPath('repository.slug') + '/builds/' + this.get('id');
+    return '#/' + this.getPath('repository.slug') + '/builds/' + this.get('id');
   }.property('repository.status', 'id'),
 
   urlAuthor: function() {
