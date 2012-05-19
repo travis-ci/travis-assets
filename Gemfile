@@ -21,4 +21,6 @@ group :test do
   gem 'rspec'
   gem 'mocha'
   gem 'guard-rspec'
+  gem 'jasmine',           git: 'git://github.com/pivotal/jasmine-gem', submodules: true
+  gem 'webmock',           '~> 1.7.7'
 end

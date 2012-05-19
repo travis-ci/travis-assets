@@ -1,0 +1,36 @@
+assets:
+  - javascripts/application.js
+
+src_dir:
+  - public/<%= File.open('public/current', 'r') { |f| f.read }.chomp %>
+
+# src_files
+#
+src_files:
+  - javascripts/application.js
+
+# stylesheets
+#
+stylesheets:
+  - stylesheets/**/*.css
+
+# spec_files
+#
+spec_files:
+  - '**/*[sS]pec.js'
+
+# helpers
+#
+helpers:
+  - helpers/spec_helper.js
+  - helpers/factories.js
+  - helpers/matchers.js
+  - helpers/matchers_travis.js
+  - vendor/jasmine_ajax.js
+  - vendor/jasmine-jquery-1.3.1.js
+  - vendor/jasmine-html-1.1.0.js
+  # - vendor/jasmine-1.1.0.js
+
+# spec_dir
+#
+spec_dir: spec/javascripts
