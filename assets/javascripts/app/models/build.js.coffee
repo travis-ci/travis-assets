@@ -49,6 +49,7 @@
 
 @Travis.Build.reopenClass
   byRepositoryId: (id, parameters) ->
+    console.log($.extend(parameters || {}, repository_id: id, orderBy: 'number DESC'))
     @all($.extend(parameters || {}, repository_id: id, orderBy: 'number DESC'))
 
   olderThanNumber: (id, build_number) ->

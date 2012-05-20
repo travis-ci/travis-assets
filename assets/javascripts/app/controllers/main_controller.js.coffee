@@ -58,8 +58,8 @@
     tab = @get('tab')
     if tab == 'history'
       Ember.Object.create(parent: @, contentBinding: 'parent.repository.builds')
-    else if tab == 'builds'
-      Ember.Object.create(parent: @, contentBinding: 'parent.repository.pull_requests')
+    else if tab == 'pull_requests'
+      Ember.Object.create(parent: @, contentBinding: 'parent.repository.pullRequests')
   ).property('tab')
 
   # TODO this doesn't work ...
