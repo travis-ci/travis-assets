@@ -32,6 +32,27 @@
     controllerBinding: 'Travis.app.main'
     buildBinding: 'controller.build'
 
+    jobs: (->
+      build = @get('build')
+      Travis.Job.forBuild(build) if build
+    ).property('build.data.job_ids')
+
+    isMatrix: (->
+      @getPath('jobs.length') > 1
+    ).property('jobs.length')
+
+    hasFailureMatrix: (->
+      @get('allowedFailureJobs').length > 0
+    ).property('allowedFailureJobs')
+
+    requiredJobs: (->
+      @get('jobs').filter (item, index) -> item.get('allow_failure') isnt true
+    ).property('jobs')
+
+    allowedFailureJobs: (->
+      @get('jobs').filter (item, index) -> item.get 'allow_failure'
+    ).property('jobs')
+
     configKeys: (->
       config = @getPath('build.config')
       return [] unless config

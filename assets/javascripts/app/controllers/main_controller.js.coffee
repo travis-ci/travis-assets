@@ -26,8 +26,13 @@
     @tabs.activate(tab)
 
   job: (->
-    Travis.Job.find(@get('params').id) if @get('tab') == 'job'
-  ).property('tab')
+    tab = @get('tab')
+    id = if tab == 'job'
+      @get('params').id
+    else if tab == 'current' or tab == 'build'
+      @getPath('build.data.job_ids.firstObject')
+    Travis.Job.find(id) if id
+  ).property('tab', 'build.data.job_ids.length')
 
   _repository: (->
     slug = @get('_slug')

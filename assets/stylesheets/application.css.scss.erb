@@ -417,6 +417,9 @@ caption {
   #tab_build:not(.active), #tab_job:not(.active), #tab_search:not(.active) {
     display: none;
   }
+  #tab_build.display {
+    display: block;
+  }
   .tab {
     position: absolute;
     left: 0;
@@ -708,7 +711,7 @@ caption {
    margin-left: 15px;
   }
   #workers li,
-  #jobs li {
+  .jobs li {
     color: #666;
     white-space: nowrap;
     overflow: hidden;

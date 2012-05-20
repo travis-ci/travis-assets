@@ -18,33 +18,14 @@
 
   repository: DS.belongsTo('Travis.Repository')
   commit:     DS.belongsTo('Travis.Commit')
-  # jobs:       DS.hasMany('Travis.Job', key: 'job_ids')
 
   config: (->
     @getPath 'data.config'
   ).property('data.config')
 
-  jobs: (->
-    Travis.app.store.findMany(Travis.Job, @getPath('data.job_ids'))
-  ).property('data.job_ids.length')
-
-  requiredJobs: (->
-    @get('jobs').filter (item, index) ->
-      item.get('allow_failure') isnt true
-  ).property('jobs')
-
-  allowedFailureJobs: (->
-    @get('jobs').filter (item, index) ->
-      item.get 'allow_failure'
-  ).property('jobs')
-
-  hasFailureMatrix: (->
-    @get('allowedFailureJobs').length > 0
-  ).property('allowedFailureJobs')
-
   isMatrix: (->
-    @getPath('jobs.length') > 1
-  ).property('jobs.length')
+    @getPath('data.job_ids.length') > 1
+  ).property('data.job_ids.length')
 
   tick: ->
     @notifyPropertyChange 'duration'

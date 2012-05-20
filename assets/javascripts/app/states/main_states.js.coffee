@@ -26,3 +26,8 @@
   job: Travis.State.create
     name: 'job'
     view: Travis.Views.Jobs.Show
+    enter: (stateManager, transition) ->
+      @_super(stateManager, transition)
+      Ember.run.next =>
+        $('#tab_build').addClass('display')
+

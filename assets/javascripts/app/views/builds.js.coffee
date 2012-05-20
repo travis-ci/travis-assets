@@ -1,17 +1,6 @@
 @Travis.Views = {} if @Travis.Views == undefined
 
 @Travis.Views.Builds =
-  Show: Ember.View.extend
-    templateName: 'app/templates/builds/show'
-    controllerBinding: 'Travis.app.main'
-    repositoryBinding: 'controller.repository'
-    buildBinding: 'controller.build'
-    commitBinding: 'controller.build.commit'
-
-    color: (->
-      Travis.Helpers.colorForResult(this.getPath('build.result'))
-    ).property('build.result')
-
   List: Ember.View.extend
     templateName: 'app/templates/builds/list'
     controllerBinding: 'Travis.app.main'
@@ -29,4 +18,14 @@
       Travis.Helpers.colorForResult(this.getPath('content.result'))
     ).property('content.result')
 
+  Show: Ember.View.extend
+    templateName: 'app/templates/builds/show'
+    controllerBinding: 'Travis.app.main'
+    repositoryBinding: 'controller.repository'
+    buildBinding: 'controller.build'
+    commitBinding: 'controller.build.commit'
+    jobBinding: 'controller.job'
 
+    color: (->
+      Travis.Helpers.colorForResult(this.getPath('build.result'))
+    ).property('build.result')

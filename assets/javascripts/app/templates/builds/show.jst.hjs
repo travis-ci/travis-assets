@@ -39,6 +39,6 @@
   {{#if build.isMatrix}}
     {{view Travis.Views.Jobs.List buildBinding="build"}}
   {{else}}
-    {{view Travis.Views.Jobs.Log jobBinding="build.jobs.firstObject"}}
+    {{view Travis.Views.Jobs.Log jobBinding="job"}}
   {{/if}}
 </div>

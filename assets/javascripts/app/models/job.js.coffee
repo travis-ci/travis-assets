@@ -1,6 +1,7 @@
 @Travis.Job = Travis.Model.extend Travis.Helpers,
   repository_id:   DS.attr('number')
   build_id:        DS.attr('number')
+  queue:           DS.attr('string')
   state:           DS.attr('string')
   number:          DS.attr('string')
   result:          DS.attr('number')
@@ -10,6 +11,7 @@
 
   repository: DS.belongsTo('Travis.Repository')
   commit: DS.belongsTo('Travis.Commit')
+  build: DS.belongsTo('Travis.Build')
 
   config: (->
     @getPath 'data.config'
@@ -46,4 +48,7 @@
 
 @Travis.Job.reopenClass
   queued: (queue) ->
-    @all(state: 'created', queue: 'builds.' + queue)
+    @all()
+    Travis.app.store.filter this, (job) -> job.get('queue') == 'builds.' + queue
+  forBuild: (build) ->
+    Travis.app.store.findMany this, build.getPath('data.job_ids')

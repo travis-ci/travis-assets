@@ -1,5 +1,5 @@
 <h4>{{t "queue"}}: {{queue.display}}</h4>
-{{#collection tagName="ul" classBinding="className" itemClass="job" contentBinding="jobs"}}
+{{#collection tagName="ul" class="jobs" itemClass="job" contentBinding="jobs"}}
   {{content.repository.slug}}
   {{#if content.number}}
     #{{content.number}}

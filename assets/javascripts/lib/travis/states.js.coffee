@@ -4,7 +4,5 @@
   enter: (stateManager, transition) ->
     @_super(stateManager, transition)
     Ember.run.next =>
-      $('.tabs li').removeClass('active')
+      $('.tabs li').removeClass('active display')
       $('#tab_' + @get('name')).addClass('active')
-
-
