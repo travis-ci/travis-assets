@@ -2,7 +2,6 @@
   repositoryBinding: '_repositories.firstObject'
   buildsBinding: '_builds.content'
   buildBinding: '_build.content'
-  branchesBinding: 'repository.branches'
 
   init: ->
     @_super()

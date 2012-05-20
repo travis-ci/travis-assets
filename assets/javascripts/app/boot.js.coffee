@@ -1,5 +1,6 @@
 # __DEBUG__ = true
 # Ember.LOG_BINDINGS = true
+# ENV.RAISE_ON_DEPRECATION = true
 # Pusher.log = () -> window.console.log(arguments) if window.console && window.console.log
 
 @Travis.app = Travis.AppController.create()

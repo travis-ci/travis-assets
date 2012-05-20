@@ -5,7 +5,10 @@
     templateName: 'app/templates/branches/list'
     controllerBinding: 'Travis.app.main'
     repositoryBinding: 'controller.repository'
-    branchesBinding: 'controller.branches'
+
+    branches: (->
+      Travis.Branch.byRepositoryId @getPath('repository.id')
+    ).property('repository.id')
 
   Item: Ember.View.extend
     color: (->

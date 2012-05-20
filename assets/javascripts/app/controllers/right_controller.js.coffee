@@ -11,13 +11,14 @@
 
   init: ->
     @_super()
-
-    Travis.WorkersController.create()
-    $(@queues).each (ix, queue) ->
-      Travis.QueueController.create(queue)
-
     @minimize() if $.cookie(@cookie) == 'true'
     @persist()
+
+    Ember.run.later this, (->
+      Travis.WorkersController.create()
+      $(@queues).each (ix, queue) ->
+        Travis.QueueController.create(queue)
+    ), 500
 
   toggle: ->
     if @isMinimized() then @maximize() else @minimize()

@@ -35992,7 +35992,6 @@ $.extend({
     repositoryBinding: '_repositories.firstObject',
     buildsBinding: '_builds.content',
     buildBinding: '_build.content',
-    branchesBinding: 'repository.branches',
     init: function() {
       var _this = this;
       this._super();
@@ -36089,10 +36088,10 @@ $.extend({
           parent: this,
           contentBinding: 'parent.repository.builds'
         });
-      } else if (tab === 'builds') {
+      } else if (tab === 'pull_requests') {
         return Ember.Object.create({
           parent: this,
-          contentBinding: 'parent.repository.pull_requests'
+          contentBinding: 'parent.repository.pullRequests'
         });
       }
     }).property('tab'),
@@ -36157,14 +36156,16 @@ $.extend({
     ],
     init: function() {
       this._super();
-      Travis.WorkersController.create();
-      $(this.queues).each(function(ix, queue) {
-        return Travis.QueueController.create(queue);
-      });
       if ($.cookie(this.cookie) === 'true') {
         this.minimize();
       }
-      return this.persist();
+      this.persist();
+      return Ember.run.later(this, (function() {
+        Travis.WorkersController.create();
+        return $(this.queues).each(function(ix, queue) {
+          return Travis.QueueController.create(queue);
+        });
+      }), 500);
     },
     toggle: function() {
       if (this.isMinimized()) {
@@ -36266,7 +36267,9 @@ $.extend({
       templateName: 'app/templates/branches/list',
       controllerBinding: 'Travis.app.main',
       repositoryBinding: 'controller.repository',
-      branchesBinding: 'controller.branches'
+      branches: (function() {
+        return Travis.Branch.byRepositoryId(this.getPath('repository.id'));
+      }).property('repository.id')
     }),
     Item: Ember.View.extend({
       color: (function() {
@@ -36959,9 +36962,6 @@ $.extend({
     last_build_result: DS.attr('number'),
     last_build_started_at: DS.attr('string'),
     last_build_finished_at: DS.attr('string'),
-    branches: (function() {
-      return Travis.Branch.byRepositoryId(this.get('id'));
-    }).property(),
     builds: (function() {
       return Travis.Build.byRepositoryId(this.get('id'), {
         event_type: 'push'

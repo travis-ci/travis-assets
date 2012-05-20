@@ -9,10 +9,6 @@
   last_build_started_at:  DS.attr('string')
   last_build_finished_at: DS.attr('string')
 
-  branches: (->
-    Travis.Branch.byRepositoryId @get('id')
-  ).property()
-
   builds: (->
     Travis.Build.byRepositoryId @get('id'), event_type: 'push'
   ).property()
