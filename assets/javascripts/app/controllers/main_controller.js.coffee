@@ -1,5 +1,5 @@
 @Travis.MainController = Ember.Object.extend
-  repositoryBinding: '_repository'
+  repositoryBinding: '_repositories.firstObject'
   buildsBinding: '_builds.content'
   buildBinding: '_build.content'
   branchesBinding: 'repository.branches'
@@ -34,9 +34,14 @@
     Travis.Job.find(id) if id
   ).property('tab', 'build.data.job_ids.length')
 
-  _repository: (->
+  _slug: (->
+    parts = $.compact([@getPath('params.owner'), @getPath('params.name')])
+    parts.join('/') if parts.length > 0
+  ).property('params')
+
+  _repositories: (->
     slug = @get('_slug')
-    if slug then Travis.Repository.bySlug(slug) else Travis.Repository.recent().get('firstObject')
+    if slug then Travis.Repository.bySlug(slug) else Travis.Repository.recent()
   ).property('_slug')
 
   _build: (->
@@ -56,11 +61,6 @@
     else if tab == 'builds'
       Ember.Object.create(parent: @, contentBinding: 'parent.repository.pull_requests')
   ).property('tab')
-
-  _slug: (->
-    parts = $.compact([@getPath('params.owner'), @getPath('params.name')])
-    parts.join('/') if parts.length > 0
-  ).property('params')
 
   # TODO this doesn't work ...
   showMore: ->

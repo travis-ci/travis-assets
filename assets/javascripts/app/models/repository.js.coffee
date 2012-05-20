@@ -95,9 +95,8 @@
     @all(search: query, orderBy: 'name')
 
   bySlug: (slug) ->
-    # TODO extract something like findOne
     repo = $.detect(@all().toArray(), (repo) -> repo.get('slug') == slug)
-    repo || @all(slug: slug).get('firstObject')
+    if repo then Ember.ArrayProxy.create(content: [repo]) else @all(slug: slug)
 
   select: (id) ->
     @all().forEach (repository) ->
