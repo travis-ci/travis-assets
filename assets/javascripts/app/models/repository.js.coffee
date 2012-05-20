@@ -40,46 +40,6 @@
     @notifyPropertyChange 'last_build_duration'
     @notifyPropertyChange 'last_build_finished_at'
 
-  urlCurrent: (->
-    '#!/' + @getPath('slug')
-  ).property('slug')
-
-  urlBuilds: (->
-    '#!/' + @get('slug') + '/builds'
-  ).property('slug')
-
-  urlBranches: (->
-    '#!/' + @get('slug') + '/branches'
-  ).property('slug')
-
-  urlPullRequests: (->
-    '#!/' + @get('slug') + '/pull_requests'
-  ).property('slug')
-
-  urlLastBuild: (->
-    '#!/' + @get('slug') + '/builds/' + @get('last_build_id')
-  ).property('last_build_id')
-
-  urlGithub: (->
-    'http://github.com/' + @get('slug')
-  ).property('slug')
-
-  urlGithubWatchers: (->
-    'http://github.com/' + @get('slug') + '/watchers'
-  ).property('slug')
-
-  urlGithubNetwork: (->
-    'http://github.com/' + @get('slug') + '/network'
-  ).property('slug')
-
-  urlGithubAdmin: (->
-    @get('url') + '/admin/hooks#travis_minibucket'
-  ).property('slug')
-
-  urlStatusImage: (->
-    @get('slug') + '.png'
-  ).property('slug')
-
 @Travis.Repository.reopenClass
   recent: ->
     @all() # (orderBy: 'last_build_started_at DESC')

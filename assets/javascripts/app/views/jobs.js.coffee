@@ -1,32 +1,6 @@
 @Travis.Views = {} if @Travis.Views == undefined
 
 @Travis.Views.Jobs =
-  Show: Ember.View.extend
-    templateName: 'app/templates/jobs/show'
-    controllerBinding: 'Travis.app.main'
-    jobBinding: 'controller.job'
-    commitBinding: 'controller.job.commit'
-
-    color: (->
-      Travis.Helpers.colorForResult(this.getPath('job.result'))
-    ).property('job.result')
-
-  Log: Ember.View.extend
-    templateName: 'app/templates/jobs/log'
-    controllerBinding: 'Travis.app.main'
-    jobBinding: 'controller.job'
-
-    didInsertElement: ->
-      @_super.apply(this, arguments)
-      # TODO: FIXME: how/where to do this properly?
-      Ember.run.later this, (->
-        number = Travis.app.main.getPath('params.number')
-        line = $(".log a[name='" + number + "']")
-        if (number && line.length > 0)
-          $(window).scrollTop(line.offset().top)
-          line.addClass('highlight')
-      ), 500
-
   List: Ember.View.extend
     templateName: 'app/templates/jobs/list'
     controllerBinding: 'Travis.app.main'
@@ -64,6 +38,10 @@
   Item: Ember.View.extend
     tagName: 'tbody'
 
+    repository: (->
+      @getPath('content.repository')
+    ).property('content.repository')
+
     color: (->
       Travis.Helpers.colorForResult(this.getPath('content.result'))
     ).property('content.result')
@@ -74,4 +52,60 @@
       values = $.values($.only(config, 'rvm', 'gemfile', 'env', 'otp_release', 'php', 'node_js', 'scala', 'jdk', 'python', 'perl'))
       $.map(values, (value) -> Ember.Object.create(value: value))
     ).property('content.config')
+
+    urlJob: (->
+      repo = @get('repository')
+      job = @get('content')
+      Travis.Urls.job(repo, job) if repo && job
+    ).property('repository', 'content')
+
+  Show: Ember.View.extend
+    templateName: 'app/templates/jobs/show'
+    controllerBinding: 'Travis.app.main'
+    repositoryBinding: 'controller.repository'
+    jobBinding: 'controller.job'
+    commitBinding: 'controller.job.commit'
+
+    color: (->
+      Travis.Helpers.colorForResult(this.getPath('job.result'))
+    ).property('job.result')
+
+    urlJob: (->
+      repo = @get('repository')
+      job = @get('job')
+      Travis.Urls.job(repo, job) if repo && job
+    ).property('repository', 'job.id')
+
+    urlGithubCommit: (->
+      repo = @get('repository')
+      commit = @get('commit')
+      console.log repo, commit
+      Travis.Urls.githubCommit(repo, commit) if repo && commit
+    ).property('repository', 'commit')
+
+    urlAuthor: (->
+      commit = @get('commit')
+      Travis.Urls.author(commit) if commit
+    ).property('commit')
+
+    urlCommitter: (->
+      commit = @get('commit')
+      Travis.Urls.committer(commit) if commit
+    ).property('commit')
+
+  Log: Ember.View.extend
+    templateName: 'app/templates/jobs/log'
+    controllerBinding: 'Travis.app.main'
+    jobBinding: 'controller.job'
+
+    didInsertElement: ->
+      @_super.apply(this, arguments)
+      # TODO: FIXME: how/where to do this properly?
+      Ember.run.later this, (->
+        number = Travis.app.main.getPath('params.number')
+        line = $(".log a[name='" + number + "']")
+        if (number && line.length > 0)
+          $(window).scrollTop(line.offset().top)
+          line.addClass('highlight')
+      ), 500
 

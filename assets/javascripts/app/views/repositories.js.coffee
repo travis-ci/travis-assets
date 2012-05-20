@@ -1,13 +1,6 @@
 @Travis.Views = {} if @Travis.Views == undefined
 
 @Travis.Views.Repositories =
-  Show: Ember.View.extend
-    templateName: 'app/templates/repositories/show'
-    controllerBinding: 'Travis.app.main'
-    repositoryBinding: 'controller.repository'
-    buildBinding: 'controller.build'
-    jobBinding: 'controller.job'
-
   List: Ember.View.extend
     templateName: 'app/templates/repositories/list'
     controllerBinding: 'Travis.app.left'
@@ -18,11 +11,59 @@
       Travis.Helpers.colorForResult(@getPath('content.last_build_result'))
     ).property('content.last_build_result')
 
+    urlCurrent: (->
+      content = @get('content')
+      Travis.Urls.repository(@get('content')) if content
+    ).property('content')
+
+    urlLastBuild: (->
+      content = @get('content')
+      Travis.Urls.lastBuild(@get('content')) if content
+    ).property('content')
+
     class: (->
       classes = ['repository', @get('color')]
       classes.push 'selected' if @getPath('content.selected')
       classes.join(' ')
     ).property('content.last_build_result', 'content.selected')
+
+  Show: Ember.View.extend
+    templateName: 'app/templates/repositories/show'
+    controllerBinding: 'Travis.app.main'
+    repositoryBinding: 'controller.repository'
+    buildBinding: 'controller.build'
+    jobBinding: 'controller.job'
+
+    urlGithub: (->
+      repo = @get('repository')
+      Travis.Urls.github(repo) if repo
+    ).property('repository')
+
+    urlCurrent: (->
+      repo = @get('repository')
+      Travis.Urls.repository(repo) if repo
+    ).property('repository')
+
+    urlBuilds: (->
+      repo = @get('repository')
+      Travis.Urls.builds(repo) if repo
+    ).property('repository')
+
+    urlPullRequests: (->
+      repo = @get('repository')
+      Travis.Urls.pullRequests(repo) if repo
+    ).property('repository')
+
+    urlBranches: (->
+      repo = @get('repository')
+      Travis.Urls.branches(repo) if repo
+    ).property('repository')
+
+    urlBuild: (->
+      repo = @get('repository')
+      build = @get('build')
+      Travis.Urls.build(repo, build) if repo && build
+    ).property('repository', 'build')
 
   Tab: Ember.CollectionView
 

@@ -2,7 +2,7 @@
   <dl class="summary clearfix">
     <div class="left">
       <dt>Job</dt>
-      <dd class="number"><a {{bindAttr href="job.build.url"}}>{{job.number}}</a></dd>
+      <dd class="number"><a {{bindAttr href="urlJob"}}>{{job.number}}</a></dd>
       <dt class="finished_at_label">{{t "jobs.finished_at"}}</dt>
       <dd class="finished_at timeago" {{bindAttr title="job.finished_at"}}>{{formatTime job.finished_at}}</dd>
       <dt>{{t "jobs.duration"}}</dt>
@@ -11,18 +11,18 @@
 
     <div class="right">
       <dt>{{t "jobs.commit"}}</dt>
-      <dd class="commit-hash"><a {{bindAttr href="job.build.urlGithubCommit"}}>{{formatCommit commit}}</a></dd>
+      <dd class="commit-hash"><a {{bindAttr href="urlGithubCommit"}}>{{formatCommit commit}}</a></dd>
       {{#if commit.compare_url}}
         <dt>{{t "jobs.compare"}}</dt>
-        <dd class="compare_view"><a {{bindAttr href="job.compare_url"}}>{{pathFrom commit.compare_url}}</a></dd>
+        <dd class="compare_view"><a {{bindAttr href="commit.compare_url"}}>{{pathFrom commit.compare_url}}</a></dd>
       {{/if}}
       {{#if commit.author_name}}
         <dt>{{t "jobs.author"}}</dt>
-        <dd class="author"><a {{bindAttr href="job.build.urlAuthor"}}>{{commit.author_name}}</a></dd>
+        <dd class="author"><a {{bindAttr href="urlAuthor"}}>{{commit.author_name}}</a></dd>
       {{/if}}
       {{#if commit.committer_name}}
         <dt>{{t "jobs.committer"}}</dt>
-        <dd class="committer"><a {{bindAttr href="job.build.urlCommitter"}}>{{commit.committer_name}}</a></dd>
+        <dd class="committer"><a {{bindAttr href="urlCommitter"}}>{{commit.committer_name}}</a></dd>
       {{/if}}
     </div>
 

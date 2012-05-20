@@ -31,22 +31,6 @@
     @notifyPropertyChange 'duration'
     @notifyPropertyChange 'finished_at'
 
-  url: (->
-    '#!/' + @getPath('repository.slug') + '/builds/' + @get('id')
-  ).property('repository.status', 'id')
-
-  urlAuthor: (->
-    'mailto:' + @get('author_email')
-  ).property('author_email')
-
-  urlCommitter: (->
-    'mailto:' + @get('committer_email')
-  ).property('committer_email')
-
-  urlGithubCommit: (->
-    'http://github.com/%@/commit/%@'.fmt @getPath('repository.slug'), @get('commit')
-  ).property('repository.slug', 'commit')
-
 @Travis.Build.reopenClass
   byRepositoryId: (id, parameters) ->
     @all($.extend(parameters || {}, repository_id: id, orderBy: 'number DESC'))

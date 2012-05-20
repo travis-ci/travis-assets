@@ -37,3 +37,5 @@ Ember.registerBoundHelper 'formatConfig', (config, options) ->
 Ember.registerBoundHelper 'formatLog', (log, options) ->
   Travis.Log.filter(log) if log
 
+
+

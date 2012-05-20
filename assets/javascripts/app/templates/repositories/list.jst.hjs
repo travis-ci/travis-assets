@@ -1,7 +1,7 @@
 {{#collection tagName="ul" id="repositories" contentBinding="repositories" itemViewClass="Travis.Views.Repositories.Item" itemClassBinding="class"}}
   <div class="wrapper">
-    <a {{bindAttr href="content.urlCurrent"}} class="slug">{{content.slug}}</a>
-    <a {{bindAttr href="content.urlLastBuild"}} class="build">#{{content.last_build_number}}</a>
+    <a {{bindAttr href="urlCurrent"}} class="slug">{{content.slug}}</a>
+    <a {{bindAttr href="urlLastBuild"}} class="build">#{{content.last_build_number}}</a>
     <p class="summary">
       <span class="duration_label">{{t "repositories.duration"}}:</span>
       <abbr class="duration" {{bindAttr title="content.last_build_started_at"}}>{{formatDuration content.last_build_duration}}</abbr>,
