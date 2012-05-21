@@ -14,7 +14,7 @@
 
     workers.forEach (worker) =>
       host = worker.get('host')
-      groups[host] = Travis.WorkerGroup.create() if(!(host in groups))
+      groups[host] = Travis.WorkerGroup.create() if !groups[host]
       groups[host].add(worker)
 
     @set 'content', $.values(groups)
