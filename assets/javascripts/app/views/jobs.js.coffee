@@ -79,7 +79,6 @@
     urlGithubCommit: (->
       repo = @get('repository')
       commit = @get('commit')
-      console.log repo, commit
       Travis.Urls.githubCommit(repo, commit) if repo && commit
     ).property('repository', 'commit')
 

@@ -58,9 +58,6 @@
     $.each(Travis.app.channels, (ix, channel) => @subscribe(channel)) if window.pusher
 
   initEvents: ->
-    # TODO make these actions where possible
-    $('#workers .group').live 'click', -> $(this).toggleClass('open')
-
     $('.tool-tip').tipsy(gravity: 'n', fade: true)
     $('.fold').live 'click', -> $(this).toggleClass('open')
 

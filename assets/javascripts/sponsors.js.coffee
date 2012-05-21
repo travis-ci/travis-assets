@@ -82,7 +82,10 @@ $.fn.sponsors = (decks, options) ->
   new Sponsors(@, decks, options).run()
 
 $ ->
-  unless $('.sponsors').length == 0
-    Sponsors.load (decks)->
-      $('#right .sponsors.top').sponsors(decks['banner'])
-      $('#right .sponsors.bottom').sponsors(decks['text'])
+  # TODO make these regular ember views?
+  Ember.run.later this, (->
+    unless $('.sponsors').length == 0
+      Sponsors.load (decks)->
+        $('#right .sponsors.top').sponsors(decks['banner'])
+        $('#right .sponsors.bottom').sponsors(decks['text'])
+  ), 100
