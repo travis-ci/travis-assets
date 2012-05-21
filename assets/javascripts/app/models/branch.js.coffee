@@ -14,14 +14,6 @@
     Travis.Repository.find @get('repository_id')  if @get('repository_id')
   ).property('repository_id').cacheable()
 
-  buildUrl: (->
-    '#!/' + @getPath('repository.slug') + '/builds/' + @get('build_id')
-  ).property()
-
-  commitUrl: (->
-    'http://github.com/' + @getPath('repository.slug') + '/commit/' + @getPath('commit.sha')
-  ).property()
-
   tick: ->
     @notifyPropertyChange 'started_at'
     @notifyPropertyChange 'finished_at'

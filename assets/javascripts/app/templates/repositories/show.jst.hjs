@@ -24,10 +24,10 @@
     <h5><a {{bindAttr href="urlBranches"}}>{{t "repositories.tabs.branches"}}</a></h5>
   </li>
   <li id="tab_build">
-    <h5><a {{bindAttr href="build.url"}}>{{t "repositories.tabs.build"}} #{{build.number}}</a></h5>
+    <h5><a {{bindAttr href="urlBuild"}}>{{t "repositories.tabs.build"}} #{{build.number}}</a></h5>
   </li>
   <li id="tab_job">
-    <h5><a {{bindAttr href="job.url"}}>{{t "repositories.tabs.job"}} #{{job.number}}</a></h5>
+    <h5><a {{bindAttr href="urlJob"}}>{{t "repositories.tabs.job"}} #{{job.number}}</a></h5>
   </li>
 </ul>
 

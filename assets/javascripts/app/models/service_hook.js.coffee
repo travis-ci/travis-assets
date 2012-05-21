@@ -12,10 +12,6 @@
     @set 'active', !@get('active')
     Travis.app.store.commit()
 
-  urlGithubAdmin: (->
-    return 'https://github.com/%@/admin/hooks#travis_minibucket'.fmt @get('slug')
-  ).property()
-
 @Travis.ServiceHook.reopenClass
   url: 'profile/service_hooks'
 

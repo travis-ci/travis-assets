@@ -63,7 +63,13 @@
       repo = @get('repository')
       build = @get('build')
       Travis.Urls.build(repo, build) if repo && build
-    ).property('repository', 'build')
+    ).property('repository', 'build.id')
+
+    urlJob: (->
+      repo = @get('repository')
+      job = @get('job')
+      Travis.Urls.job(repo, job) if repo && job
+    ).property('repository', 'job.id')
 
   Tab: Ember.CollectionView
 

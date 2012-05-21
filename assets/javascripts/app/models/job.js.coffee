@@ -42,10 +42,6 @@
     @notifyPropertyChange 'duration'
     @notifyPropertyChange 'finished_at'
 
-  url: (->
-    '#!/%@/jobs/%@'.fmt @getPath('repository.slug'), @get('id')
-  ).property('repository', 'id')
-
 @Travis.Job.reopenClass
   queued: (queue) ->
     @all()
