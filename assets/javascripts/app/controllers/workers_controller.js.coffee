@@ -15,7 +15,7 @@
     workers.forEach (worker) =>
       host = worker.get('host')
       groups[host] = Travis.WorkerGroup.create() if !groups[host]
-      groups[host].add(worker)
+      groups[host].addObject(worker)
 
     @set 'content', $.values(groups)
   ).observes('workers.length')

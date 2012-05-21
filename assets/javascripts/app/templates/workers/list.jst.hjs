@@ -1,7 +1,7 @@
 <h4>{{t "workers"}}</h4>
 {{#collection tagName="ul" itemClass="group" contentBinding="groups" itemViewClass="Travis.Views.Workers.Group"}}
   <h5 {{action "toggle"}}>{{content.host}}</h5>
-  {{#collection tagName="ul" itemClass="worker" itemClassBinding="content.state" contentBinding="content.workers"}}
+  {{#collection tagName="ul" itemClass="worker" itemClassBinding="content.state" contentBinding="content"}}
     <div class="icon"></div>
     {{#if content.isTesting}}
       <a {{bindAttr href="content.urlJob"}} {{bindAttr title="content.last_seen_at"}}>{{content.display}}</a>

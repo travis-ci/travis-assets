@@ -1,13 +1,10 @@
-@Travis.WorkerGroup = Ember.Object.extend
+@Travis.WorkerGroup = Ember.ArrayProxy.extend
   init: ->
-    @set('workers', [])
+    @set('content', [])
 
   host: (->
-    @getPath 'workers.firstObject.host'
+    @getPath 'firstObject.host'
   ).property()
-
-  add: (worker) ->
-    @get('workers').push worker
 
 @Travis.Worker = Travis.Model.extend
   state: DS.attr('string')
