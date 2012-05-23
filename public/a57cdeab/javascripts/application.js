@@ -42228,13 +42228,13 @@ var Travis = Ember.Application.create({
     this.left   = Travis.Controllers.Repositories.List.create();
     this.right  = Travis.Controllers.Sidebar.create();
 
-    Ember.routes.add('!/:owner/:name/jobs/:id/:line_number', function(params) { Travis.main.activate('job', params) });
-    Ember.routes.add('!/:owner/:name/jobs/:id',       function(params) { Travis.main.activate('job',     params) });
-    Ember.routes.add('!/:owner/:name/builds/:id',     function(params) { Travis.main.activate('build',   params) });
-    Ember.routes.add('!/:owner/:name/builds',         function(params) { Travis.main.activate('history', params) });
-    Ember.routes.add('!/:owner/:name/pull_requests',  function(params) { Travis.main.activate('pull_requests', params) });
-    Ember.routes.add('!/:owner/:name/branch_summary', function(params) { Travis.main.activate('branch_summary', params) });
-    Ember.routes.add('!/:owner/:name',                function(params) { Travis.main.activate('current', params) });
+    Ember.routes.add('/:owner/:name/jobs/:id/:line_number', function(params) { Travis.main.activate('job', params) });
+    Ember.routes.add('/:owner/:name/jobs/:id',       function(params) { Travis.main.activate('job',     params) });
+    Ember.routes.add('/:owner/:name/builds/:id',     function(params) { Travis.main.activate('build',   params) });
+    Ember.routes.add('/:owner/:name/builds',         function(params) { Travis.main.activate('history', params) });
+    Ember.routes.add('/:owner/:name/pull_requests',  function(params) { Travis.main.activate('pull_requests', params) });
+    Ember.routes.add('/:owner/:name/branch_summary', function(params) { Travis.main.activate('branch_summary', params) });
+    Ember.routes.add('/:owner/:name',                function(params) { Travis.main.activate('current', params) });
     Ember.routes.add('',                              function(params) { Travis.main.activate('current', params) });
   },
 
@@ -44123,7 +44123,7 @@ Travis.Branch = Travis.Record.extend(Travis.Helpers.Common, {
   }.property(),
 
   buildUrl: function() {
-    return '#!/' + this.getPath('repository.slug') + '/builds/' + this.get('build_id');
+    return '#/' + this.getPath('repository.slug') + '/builds/' + this.get('build_id');
   }.property(),
 
   commitUrl: function() {
@@ -44252,7 +44252,7 @@ Travis.Build = Travis.Record.extend(Travis.Helpers.Common, {
   }.property('message'),
 
   url: function() {
-    return '#!/' + this.getPath('repository.slug') + '/builds/' + this.get('id');
+    return '#/' + this.getPath('repository.slug') + '/builds/' + this.get('id');
   }.property('repository.status', 'id'),
 
   urlAuthor: function() {
@@ -44397,7 +44397,7 @@ Travis.Job = Travis.Record.extend(Travis.Helpers.Common, {
   }.property('message'),
 
   url: function() {
-    return '#!/' + this.getPath('repository.slug') + '/jobs/' + this.get('id');
+    return '#/' + this.getPath('repository.slug') + '/jobs/' + this.get('id');
   }.property('repository', 'id'),
 });
 
@@ -44465,15 +44465,15 @@ Travis.Repository = Travis.Record.extend(Travis.Helpers.Common, {
   }.property('color', 'selected').cacheable(),
 
   urlCurrent: function() {
-    return '#!/' + this.getPath('slug');
+    return '#/' + this.getPath('slug');
   }.property('slug').cacheable(),
 
   urlBuilds: function() {
-    return '#!/' + this.get('slug') + '/builds';
+    return '#/' + this.get('slug') + '/builds';
   }.property('slug').cacheable(),
 
   urlLastBuild: function() {
-    return '#!/' + this.get('slug') + '/builds/' + this.get('last_build_id');
+    return '#/' + this.get('slug') + '/builds/' + this.get('last_build_id');
   }.property('last_build_id').cacheable(),
 
   urlGithub: function() {
@@ -44493,11 +44493,11 @@ Travis.Repository = Travis.Record.extend(Travis.Helpers.Common, {
   }.property('slug').cacheable(),
 
   urlBranches: function() {
-    return '#!/' + this.get('slug') + '/branch_summary';
+    return '#/' + this.get('slug') + '/branch_summary';
   }.property('slug').cacheable(),
 
   urlPullRequests: function() {
-    return '#!/' + this.get('slug') + '/pull_requests';
+    return '#/' + this.get('slug') + '/pull_requests';
   }.property('slug').cacheable(),
 
   urlStatusImage: function() {
@@ -44588,7 +44588,7 @@ Travis.Worker = Travis.Record.extend({
   }.property('state'),
 
   urlJob: function() {
-    return '#!/' + this.getPath('payload.repository.slug') + '/jobs/' + this.getPath('payload.build.id');
+    return '#/' + this.getPath('payload.repository.slug') + '/jobs/' + this.getPath('payload.build.id');
   }.property('state', 'payload')
 });
 
