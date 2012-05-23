@@ -6,7 +6,7 @@
  *= require jasmine
  *= require jquery.tipsy
 */
-/* line 36, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/_mixins.css.scss */
+/* line 36, /Users/dvyjones/projects/travis-assets/assets/stylesheets/_mixins.css.scss */
 .spinner {
   width: 16px;
   height: 8px;
@@ -16,7 +16,7 @@
   height: 20px;
 }
 
-/* line 1, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/facebox.scss */
+/* line 1, /Users/dvyjones/projects/travis-assets/assets/stylesheets/facebox.scss */
 #facebox {
   position: absolute;
   top: 0;
@@ -25,7 +25,7 @@
   text-align: left;
 }
 
-/* line 10, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/facebox.scss */
+/* line 10, /Users/dvyjones/projects/travis-assets/assets/stylesheets/facebox.scss */
 #facebox .popup {
   position: relative;
   border: 3px solid rgba(0, 0, 0, 0);
@@ -37,7 +37,7 @@
   box-shadow: 0 0 18px rgba(0, 0, 0, 0.4);
 }
 
-/* line 21, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/facebox.scss */
+/* line 21, /Users/dvyjones/projects/travis-assets/assets/stylesheets/facebox.scss */
 #facebox .content {
   display: table;
   width: 370px;
@@ -48,17 +48,17 @@
   border-radius: 4px;
 }
 
-/* line 31, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/facebox.scss */
+/* line 31, /Users/dvyjones/projects/travis-assets/assets/stylesheets/facebox.scss */
 #facebox .content > p:first-child {
   margin-top: 0;
 }
 
-/* line 34, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/facebox.scss */
+/* line 34, /Users/dvyjones/projects/travis-assets/assets/stylesheets/facebox.scss */
 #facebox .content > p:last-child {
   margin-bottom: 0;
 }
 
-/* line 38, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/facebox.scss */
+/* line 38, /Users/dvyjones/projects/travis-assets/assets/stylesheets/facebox.scss */
 #facebox .close {
   position: absolute;
   top: 5px;
@@ -67,33 +67,33 @@
   background: #fff;
 }
 
-/* line 45, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/facebox.scss */
+/* line 45, /Users/dvyjones/projects/travis-assets/assets/stylesheets/facebox.scss */
 #facebox .close img {
   opacity: 0.3;
 }
 
-/* line 48, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/facebox.scss */
+/* line 48, /Users/dvyjones/projects/travis-assets/assets/stylesheets/facebox.scss */
 #facebox .close:hover img {
   opacity: 1.0;
 }
 
-/* line 52, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/facebox.scss */
+/* line 52, /Users/dvyjones/projects/travis-assets/assets/stylesheets/facebox.scss */
 #facebox .loading {
   text-align: center;
 }
 
-/* line 56, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/facebox.scss */
+/* line 56, /Users/dvyjones/projects/travis-assets/assets/stylesheets/facebox.scss */
 #facebox .image {
   text-align: center;
 }
 
-/* line 60, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/facebox.scss */
+/* line 60, /Users/dvyjones/projects/travis-assets/assets/stylesheets/facebox.scss */
 #facebox img {
   border: 0;
   margin: 0;
 }
 
-/* line 65, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/facebox.scss */
+/* line 65, /Users/dvyjones/projects/travis-assets/assets/stylesheets/facebox.scss */
 #facebox_overlay {
   position: fixed;
   top: 0px;
@@ -102,12 +102,12 @@
   width: 100%;
 }
 
-/* line 73, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/facebox.scss */
+/* line 73, /Users/dvyjones/projects/travis-assets/assets/stylesheets/facebox.scss */
 .facebox_hide {
   z-index: -100;
 }
 
-/* line 77, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/facebox.scss */
+/* line 77, /Users/dvyjones/projects/travis-assets/assets/stylesheets/facebox.scss */
 .facebox_overlayBG {
   background-color: #000;
   z-index: 99;
@@ -203,7 +203,7 @@ caption {
   height: 30px;
   margin: 4px 40px 0 22px;
   text-indent: -9999px;
-  background: url(/26f0711e/images/logo.png) no-repeat;
+  background: url(/a57cdeab/images/logo.png) no-repeat;
 }
 /* line 83, /output/application.css.scss.erb */
 #top ul {
@@ -487,7 +487,7 @@ caption {
 #main .summary .number a,
 #main #builds td:first-child a,
 #main #builds .build td:first-child a {
-  background-image: url(/26f0711e/images/icons/status.yellow.png);
+  background-image: url(/a57cdeab/images/icons/status.yellow.png);
   padding-left: 20px;
   background-repeat: no-repeat;
 }
@@ -497,7 +497,7 @@ caption {
 #main .green .summary .number a,
 #main #builds .green td:first-child a,
 #main #builds .build.green td:first-child a {
-  background-image: url(/26f0711e/images/icons/status.green.png);
+  background-image: url(/a57cdeab/images/icons/status.green.png);
   color: green;
   padding-left: 20px;
   background-repeat: no-repeat;
@@ -508,7 +508,7 @@ caption {
 #main .red .summary .number a,
 #main #builds .red td:first-child a,
 #main #builds .build.red td:first-child a {
-  background-image: url(/26f0711e/images/icons/status.red.png);
+  background-image: url(/a57cdeab/images/icons/status.red.png);
   color: #c00;
   padding-left: 20px;
   background-repeat: no-repeat;
@@ -584,11 +584,11 @@ caption {
 }
 /* line 372, /output/application.css.scss.erb */
 #main .github-stats a.watchers {
-  background-image: url(/26f0711e/images/icons/github-watchers.png);
+  background-image: url(/a57cdeab/images/icons/github-watchers.png);
 }
 /* line 375, /output/application.css.scss.erb */
 #main .github-stats a.forks {
-  background-image: url(/26f0711e/images/icons/github-forks.png);
+  background-image: url(/a57cdeab/images/icons/github-forks.png);
 }
 /* line 380, /output/application.css.scss.erb */
 #main .github-stats > * {
@@ -608,7 +608,7 @@ caption {
   text-decoration: none;
   text-align: right;
   color: #999;
-  background: url(/26f0711e/images/icons/github-admin.png) no-repeat right 1px;
+  background: url(/a57cdeab/images/icons/github-admin.png) no-repeat right 1px;
   text-indent: -999px;
   overflow: hidden;
   z-index: 60;
@@ -787,13 +787,13 @@ caption {
 #main .log .fold {
   height: 16px;
   overflow: hidden;
-  background: #444444 url(/26f0711e/images/icons/log.fold.closed.2.png) no-repeat 99.5% 2px;
+  background: #444444 url(/a57cdeab/images/icons/log.fold.closed.2.png) no-repeat 99.5% 2px;
   cursor: pointer;
 }
 /* line 546, /output/application.css.scss.erb */
 #main .log .fold.open {
   height: auto;
-  background-image: url(/26f0711e/images/icons/log.fold.open.2.png);
+  background-image: url(/a57cdeab/images/icons/log.fold.open.2.png);
 }
 /* line 554, /output/application.css.scss.erb */
 #main .log .bold {
@@ -1023,12 +1023,12 @@ caption {
   -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
   /* background: url(/assets/icons/status.square.gray.png); created, starting, stopping */
-  background: url(/26f0711e/images/icons/status.square.green.png);
+  background: url(/a57cdeab/images/icons/status.square.green.png);
 }
 /* line 733, /output/application.css.scss.erb */
 #right #workers li.waiting .icon,
 #right #jobs li.waiting .icon {
-  background: url(/26f0711e/images/icons/status.square.green.png);
+  background: url(/a57cdeab/images/icons/status.square.green.png);
 }
 /* line 736, /output/application.css.scss.erb */
 #right #workers li.working .icon,
@@ -1038,12 +1038,12 @@ caption {
 /* line 739, /output/application.css.scss.erb */
 #right #workers li.errored .icon,
 #right #jobs li.errored .icon {
-  background: url(/26f0711e/images/icons/status.square.red.png);
+  background: url(/a57cdeab/images/icons/status.square.red.png);
 }
 /* line 742, /output/application.css.scss.erb */
 #right #workers li.stopped .icon,
 #right #jobs li.stopped .icon {
-  background: url(/26f0711e/images/icons/status.square.gray.png);
+  background: url(/a57cdeab/images/icons/status.square.gray.png);
 }
 /* line 747, /output/application.css.scss.erb */
 #right .placeholder,
@@ -1216,7 +1216,7 @@ caption {
 
 /* line 909, /output/application.css.scss.erb */
 .list.loading h4 {
-  background: url(/26f0711e/images/spinner.gif) no-repeat 4px right;
+  background: url(/a57cdeab/images/spinner.gif) no-repeat 4px right;
   padding-right: 15px;
 }
 
@@ -1386,21 +1386,21 @@ pre::-webkit-scrollbar-thumb:horizontal {
   color: #C7371A;
 }
 
-/* line 21, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/_mixins.css.scss */
+/* line 21, /Users/dvyjones/projects/travis-assets/assets/stylesheets/_mixins.css.scss */
 ul#tokens .spinner {
   margin-left: auto;
   margin-right: auto;
 }
-/* line 24, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/_mixins.css.scss */
+/* line 24, /Users/dvyjones/projects/travis-assets/assets/stylesheets/_mixins.css.scss */
 ul#tokens > li {
   padding: 5px;
   border-bottom: 1px solid #ddd;
 }
-/* line 27, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/_mixins.css.scss */
+/* line 27, /Users/dvyjones/projects/travis-assets/assets/stylesheets/_mixins.css.scss */
 ul#tokens > li:nth-child(odd) {
   background: #fafbfc;
 }
-/* line 31, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/_mixins.css.scss */
+/* line 31, /Users/dvyjones/projects/travis-assets/assets/stylesheets/_mixins.css.scss */
 ul#tokens > li:first-child {
   border-top: 1px solid #ddd;
 }
@@ -1409,21 +1409,21 @@ ul#tokens > li:first-child {
 #service_hooks ul {
   margin-top: 10px;
 }
-/* line 21, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/_mixins.css.scss */
+/* line 21, /Users/dvyjones/projects/travis-assets/assets/stylesheets/_mixins.css.scss */
 #service_hooks ul .spinner {
   margin-left: auto;
   margin-right: auto;
 }
-/* line 24, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/_mixins.css.scss */
+/* line 24, /Users/dvyjones/projects/travis-assets/assets/stylesheets/_mixins.css.scss */
 #service_hooks ul > li {
   padding: 5px;
   border-bottom: 1px solid #ddd;
 }
-/* line 27, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/_mixins.css.scss */
+/* line 27, /Users/dvyjones/projects/travis-assets/assets/stylesheets/_mixins.css.scss */
 #service_hooks ul > li:nth-child(odd) {
   background: #fafbfc;
 }
-/* line 31, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/_mixins.css.scss */
+/* line 31, /Users/dvyjones/projects/travis-assets/assets/stylesheets/_mixins.css.scss */
 #service_hooks ul > li:first-child {
   border-top: 1px solid #ddd;
 }
@@ -1471,19 +1471,19 @@ ul#tokens > li:first-child {
   height: 20px;
   width: 20px;
   padding-right: 0;
-  background: url(/26f0711e/images/icons/github-admin.png) no-repeat 3px 4px;
+  background: url(/a57cdeab/images/icons/github-admin.png) no-repeat 3px 4px;
 }
 /* line 1101, /output/application.css.scss.erb */
 #service_hooks ul li .controls .switch {
   height: 20px;
   width: 80px;
   margin-left: 10px;
-  background: url(/26f0711e/images/off.png) no-repeat;
+  background: url(/a57cdeab/images/off.png) no-repeat;
   cursor: pointer;
 }
 /* line 1107, /output/application.css.scss.erb */
 #service_hooks ul li .controls .switch.active {
-  background: url(/26f0711e/images/on.png) no-repeat;
+  background: url(/a57cdeab/images/on.png) no-repeat;
 }
 /* line 1112, /output/application.css.scss.erb */
 #service_hooks ul li:nth-child(odd) .controls {
@@ -1550,7 +1550,7 @@ ul#tokens > li:first-child {
 /* line 1171, /output/application.css.scss.erb */
 #main #allow_failure_builds td:first-child a,
 #main #allow_failure_builds .build td:first-child a {
-  background-image: url(/26f0711e/images/icons/status.yellow.png);
+  background-image: url(/a57cdeab/images/icons/status.yellow.png);
   padding-left: 20px;
   background-repeat: no-repeat;
 }
@@ -1558,7 +1558,7 @@ ul#tokens > li:first-child {
 /* line 1177, /output/application.css.scss.erb */
 #main #allow_failure_builds .green td:first-child a,
 #main #allow_failure_builds .build.green td:first-child a {
-  background-image: url(/26f0711e/images/icons/status.green.png);
+  background-image: url(/a57cdeab/images/icons/status.green.png);
   color: green;
   padding-left: 20px;
   background-repeat: no-repeat;
@@ -1569,7 +1569,7 @@ ul#tokens > li:first-child {
 #main .red .summary .number a,
 #main #allow_failure_builds .red td:first-child a,
 #main #allow_failure_builds .build.red td:first-child a {
-  background-image: url(/26f0711e/images/icons/status.red.png);
+  background-image: url(/a57cdeab/images/icons/status.red.png);
   color: #c00;
   padding-left: 20px;
   background-repeat: no-repeat;
@@ -1642,7 +1642,7 @@ ul#tokens > li:first-child {
   margin-left: 10px;
   display: inline-block;
   width: 16px;
-  background: url(/26f0711e/images/icons/help.png) no-repeat scroll 0 0 transparent;
+  background: url(/a57cdeab/images/icons/help.png) no-repeat scroll 0 0 transparent;
 }
 
 /* line 1243, /output/application.css.scss.erb */
@@ -1683,7 +1683,7 @@ pre {
 /* line 1272, /output/application.css.scss.erb */
 #main #branch_summary td:first-child a,
 #main #branch_summary .build td:first-child a {
-  background-image: url(/26f0711e/images/icons/status.yellow.png);
+  background-image: url(/a57cdeab/images/icons/status.yellow.png);
   padding-left: 20px;
   background-repeat: no-repeat;
 }
@@ -1691,7 +1691,7 @@ pre {
 /* line 1278, /output/application.css.scss.erb */
 #main #branch_summary .green td:first-child a,
 #main #branch_summary .build.green td:first-child a {
-  background-image: url(/26f0711e/images/icons/status.green.png);
+  background-image: url(/a57cdeab/images/icons/status.green.png);
   color: green;
   padding-left: 20px;
   background-repeat: no-repeat;
@@ -1702,7 +1702,7 @@ pre {
 #main .red .summary .number a,
 #main #branch_summary .red td:first-child a,
 #main #branch_summary .build.red td:first-child a {
-  background-image: url(/26f0711e/images/icons/status.red.png);
+  background-image: url(/a57cdeab/images/icons/status.red.png);
   color: #c00;
   padding-left: 20px;
   background-repeat: no-repeat;

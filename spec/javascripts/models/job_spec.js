@@ -133,7 +133,7 @@ describe('Job', function() {
 
       describe('url', function() {
 	it('returns the url for this job', function() {
-	  expect(job.get('url')).toEqual('#!/travis-ci/travis-ci/jobs/9')
+	  expect(job.get('url')).toEqual('#/travis-ci/travis-ci/jobs/9')
 	});
       });
 

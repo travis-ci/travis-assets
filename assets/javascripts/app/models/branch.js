@@ -8,7 +8,7 @@ Travis.Branch = Travis.Record.extend(Travis.Helpers.Common, {
   }.property(),
 
   buildUrl: function() {
-    return '#!/' + this.getPath('repository.slug') + '/builds/' + this.get('build_id');
+    return '#/' + this.getPath('repository.slug') + '/builds/' + this.get('build_id');
   }.property(),
 
   commitUrl: function() {
