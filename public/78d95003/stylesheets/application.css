@@ -203,7 +203,7 @@ caption {
   height: 30px;
   margin: 4px 40px 0 22px;
   text-indent: -9999px;
-  background: url(/37153f5a/images/logo.png) no-repeat;
+  background: url(/78d95003/images/logo.png) no-repeat;
 }
 /* line 83, /output/application.css.scss.erb */
 #top ul {
@@ -487,7 +487,7 @@ caption {
 #main .summary .number a,
 #main #builds td:first-child a,
 #main #builds .build td:first-child a {
-  background-image: url(/37153f5a/images/icons/status.yellow.png);
+  background-image: url(/78d95003/images/icons/status.yellow.png);
   padding-left: 20px;
   background-repeat: no-repeat;
 }
@@ -497,7 +497,7 @@ caption {
 #main .green .summary .number a,
 #main #builds .green td:first-child a,
 #main #builds .build.green td:first-child a {
-  background-image: url(/37153f5a/images/icons/status.green.png);
+  background-image: url(/78d95003/images/icons/status.green.png);
   color: green;
   padding-left: 20px;
   background-repeat: no-repeat;
@@ -508,7 +508,7 @@ caption {
 #main .red .summary .number a,
 #main #builds .red td:first-child a,
 #main #builds .build.red td:first-child a {
-  background-image: url(/37153f5a/images/icons/status.red.png);
+  background-image: url(/78d95003/images/icons/status.red.png);
   color: #c00;
   padding-left: 20px;
   background-repeat: no-repeat;
@@ -584,11 +584,11 @@ caption {
 }
 /* line 372, /output/application.css.scss.erb */
 #main .github-stats a.watchers {
-  background-image: url(/37153f5a/images/icons/github-watchers.png);
+  background-image: url(/78d95003/images/icons/github-watchers.png);
 }
 /* line 375, /output/application.css.scss.erb */
 #main .github-stats a.forks {
-  background-image: url(/37153f5a/images/icons/github-forks.png);
+  background-image: url(/78d95003/images/icons/github-forks.png);
 }
 /* line 380, /output/application.css.scss.erb */
 #main .github-stats > * {
@@ -608,7 +608,7 @@ caption {
   text-decoration: none;
   text-align: right;
   color: #999;
-  background: url(/37153f5a/images/icons/github-admin.png) no-repeat right 1px;
+  background: url(/78d95003/images/icons/github-admin.png) no-repeat right 1px;
   text-indent: -999px;
   overflow: hidden;
   z-index: 60;
@@ -787,13 +787,13 @@ caption {
 #main .log .fold {
   height: 16px;
   overflow: hidden;
-  background: #444444 url(/37153f5a/images/icons/log.fold.closed.2.png) no-repeat 99.5% 2px;
+  background: #444444 url(/78d95003/images/icons/log.fold.closed.2.png) no-repeat 99.5% 2px;
   cursor: pointer;
 }
 /* line 546, /output/application.css.scss.erb */
 #main .log .fold.open {
   height: auto;
-  background-image: url(/37153f5a/images/icons/log.fold.open.2.png);
+  background-image: url(/78d95003/images/icons/log.fold.open.2.png);
 }
 /* line 554, /output/application.css.scss.erb */
 #main .log .bold {
@@ -1023,12 +1023,12 @@ caption {
   -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
   /* background: url(/assets/icons/status.square.gray.png); created, starting, stopping */
-  background: url(/37153f5a/images/icons/status.square.green.png);
+  background: url(/78d95003/images/icons/status.square.green.png);
 }
 /* line 733, /output/application.css.scss.erb */
 #right #workers li.waiting .icon,
 #right #jobs li.waiting .icon {
-  background: url(/37153f5a/images/icons/status.square.green.png);
+  background: url(/78d95003/images/icons/status.square.green.png);
 }
 /* line 736, /output/application.css.scss.erb */
 #right #workers li.working .icon,
@@ -1038,12 +1038,12 @@ caption {
 /* line 739, /output/application.css.scss.erb */
 #right #workers li.errored .icon,
 #right #jobs li.errored .icon {
-  background: url(/37153f5a/images/icons/status.square.red.png);
+  background: url(/78d95003/images/icons/status.square.red.png);
 }
 /* line 742, /output/application.css.scss.erb */
 #right #workers li.stopped .icon,
 #right #jobs li.stopped .icon {
-  background: url(/37153f5a/images/icons/status.square.gray.png);
+  background: url(/78d95003/images/icons/status.square.gray.png);
 }
 /* line 747, /output/application.css.scss.erb */
 #right .placeholder,
@@ -1216,7 +1216,7 @@ caption {
 
 /* line 909, /output/application.css.scss.erb */
 .list.loading h4 {
-  background: url(/37153f5a/images/spinner.gif) no-repeat 4px right;
+  background: url(/78d95003/images/spinner.gif) no-repeat 4px right;
   padding-right: 15px;
 }
 
@@ -1471,19 +1471,19 @@ ul#tokens > li:first-child {
   height: 20px;
   width: 20px;
   padding-right: 0;
-  background: url(/37153f5a/images/icons/github-admin.png) no-repeat 3px 4px;
+  background: url(/78d95003/images/icons/github-admin.png) no-repeat 3px 4px;
 }
 /* line 1101, /output/application.css.scss.erb */
 #service_hooks ul li .controls .switch {
   height: 20px;
   width: 80px;
   margin-left: 10px;
-  background: url(/37153f5a/images/off.png) no-repeat;
+  background: url(/78d95003/images/off.png) no-repeat;
   cursor: pointer;
 }
 /* line 1107, /output/application.css.scss.erb */
 #service_hooks ul li .controls .switch.active {
-  background: url(/37153f5a/images/on.png) no-repeat;
+  background: url(/78d95003/images/on.png) no-repeat;
 }
 /* line 1112, /output/application.css.scss.erb */
 #service_hooks ul li:nth-child(odd) .controls {
@@ -1550,7 +1550,7 @@ ul#tokens > li:first-child {
 /* line 1171, /output/application.css.scss.erb */
 #main #allow_failure_builds td:first-child a,
 #main #allow_failure_builds .build td:first-child a {
-  background-image: url(/37153f5a/images/icons/status.yellow.png);
+  background-image: url(/78d95003/images/icons/status.yellow.png);
   padding-left: 20px;
   background-repeat: no-repeat;
 }
@@ -1558,7 +1558,7 @@ ul#tokens > li:first-child {
 /* line 1177, /output/application.css.scss.erb */
 #main #allow_failure_builds .green td:first-child a,
 #main #allow_failure_builds .build.green td:first-child a {
-  background-image: url(/37153f5a/images/icons/status.green.png);
+  background-image: url(/78d95003/images/icons/status.green.png);
   color: green;
   padding-left: 20px;
   background-repeat: no-repeat;
@@ -1569,7 +1569,7 @@ ul#tokens > li:first-child {
 #main .red .summary .number a,
 #main #allow_failure_builds .red td:first-child a,
 #main #allow_failure_builds .build.red td:first-child a {
-  background-image: url(/37153f5a/images/icons/status.red.png);
+  background-image: url(/78d95003/images/icons/status.red.png);
   color: #c00;
   padding-left: 20px;
   background-repeat: no-repeat;
@@ -1642,7 +1642,7 @@ ul#tokens > li:first-child {
   margin-left: 10px;
   display: inline-block;
   width: 16px;
-  background: url(/37153f5a/images/icons/help.png) no-repeat scroll 0 0 transparent;
+  background: url(/78d95003/images/icons/help.png) no-repeat scroll 0 0 transparent;
 }
 
 /* line 1243, /output/application.css.scss.erb */
@@ -1683,7 +1683,7 @@ pre {
 /* line 1272, /output/application.css.scss.erb */
 #main #branch_summary td:first-child a,
 #main #branch_summary .build td:first-child a {
-  background-image: url(/37153f5a/images/icons/status.yellow.png);
+  background-image: url(/78d95003/images/icons/status.yellow.png);
   padding-left: 20px;
   background-repeat: no-repeat;
 }
@@ -1691,7 +1691,7 @@ pre {
 /* line 1278, /output/application.css.scss.erb */
 #main #branch_summary .green td:first-child a,
 #main #branch_summary .build.green td:first-child a {
-  background-image: url(/37153f5a/images/icons/status.green.png);
+  background-image: url(/78d95003/images/icons/status.green.png);
   color: green;
   padding-left: 20px;
   background-repeat: no-repeat;
@@ -1702,7 +1702,7 @@ pre {
 #main .red .summary .number a,
 #main #branch_summary .red td:first-child a,
 #main #branch_summary .build.red td:first-child a {
-  background-image: url(/37153f5a/images/icons/status.red.png);
+  background-image: url(/78d95003/images/icons/status.red.png);
   color: #c00;
   padding-left: 20px;
   background-repeat: no-repeat;

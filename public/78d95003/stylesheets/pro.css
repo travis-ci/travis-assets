@@ -37,15 +37,6 @@
   display: none;
 }
 
-/* line 34, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
-#profile #main p.notice,
-#profile #main form[action=profile],
-#profile #main h4,
-#profile #main p.tip,
-#profile #main #service_hooks {
-  display: none;
-}
-
 /* line 40, /Volumes/Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
 #session #main {
   margin: 200px auto 0 auto;
