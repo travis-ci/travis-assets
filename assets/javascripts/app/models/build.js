@@ -120,14 +120,14 @@ Travis.Build.reopenClass({
   resource: 'builds',
 
   pushesByRepositoryId: function(id, parameters) {
-    return this.all({ url: '/repositories/%@/builds.json?bare=true'.fmt(id), repository_id: id, orderBy: 'number DESC', event_type: 'push' });
+    return this.all({ url: '/builds.json?repository_id=%@&bare=true'.fmt(id), repository_id: id, orderBy: 'number DESC', event_type: 'push' });
   },
 
   pullRequestsByRepositoryId: function(id, parameters) {
-    return this.all({ url: '/repositories/%@/builds.json?bare=true&event_type=pull_requests'.fmt(id), repository_id: id, orderBy: 'number DESC', event_type: 'pull_request' });
+    return this.all({ url: 'builds.json?repository_id=%@&bare=true&event_type=pull_requests'.fmt(id), repository_id: id, orderBy: 'number DESC', event_type: 'pull_request' });
   },
 
   olderThanNumber: function(id, build_number) {
-    return this.all({ url: '/repositories/' + id + '/builds.json?bare=true&after_number=' + build_number, repository_id: id, orderBy: 'number DESC' });
+    return this.all({ url: '/builds.json?repository_id=%@&bare=true&after_number=' + build_number, repository_id: id, orderBy: 'number DESC' });
   }
 });
