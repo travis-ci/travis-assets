@@ -36,6 +36,8 @@
       success: (json) ->
         @sideload(store, type, json, root)
         store.load(type, json[root])
+      accepts:
+        json: 'application/vnd.travis-ci.2+json'
 
   findMany: (store, type, ids) ->
     root = @rootForType(type)
@@ -48,6 +50,8 @@
       success: (json) ->
         @sideload(store, type, json, plural)
         store.loadMany(type, json[plural])
+      accepts:
+        json: 'application/vnd.travis-ci.2+json'
 
   findAll: (store, type) ->
     root = @rootForType(type)
@@ -58,6 +62,8 @@
       success: (json) ->
         @sideload(store, type, json, plural)
         store.loadMany(type, json[plural])
+      accepts:
+        json: 'application/vnd.travis-ci.2+json'
 
   findQuery: (store, type, query, recordArray) ->
     root = @rootForType(type)
@@ -69,6 +75,8 @@
       success: (json) ->
         @sideload(store, type, json, plural)
         recordArray.load(json[plural])
+      accepts:
+        json: 'application/vnd.travis-ci.2+json'
 
   rootForType: (type) ->
     # sorry, but this seems very weird, really
