@@ -44,7 +44,7 @@ describe('Travis.Repository', function() {
     describe('associations', function() {
       it('requests GET /repositories/1/builds.json?bare=true', function() {
         repository.get('builds');
-        expect(mostRecentAjaxRequest().url).toEqual('/repositories/1/builds.json?bare=true');
+        expect(mostRecentAjaxRequest().url).toEqual('/builds.json?repository_id=1&bare=true');
       });
 
       // TODO no idea why this suddenly errors

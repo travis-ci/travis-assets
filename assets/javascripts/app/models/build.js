@@ -124,7 +124,7 @@ Travis.Build.reopenClass({
   },
 
   pullRequestsByRepositoryId: function(id, parameters) {
-    return this.all({ url: 'builds.json?repository_id=%@&bare=true&event_type=pull_requests'.fmt(id), repository_id: id, orderBy: 'number DESC', event_type: 'pull_request' });
+    return this.all({ url: '/builds.json?repository_id=%@&bare=true&event_type=pull_requests'.fmt(id), repository_id: id, orderBy: 'number DESC', event_type: 'pull_request' });
   },
 
   olderThanNumber: function(id, build_number) {

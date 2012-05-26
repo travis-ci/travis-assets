@@ -3,14 +3,14 @@ describe('Build', function() {
     describe('pushesByRepositoryId', function() {
       it('requests GET /repositories.json', function() {
         Travis.Build.pushesByRepositoryId(1);
-        expect(mostRecentAjaxRequest().url).toEqual('/repositories/1/builds.json?bare=true');
+        expect(mostRecentAjaxRequest().url).toEqual('/builds.json?repository_id=1&bare=true');
       });
     });
 
     describe('pullRequestsByRepositoryId', function() {
       it('requests GET /repositories.json', function() {
         Travis.Build.pullRequestsByRepositoryId(1);
-        expect(mostRecentAjaxRequest().url).toEqual('/repositories/1/builds.json?bare=true&event_type=pull_requests');
+        expect(mostRecentAjaxRequest().url).toEqual('/builds.json?repository_id=1&bare=true&event_type=pull_requests');
       });
     });
 
