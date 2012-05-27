@@ -6,7 +6,7 @@ Travis.Controllers.ServiceHooks = Ember.ArrayController.extend({
       template: Ember.TEMPLATES['app/templates/service_hooks/list']
     });
     this.view.appendTo('#service_hooks');
-    this.set('content', Travis.ServiceHook.all({ orderBy: 'active DESC, name' }));
+    this.set('content', Travis.ServiceHook.all({ orderBy: 'active DESC, owner_name, name' }));
   },
 
   state: function() {
