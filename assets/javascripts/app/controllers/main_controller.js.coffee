@@ -31,7 +31,7 @@
     else if tab == 'current' or tab == 'build'
       @getPath('build.data.job_ids.firstObject')
     Travis.Job.find(id) if id
-  ).property('tab', 'build.data.job_ids.length')
+  ).property('tab', 'params', 'build.data.job_ids.length')
 
   _slug: (->
     parts = $.compact([@getPath('params.owner'), @getPath('params.name')])

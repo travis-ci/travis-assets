@@ -36,9 +36,11 @@
     {{/if}}
   </dl>
 
-  {{#if build.isMatrix}}
-    {{view Travis.Views.Jobs.List buildBinding="build"}}
-  {{else}}
-    {{view Travis.Views.Jobs.Log jobBinding="job"}}
+  {{#if build}}
+    {{#if build.isMatrix}}
+      {{view Travis.Views.Jobs.List buildBinding="build"}}
+    {{else}}
+      {{view Travis.Views.Jobs.Log jobBinding="job"}}
+    {{/if}}
   {{/if}}
 </div>

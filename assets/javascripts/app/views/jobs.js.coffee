@@ -6,26 +6,31 @@
     controllerBinding: 'Travis.app.main'
     buildBinding: 'controller.build'
 
-    jobs: (->
-      build = @get('build')
-      Travis.Job.forBuild(build) if build
-    ).property('build.data.job_ids')
+    # jobs: (->
+    #   build = @get('build')
+    #   console.log build.getPath('data.job_ids') if build
+    #   Travis.Job.forBuild(build) if build
+    # ).property('build.data.job_ids')
 
-    isMatrix: (->
-      @getPath('jobs.length') > 1
-    ).property('jobs.length')
+    # isMatrix: (->
+    #   @getPath('build.data.job_ids.length') > 1
+    # ).property('build.data.job_ids.length')
 
-    hasFailureMatrix: (->
-      @get('allowedFailureJobs').length > 0
-    ).property('allowedFailureJobs')
+    # hasFailureMatrix: (->
+    #   @get('allowedFailureJobs').length > 0
+    # ).property('allowedFailureJobs')
 
-    requiredJobs: (->
-      @get('jobs').filter (item, index) -> item.get('allow_failure') isnt true
-    ).property('jobs')
+    # jobs: (->
+    #   @getPath('build.jobs')
+    # ).property('build.jobs.length')
 
-    allowedFailureJobs: (->
-      @get('jobs').filter (item, index) -> item.get 'allow_failure'
-    ).property('jobs')
+    # requiredJobs: (->
+    #   @get('jobs').filter (item, index) -> item.get('allow_failure') isnt true
+    # ).property('jobs')
+
+    # allowedFailureJobs: (->
+    #   @get('jobs').filter (item, index) -> item.get 'allow_failure'
+    # ).property('jobs')
 
     configKeys: (->
       config = @getPath('build.config')

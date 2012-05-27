@@ -33,11 +33,4 @@
   </dl>
 
   {{view Travis.Views.Jobs.Log jobBinding="job"}}
-
-  {{#if job.sponsor.name}}
-    <p class="sponsor">
-      {{t "jobs.messages.sponsored_by"}}
-      <a {{bindAttr href="job.sponsor.url"}}>{{job.sponsor.name}}</a>
-    </p>
-  {{/if}}
 </div>

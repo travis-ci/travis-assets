@@ -6,7 +6,7 @@
     {{/collection}}
   </thead>
 
-    {{#collection contentBinding="requiredJobs" tagName="tbody" itemTagName="tr" itemClassBinding="color" itemViewClass="Travis.Views.Jobs.Item"}}
+    {{#collection contentBinding="build.requiredJobs" tagName="tbody" itemTagName="tr" itemClassBinding="color" itemViewClass="Travis.Views.Jobs.Item"}}
       <td class="number"><a {{bindAttr href="urlJob"}}>{{content.number}}</a></td>
       <td class="duration" {{bindAttr title="content.started_at"}}>{{formatDuration content.duration}}</td>
       <td class="finished_at timeago" {{bindAttr title="content.finished_at"}}>{{formatTime content.finished_at}}</td>
@@ -16,7 +16,7 @@
     {{/collection}}
 </table>
 
-{{#if hasFailureMatrix}}
+{{#if build.idFailureMatrix}}
   <table id="allow_failure_builds">
     <caption>{{t "jobs.allowed_failures"}}{{whats_this "allow_failure_help"}}</caption>
     <thead>

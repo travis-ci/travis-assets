@@ -14,10 +14,10 @@
   author_name:     DS.attr('string')
   author_email:    DS.attr('string')
   compare_url:     DS.attr('string')
-  log:             DS.attr('string')
 
   repository: DS.belongsTo('Travis.Repository')
   commit:     DS.belongsTo('Travis.Commit')
+  # jobs:       DS.hasMany('Travis.Job')
 
   config: (->
     @getPath 'data.config'
@@ -26,6 +26,23 @@
   isMatrix: (->
     @getPath('data.job_ids.length') > 1
   ).property('data.job_ids.length')
+
+  isFailureMatrix: (->
+    @get('allowedFailureJobs').length > 0
+  ).property('allowedFailureJobs')
+
+  # TODO why does the hasMany association not work?
+  jobs: (->
+    Travis.Job.findMany(@getPath('data.job_ids'))
+  ).property('data.job_ids.length')
+
+  requiredJobs: (->
+    @get('jobs').filter (item, index) -> item.get('allow_failure') isnt true
+  ).property('jobs')
+
+  allowedFailureJobs: (->
+    @get('jobs').filter (item, index) -> item.get 'allow_failure'
+  ).property('jobs')
 
   tick: ->
     @notifyPropertyChange 'duration'

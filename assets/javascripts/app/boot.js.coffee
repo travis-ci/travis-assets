@@ -6,6 +6,7 @@
 @Travis.app = Travis.AppController.create()
 
 $ ->
+  $('#left, #main, #right').remove()
   Travis.app.run() if window.env != undefined && window.env != 'jasmine'
 
 $.ajaxSetup

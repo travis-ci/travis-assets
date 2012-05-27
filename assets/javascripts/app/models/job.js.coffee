@@ -1,6 +1,7 @@
 @Travis.Job = Travis.Model.extend Travis.Helpers,
   repository_id:   DS.attr('number')
   build_id:        DS.attr('number')
+  log_id:          DS.attr('number')
   queue:           DS.attr('string')
   state:           DS.attr('string')
   number:          DS.attr('string')
@@ -12,21 +13,19 @@
   repository: DS.belongsTo('Travis.Repository')
   commit: DS.belongsTo('Travis.Commit')
   build: DS.belongsTo('Travis.Build')
+  log: DS.belongsTo('Travis.Artifact')
 
   config: (->
     @getPath 'data.config'
   ).property('data.config')
 
-  log: (->
-    @subscribe()
-    log = @getPath('data.log')
-    @refresh()  if log is undefined
-    log || ''
-  ).property('data.log')
-
   duration: (->
     @durationFrom @get('started_at'), @get('finished_at')
   ).property('started_at', 'finished_at')
+
+  sponsor: (->
+    @getPath('data.sponsor')
+  ).property('data.sponsor')
 
   appendLog: (log) ->
     @set 'log', @get('log') + log
@@ -46,5 +45,5 @@
   queued: (queue) ->
     @all()
     Travis.app.store.filter this, (job) -> job.get('queue') == 'builds.' + queue
-  forBuild: (build) ->
-    Travis.app.store.findMany this, build.getPath('data.job_ids')
+  findMany: (ids) ->
+    Travis.app.store.findMany this, ids
