@@ -44,10 +44,8 @@ namespace :assets do
 end
 
 begin
-  require 'jasmine'
-  load 'jasmine/tasks/jasmine.rake'
-rescue LoadError
-  task :jasmine do
-    abort "Jasmine is not available. In order to run jasmine, you must: (sudo) gem install jasmine"
+  require 'guard/jasmine/task'
+  Guard::JasmineTask.new do |task|
+    task.options = '--server=jasmine_gem --url=http://localhost:3001/'
   end
 end
