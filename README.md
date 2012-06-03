@@ -13,5 +13,5 @@ To run the whole test suite, simply do:
 
 ```
 $ bundle install # Only needed on the first run
-$ bundle exec rake jasmine:ci
+$ bundle exec rake guard:jasmine
 ```
