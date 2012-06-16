@@ -6,7 +6,11 @@ Travis.Controllers.Repositories.BranchSummary = Ember.Object.extend({
     this.view = Ember.View.create({
       controller: this,
       branchesBinding: 'controller.repository.branchSummary',
-      templateName: 'app/templates/repositories/branch_summary'
+      templateName: 'app/templates/repositories/branch_summary',
+      click: function(e){
+        var buildUrl = $(e.target).closest('tr').find('.number a').attr('href');
+        if (buildUrl) { window.location = buildUrl };
+      }
     });
   },
 

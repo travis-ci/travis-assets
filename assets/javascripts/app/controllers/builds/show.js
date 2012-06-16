@@ -13,7 +13,11 @@ Travis.Controllers.Builds.Show = Ember.Object.extend({
       contentBinding: 'controller.build',
       jobsBinding: 'controller.jobs',
       branchesBinding: 'controller.branches',
-      templateName: 'app/templates/builds/show'
+      templateName: 'app/templates/builds/show',
+      click: function(e){
+        var buildUrl = $(e.target).closest('tr').find('.number a').attr('href');
+        if (buildUrl) { window.location = buildUrl };
+      }
     });
   },
 

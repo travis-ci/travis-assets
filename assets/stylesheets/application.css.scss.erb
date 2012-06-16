@@ -289,6 +289,7 @@ caption {
 
 #left #repositories li .wrapper,
 #main .summary .number a,
+.build_list td:first-child a,
 #main #builds td:first-child a,
 #main #builds .build td:first-child a {
   background-image: url(<%= asset_path 'images/icons/status.yellow.png' %>);
@@ -297,6 +298,7 @@ caption {
 }
 #left #repositories li.green .wrapper,
 #main .green .summary .number a,
+.build_list .green td:first-child a,
 #main #builds .green td:first-child a,
 #main #builds .build.green td:first-child a {
   background-image: url(<%= asset_path 'images/icons/status.green.png' %>);
@@ -307,6 +309,7 @@ caption {
 
 #left #repositories li.red .wrapper,
 #main .red .summary .number a,
+.build_list .red td:first-child a,
 #main #builds .red td:first-child a,
 #main #builds .build.red td:first-child a {
   background-image: url(<%= asset_path 'images/icons/status.red.png' %>);
@@ -616,7 +619,7 @@ caption {
     font-size: 13px;
     color: #999;
   }
-  #builds {
+  #builds, .status_list {
     width: 100%;
     margin: 25px 0 0 -12px;
     border-spacing: 0;
@@ -649,9 +652,15 @@ caption {
     tbody tr.allow-failure {
       background-color:#BDBDBD;
     }
+    .green, .red {
+      cursor: pointer;
+    }
     .green {
       td {
         background-color: rgb(250,255,250);
+      }
+      &:hover td {
+        background-color: rgb(220,255,220);
       }
       .number a {
         color: green;
@@ -660,6 +669,9 @@ caption {
     .red {
       td {
         background-color: rgb(255,250,250);
+      }
+      &:hover td {
+        background-color: rgb(255,220,220);
       }
       .number a {
         color: #C00;
@@ -1278,71 +1290,4 @@ pre {
     margin-top: 1em;
     overflow-x: scroll;
     padding: 1em 1.5em;
-}
-
-/* Branch Summary */
-#main #branch_summary td:first-child a,
-#main #branch_summary .build td:first-child a {
-  background-image: url(<%= asset_path 'images/icons/status.yellow.png' %>);
-  padding-left: 20px;
-  background-repeat: no-repeat;
-}
-#main #branch_summary .green td:first-child a,
-#main #branch_summary .build.green td:first-child a {
-  background-image: url(<%= asset_path 'images/icons/status.green.png' %>);
-  color: green;
-  padding-left: 20px;
-  background-repeat: no-repeat;
-}
-
-#left #repositories li.red .wrapper,
-#main .red .summary .number a,
-#main #branch_summary .red td:first-child a,
-#main #branch_summary .build.red td:first-child a {
-  background-image: url(<%= asset_path 'images/icons/status.red.png' %>);
-  color: #c00;
-  padding-left: 20px;
-  background-repeat: no-repeat;
-}
-
-  #branch_summary {
-    margin: 20px 0 0 -12px;
-  }
-  #branch_summary caption {
-    margin-left: 12px;
-    margin-bottom: 8px;
-  }
-  #branch_summary {
-    width: 90%;
-    margin: 25px 0 0 -12px;
-  }
-  #branch_summary th {
-    font-size: 13px;
-    color: #666;
-  }
-  #branch_summary th,
-  #branch_summary td {
-    white-space: nowrap;
-  }
-  #branch_summary td.message {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: normal;
-  }
-  #branch_summary tr {
-    max-height: 20px;
-  }
-  #branch_summary tbody tr:nth-child(odd) {
-    background-color: #f6f6f6;
-  }
-  #branch_summary tbody tr.allow-failure {
-    background-color:#BDBDBD;
-  }
-
-
-#branch_summary .green .number a {
-  color: green;
-}
-#branch_summary .red .number a {
-  color: #C00;
 }

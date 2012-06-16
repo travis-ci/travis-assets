@@ -1,4 +1,4 @@
-<table id="builds">
+<table id="builds" class="status_list">
   <caption>{{i18n "jobs.build_matrix"}}</caption>
   <thead>
     {{#collection tagName="tr" contentBinding="content.formattedMatrixHeaders" itemTagName="th"}}
