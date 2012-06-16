@@ -50,7 +50,7 @@ describe('Views:', function() {
 
         it('updates the branch', function() {
           Ember.run(function() { builds.objectAt(0).set('branch', 'feature-ponies'); });
-          expect(view.$('#builds tbody tr:first-child .commit')).toHaveText('4d7621e (feature-ponies)');
+          expect(view.$('#builds tbody tr:first-child .branch')).toHaveText('feature-ponies');
         });
 
         it('updates the duration', function() {
