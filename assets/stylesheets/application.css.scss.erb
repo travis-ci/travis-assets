@@ -617,46 +617,55 @@ caption {
     color: #999;
   }
   #builds {
-    margin: 20px 0 0 -12px;
-  }
-  #builds caption {
-    margin-left: 12px;
-    margin-bottom: 8px;
-  }
-  #builds {
     width: 100%;
     margin: 25px 0 0 -12px;
+    border-spacing: 0;
+    caption {
+      margin-left: 12px;
+      margin-bottom: 8px;
+    }
+    th {
+      font-size: 13px;
+      color: #666;
+    }
+    th, td {
+      white-space: nowrap;
+      border-bottom: 2px solid white;
+    }
+    td:first-child {
+      @include border-left-radius(4px);
+    }
+    td:last-child {
+      @include border-right-radius(4px);
+    }
+    td.message {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: normal;
+    }
+    tr {
+      max-height: 20px;
+    }
+    tbody tr.allow-failure {
+      background-color:#BDBDBD;
+    }
+    .green {
+      td {
+        background-color: rgb(250,255,250);
+      }
+      .number a {
+        color: green;
+      }
+    }
+    .red {
+      td {
+        background-color: rgb(255,250,250);
+      }
+      .number a {
+        color: #C00;
+      }
+    }
   }
-  #builds th {
-    font-size: 13px;
-    color: #666;
-  }
-  #builds th,
-  #builds td {
-    white-space: nowrap;
-  }
-  #builds td.message {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: normal;
-  }
-  #builds tr {
-    max-height: 20px;
-  }
-  #builds tbody tr:nth-child(odd) {
-    background-color: #f6f6f6;
-  }
-  #builds tbody tr.allow-failure {
-    background-color:#BDBDBD;
-  }
-
-}
-
-#builds .green .number a {
-  color: green;
-}
-#builds .red .number a {
-  color: #C00;
 }
 
 .emoji {
@@ -935,6 +944,7 @@ caption {
     z-index: 0;
     @include border-top-radius(4px);
     &:hover {
+      background-color: white;
     }
   }
   .active h5 {
