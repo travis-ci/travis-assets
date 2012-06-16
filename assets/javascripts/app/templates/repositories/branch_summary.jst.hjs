@@ -4,7 +4,6 @@
       <th>{{i18n "repositories.branch"}}</th>
       <th>{{i18n "repositories.commit"}}</th>
       <th>{{i18n "repositories.message"}}</th>
-      <th>{{i18n "repositories.started_at"}}</th>
       <th>{{i18n "repositories.finished_at"}}</th>
     </tr>
 {{content}}
@@ -13,7 +12,6 @@
       <td class="number"><a {{bindAttr href="content.buildUrl"}}>{{content.branch}}</a></td>
       <td class="commit">{{content.formattedCommit}}</td>
       <td class="message">{{{content.message}}}</td>
-      <td class="duration" {{bindAttr title="content.started_at"}}>{{content.started_at}}</td>
-      <td class="finished_at timeago" {{bindAttr title="content.finished_at"}}>{{content.finished_at}}</td>
+      <td class="finished_at timeago" {{bindAttr title="content.finished_at"}}>{{content.formattedFinishedAt}}</td>
   {{/collection}}
 </table>
