@@ -43,9 +43,9 @@ describe('Views:', function() {
           expect(view.$('#builds tbody tr:first-child .number')).toHaveText('111');
         });
 
-        it('updates the commit', function() {
-          Ember.run(function() { builds.objectAt(0).set('commit', 'abcdefg'); });
-          expect(view.$('#builds tbody tr:first-child .commit')).toHaveText('abcdefg (master)');
+        it('updates the message', function() {
+          Ember.run(function() { builds.objectAt(0).set('description', 'ITZ WORKING'); });
+          expect(view.$('#builds tbody tr:first-child .description')).toHaveText('ITZ WORKING');
         });
 
         it('updates the branch', function() {
