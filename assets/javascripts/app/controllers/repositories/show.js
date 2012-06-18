@@ -79,7 +79,6 @@ Travis.Controllers.Repositories.Show = Ember.Object.extend({
     if(repository && repository.get('slug')) $.getJSON('https://api.github.com/repos/' + repository.get('slug') + '?callback=?', function(response) {
       if(response.meta.status == 404) return;
       var element = $('.github-stats');
-      alert(response.data.watchers);
       element.find('.watchers').attr('href', repository.get('urlGithubWatchers')).text(response.data.watchers);
       element.find('.forks').attr('href',repository.get('urlGithubNetwork')).text(response.data.forks);
       element.find('.github-admin').attr('href', repository.get('urlGithubAdmin'));
