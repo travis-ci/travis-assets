@@ -56,7 +56,7 @@ Travis.Helpers.Common = {
       $.each(emojis.uniq(), function(ix, emoji) {
         var strippedEmoji = emoji.substring(1, emoji.length - 1);
         if (Travis.Helpers.EmojiDictionary.indexOf(strippedEmoji) != -1) {
-          var image = '<img class="emoji" title="' + emoji + '" alt="' + emoji + '" src="/' + Travis.assets.version + '/images/emoji/' + strippedEmoji + '.png"/>';
+          var image = '<img class="emoji" title="' + emoji + '" alt="' + emoji + '" src="http://' + Travis.assets.host + '/' + Travis.assets.version + '/images/emoji/' + strippedEmoji + '.png"/>';
           text = text.replace(new RegExp(emoji, 'g'), image);
         }
       });

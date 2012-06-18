@@ -84,28 +84,29 @@ describe('Build', function() {
     describe('message', function() {
       beforeEach(function() {
         Travis.assets = {
-          version: '123abc'
+          version: '123abc',
+          host: 'assets.travis-ci.org'
         };
       });
 
       it ('changes emoji to image tags', function() {
         build.set('message', 'The :cake: is a lie');
-        expect(build.get('formattedMessage')).toEqual('The <img class="emoji" title=":cake:" alt=":cake:" src="/123abc/images/emoji/cake.png"/> is a lie');
+        expect(build.get('formattedMessage')).toEqual('The <img class="emoji" title=":cake:" alt=":cake:" src="http://assets.travis-ci.org/123abc/images/emoji/cake.png"/> is a lie');
       });
 
       it ('changes multiple emoji to image tags', function() {
         build.set('message', 'I :heart: :cake:');
-        expect(build.get('formattedMessage')).toEqual('I <img class="emoji" title=":heart:" alt=":heart:" src="/123abc/images/emoji/heart.png"/> <img class="emoji" title=":cake:" alt=":cake:" src="/123abc/images/emoji/cake.png"/>');
+        expect(build.get('formattedMessage')).toEqual('I <img class="emoji" title=":heart:" alt=":heart:" src="http://assets.travis-ci.org/123abc/images/emoji/heart.png"/> <img class="emoji" title=":cake:" alt=":cake:" src="http://assets.travis-ci.org/123abc/images/emoji/cake.png"/>');
       });
 
       it ('changes emoji not separated by spaces to image tags', function() {
         build.set('message', 'I :heart::cake:');
-        expect(build.get('formattedMessage')).toEqual('I <img class="emoji" title=":heart:" alt=":heart:" src="/123abc/images/emoji/heart.png"/><img class="emoji" title=":cake:" alt=":cake:" src="/123abc/images/emoji/cake.png"/>');
+        expect(build.get('formattedMessage')).toEqual('I <img class="emoji" title=":heart:" alt=":heart:" src="http://assets.travis-ci.org/123abc/images/emoji/heart.png"/><img class="emoji" title=":cake:" alt=":cake:" src="http://assets.travis-ci.org/123abc/images/emoji/cake.png"/>');
       });
 
       it ('changes multiple identical emoji to image tags', function() {
           build.set('message', 'I :heart: :heart:');
-          expect(build.get('formattedMessage')).toEqual('I <img class="emoji" title=":heart:" alt=":heart:" src="/123abc/images/emoji/heart.png"/> <img class="emoji" title=":heart:" alt=":heart:" src="/123abc/images/emoji/heart.png"/>');
+          expect(build.get('formattedMessage')).toEqual('I <img class="emoji" title=":heart:" alt=":heart:" src="http://assets.travis-ci.org/123abc/images/emoji/heart.png"/> <img class="emoji" title=":heart:" alt=":heart:" src="http://assets.travis-ci.org/123abc/images/emoji/heart.png"/>');
       });
 
       it ('does not change message without emoji', function() {
