@@ -77,10 +77,11 @@ Travis.Controllers.Repositories.Show = Ember.Object.extend({
     return
     if(window.__TESTING__) return;
     var repository = this.get('repository');
-    if(repository && repository.get('slug')) $.getJSON('https://api.github.com/repos/' + repository.get('slug') + '?callback=?', function(data) {
+    if(repository && repository.get('slug')) $.getJSON('https://api.github.com/repos/' + repository.get('slug') + '?callback=?', function(response) {
+      if(response.meta.status == 404) return;
       var element = $('.github-stats');
-      element.find('.watchers').attr('href', repository.get('urlGithubWatchers')).text(data.data.watchers);
-      element.find('.forks').attr('href',repository.get('urlGithubNetwork')).text(data.data.forks);
+      element.find('.watchers').attr('href', repository.get('urlGithubWatchers')).text(response.data.watchers);
+      element.find('.forks').attr('href',repository.get('urlGithubNetwork')).text(response.data.forks);
       element.find('.github-admin').attr('href', repository.get('urlGithubAdmin'));
     });
   }.observes('repository.slug'),
@@ -96,8 +97,9 @@ Travis.Controllers.Repositories.Show = Ember.Object.extend({
     // Seeing 404 when hitting travis-ci.org/ as repository exists (BUSY_LOADING?) and slug is null
     // So let's ensure that the slug is populated before making this request.
     if (selector.length > 0 && repository && repository.get('slug')) {
-      $.getJSON('https://api.github.com/repos/' + repository.get('slug') + '/branches?callback=?', function(data) {
-        var branches = $.map(data.data, function(details) { return details.name; }).sort();
+      $.getJSON('https://api.github.com/repos/' + repository.get('slug') + '/branches?callback=?', function(response) {
+        if(response.meta.status == 404) return;
+        var branches = $.map(response.data, function(details) { return details.name; }).sort();
 
         // TODO: FIXME
         // Clear selector again as observing 'repository.slug' causes this method (as well as _updateGithubStats) being
