@@ -96,8 +96,8 @@ Travis.Controllers.Repositories.Show = Ember.Object.extend({
     // Seeing 404 when hitting travis-ci.org/ as repository exists (BUSY_LOADING?) and slug is null
     // So let's ensure that the slug is populated before making this request.
     if (selector.length > 0 && repository && repository.get('slug')) {
-      $.getJSON('http://github.com/api/v2/json/repos/show/' + repository.get('slug') + '/branches?callback=?', function(data) {
-        var branches = $.map(data['branches'], function(commit, name) { return name; }).sort();
+      $.getJSON('https://api.github.com/repos/' + repository.get('slug') + '/branches?callback=?', function(data) {
+        var branches = $.map(data.data, function(details) { return details.name; }).sort();
 
         // TODO: FIXME
         // Clear selector again as observing 'repository.slug' causes this method (as well as _updateGithubStats) being
