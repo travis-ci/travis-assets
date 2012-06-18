@@ -13,7 +13,7 @@ Travis.Controllers.ServiceHooks = Ember.ArrayController.extend({
         var content = Travis.ServiceHook.all({ orderBy: 'active DESC, owner_name, name' });
         self.set('content', content);
       });
-    }, 15000);
+    }, 10000);
   },
 
   state: function() {
