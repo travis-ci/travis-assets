@@ -7,13 +7,8 @@ Travis.Controllers.ServiceHooks = Ember.ArrayController.extend({
     });
     this.view.appendTo('#service_hooks');
 
-    var self = this;
-    setTimeout(function() {
-      Ember.run(function() {
-        var content = Travis.ServiceHook.all({ orderBy: 'active DESC, owner_name, name' });
-        self.set('content', content);
-      });
-    }, 10000);
+    this.poll();
+    Ember.run.later(this, this.poll.bind(this), 3000);
   },
 
   state: function() {
@@ -22,6 +17,13 @@ Travis.Controllers.ServiceHooks = Ember.ArrayController.extend({
 
   githubUrl: function() {
     return '%@/admin/hooks#travis_minibucket'.fmt(this.get('url'));
-  }.property('url')
+  }.property('url'),
+
+  poll: function() {
+    if(!this.getPath('content.length')) {
+      var content = Travis.ServiceHook.all({ orderBy: 'active DESC, owner_name, name' });
+      this.set('content', content);
+    }
+  }
 });
 

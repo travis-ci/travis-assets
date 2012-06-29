@@ -349,10 +349,15 @@ caption {
     color: #666;
     text-decoration: underline;
   }
-  .description, .language {
+  .description, .language, .sync {
     font-weight: normal;
     font-size: 13px;
     color: #999;
+  }
+  .sync {
+    float: left;
+    padding-right: 25px;
+    background: url(<%= asset_path 'images/spinner.gif' %>) no-repeat right 6px;
   }
   .language {
     padding-right: 5px;

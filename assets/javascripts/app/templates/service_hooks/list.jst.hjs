@@ -10,5 +10,5 @@
     </div>
   {{/collection}}
 {{else}}
-  <p class="description">Please wait while we sync with GitHub</p>
+  <p class="sync">Please wait while we sync with GitHub</p>
 {{/if}}
