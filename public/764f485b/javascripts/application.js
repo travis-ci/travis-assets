@@ -41002,7 +41002,8 @@ ansiparse = function (str) {
       matchingText = '',
       ansiState = [],
       result = [],
-      state = {};
+      state = {},
+      eraseChar;
 
   //
   // General workflow for this thing is:
@@ -41014,6 +41015,29 @@ ansiparse = function (str) {
   //
   // In further steps we hope it's all going to be fine. It usually is.
   //
+
+  //
+  // Erases a char from the output
+  //
+  eraseChar = function () {
+    var index, text;
+    if (matchingText.length) {
+      matchingText = matchingText.substr(0, matchingText.length - 1);
+    }
+    else if (result.length) {
+      index = result.length - 1;
+      text = result[index].text;
+      if (text.length === 1) {
+        //
+        // A result bit was fully deleted, pop it out to simplify the final output
+        //
+        result.pop();
+      }
+      else {
+        result[index].text = text.substr(0, text.length - 1);
+      }
+    }
+  };
 
   for (var i = 0; i < str.length; i++) {
     if (matchingControl != null) {
@@ -41106,7 +41130,9 @@ ansiparse = function (str) {
 
     if (str[i] == '\033') {
       matchingControl = str[i];
-
+    }
+    else if (str[i] == '\u0008') {
+      eraseChar();
     }
     else {
       matchingText += str[i];
@@ -41152,7 +41178,6 @@ ansiparse.styles = {
 if (typeof module == "object" && typeof window == "undefined") {
   module.exports = ansiparse;
 }
-
 /*
  * Facebox (for jQuery)
  * version: 1.2 (05/05/2008)
@@ -43926,7 +43951,7 @@ Travis.Controllers.ServiceHooks = Ember.ArrayController.extend({
   }.property('url'),
 
   poll: function() {
-    if(this.getPath('content.length') == 0) {
+    if(!this.getPath('content.length')) {
       var content = Travis.ServiceHook.all({ orderBy: 'active DESC, owner_name, name' });
       this.set('content', content);
     }
