@@ -1,4 +1,4 @@
-{{#if service_hooks.content}}
+{{#if service_hooks.content.length}}
   {{#collection tagName="ul" itemViewClass="Ember.View" itemClass="repository" contentBinding="service_hooks"}}
 
     <a {{bindAttr href="content.url"}} rel="nofollow">{{content.owner_name}}/{{content.name}}</a>
