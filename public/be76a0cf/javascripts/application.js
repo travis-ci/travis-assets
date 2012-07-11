@@ -43939,7 +43939,7 @@ Travis.Controllers.ServiceHooks = Ember.ArrayController.extend({
     this.view.appendTo('#service_hooks');
 
     this.poll();
-    Ember.run.later(this, this.poll.bind(this), 3000);
+    this.schedule_polling();
   },
 
   state: function() {
@@ -43952,9 +43952,15 @@ Travis.Controllers.ServiceHooks = Ember.ArrayController.extend({
 
   poll: function() {
     if(!this.getPath('content.length')) {
-      var content = Travis.ServiceHook.all({ orderBy: 'active DESC, owner_name, name' });
-      this.set('content', content);
+      var attrs = { recordType: Travis.ServiceHook, options: { orderBy: 'active DESC, owner_name, name' } };
+      var query = Travis.Query.create(attrs).toScQuery('remote');
+      this.set('content', Travis.store.find(query));
+      this.schedule_polling();
     }
+  },
+
+  schedule_polling: function() {
+    Ember.run.later(this, this.poll.bind(this), 3000);
   }
 });
 

@@ -326,10 +326,6 @@ caption {
   padding: 60px 290px 30px 440px;
   @include transition(padding .5s ease-out);
 
-  &.loading {
-    opacity: .1;
-    min-height: 1000px;
-  }
   &.maximized {
     padding: 60px 100px 30px 440px;
   }
@@ -689,6 +685,11 @@ caption {
       }
     }
   }
+}
+
+#home #main.loading {
+  opacity: .1;
+  min-height: 1000px;
 }
 
 .emoji {
