@@ -97,7 +97,7 @@ Travis.Helpers.Common = {
   },
 
   _formattedConfig: function() {
-    var config = $.only(this.get('config'), 'rvm', 'gemfile', 'env', 'otp_release', 'php', 'node_js', 'scala', 'jdk', 'python', 'perl');
+    var config = $.only(this.get('config'), 'rvm', 'gemfile', 'env', 'otp_release', 'php', 'node_js', 'perl', 'python', 'scala', 'jdk', 'compiler', 'go');
     var values = $.map(config, function(value, key) {
       value = (value && value.join) ? value.join(', ') : (value || '');
       return '%@: %@'.fmt($.camelize(key), value);

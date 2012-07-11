@@ -96,7 +96,7 @@ Travis.Job = Travis.Record.extend(Travis.Helpers.Common, {
   }.property('config').cacheable(),
 
   formattedConfigValues: function() {
-    var values = $.values($.only(this.getPath('config'), 'rvm', 'gemfile', 'env', 'otp_release', 'php', 'node_js', 'scala', 'jdk', 'python', 'perl'));
+    var values = $.values($.only(this.getPath('config'), 'rvm', 'gemfile', 'env', 'otp_release', 'php', 'node_js', 'perl', 'python', 'scala', 'jdk', 'compiler', 'go'));
     return $.map(values, function(value) {
       return Ember.Object.create({ value: value })
     });
