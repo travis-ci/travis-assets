@@ -345,13 +345,18 @@ caption {
     color: #666;
     text-decoration: underline;
   }
-  .description, .language, .sync {
+  .description, .language, .message {
     font-weight: normal;
     font-size: 13px;
     color: #999;
   }
+  .message {
+    padding: 0 20px;
+    border: 1px solid #ddd;
+    @include border-radius(5px);
+  }
   .sync {
-    float: left;
+    display: inline-block;
     padding-right: 25px;
     background: url(<%= asset_path 'images/spinner.gif' %>) no-repeat right 6px;
   }
