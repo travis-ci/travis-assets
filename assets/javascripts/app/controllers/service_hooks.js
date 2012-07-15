@@ -29,6 +29,9 @@ Travis.Controllers.ServiceHooks = Ember.ArrayController.extend({
 
   poll: function() {
     $.get('/profile.json', function(user) {
+      if(user.is_syncing == 'f') {
+        user.is_syncing = false;
+      }
       this.set('isSyncing', user.is_syncing);
       if(!user.is_syncing) {
         var attrs = { recordType: Travis.ServiceHook, options: { orderBy: 'owner_name, name' } };
