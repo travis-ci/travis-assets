@@ -43954,6 +43954,7 @@ Travis.Controllers.ServiceHooks = Ember.ArrayController.extend({
 
   sync: function() {
     $.post('/profile/sync', function(user) {
+      this.set('isSyncing', true);
       this.poll();
     }.bind(this));
   },
