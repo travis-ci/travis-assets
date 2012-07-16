@@ -5,7 +5,7 @@
   </p>
 {{else}}
   <p>
-    Last synchronized from Github: {{service_hooks.syncedAt}}
+    Last synchronized from GitHub: {{service_hooks.syncedAt}}
     {{#view Ember.Button class="sync_now" target="parentView.service_hooks" action="sync"}}
       Sync now
     {{/view}}
