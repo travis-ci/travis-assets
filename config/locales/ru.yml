@@ -223,6 +223,7 @@ ru:
       current: Текущий
       job: Задача
     textile: Textile
+    rest: ReST
   repository:
     duration: Длительность
   statistics:

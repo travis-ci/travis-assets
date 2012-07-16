@@ -224,6 +224,7 @@ nl:
     markdown: Markdown
     rdoc: RDOC
     textile: Textile
+    rest: ReST
   repository:
     duration: Duur
   statistics:

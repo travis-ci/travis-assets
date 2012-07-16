@@ -19,6 +19,7 @@ pl:
     markdown: Markdown
     textile: Textile
     rdoc: RDOC
+    rest: ReST
     commit: Commit
     message: Opis
     started_at: Rozpoczęto

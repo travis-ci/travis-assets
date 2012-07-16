@@ -208,6 +208,7 @@ nb:
     markdown: Markdown
     message: Beskrivelse
     rdoc: RDOC
+    rest: ReST
     started_at: Startet
     tabs:
       branches: Grensammendrag
