@@ -7,9 +7,7 @@ Travis.Controllers.ServiceHooks = Ember.ArrayController.extend({
     });
     this.view.appendTo('#service_hooks');
 
-    this.set('content', Travis.ServiceHook.all({ orderBy: 'owner_name, name' }));
-
-    this.sync();
+    this.poll();
   },
 
   state: function() {
@@ -21,23 +19,22 @@ Travis.Controllers.ServiceHooks = Ember.ArrayController.extend({
   }.property('url'),
 
   sync: function() {
-    $.post('/profile/sync', function(user) {
-      this.set('isSyncing', true);
-      this.poll();
-    }.bind(this));
+    this.set('content', []);
+    this.set('isSyncing', true);
+    $.post('/profile/sync', this.poll.bind(this));
   },
 
   poll: function() {
     $.get('/profile.json', function(user) {
-      if(user.is_syncing == 'f') {
-        user.is_syncing = false;
-      }
       this.set('isSyncing', user.is_syncing);
+      this.set('syncedAt', Travis.Helpers.Common.timeAgoInWords(user.synced_at) || '?');
+
       if(!user.is_syncing) {
         var attrs = { recordType: Travis.ServiceHook, options: { orderBy: 'owner_name, name' } };
         var query = Travis.Query.create(attrs).toScQuery('remote');
-        Travis.store.find(query);
+        this.set('content', Travis.store.find(query));
       } else {
+        this.set('content', []);
         Ember.run.later(this, this.poll.bind(this), 3000);
       }
     }.bind(this));
