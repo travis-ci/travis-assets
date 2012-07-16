@@ -26,6 +26,8 @@ Travis.Controllers.ServiceHooks = Ember.ArrayController.extend({
 
   poll: function() {
     $.get('/profile.json', function(user) {
+      if(user.is_syncing == 't') user.is_syncing = false;
+
       this.set('isSyncing', user.is_syncing);
       this.set('syncedAt', Travis.Helpers.Common.timeAgoInWords(user.synced_at) || '?');
 
