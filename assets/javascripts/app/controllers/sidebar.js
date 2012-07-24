@@ -3,8 +3,7 @@ Travis.Controllers.Sidebar = Ember.Object.extend({
   queues: [
     { name: 'common',  display: 'Common' },
     { name: 'php',     display: 'PHP, Perl and Python' },
-    { name: 'node_js', display: 'Node.js' },
-    { name: 'jvmotp',  display: 'JVM and Erlang' },
+    { name: 'jvmotp',  display: 'JVM, Node.js and Erlang' },
     { name: 'rails',   display: 'Rails' },
     { name: 'spree',   display: 'Spree' },
   ],
