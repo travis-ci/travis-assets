@@ -106,7 +106,9 @@ Travis.Controllers.Repositories.Show = Ember.Object.extend({
         // updated twice too.
         selector.empty();
         $.each(branches, function(index, branch) { $('<option>', { value: branch }).html(branch).appendTo(selector); });
-        selector.val('master');
+        // TODO: Select the current branch
+        var current_branch = Travis.main.get('build').get('branch');
+        selector.val(current_branch || 'master');
 
         this._updateStatusImageCodes();
       }.bind(this));
