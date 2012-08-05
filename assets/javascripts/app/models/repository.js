@@ -107,7 +107,7 @@ Travis.Repository.reopenClass({
   },
 
   owned_by: function(githubId) {
-    return Travis.store.find(Ember.Query.remote(Travis.Repository, { url: 'repositories.json?owner_name=' + githubId, orderBy: 'name' }));
+    return Travis.store.find(Ember.Query.remote(Travis.Repository, { url: 'repositories.json?member=' + githubId, orderBy: 'name' }));
   },
 
   search: function(search) {
