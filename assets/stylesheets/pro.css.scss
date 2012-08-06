@@ -56,3 +56,40 @@
   }
 }
 
+.subscription-form {
+  width: 400px;
+  margin: 0 auto;
+
+  input, select {
+    border: 1px solid grey;
+    border-radius: 3px;
+    width: 97%;
+    margin-bottom: 7px;
+    font-size: 13px;
+    font-family: "Helvetica Neue";
+    padding: 5px;
+  }
+
+  input[type=submit] {
+    width: 200px;
+    float: right;
+  }
+
+  select.date-select {
+    width: 70px;
+  }
+
+  label {
+    float: left;
+    width: 100%;
+    font-size: 13px;
+  }
+
+  label.required-field {
+    font-weight: bold;
+  }
+  
+  label.error {
+    color: red;
+  }
+}
