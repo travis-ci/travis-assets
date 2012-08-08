@@ -204,7 +204,7 @@ caption {
   height: 30px;
   margin: 4px 40px 0 22px;
   text-indent: -9999px;
-  background: url(/b0573998/images/logo.png) no-repeat;
+  background: url(/b7fa3a58/images/logo.png) no-repeat;
 }
 /* line 84, /output/application.css.scss.erb */
 #top ul {
@@ -368,14 +368,13 @@ caption {
   top: 40px;
   width: 400px;
 }
-/* line 196, /output/application.css.scss.erb */
-#left .top,
+/* line 195, /output/application.css.scss.erb */
 #left #search_box {
   height: 90px;
   padding: 30px 20px 0 20px;
   background-color: #e5e8ee;
 }
-/* line 201, /output/application.css.scss.erb */
+/* line 200, /output/application.css.scss.erb */
 #left #search_box input[type=text] {
   height: 28px;
   width: 97%;
@@ -390,82 +389,82 @@ caption {
   border-radius: 4px;
   background: white url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAANCAIAAAASSxgVAAAC7mlDQ1BJQ0MgUHJvZmlsZQAAeAGFVM9rE0EU/jZuqdAiCFprDrJ4kCJJWatoRdQ2/RFiawzbH7ZFkGQzSdZuNuvuJrWliOTi0SreRe2hB/+AHnrwZC9KhVpFKN6rKGKhFy3xzW5MtqXqwM5+8943731vdt8ADXLSNPWABOQNx1KiEWlsfEJq/IgAjqIJQTQlVdvsTiQGQYNz+Xvn2HoPgVtWw3v7d7J3rZrStpoHhP1A4Eea2Sqw7xdxClkSAog836Epx3QI3+PY8uyPOU55eMG1Dys9xFkifEA1Lc5/TbhTzSXTQINIOJT1cVI+nNeLlNcdB2luZsbIEL1PkKa7zO6rYqGcTvYOkL2d9H5Os94+wiHCCxmtP0a4jZ71jNU/4mHhpObEhj0cGDX0+GAVtxqp+DXCFF8QTSeiVHHZLg3xmK79VvJKgnCQOMpkYYBzWkhP10xu+LqHBX0m1xOv4ndWUeF5jxNn3tTd70XaAq8wDh0MGgyaDUhQEEUEYZiwUECGPBoxNLJyPyOrBhuTezJ1JGq7dGJEsUF7Ntw9t1Gk3Tz+KCJxlEO1CJL8Qf4qr8lP5Xn5y1yw2Fb3lK2bmrry4DvF5Zm5Gh7X08jjc01efJXUdpNXR5aseXq8muwaP+xXlzHmgjWPxHOw+/EtX5XMlymMFMXjVfPqS4R1WjE3359sfzs94i7PLrXWc62JizdWm5dn/WpI++6qvJPmVflPXvXx/GfNxGPiKTEmdornIYmXxS7xkthLqwviYG3HCJ2VhinSbZH6JNVgYJq89S9dP1t4vUZ/DPVRlBnM0lSJ93/CKmQ0nbkOb/qP28f8F+T3iuefKAIvbODImbptU3HvEKFlpW5zrgIXv9F98LZua6N+OPwEWDyrFq1SNZ8gvAEcdod6HugpmNOWls05Uocsn5O66cpiUsxQ20NSUtcl12VLFrOZVWLpdtiZ0x1uHKE5QvfEp0plk/qv8RGw/bBS+fmsUtl+ThrWgZf6b8C8/UXAeIuJAAAACXBIWXMAAAsTAAALEwEAmpwYAAABTUlEQVQYGU2Qy8qCUBSF/2NWJiE4KO0CRg0MRNEwfI3eIJ8o38VniFRqVKMmXYiIwAYNxKKL/5Lscgae5drfWWfvQ5Ik+Xuv0+k0nU7n8/l2u5UkSVVVy7J4nicfKAxD13V9338fSXdAg8GAfllAgyAA0Wq1TNNst9ur1Wo2m8EURfELLRYLQgiO9vv9QqFQqVRyudxms4FPfZJ2ux3yNE1jWZZhmHK5DI0q/C/UbDZhLZdLmk7jEQMNAT+D8NPpdPAdj8ee58VxPJlMoOF0u92spyiKcDes9XqNliFeq9frGYaRQufzeTQaHY/HarWqKAq4/X7faDRkWdZ1vVar0SAcxzkcDhh1OBxyHPd4PO73ez6fLxaLpVIJk9KXy+V6vQqCYNt2vV5H7fW8eA6KSjuGIIDSISkKsZgcTtbOz0aez+ftdkMNGT/+VwL4ByFknYU4StqkAAAAAElFTkSuQmCC) no-repeat 335px 8px;
 }
-/* line 211, /output/application.css.scss.erb */
+/* line 210, /output/application.css.scss.erb */
 #left .tabs {
   height: 30px;
   margin-top: -29px;
 }
-/* line 215, /output/application.css.scss.erb */
+/* line 214, /output/application.css.scss.erb */
 #left .tabs li:first-child h5 {
   margin-left: 20px;
 }
-/* line 219, /output/application.css.scss.erb */
+/* line 218, /output/application.css.scss.erb */
 #left .tabs #tab_search {
   display: none;
 }
-/* line 221, /output/application.css.scss.erb */
+/* line 220, /output/application.css.scss.erb */
 #left .tabs #tab_search.display {
   display: block;
 }
-/* line 228, /output/application.css.scss.erb */
+/* line 227, /output/application.css.scss.erb */
 #left #repositories li {
   position: relative;
   font-size: 16px;
   height: 75px;
   overflow: visible;
 }
-/* line 234, /output/application.css.scss.erb */
+/* line 233, /output/application.css.scss.erb */
 #left #repositories li .wrapper {
   padding: 15px 25px 15px 45px !important;
   border-bottom: 1px solid #ccc;
   background-position: 24px 16px;
   background-repeat: no-repeat;
 }
-/* line 241, /output/application.css.scss.erb */
+/* line 240, /output/application.css.scss.erb */
 #left #repositories li:hover {
   z-index: 1000;
 }
-/* line 243, /output/application.css.scss.erb */
+/* line 242, /output/application.css.scss.erb */
 #left #repositories li:hover .wrapper {
   -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
 }
-/* line 248, /output/application.css.scss.erb */
+/* line 247, /output/application.css.scss.erb */
 #left #repositories li:nth-child(odd) .wrapper {
   background-color: #fff;
 }
-/* line 251, /output/application.css.scss.erb */
+/* line 250, /output/application.css.scss.erb */
 #left #repositories li:nth-child(even) .wrapper {
   background-color: #f6f6f6;
 }
-/* line 254, /output/application.css.scss.erb */
+/* line 253, /output/application.css.scss.erb */
 #left #repositories li.green a {
   color: green;
 }
-/* line 257, /output/application.css.scss.erb */
+/* line 256, /output/application.css.scss.erb */
 #left #repositories li.red a {
   color: #c00;
 }
-/* line 260, /output/application.css.scss.erb */
+/* line 259, /output/application.css.scss.erb */
 #left #repositories li .build {
   float: right;
 }
-/* line 263, /output/application.css.scss.erb */
+/* line 262, /output/application.css.scss.erb */
 #left #repositories li .summary, #left #repositories li .description {
   margin: 5px 0 0 0;
   font-size: 13px;
   color: #666;
 }
-/* line 268, /output/application.css.scss.erb */
+/* line 267, /output/application.css.scss.erb */
 #left #repositories li .description, #left #repositories li .description {
   display: none;
 }
-/* line 271, /output/application.css.scss.erb */
+/* line 270, /output/application.css.scss.erb */
 #left #repositories li .indicator {
   display: none;
 }
-/* line 274, /output/application.css.scss.erb */
+/* line 273, /output/application.css.scss.erb */
 #left #repositories li.selected .indicator {
   display: block;
   position: absolute;
@@ -475,52 +474,52 @@ caption {
   height: 100%;
   background: no-repeat center left;
 }
-/* line 283, /output/application.css.scss.erb */
+/* line 282, /output/application.css.scss.erb */
 #left #repositories li:nth-child(odd) .indicator {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAdCAIAAADDzRDWAAAC7mlDQ1BJQ0MgUHJvZmlsZQAAeAGFVM9rE0EU/jZuqdAiCFprDrJ4kCJJWatoRdQ2/RFiawzbH7ZFkGQzSdZuNuvuJrWliOTi0SreRe2hB/+AHnrwZC9KhVpFKN6rKGKhFy3xzW5MtqXqwM5+8943731vdt8ADXLSNPWABOQNx1KiEWlsfEJq/IgAjqIJQTQlVdvsTiQGQYNz+Xvn2HoPgVtWw3v7d7J3rZrStpoHhP1A4Eea2Sqw7xdxClkSAog836Epx3QI3+PY8uyPOU55eMG1Dys9xFkifEA1Lc5/TbhTzSXTQINIOJT1cVI+nNeLlNcdB2luZsbIEL1PkKa7zO6rYqGcTvYOkL2d9H5Os94+wiHCCxmtP0a4jZ71jNU/4mHhpObEhj0cGDX0+GAVtxqp+DXCFF8QTSeiVHHZLg3xmK79VvJKgnCQOMpkYYBzWkhP10xu+LqHBX0m1xOv4ndWUeF5jxNn3tTd70XaAq8wDh0MGgyaDUhQEEUEYZiwUECGPBoxNLJyPyOrBhuTezJ1JGq7dGJEsUF7Ntw9t1Gk3Tz+KCJxlEO1CJL8Qf4qr8lP5Xn5y1yw2Fb3lK2bmrry4DvF5Zm5Gh7X08jjc01efJXUdpNXR5aseXq8muwaP+xXlzHmgjWPxHOw+/EtX5XMlymMFMXjVfPqS4R1WjE3359sfzs94i7PLrXWc62JizdWm5dn/WpI++6qvJPmVflPXvXx/GfNxGPiKTEmdornIYmXxS7xkthLqwviYG3HCJ2VhinSbZH6JNVgYJq89S9dP1t4vUZ/DPVRlBnM0lSJ93/CKmQ0nbkOb/qP28f8F+T3iuefKAIvbODImbptU3HvEKFlpW5zrgIXv9F98LZua6N+OPwEWDyrFq1SNZ8gvAEcdod6HugpmNOWls05Uocsn5O66cpiUsxQ20NSUtcl12VLFrOZVWLpdtiZ0x1uHKE5QvfEp0plk/qv8RGw/bBS+fmsUtl+ThrWgZf6b8C8/UXAeIuJAAAACXBIWXMAAAsTAAALEwEAmpwYAAABkElEQVQ4EY3U247BQBjA8TVKaLXEI7hwiAu8/72EkDhc4GI9g1VpiWL/7cgo25nu3Kh2fvkO/aaF8Xhs247nubVazXGccrkshCgk60uzxHA4DMPgdDpdLpfr9Xq/3x+PB0SzP74tqtXqYDA4Jut8PitmMjyDjUajn2SFYQi73W5E0zEhH9i2TTTJcqM9DRLW7/cPhwPSzAofOZDbZrNpNpv1ep2cS6WSbGM6Tyv9h2v29Xq97Xar7v9ln0aybre72+10LMNI1ul0dCzbmNmrbyoTdUFtRJOdDJPXLRtmMioa3fePR4YriiKGK8dI1m63fd8PggBDqHwjWavVAkRRPFP/Muz93u8tyyoW4/35BrBerzlbtATGWOQYwGq1Yo5c161UKhiOlslI0Gg0MEywGiKt+QDqzGvrMYBsYwYZBrBcLilA1pBOid1yvdUDWCwWFM2i6EwAexnAfD43R3iLw7dmOp0qoNr6zOb9J45DhMlk4nmeTMkM2C8As9mM14xhOnQ1pCMJAEOBARDB/KWW8hcJOPb3fiZrUQAAAABJRU5ErkJggg%3D%3D);
 }
-/* line 286, /output/application.css.scss.erb */
+/* line 285, /output/application.css.scss.erb */
 #left #repositories li:nth-child(even) .indicator {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAdCAIAAADDzRDWAAAC7mlDQ1BJQ0MgUHJvZmlsZQAAeAGFVM9rE0EU/jZuqdAiCFprDrJ4kCJJWatoRdQ2/RFiawzbH7ZFkGQzSdZuNuvuJrWliOTi0SreRe2hB/+AHnrwZC9KhVpFKN6rKGKhFy3xzW5MtqXqwM5+8943731vdt8ADXLSNPWABOQNx1KiEWlsfEJq/IgAjqIJQTQlVdvsTiQGQYNz+Xvn2HoPgVtWw3v7d7J3rZrStpoHhP1A4Eea2Sqw7xdxClkSAog836Epx3QI3+PY8uyPOU55eMG1Dys9xFkifEA1Lc5/TbhTzSXTQINIOJT1cVI+nNeLlNcdB2luZsbIEL1PkKa7zO6rYqGcTvYOkL2d9H5Os94+wiHCCxmtP0a4jZ71jNU/4mHhpObEhj0cGDX0+GAVtxqp+DXCFF8QTSeiVHHZLg3xmK79VvJKgnCQOMpkYYBzWkhP10xu+LqHBX0m1xOv4ndWUeF5jxNn3tTd70XaAq8wDh0MGgyaDUhQEEUEYZiwUECGPBoxNLJyPyOrBhuTezJ1JGq7dGJEsUF7Ntw9t1Gk3Tz+KCJxlEO1CJL8Qf4qr8lP5Xn5y1yw2Fb3lK2bmrry4DvF5Zm5Gh7X08jjc01efJXUdpNXR5aseXq8muwaP+xXlzHmgjWPxHOw+/EtX5XMlymMFMXjVfPqS4R1WjE3359sfzs94i7PLrXWc62JizdWm5dn/WpI++6qvJPmVflPXvXx/GfNxGPiKTEmdornIYmXxS7xkthLqwviYG3HCJ2VhinSbZH6JNVgYJq89S9dP1t4vUZ/DPVRlBnM0lSJ93/CKmQ0nbkOb/qP28f8F+T3iuefKAIvbODImbptU3HvEKFlpW5zrgIXv9F98LZua6N+OPwEWDyrFq1SNZ8gvAEcdod6HugpmNOWls05Uocsn5O66cpiUsxQ20NSUtcl12VLFrOZVWLpdtiZ0x1uHKE5QvfEp0plk/qv8RGw/bBS+fmsUtl+ThrWgZf6b8C8/UXAeIuJAAAACXBIWXMAAAsTAAALEwEAmpwYAAABn0lEQVQ4EY2UzW6CUBBGK6Lgf/dutMYYff9ncG+iMWpideEaLKaogPbgUCoULs6CwOUevplv5lKaTqf1er3dbjebzUajUa1WNU0rPeItJ7TxeOy67ul0ulwunucFQXC/33M2R8uaYRij0egrDOd8Pvu+D6PGNFjTNCeTiW1bx+MRzev1qsZCRjCShCFQA7vdbnlqESPYcDi0bVswasvD9IdMdKG2wWCw3W5j3yqVitj4vO1PR1bB+v0Py7IQJMlMtTQDaZpGr9dXYBlMIZbNqLGEB1JSfJUkd7tPLJHRYLJ4q2Jitf1+B8YU4qGu67m5JdV6juN8f7tMFk0rZoBpQLfb9X3P9wMeX2IY9sPhUC6XOSUvMQCbzYajxTGTsSjQAViv151Oh0PJ+GNAaEZc6/8bAd4fUavVEAFQ5ZYC6AyARLaOAsjWUQMZDMBqtaJoqqCG55TighO5ASyXSzWQ0AFYLBbiEq3IVBCpSIdBms1mKBDSu1+TQnNTETIoCIBI3GxhUrvlUQOYz+etVotOS9HF/14AhgIGQEYj89vPiz8hmBME75QEJwAAAABJRU5ErkJggg%3D%3D);
 }
 
-/* line 296, /output/application.css.scss.erb */
+/* line 295, /output/application.css.scss.erb */
 #left #repositories li .wrapper,
 #main .summary .number a,
 .status_list td:first-child a,
 #main #builds td:first-child a,
 #main #builds .build td:first-child a {
-  background-image: url(/b0573998/images/icons/status.yellow.png);
+  background-image: url(/b7fa3a58/images/icons/status.yellow.png);
   padding-left: 20px;
   background-repeat: no-repeat;
 }
 
-/* line 305, /output/application.css.scss.erb */
+/* line 304, /output/application.css.scss.erb */
 #left #repositories li.green .wrapper,
 #main .green .summary .number a,
 .status_list .green td:first-child a,
 #main #builds .green td:first-child a,
 #main #builds .build.green td:first-child a {
-  background-image: url(/b0573998/images/icons/status.green.png);
+  background-image: url(/b7fa3a58/images/icons/status.green.png);
   color: green;
   padding-left: 20px;
   background-repeat: no-repeat;
 }
 
-/* line 316, /output/application.css.scss.erb */
+/* line 315, /output/application.css.scss.erb */
 #left #repositories li.red .wrapper,
 #main .red .summary .number a,
 .status_list .red td:first-child a,
 #main #builds .red td:first-child a,
 #main #builds .build.red td:first-child a {
-  background-image: url(/b0573998/images/icons/status.red.png);
+  background-image: url(/b7fa3a58/images/icons/status.red.png);
   color: #c00;
   padding-left: 20px;
   background-repeat: no-repeat;
 }
 
 /* main */
-/* line 325, /output/application.css.scss.erb */
+/* line 324, /output/application.css.scss.erb */
 #main {
   z-index: 30;
   display: block;
@@ -531,29 +530,29 @@ caption {
   -o-transition: padding 0.5s ease-out;
   transition: padding 0.5s ease-out;
 }
-/* line 331, /output/application.css.scss.erb */
+/* line 330, /output/application.css.scss.erb */
 #main.maximized {
   padding: 60px 100px 30px 440px;
 }
-/* line 334, /output/application.css.scss.erb */
+/* line 333, /output/application.css.scss.erb */
 #main #repository {
   position: relative;
 }
-/* line 337, /output/application.css.scss.erb */
+/* line 336, /output/application.css.scss.erb */
 #main h3 {
   margin: 15px 60px 0 0;
 }
-/* line 339, /output/application.css.scss.erb */
+/* line 338, /output/application.css.scss.erb */
 #main h3 a {
   font-size: 24px;
   line-height: 24px;
 }
-/* line 346, /output/application.css.scss.erb */
+/* line 345, /output/application.css.scss.erb */
 #main a {
   color: #666;
   text-decoration: underline;
 }
-/* line 352, /output/application.css.scss.erb */
+/* line 351, /output/application.css.scss.erb */
 #main .description,
 #main .language,
 #main div.message {
@@ -561,7 +560,7 @@ caption {
   font-size: 13px;
   color: #999;
 }
-/* line 357, /output/application.css.scss.erb */
+/* line 356, /output/application.css.scss.erb */
 #main div.message {
   margin-top: 20px;
   padding: 0 20px;
@@ -572,28 +571,28 @@ caption {
   -o-border-radius: 5px;
   border-radius: 5px;
 }
-/* line 363, /output/application.css.scss.erb */
+/* line 362, /output/application.css.scss.erb */
 #main div.message p button.sync_now {
   float: right;
 }
-/* line 367, /output/application.css.scss.erb */
+/* line 366, /output/application.css.scss.erb */
 #main .sync {
   display: inline-block;
   padding-right: 25px;
-  background: url(/b0573998/images/spinner.gif) no-repeat right 6px;
+  background: url(/b7fa3a58/images/spinner.gif) no-repeat right 6px;
 }
-/* line 372, /output/application.css.scss.erb */
+/* line 371, /output/application.css.scss.erb */
 #main .language {
   padding-right: 5px;
 }
-/* line 375, /output/application.css.scss.erb */
+/* line 374, /output/application.css.scss.erb */
 #main .github-stats {
   position: absolute;
   top: 0;
   right: 0;
   z-index: 110;
 }
-/* line 380, /output/application.css.scss.erb */
+/* line 379, /output/application.css.scss.erb */
 #main .github-stats a {
   height: 16px;
   display: block;
@@ -605,19 +604,19 @@ caption {
   background: no-repeat 0px 2px;
   color: #999;
 }
-/* line 390, /output/application.css.scss.erb */
+/* line 389, /output/application.css.scss.erb */
 #main .github-stats a.watchers {
-  background-image: url(/b0573998/images/icons/github-watchers.png);
+  background-image: url(/b7fa3a58/images/icons/github-watchers.png);
 }
-/* line 393, /output/application.css.scss.erb */
+/* line 392, /output/application.css.scss.erb */
 #main .github-stats a.forks {
-  background-image: url(/b0573998/images/icons/github-forks.png);
+  background-image: url(/b7fa3a58/images/icons/github-forks.png);
 }
-/* line 398, /output/application.css.scss.erb */
+/* line 397, /output/application.css.scss.erb */
 #main .github-stats > * {
   float: left;
 }
-/* line 401, /output/application.css.scss.erb */
+/* line 400, /output/application.css.scss.erb */
 #main .github-admin {
   /* display: block; */
   display: none;
@@ -631,33 +630,33 @@ caption {
   text-decoration: none;
   text-align: right;
   color: #999;
-  background: url(/b0573998/images/icons/github-admin.png) no-repeat right 1px;
+  background: url(/b7fa3a58/images/icons/github-admin.png) no-repeat right 1px;
   text-indent: -999px;
   overflow: hidden;
   z-index: 60;
 }
-/* line 418, /output/application.css.scss.erb */
+/* line 417, /output/application.css.scss.erb */
 #main .github-admin:hover {
   width: 100px;
   text-indent: 0;
 }
-/* line 424, /output/application.css.scss.erb */
+/* line 423, /output/application.css.scss.erb */
 #main .tabs {
   margin-top: 35px;
 }
-/* line 427, /output/application.css.scss.erb */
+/* line 426, /output/application.css.scss.erb */
 #main .tabs li {
   white-space: nowrap;
 }
-/* line 430, /output/application.css.scss.erb */
+/* line 429, /output/application.css.scss.erb */
 #main .tab {
   padding-left: 12px;
 }
-/* line 433, /output/application.css.scss.erb */
+/* line 432, /output/application.css.scss.erb */
 #main #tab_build:not(.active), #main #tab_job:not(.active), #main #tab_search:not(.active) {
   display: none;
 }
-/* line 436, /output/application.css.scss.erb */
+/* line 435, /output/application.css.scss.erb */
 #main .tools {
   position: relative;
   display: block;
@@ -670,7 +669,7 @@ caption {
   background: url(data:image/png;base64,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%3D%3D) no-repeat;
   cursor: pointer;
 }
-/* line 448, /output/application.css.scss.erb */
+/* line 447, /output/application.css.scss.erb */
 #main .tools .content {
   display: none;
   z-index: 1000;
@@ -684,16 +683,16 @@ caption {
   color: #666;
   width: 600px;
 }
-/* line 461, /output/application.css.scss.erb */
+/* line 460, /output/application.css.scss.erb */
 #main .tools .content p {
   margin: 10px 0;
 }
-/* line 464, /output/application.css.scss.erb */
+/* line 463, /output/application.css.scss.erb */
 #main .tools .content p label {
   width: 80px;
   display: inline-block;
 }
-/* line 469, /output/application.css.scss.erb */
+/* line 468, /output/application.css.scss.erb */
 #main .tools .content p input {
   border: 1px solid #DDD;
   -webkit-border-radius: 3px;
@@ -704,15 +703,16 @@ caption {
   width: 510px;
   padding: 4px;
 }
-/* line 478, /output/application.css.scss.erb */
+/* line 477, /output/application.css.scss.erb */
 #main dl {
   color: #666;
   font-size: 80%;
   margin-bottom: 30px;
 }
-/* line 483, /output/application.css.scss.erb */
+/* line 482, /output/application.css.scss.erb */
 #main .profile-avatar {
   float: left;
+  margin-top: 24px;
 }
 /* line 486, /output/application.css.scss.erb */
 #main .profile {
@@ -811,13 +811,13 @@ caption {
 #main .log .fold {
   height: 16px;
   overflow: hidden;
-  background: #444444 url(/b0573998/images/icons/log.fold.closed.2.png) no-repeat 99.5% 2px;
+  background: #444444 url(/b7fa3a58/images/icons/log.fold.closed.2.png) no-repeat 99.5% 2px;
   cursor: pointer;
 }
 /* line 565, /output/application.css.scss.erb */
 #main .log .fold.open {
   height: auto;
-  background-image: url(/b0573998/images/icons/log.fold.open.2.png);
+  background-image: url(/b7fa3a58/images/icons/log.fold.open.2.png);
 }
 /* line 573, /output/application.css.scss.erb */
 #main .log .bold {
@@ -1095,12 +1095,12 @@ caption {
   -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
   /* background: url(/assets/icons/status.square.gray.png); created, starting, stopping */
-  background: url(/b0573998/images/icons/status.square.green.png);
+  background: url(/b7fa3a58/images/icons/status.square.green.png);
 }
 /* line 781, /output/application.css.scss.erb */
 #right #workers li.waiting .icon,
 #right #jobs li.waiting .icon {
-  background: url(/b0573998/images/icons/status.square.green.png);
+  background: url(/b7fa3a58/images/icons/status.square.green.png);
 }
 /* line 784, /output/application.css.scss.erb */
 #right #workers li.working .icon,
@@ -1110,12 +1110,12 @@ caption {
 /* line 787, /output/application.css.scss.erb */
 #right #workers li.errored .icon,
 #right #jobs li.errored .icon {
-  background: url(/b0573998/images/icons/status.square.red.png);
+  background: url(/b7fa3a58/images/icons/status.square.red.png);
 }
 /* line 790, /output/application.css.scss.erb */
 #right #workers li.stopped .icon,
 #right #jobs li.stopped .icon {
-  background: url(/b0573998/images/icons/status.square.gray.png);
+  background: url(/b7fa3a58/images/icons/status.square.gray.png);
 }
 /* line 795, /output/application.css.scss.erb */
 #right .placeholder,
@@ -1288,7 +1288,7 @@ caption {
 
 /* line 957, /output/application.css.scss.erb */
 .list.loading h4 {
-  background: url(/b0573998/images/spinner.gif) no-repeat 4px right;
+  background: url(/b7fa3a58/images/spinner.gif) no-repeat 4px right;
   padding-right: 15px;
 }
 
@@ -1548,19 +1548,19 @@ ul#tokens > li:first-child {
   height: 20px;
   width: 20px;
   padding-right: 0;
-  background: url(/b0573998/images/icons/github-admin.png) no-repeat 3px 4px;
+  background: url(/b7fa3a58/images/icons/github-admin.png) no-repeat 3px 4px;
 }
 /* line 1153, /output/application.css.scss.erb */
 #service_hooks ul li .controls .switch {
   height: 20px;
   width: 80px;
   margin-left: 10px;
-  background: url(/b0573998/images/off.png) no-repeat;
+  background: url(/b7fa3a58/images/off.png) no-repeat;
   cursor: pointer;
 }
 /* line 1159, /output/application.css.scss.erb */
 #service_hooks ul li .controls .switch.active {
-  background: url(/b0573998/images/on.png) no-repeat;
+  background: url(/b7fa3a58/images/on.png) no-repeat;
 }
 /* line 1164, /output/application.css.scss.erb */
 #service_hooks ul li:nth-child(odd) .controls {
@@ -1627,7 +1627,7 @@ ul#tokens > li:first-child {
 /* line 1223, /output/application.css.scss.erb */
 #main #allow_failure_builds td:first-child a,
 #main #allow_failure_builds .build td:first-child a {
-  background-image: url(/b0573998/images/icons/status.yellow.png);
+  background-image: url(/b7fa3a58/images/icons/status.yellow.png);
   padding-left: 20px;
   background-repeat: no-repeat;
 }
@@ -1635,7 +1635,7 @@ ul#tokens > li:first-child {
 /* line 1229, /output/application.css.scss.erb */
 #main #allow_failure_builds .green td:first-child a,
 #main #allow_failure_builds .build.green td:first-child a {
-  background-image: url(/b0573998/images/icons/status.green.png);
+  background-image: url(/b7fa3a58/images/icons/status.green.png);
   color: green;
   padding-left: 20px;
   background-repeat: no-repeat;
@@ -1646,7 +1646,7 @@ ul#tokens > li:first-child {
 #main .red .summary .number a,
 #main #allow_failure_builds .red td:first-child a,
 #main #allow_failure_builds .build.red td:first-child a {
-  background-image: url(/b0573998/images/icons/status.red.png);
+  background-image: url(/b7fa3a58/images/icons/status.red.png);
   color: #c00;
   padding-left: 20px;
   background-repeat: no-repeat;
@@ -1719,7 +1719,7 @@ ul#tokens > li:first-child {
   margin-left: 10px;
   display: inline-block;
   width: 16px;
-  background: url(/b0573998/images/icons/help.png) no-repeat scroll 0 0 transparent;
+  background: url(/b7fa3a58/images/icons/help.png) no-repeat scroll 0 0 transparent;
 }
 
 /* line 1295, /output/application.css.scss.erb */
