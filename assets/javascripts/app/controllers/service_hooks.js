@@ -7,6 +7,11 @@ Travis.Controllers.ServiceHooks = Ember.ArrayController.extend({
     });
     this.view.appendTo('#service_hooks');
 
+    var owner_name = location.href.split('/').slice(-2)[0];
+    var attrs = { recordType: Travis.ServiceHook, options: { owner_name: owner_name, orderBy: 'name' } };
+    var query = Travis.Query.create(attrs).toScQuery('remote');
+    this.set('content', Travis.store.find(query));
+
     this.poll();
   },
 
@@ -24,21 +29,19 @@ Travis.Controllers.ServiceHooks = Ember.ArrayController.extend({
     $.post('/profile/sync', this.poll.bind(this));
   },
 
-  poll: function() {
+  poll: function(syncing) {
     $.get('/profile.json', function(user) {
-      if(user.is_syncing == 'f') user.is_syncing = false;
-      this.set('isSyncing', user.is_syncing);
-      this.set('syncedAt', Travis.Helpers.Common.timeAgoInWords(user.synced_at) || '?');
+      if(user.is_syncing == 'f') {
+        user.is_syncing = false;
+      }
 
       if(user.is_syncing) {
+        this.set('isSyncing', true);
+        this.set('syncedAt', Travis.Helpers.Common.timeAgoInWords(user.synced_at) || '?');
         this.set('content', []);
         Ember.run.later(this, this.poll.bind(this), 3000);
-      } else {
+      } else if(this.get('isSyncing')) {
         document.location.reload();
-        // var owner_name = location.href.split('/').slice(-2)[0];
-        // var attrs = { recordType: Travis.ServiceHook, options: { owner_name: owner_name, orderBy: 'name' } };
-        // var query = Travis.Query.create(attrs).toScQuery('remote');
-        // this.set('content', Travis.store.find(query));
       }
     }.bind(this));
   }
