@@ -39,11 +39,13 @@ var Travis = Ember.Application.create({
   },
 
   profile: function() {
-    Travis.Controllers.ServiceHooks.create();
+    if($('#service_hooks').length > 0) {
+      Travis.Controllers.ServiceHooks.create();
+    }
   },
 
   receive: function(event, data) {
-    Travis.events.receive(event, data);
+    if(Travis.events) Travis.events.receive(event, data);
   },
 
   subscribe: function(channel) {
