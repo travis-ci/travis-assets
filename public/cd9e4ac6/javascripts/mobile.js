@@ -42247,7 +42247,7 @@ Travis.DataSource = Ember.DataSource.extend({
     var id   = store.idFor(storeKey);
     var data = $.extend(store.readDataHash(storeKey), params || {}, { _method: 'put' });
     var url  = this._urlFor(type, id);
-
+console.log(url)
     $.post(url, data).done(function(data, status, response) {
       if(status == 'success') {
         store.dataSourceDidComplete(storeKey);

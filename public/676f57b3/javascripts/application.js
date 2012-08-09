@@ -42264,11 +42264,13 @@ var Travis = Ember.Application.create({
   },
 
   profile: function() {
-    Travis.Controllers.ServiceHooks.create();
+    if($('#service_hooks').length > 0) {
+      Travis.Controllers.ServiceHooks.create();
+    }
   },
 
   receive: function(event, data) {
-    Travis.events.receive(event, data);
+    if(Travis.events) Travis.events.receive(event, data);
   },
 
   subscribe: function(channel) {
@@ -42628,7 +42630,7 @@ Travis.DataSource = Ember.DataSource.extend({
   },
 
   _urlFor: function(recordType, id) {
-    return $.compact([recordType.resource, id]).join('/');
+    return '/' + $.compact([recordType.resource, id]).join('/');
   },
 
   _extractIds: function() {
@@ -43963,7 +43965,8 @@ Travis.Controllers.ServiceHooks = Ember.ArrayController.extend({
       this.set('syncedAt', Travis.Helpers.Common.timeAgoInWords(user.synced_at) || '?');
 
       if(!user.is_syncing) {
-        var attrs = { recordType: Travis.ServiceHook, options: { orderBy: 'owner_name, name' } };
+        var owner_name = location.href.split('/').slice(-2)[0];
+        var attrs = { recordType: Travis.ServiceHook, options: { owner_name: owner_name, orderBy: 'name' } };
         var query = Travis.Query.create(attrs).toScQuery('remote');
         this.set('content', Travis.store.find(query));
       } else {

@@ -41179,6 +41179,315 @@ if (typeof module == "object" && typeof window == "undefined") {
   module.exports = ansiparse;
 }
 /*
+ * Facebox (for jQuery)
+ * version: 1.2 (05/05/2008)
+ * @requires jQuery v1.2 or later
+ *
+ * Examples at http://famspam.com/facebox/
+ *
+ * Licensed under the MIT:
+ *   http://www.opensource.org/licenses/mit-license.php
+ *
+ * Copyright 2007, 2008 Chris Wanstrath [ chris@ozmm.org ]
+ *
+ * Usage:
+ *
+ *  jQuery(document).ready(function() {
+ *    jQuery('a[rel*=facebox]').facebox()
+ *  })
+ *
+ *  <a href="#terms" rel="facebox">Terms</a>
+ *    Loads the #terms div in the box
+ *
+ *  <a href="terms.html" rel="facebox">Terms</a>
+ *    Loads the terms.html page in the box
+ *
+ *  <a href="terms.png" rel="facebox">Terms</a>
+ *    Loads the terms.png image in the box
+ *
+ *
+ *  You can also use it programmatically:
+ *
+ *    jQuery.facebox('some html')
+ *    jQuery.facebox('some html', 'my-groovy-style')
+ *
+ *  The above will open a facebox with "some html" as the content.
+ *
+ *    jQuery.facebox(function($) {
+ *      $.get('blah.html', function(data) { $.facebox(data) })
+ *    })
+ *
+ *  The above will show a loading screen before the passed function is called,
+ *  allowing for a better ajaxy experience.
+ *
+ *  The facebox function can also display an ajax page, an image, or the contents of a div:
+ *
+ *    jQuery.facebox({ ajax: 'remote.html' })
+ *    jQuery.facebox({ ajax: 'remote.html' }, 'my-groovy-style')
+ *    jQuery.facebox({ image: 'stairs.jpg' })
+ *    jQuery.facebox({ image: 'stairs.jpg' }, 'my-groovy-style')
+ *    jQuery.facebox({ div: '#box' })
+ *    jQuery.facebox({ div: '#box' }, 'my-groovy-style')
+ *
+ *  Want to close the facebox?  Trigger the 'close.facebox' document event:
+ *
+ *    jQuery(document).trigger('close.facebox')
+ *
+ *  Facebox also has a bunch of other hooks:
+ *
+ *    loading.facebox
+ *    beforeReveal.facebox
+ *    reveal.facebox (aliased as 'afterReveal.facebox')
+ *    init.facebox
+ *    afterClose.facebox
+ *
+ *  Simply bind a function to any of these hooks:
+ *
+ *   $(document).bind('reveal.facebox', function() { ...stuff to do after the facebox and contents are revealed... })
+ *
+ */
+(function($) {
+  $.facebox = function(data, klass) {
+    $.facebox.loading()
+
+    if (data.ajax) fillFaceboxFromAjax(data.ajax, klass)
+    else if (data.image) fillFaceboxFromImage(data.image, klass)
+    else if (data.div) fillFaceboxFromHref(data.div, klass)
+    else if ($.isFunction(data)) data.call($)
+    else $.facebox.reveal(data, klass)
+  }
+
+  /*
+   * Public, $.facebox methods
+   */
+
+  $.extend($.facebox, {
+    settings: {
+      opacity      : 0.2,
+      overlay      : true,
+      loadingImage : '/facebox/loading.gif',
+      closeImage   : '/facebox/closelabel.png',
+      imageTypes   : [ 'png', 'jpg', 'jpeg', 'gif' ],
+      faceboxHtml  : '\
+    <div id="facebox" style="display:none;"> \
+      <div class="popup"> \
+        <div class="content"> \
+        </div> \
+        <a href="#" class="close"><img src="/facebox/closelabel.png" title="close" class="close_image" /></a> \
+      </div> \
+    </div>'
+    },
+
+    loading: function() {
+      init()
+      if ($('#facebox .loading').length == 1) return true
+      showOverlay()
+
+      $('#facebox .content').empty()
+      $('#facebox .body').children().hide().end().
+        append('<div class="loading"><img src="'+$.facebox.settings.loadingImage+'"/></div>')
+
+      $('#facebox').css({
+        top:	getPageScroll()[1] + (getPageHeight() / 10),
+        left:	$(window).width() / 2 - 205
+      }).show()
+
+      $(document).bind('keydown.facebox', function(e) {
+        if (e.keyCode == 27) $.facebox.close()
+        return true
+      })
+      $(document).trigger('loading.facebox')
+    },
+
+    reveal: function(data, klass) {
+      $(document).trigger('beforeReveal.facebox')
+      if (klass) $('#facebox .content').addClass(klass)
+      $('#facebox .content').append(data)
+      $('#facebox .loading').remove()
+      $('#facebox .body').children().fadeIn('normal')
+      $('#facebox').css('left', $(window).width() / 2 - ($('#facebox .popup').width() / 2))
+      $(document).trigger('reveal.facebox').trigger('afterReveal.facebox')
+    },
+
+    close: function() {
+      $(document).trigger('close.facebox')
+      return false
+    }
+  })
+
+  /*
+   * Public, $.fn methods
+   */
+
+  $.fn.facebox = function(settings) {
+    if ($(this).length == 0) return
+
+    init(settings)
+
+    function clickHandler() {
+      $.facebox.loading(true)
+
+      // support for rel="facebox.inline_popup" syntax, to add a class
+      // also supports deprecated "facebox[.inline_popup]" syntax
+      var klass = this.rel.match(/facebox\[?\.(\w+)\]?/)
+      if (klass) klass = klass[1]
+
+      fillFaceboxFromHref(this.href, klass)
+      return false
+    }
+
+    return this.bind('click.facebox', clickHandler)
+  }
+
+  /*
+   * Private methods
+   */
+
+  // called one time to setup facebox on this page
+  function init(settings) {
+    if ($.facebox.settings.inited) return true
+    else $.facebox.settings.inited = true
+
+    $(document).trigger('init.facebox')
+    makeCompatible()
+
+    var imageTypes = $.facebox.settings.imageTypes.join('|')
+    $.facebox.settings.imageTypesRegexp = new RegExp('\.(' + imageTypes + ')$', 'i')
+
+    if (settings) $.extend($.facebox.settings, settings)
+    $('body').append($.facebox.settings.faceboxHtml)
+
+    var preload = [ new Image(), new Image() ]
+    preload[0].src = $.facebox.settings.closeImage
+    preload[1].src = $.facebox.settings.loadingImage
+
+    $('#facebox').find('.b:first, .bl').each(function() {
+      preload.push(new Image())
+      preload.slice(-1).src = $(this).css('background-image').replace(/url\((.+)\)/, '$1')
+    })
+
+    $('#facebox .close').click($.facebox.close)
+    $('#facebox .close_image').attr('src', $.facebox.settings.closeImage)
+  }
+
+  // getPageScroll() by quirksmode.com
+  function getPageScroll() {
+    var xScroll, yScroll;
+    if (self.pageYOffset) {
+      yScroll = self.pageYOffset;
+      xScroll = self.pageXOffset;
+    } else if (document.documentElement && document.documentElement.scrollTop) {	 // Explorer 6 Strict
+      yScroll = document.documentElement.scrollTop;
+      xScroll = document.documentElement.scrollLeft;
+    } else if (document.body) {// all other Explorers
+      yScroll = document.body.scrollTop;
+      xScroll = document.body.scrollLeft;
+    }
+    return new Array(xScroll,yScroll)
+  }
+
+  // Adapted from getPageSize() by quirksmode.com
+  function getPageHeight() {
+    var windowHeight
+    if (self.innerHeight) {	// all except Explorer
+      windowHeight = self.innerHeight;
+    } else if (document.documentElement && document.documentElement.clientHeight) { // Explorer 6 Strict Mode
+      windowHeight = document.documentElement.clientHeight;
+    } else if (document.body) { // other Explorers
+      windowHeight = document.body.clientHeight;
+    }
+    return windowHeight
+  }
+
+  // Backwards compatibility
+  function makeCompatible() {
+    var $s = $.facebox.settings
+
+    $s.loadingImage = $s.loading_image || $s.loadingImage
+    $s.closeImage = $s.close_image || $s.closeImage
+    $s.imageTypes = $s.image_types || $s.imageTypes
+    $s.faceboxHtml = $s.facebox_html || $s.faceboxHtml
+  }
+
+  // Figures out what you want to display and displays it
+  // formats are:
+  //     div: #id
+  //   image: blah.extension
+  //    ajax: anything else
+  function fillFaceboxFromHref(href, klass) {
+    // div
+    if (href.match(/#/)) {
+      var url    = window.location.href.split('#')[0]
+      var target = href.replace(url,'')
+      if (target == '#') return
+      $.facebox.reveal($(target).html(), klass)
+
+    // image
+    } else if (href.match($.facebox.settings.imageTypesRegexp)) {
+      fillFaceboxFromImage(href, klass)
+    // ajax
+    } else {
+      fillFaceboxFromAjax(href, klass)
+    }
+  }
+
+  function fillFaceboxFromImage(href, klass) {
+    var image = new Image()
+    image.onload = function() {
+      $.facebox.reveal('<div class="image"><img src="' + image.src + '" /></div>', klass)
+    }
+    image.src = href
+  }
+
+  function fillFaceboxFromAjax(href, klass) {
+    $.get(href, function(data) { $.facebox.reveal(data, klass) })
+  }
+
+  function skipOverlay() {
+    return $.facebox.settings.overlay == false || $.facebox.settings.opacity === null
+  }
+
+  function showOverlay() {
+    if (skipOverlay()) return
+
+    if ($('#facebox_overlay').length == 0)
+      $("body").append('<div id="facebox_overlay" class="facebox_hide"></div>')
+
+    $('#facebox_overlay').hide().addClass("facebox_overlayBG")
+      .css('opacity', $.facebox.settings.opacity)
+      .click(function() { $(document).trigger('close.facebox') })
+      .fadeIn(200)
+    return false
+  }
+
+  function hideOverlay() {
+    if (skipOverlay()) return
+
+    $('#facebox_overlay').fadeOut(200, function(){
+      $("#facebox_overlay").removeClass("facebox_overlayBG")
+      $("#facebox_overlay").addClass("facebox_hide")
+      $("#facebox_overlay").remove()
+    })
+
+    return false
+  }
+
+  /*
+   * Bindings
+   */
+
+  $(document).bind('close.facebox', function() {
+    $(document).unbind('keydown.facebox')
+    $('#facebox').fadeOut(function() {
+      $('#facebox .content').removeClass().addClass('content')
+      $('#facebox .loading').remove()
+      $(document).trigger('afterClose.facebox')
+    })
+    hideOverlay()
+  })
+
+})(jQuery);
+/*
  Highcharts JS v2.1.9 (2011-11-11)
 
  (c) 2009-2011 Torstein H?nsi
@@ -41914,73 +42223,134 @@ I18n.currentLocale = function() {
 I18n.t = I18n.translate;
 I18n.l = I18n.localize;
 I18n.p = I18n.pluralize;
+// __DEBUG__ = true;
+// Ember.LOG_BINDINGS = true;
+
 var Travis = Ember.Application.create({
   Controllers: { Repositories: {}, Builds: {}, Jobs: {} }, Models: {}, Helpers: {}, Views: {},
 
+  UPDATE_TIMES_INTERVAL: 5000,
+
   store: Ember.Store.create().from('Travis.DataSource'),
+  channels: ['common'],
+  active_channels: [],
+  channel_prefix: '',
 
   run: function() {
     var action = $('body').attr('id');
-    if (this[action]) {
+    if(this[action]) {
       this[action]();
     }
+    this.initPusher();
     this.initEvents();
+    $.facebox.settings.closeImage = '/images/facebox/closelabel.png';
+    $.facebox.settings.loadingImage = '/images/facebox/loading.gif';
   },
 
   home: function() {
-    Ember.routes.add('!/:owner/:name/jobs/:id', function(params) {
-      Travis.set('params', params);
-      Travis.transitionTo('#job_page');
-    });
+    this.events = Travis.Controllers.Events.create();
+    this.main   = Travis.Controllers.Repositories.Show.create();
+    this.left   = Travis.Controllers.Repositories.List.create();
+    this.right  = Travis.Controllers.Sidebar.create();
 
-    Ember.routes.add('!/:owner/:name/builds/:id', function(params) {
-      Travis.set('params', params);
-      Travis.transitionTo('#jobs_list');
-    });
+    Ember.routes.add('!/:owner/:name/jobs/:id/:line_number', function(params) { Travis.main.activate('job', params) });
+    Ember.routes.add('!/:owner/:name/jobs/:id',       function(params) { Travis.main.activate('job',     params) });
+    Ember.routes.add('!/:owner/:name/builds/:id',     function(params) { Travis.main.activate('build',   params) });
+    Ember.routes.add('!/:owner/:name/builds',         function(params) { Travis.main.activate('history', params) });
+    Ember.routes.add('!/:owner/:name/pull_requests',  function(params) { Travis.main.activate('pull_requests', params) });
+    Ember.routes.add('!/:owner/:name/branch_summary', function(params) { Travis.main.activate('branch_summary', params) });
+    Ember.routes.add('!/:owner/:name',                function(params) { Travis.main.activate('current', params) });
+    Ember.routes.add('',                              function(params) { Travis.main.activate('current', params) });
+  },
 
-    Ember.routes.add('!/:owner/:name', function(params) {
-      Travis.set('params', params);
-      Travis.transitionTo('#builds_list');
-    });
+  profile: function() {
+    if($('#service_hooks').length > 0) {
+      Travis.Controllers.ServiceHooks.create();
+    }
+  },
 
-    Ember.routes.add('', function(params) {
-      Travis.set('params', params);
-      Travis.transitionTo('#repositories_list');
-    });
+  receive: function(event, data) {
+    if(Travis.events) Travis.events.receive(event, data);
+  },
 
-    // Ember.routes.add('!/:owner/:name/jobs/:id',   function(params) { Travis.main.activate('job',    params) });
-    // Ember.routes.add('!/:owner/:name/builds/:id', function(params) { Travis.main.activate('build',  params) });
-    // Ember.routes.add('!/:owner/:name/builds',     function(params) { Travis.main.activate('builds', params) });
-    // Ember.routes.add('!/:owner/:name',            function(params) { Travis.main.activate('builds', params) });
-    // Ember.routes.add('',                          function(params) { Travis.main.activate('list',   params) });
+  subscribe: function(channel) {
+    if(this.active_channels.indexOf(channel) == -1) {
+      this.active_channels.push(channel);
+      if(window.pusher) pusher.subscribe(this.channel_prefix + channel).bind_all(this.receive);
+    }
+  },
 
+  unsubscribe: function(channel) {
+    var ix = this.active_channels.indexOf(channel);
+    if(ix == -1) {
+      this.active_channels.splice(ix, 1);
+      if(window.pusher) pusher.unsubscribe(this.channel_prefix + channel);
+    }
+  },
+
+  initPusher: function() {
+    if(window.pusher) {
+      $.each(Travis.channels, function(ix, channel) { this.subscribe(channel); }.bind(this))
+    }
   },
 
   initEvents: function() {
+    //this is only going to work for rendered elements
+
+    $('.tool-tip').tipsy({ gravity: 'n', fade: true });
     $('.fold').live('click', function() { $(this).toggleClass('open'); });
+
+    $('#top .profile').mouseover(function() { $('#top .profile ul').show(); });
+    $('#top .profile').mouseout(function() { $('#top .profile ul').hide(); });
+
+    $('#workers .group').live('click', function() { $(this).toggleClass('open'); })
+
+    $('li#tab_recent').click(function () {
+      Travis.left.recent();
+    });
+    $('li#tab_my_repositories').click(function() {
+      Travis.left.owned_by($(this).data('github-id'));
+    });
+    $('li#tab_search').click(function () {
+      Travis.left.search();
+    });
+
+    $('.repository').live('mouseover', function() {
+      $(this).find('.description').show();
+    });
+
+    $('.repository').live('mouseout', function() {
+      $(this).find('.description').hide();
+    });
+
+    $('.tools').live('click', function() {
+      $(this).find('.content').toggle();
+    }).find('.content').live('click', function(event){
+      event.stopPropagation();
+    }).find('input[type=text]').live('focus', function() {
+      this.select();
+    }).live('mouseup', function(e) {
+      e.preventDefault();
+    });
+
+    $('html').click(function(e) {
+      if ($(e.target).closest('.tools .content').length == 0 && $('.tools .content').css('display') != 'none') {
+        $('.tools .content').fadeOut('fast');
+      }
+    });
   },
 
   startLoading: function() {
+    $("#main").addClass("loading");
   },
 
   stopLoading: function() {
-  },
-
-  transitionTo: function(page_selector) {
-    var newPage = $(page_selector);
-    var oldPage = this.get('currentPage');
-
-    if (oldPage) {
-      oldPage.removeClass('active').addClass('inactive');
-    }
-    newPage.removeClass('inactive').addClass('active');
-
-    this.set('currentPage', newPage);
+    $("#main").removeClass("loading");
   }
 });
 
-$(function() {
-  Travis.run();
+$('document').ready(function() {
+  if(window.env !== undefined && window.env !== 'jasmine') Travis.run();
 });
 
 $.ajaxSetup({
@@ -42247,7 +42617,7 @@ Travis.DataSource = Ember.DataSource.extend({
     var id   = store.idFor(storeKey);
     var data = $.extend(store.readDataHash(storeKey), params || {}, { _method: 'put' });
     var url  = this._urlFor(type, id);
-
+console.log(url)
     $.post(url, data).done(function(data, status, response) {
       if(status == 'success') {
         store.dataSourceDidComplete(storeKey);
@@ -42999,6 +43369,698 @@ Travis.Record.reopenClass({
     return Travis.store.find(Travis.Query.cached(this, options || {}, mode));
   }
 });
+Travis.Controllers.Tabs = Ember.Object.extend({
+  activate: function(tab) {
+    if(this.get('active') !== tab) {
+      this.destroy();
+      Ember.run.next(function() {
+        this.create(tab);
+        this.setActive(tab);
+      }.bind(this));
+    }
+  },
+
+  setActive: function(tab) {
+    $('.tabs > li', this.selector).removeClass('active');
+    $('.tabs > li', this.selector).removeClass('display');
+    $('#tab_' + tab, this.selector).addClass('active');
+
+    this.set('active', tab);
+    if(tab == 'job') this.setDisplay('build', true);
+  },
+
+  setDisplay: function(tab, visible) {
+    $('#tab_' + tab)[visible ? 'addClass' : 'removeClass']('display');
+  },
+
+  create: function(tab) {
+    if(this.tabs) {
+      this.tab = this.tabs[tab].create({ parent: this.parent, selector: '#tab_' + tab + ' .tab' });
+      this.tab.view.appendTo('#tab_' + tab + ' .tab');
+    }
+  },
+
+  destroy: function() {
+    if(this.tab) this.tab.destroy();
+    delete this.tab;
+  }
+});
+Travis.Controllers.Tabs = Ember.Object.extend({
+  activate: function(tab) {
+    if(this.get('active') !== tab) {
+      this.destroy();
+      Ember.run.next(function() {
+        this.create(tab);
+        this.setActive(tab);
+      }.bind(this));
+    }
+  },
+
+  setActive: function(tab) {
+    $('.tabs > li', this.selector).removeClass('active');
+    $('.tabs > li', this.selector).removeClass('display');
+    $('#tab_' + tab, this.selector).addClass('active');
+
+    this.set('active', tab);
+    if(tab == 'job') this.setDisplay('build', true);
+  },
+
+  setDisplay: function(tab, visible) {
+    $('#tab_' + tab)[visible ? 'addClass' : 'removeClass']('display');
+  },
+
+  create: function(tab) {
+    if(this.tabs) {
+      this.tab = this.tabs[tab].create({ parent: this.parent, selector: '#tab_' + tab + ' .tab' });
+      this.tab.view.appendTo('#tab_' + tab + ' .tab');
+    }
+  },
+
+  destroy: function() {
+    if(this.tab) this.tab.destroy();
+    delete this.tab;
+  }
+});
+Travis.Controllers.Builds.List = Ember.ArrayController.extend({
+  parent: null,
+  repositoryBinding: 'parent.repository',
+  contentBinding: 'parent.repository.builds',
+ 
+  init: function() {
+    this._super();
+    Ember.run.later(this.updateTimes.bind(this), Travis.UPDATE_TIMES_INTERVAL);
+
+    this.view = Ember.View.create({
+      builds: this,
+      repositoryBinding: 'builds.repository',
+      templateName: 'app/templates/builds/list',
+      click: function(e){
+        var buildUrl = $(e.target).closest('tr').find('.number a').attr('href');
+        if (buildUrl) { window.location = buildUrl };
+      }
+    });
+  },
+
+  destroy: function() {
+    // console.log('destroying list in: ' + this.selector + ' .details')
+    if(this.view) {
+      this.view.$().remove();
+      this.view.destroy();
+    }
+  },
+
+  updateTimes: function() {
+    var builds  = this.get('builds');
+    if(builds) {
+      $.each(builds, function(ix, build) { build.updateTimes(); }.bind(this));
+    }
+    Ember.run.later(this.updateTimes.bind(this), Travis.UPDATE_TIMES_INTERVAL);
+  },
+
+  showMore: function() {
+    var id = this.getPath('repository.id'),
+      number = this.getPath('content.lastObject.number');
+    Travis.Build.olderThanNumber(id, number);
+  },
+
+  showMoreIsVisibleBinding: Em.Binding.oneWay('content.lastObject.number').transform(function(value) {
+    return value > 1;
+  })
+});
+Travis.Controllers.Builds.Show = Ember.Object.extend({
+  buildBinding: 'parent.build',
+  repositoryBinding: 'parent.repository',
+
+  init: function() {
+    this._super();
+    Ember.run.later(this.updateTimes.bind(this), Travis.UPDATE_TIMES_INTERVAL);
+    var self = this;
+
+    this.view = Ember.View.create({
+      controller: this,
+      repositoryBinding: 'controller.repository',
+      contentBinding: 'controller.build',
+      jobsBinding: 'controller.jobs',
+      branchesBinding: 'controller.branches',
+      templateName: 'app/templates/builds/show',
+      click: function(e){
+        var buildUrl = $(e.target).closest('tr').find('.number a').attr('href');
+        if (buildUrl) { window.location = buildUrl };
+      }
+    });
+  },
+
+  buildDidChange: function() {
+    var build = this.get('build');
+
+    //this stops jobs from subscribing?
+
+    if (build && build.get('isLoaded')) {
+      this.subscribeToFirstJob();
+    } else {
+      if (!build) { return; }
+      build.addObserver('isLoaded', this, 'subscribeToFirstJob');
+    }
+  }.observes('build'),
+
+  subscribeToFirstJob: function() {
+    var build = this.get('build'),
+        matrix = build.get('matrix'),
+        length = matrix.get('length');
+    if (build.get('isLoaded')) {
+      build.removeObserver('isLoaded', this, 'subscribeToFirstJob');
+
+      if (length > 1) {
+        return true;
+      } else if (length === 1) {
+        this.subscribeToFirstJobWhenMatrixReady();
+      } else {
+        matrix.addObserver('length', this, 'subscribeToFirstJobWhenMatrixReady');
+      }
+    }
+  },
+
+  subscribeToFirstJobWhenMatrixReady: function() {
+    var matrix = this.getPath('build.matrix'), job;
+    matrix.removeObserver('length', this, 'subscribeToFirstJobWhenMatrixReady');
+    if (matrix.get('length') === 1) {
+      job = matrix.objectAt(0);
+      if (job && job.get('isReady') && (job.get('state') != 'finished')) {
+        job.subscribe();
+      }
+    }
+  },
+
+  destroy: function() {
+    if(this.view) {
+      this.view.$().remove();
+      this.view.destroy();
+    }
+  },
+
+  updateTimes: function() {
+    var build  = this.get('build');
+    if(build) build.updateTimes();
+
+    var matrix = this.getPath('build.matrix');
+    if(matrix) $.each(matrix.toArray(), function(ix, job) { job.updateTimes(); }.bind(this));
+
+    Ember.run.later(this.updateTimes.bind(this), Travis.UPDATE_TIMES_INTERVAL);
+  },
+
+  _buildObserver: function() {
+    if(this.getPath('build.isReady') && this.getPath('build.matrix.length') === 0) {
+      this.get('build').refresh();
+    }
+    if(this.getPath('build.isReady') && this.getPath('build.matrix.length') == 1 && this.getPath('build.matrix').objectAt(0).get('log') === null) {
+      // TODO why does firstObject not work here?
+      this.getPath('build.matrix').objectAt(0).refresh();
+    }
+  }.observes('build.status')
+});
+Travis.Controllers.Events = Ember.Object.extend({
+  receive: function(event, data) {
+    var events = this;
+    var action = $.camelize(event.replace(':', '_'), false);
+    events[action](data);
+  },
+
+  jobCreated: function(data) {
+    Travis.Job.createOrUpdate($.extend(data, { state: 'created' }));
+  },
+
+  jobStarted: function(data) {
+    var job = Travis.Job.find(data.id);
+    if(job) job.whenReady(function() {
+      job.update($.extend(data, { state: 'started' }));
+    });
+  },
+
+  jobLog: function(data) {
+    var job = Travis.Job.find(data.id);
+    if(job) job.whenReady(function(job) {
+      job.appendLog(data._log);
+    });
+  },
+
+  jobFinished: function(data) {
+    var job = Travis.Job.find(data.id);
+    if(job) job.whenReady(function() {
+      job.update($.extend(data, { state: 'finished' }));
+      job.unsubscribe(); // TODO make Job listen to it's state and unsubscribe on finished
+    });
+  },
+
+  buildStarted: function(data) {
+    this.updateFrom(data);
+  },
+
+  buildFinished: function(data) {
+    this.updateFrom(data);
+  },
+
+  workerAdded: function(data) {
+    Travis.Worker.createOrUpdate(data);
+  },
+
+  workerCreated: function(data) {
+    Travis.Worker.createOrUpdate(data);
+  },
+
+  workerUpdated: function(data) {
+    Travis.Worker.createOrUpdate(data);
+  },
+
+  workerRemoved: function(data) {
+    var worker = Travis.Worker.find(data.id);
+    if(worker) worker.whenReady(function(worker) { if(worker) worker.destroy(); });
+  },
+
+  updateFrom: function(data) {
+    if(data.repository) Travis.Repository.createOrUpdate(data.repository);
+    if(data.build) Travis.Build.createOrUpdate(data.build);
+  }
+});
+Travis.Controllers.Jobs.Show = Ember.Object.extend({
+  jobBinding: 'parent.job',
+  repositoryBinding: 'parent.repository',
+
+  init: function() {
+    this._super();
+    Ember.run.later(this.updateTimes.bind(this), Travis.UPDATE_TIMES_INTERVAL);
+    var self = this;
+
+    this.view = Ember.View.create({
+      controller: this,
+      repositoryBinding: 'controller.repository',
+      contentBinding: 'controller.job',
+      templateName: 'app/templates/jobs/show',
+      didInsertElement: function() {
+        this._super.apply(this, arguments);
+
+        if (self.parent.params.line_number) {
+          setTimeout(function() {
+            var line_element = $("a[name='" + self.parent.params.line_number + "']");
+            if(line_element.length > 0) {
+              // TODO: FIXME:
+              // Warning: this is quite a dirty implementation for line numbers. The problem with SC is
+              // that didInsertElement all all the post-render callbacks don't really do what we require,
+              // they are called before we've got information from server, which is absolutely incorrect.
+              // Especially taken into consideration that most interest for that feature are when the
+              // page is loaded.
+              //
+              // Other than the pageload, element IDs make hashtags/anchors to get handled auto-magically.
+              $(window).scrollTop(line_element.offset().top);
+              line_element.addClass("highlight");
+            }
+          }, 1000);
+        }
+      }
+    });
+  },
+
+  destroy: function() {
+    if(this.view) {
+      this.view.$().remove();
+      this.view.destroy();
+    }
+  },
+
+  updateTimes: function() {
+    var build  = this.get('build');
+    if(build) build.updateTimes();
+    Ember.run.later(this.updateTimes.bind(this), Travis.UPDATE_TIMES_INTERVAL);
+  },
+
+  _jobRefresher: function() {
+    if((this.getPath('job.status') & Ember.Record.READY) && (this.getPath('job.log') === null)) {
+      this.get('job').refresh();
+    }
+  }.observes('job.status'),
+
+  _jobSubscriber: function() {
+    if((this.getPath('job.status') & Ember.Record.READY) && (this.getPath('job.state') != 'finished')) {
+      this.get('job').subscribe();
+    }
+  }.observes('job.status')
+});
+
+Travis.Controllers.Repositories.BranchSummary = Ember.Object.extend({
+  repositoryBinding: 'parent.repository',
+
+  init: function() {
+    this._super();
+    this.view = Ember.View.create({
+      controller: this,
+      branchesBinding: 'controller.repository.branchSummary',
+      templateName: 'app/templates/repositories/branch_summary',
+      click: function(e){
+        var buildUrl = $(e.target).closest('tr').find('.number a').attr('href');
+        if (buildUrl) { window.location = buildUrl };
+      }
+    });
+  },
+
+  destroy: function() {
+    // console.log('destroying list in: ' + this.selector + ' .details')
+    if(this.view) {
+      this.view.$().remove();
+      this.view.destroy();
+    }
+  },
+});
+//= require app/controllers/tabs.js
+
+Travis.Controllers.Repositories.List = Ember.ArrayController.extend({
+  searchBox: Ember.TextField.create({
+  }),
+
+  init: function() {
+    this._super();
+    Ember.run.later(this.updateTimes.bind(this), Travis.UPDATE_TIMES_INTERVAL);
+
+    this.tabs = Travis.Controllers.Tabs.create({
+      selector: '#left',
+      parent: this
+    });
+
+    this.view = Ember.View.create({
+      repositories: this,
+      templateName: 'app/templates/repositories/list'
+    });
+    this.view.appendTo('#left');
+
+    this.searchBox.appendTo('#search_box');
+    this.recent();
+  },
+
+  recent: function() {
+    this.set('content', Travis.Repository.recent());
+    this.tabs.activate('recent');
+  },
+
+  owned_by: function(githubId) {
+    this.set('content', Travis.Repository.owned_by(githubId));
+    this.tabs.activate('my_repositories');
+  },
+
+  search: function() {
+    this.set('content', Travis.Repository.search(this.searchBox.value));
+    this.tabs.activate('search');
+  },
+
+  searchObserver: function() {
+    this[this.searchBox.value ? 'search' : 'recent']();
+    this.tabs.setDisplay('search', this.searchBox.value);
+  }.observes('searchBox.value'),
+
+  updateTimes: function() {
+    var repositories  = this.get('content');
+    if(repositories) repositories.forEach(function(repository) { repository.updateTimes(); }.bind(this));
+
+    Ember.run.later(this.updateTimes.bind(this), Travis.UPDATE_TIMES_INTERVAL);
+  }
+});
+Travis.Controllers.Repositories.PullRequests = Travis.Controllers.Builds.List.extend({
+  contentBinding: 'parent.repository.pull_requests'
+});
+//= require app/controllers/tabs.js
+// __TESTING__ = true
+Travis.Controllers.Repositories.Show = Ember.Object.extend({
+  tabs: Travis.Controllers.Tabs.create({
+    selector: '#repository',
+    tabs: {
+      current:  Travis.Controllers.Builds.Show,
+      history:  Travis.Controllers.Builds.List,
+      build:    Travis.Controllers.Builds.Show,
+      job:      Travis.Controllers.Jobs.Show,
+      branch_summary: Travis.Controllers.Repositories.BranchSummary,
+      pull_requests: Travis.Controllers.Repositories.PullRequests
+    }
+  }),
+
+  /* repositoryBinding: '_repositories.firstObject', */
+  buildBinding: '_buildProxy.content',
+
+  // binding doesn't seem to fire on the _repositories.firstObject binding above?
+  repository: function() {
+    return this.getPath('_repositories.firstObject');
+  }.property('_repositories.length'),
+
+  init: function() {
+    this._super();
+    this.tabs.parent = this;
+    this.view = Ember.View.create({
+      controller: this,
+      // repositoryBinding: 'controller.repository',
+      repositoryBinding: 'controller.repository',
+      buildBinding: 'controller.build',
+      jobBinding: 'controller.job',
+      templateName: 'app/templates/repositories/show'
+    });
+    this.view.appendTo('#main');
+
+    this.branchSelector = '.tools select';
+    $(this.branchSelector).live('change', this._updateStatusImageCodes.bind(this));
+
+    // TODO: FIXME
+    // Delaying the call as branch selector is not yet on the page (looks like view is not completely rendered at the moment).
+    Ember.run.later(this, this._setTooltips, 1000);
+    Ember.run.later(this, this._updateGithubBranches, 1000);
+  },
+
+  _setTooltips: function() {
+    $(".tool-tip").tipsy();
+  },
+
+  activate: function(tab, params) {
+    this.set('params', params);
+
+    if(tab == 'current') {
+      this.set('_buildProxy', Ember.Object.create({ parent: this, contentBinding: 'parent.repository.lastBuild' }));
+      this.set('job', undefined);
+    } else if(tab == 'build') {
+      this.set('_buildProxy', Ember.Object.create({ parent: this, content: Travis.Build.find(params.id) }));
+      this.set('job', undefined);
+    } else if(tab == 'job') {
+      this.set('_buildProxy', Ember.Object.create({ parent: this, contentBinding: 'parent.job.build' }));
+      this.set('job', Travis.Job.find(params.id));
+    }
+    this.tabs.activate(tab);
+  },
+
+  _repositories: function() {
+    var slug = this.get('_slug');
+    return slug ? Travis.Repository.bySlug(slug) : Travis.Repository.recent();
+  }.property('_slug'),
+
+  _slug: function() {
+    var parts = $.compact([this.getPath('params.owner'), this.getPath('params.name')]);
+    if(parts.length > 0) return parts.join('/');
+  }.property('params'),
+
+  _updateGithubStats: function() {
+    if(window.__TESTING__) return;
+    var repository = this.get('repository');
+    if(repository && repository.get('slug')) $.getJSON('https://api.github.com/repos/' + repository.get('slug') + '?callback=?', function(response) {
+      if(response.meta.status == 404) return;
+      var element = $('.github-stats');
+      element.find('.watchers').attr('href', repository.get('urlGithubWatchers')).text(response.data.watchers);
+      element.find('.forks').attr('href',repository.get('urlGithubNetwork')).text(response.data.forks);
+      element.find('.github-admin').attr('href', repository.get('urlGithubAdmin'));
+    });
+  }.observes('repository.slug'),
+
+  _updateGithubBranches: function() {
+    if(window.__TESTING__) return;
+    var selector = $(this.branchSelector);
+    var repository = this.get('repository');
+
+    selector.empty();
+    $('.tools input').val('');
+
+    // Seeing 404 when hitting travis-ci.org/ as repository exists (BUSY_LOADING?) and slug is null
+    // So let's ensure that the slug is populated before making this request.
+    if (selector.length > 0 && repository && repository.get('slug')) {
+      $.getJSON('https://api.github.com/repos/' + repository.get('slug') + '/branches?callback=?', function(response) {
+        if(response.meta.status == 404) return;
+        var branches = $.map(response.data, function(details) { return details.name; }).sort();
+
+        // TODO: FIXME
+        // Clear selector again as observing 'repository.slug' causes this method (as well as _updateGithubStats) being
+        // called twice while switching repository. That results in two identical API calls that lead to selector being
+        // updated twice too.
+        selector.empty();
+        $.each(branches, function(index, branch) { $('<option>', { value: branch }).html(branch).appendTo(selector); });
+        selector.val('master');
+
+        this._updateStatusImageCodes();
+      }.bind(this));
+    }
+  }.observes('repository.slug'),
+
+  _updateStatusImageCodes: function() {
+    var imageUrl = this.get('_statusImageUrl');
+    var repositoryUrl = this.get('_repositoryUrl');
+
+    if (repositoryUrl && imageUrl) {
+      $('.tools input.url').val(imageUrl);
+      $('.tools input.markdown').val('[![Build Status](' + imageUrl + ')](' + repositoryUrl + ')');
+      $('.tools input.textile').val('!' + imageUrl + '(Build Status)!:' + repositoryUrl);
+      $('.tools input.rdoc').val('{<img src="' + imageUrl + '" alt="Build Status" />}[' + repositoryUrl + ']');
+    } else {
+      $('.tools input').val('');
+    }
+  },
+
+  _statusImageUrl: function() {
+    var branch = $(this.branchSelector).val();
+    var slug = this.getPath('repository.slug');
+
+    if (branch && slug) {
+      return 'https://secure.travis-ci.org/' + slug + '.png?branch=' + branch;
+    }
+  }.property('repository.slug'),
+
+  _repositoryUrl: function() {
+    var slug = this.getPath('repository.slug');
+    if (slug) return 'http://travis-ci.org/' + slug;
+  }.property('repository.slug'),
+
+  repositoryDidChange: function() {
+    var repository = this.get('repository');
+    if(repository) repository.select;
+  }.observes('repository')
+});
+Travis.Controllers.ServiceHooks = Ember.ArrayController.extend({
+  init: function() {
+    this._super();
+    this.view = Ember.View.create({
+      service_hooks: this,
+      template: Ember.TEMPLATES['app/templates/service_hooks/list']
+    });
+    this.view.appendTo('#service_hooks');
+
+    this.poll();
+  },
+
+  state: function() {
+    return this.get('active') ? 'on' : 'off';
+  }.property('active'),
+
+  githubUrl: function() {
+    return '%@/admin/hooks#travis_minibucket'.fmt(this.get('url'));
+  }.property('url'),
+
+  sync: function() {
+    this.set('content', []);
+    this.set('isSyncing', true);
+    $.post('/profile/sync', this.poll.bind(this));
+  },
+
+  poll: function() {
+    $.get('/profile.json', function(user) {
+      if(user.is_syncing == 'f') user.is_syncing = false;
+      this.set('isSyncing', user.is_syncing);
+      this.set('syncedAt', Travis.Helpers.Common.timeAgoInWords(user.synced_at) || '?');
+
+      if(!user.is_syncing) {
+        var owner_name = location.href.split('/').slice(-2)[0];
+        var attrs = { recordType: Travis.ServiceHook, options: { owner_name: owner_name, orderBy: 'name' } };
+        var query = Travis.Query.create(attrs).toScQuery('remote');
+        this.set('content', Travis.store.find(query));
+      } else {
+        this.set('content', []);
+        Ember.run.later(this, this.poll.bind(this), 3000);
+      }
+    }.bind(this));
+  }
+});
+
+Travis.Controllers.Queue = Ember.ArrayController.extend({
+  init: function() {
+    this._super();
+    this.view = Ember.View.create({
+      jobs: this,
+      friendly_queue_name: this.get('display'),
+      templateName: 'app/templates/queue/show',
+      classNames: ['queue-' + this.get('queue').replace('.', '_')]
+    });
+    this.view.appendTo('#jobs');
+    this.set('content', Travis.Job.all({ state: 'created', queue: this.get('queue') }));
+  }
+});
+Travis.Controllers.Workers = Ember.ArrayController.extend({
+  init: function() {
+    this._super();
+    this.view = Ember.View.create({
+      content: this,
+      templateName: 'app/templates/workers/list'
+    });
+    this.view.appendTo('#workers');
+
+    this.set('workers', Travis.Worker.all({ orderBy: 'host' }));
+    this.set('content', []);
+  },
+
+  workersObserver: function() {
+    this.groups = {};
+    var workers = this.get('workers') || [];
+
+    workers.forEach(function(worker) {
+      var host = worker.get('host');
+      if(!(host in this.groups)) this.groups[host] = Travis.WorkerGroup.create();
+      this.groups[host].add(worker);
+    }.bind(this));
+
+    this.set('content', $.values(this.groups));
+  }.observes('workers.length')
+});
+Travis.Controllers.Sidebar = Ember.Object.extend({
+  cookie: 'sidebar_minimized',
+  queues: [
+    { name: 'common',  display: 'Common' },
+    { name: 'php',     display: 'PHP, Perl and Python' },
+    { name: 'jvmotp',  display: 'JVM, Node.js and Erlang' },
+    { name: 'rails',   display: 'Rails' },
+    { name: 'spree',   display: 'Spree' },
+  ],
+
+  init: function() {
+    this._super();
+    Travis.Controllers.Workers.create();
+    $.each(this.queues, function(ix, queue) {
+      Travis.Controllers.Queue.create({ queue: 'builds.' + queue.name, display: queue.display });
+    });
+
+    $(".slider").click(function() { this.toggle(); }.bind(this));
+    if($.cookie(this.cookie) === 'true') { this.minimize(); }
+    this.persist();
+  },
+
+  toggle: function() {
+    this.isMinimized() ? this.maximize() : this.minimize();
+    this.persist();
+  },
+
+  isMinimized: function() {
+    return $('#right').hasClass('minimized');
+  },
+
+  minimize: function() {
+    $('#right').addClass('minimized');
+    $('#main').addClass('maximized');
+  },
+
+  maximize: function() {
+    $('#right').removeClass('minimized');
+    $('#main').removeClass('maximized');
+  },
+
+  persist: function() {
+    $.cookie(this.cookie, this.isMinimized());
+  }
+});
 Travis.Helpers.Common = {
   colorForResult: function(result) {
     return result == 0 ? 'green' : result == 1 ? 'red' : null;
@@ -43599,127 +44661,252 @@ Travis.Worker.reopenClass({
   resource: 'workers'
 });
 
-Travis.Controllers.Builds.List = Ember.ArrayController.create({
-  repositoryBinding: '_repositories.firstObject',
-  buildsBinding: 'repository.builds',
+Ember.TEMPLATES['app/templates/builds/list']=Ember.Handlebars.compile("<table id=\"builds\" class=\"status_list\">\n  <thead>\n    <tr>\n      <th>{{i18n \"builds.name\"}}</th>\n      <th>{{i18n \"builds.branch\"}}</th>\n      <th>{{i18n \"builds.message\"}}</th>\n      <th>{{i18n \"builds.duration\"}}</th>\n      <th>{{i18n \"builds.finished_at\"}}</th>\n    </tr>\n  </thead>\n\n  {{#collection tagName=\"tbody\" contentBinding=\"builds\" itemViewClass=\"Ember.View\" itemClassBinding=\"content.color\"}}\n      <td class=\"number\"><a {{bindAttr href=\"content.url\"}}>{{content.number}}</a></td>\n      <td class=\"branch\">{{content.branch}}</td>\n      <td class=\"message\">{{{content.shortMessage}}}</td>\n      <td class=\"duration\" {{bindAttr title=\"content.started_at\"}}>{{content.formattedDuration}}</td>\n      <td class=\"finished_at timeago\" {{bindAttr title=\"content.finished_at\"}}>{{content.formattedFinishedAt}}</td>\n  {{/collection}}\n</table>\n\n{{#view Ember.Button targetBinding=\"builds\" action=\"showMore\" isVisibleBinding=\"builds.showMoreIsVisible\"}}Show More{{/view}}");Ember.TEMPLATES['app/templates/builds/show']=Ember.Handlebars.compile("<div {{bindAttr class=\"content.color\"}}>\n  <dl class=\"summary clearfix\">\n    <div class=\"left\">\n      <dt>{{i18n \"builds.name\"}}</dt>\n\n      <dd class=\"number\"><a {{bindAttr href=\"content.url\"}}>{{content.number}}</a></dd>\n      <dt class=\"finished_at_label\">{{i18n \"builds.finished_at\"}}</dt>\n      <dd class=\"finished_at timeago\" {{bindAttr title=\"content.finished_at\"}}>{{content.formattedFinishedAt}}</dd>\n      <dt>{{i18n \"builds.duration\"}}</dt>\n      <dd class=\"duration\" {{bindAttr title=\"content.started_at\"}}>{{content.formattedDuration}}</dd>\n    </div>\n\n    <div class=\"right\">\n      <dt>{{i18n \"builds.commit\"}}</dt>\n      <dd class=\"commit-hash\"><a {{bindAttr href=\"content.urlGithubCommit\"}}>{{content.formattedCommit}}</a></dd>\n      {{#if content.compare_url}}\n        <dt>{{i18n \"builds.compare\"}}</dt>\n        <dd class=\"compare_view\"><a {{bindAttr href=\"content.compare_url\"}}>{{content.formattedCompareUrl}}</a></dd>\n      {{/if}}\n      {{#if content.author_name}}\n        <dt>{{i18n \"builds.author\"}}</dt>\n        <dd class=\"author\"><a {{bindAttr href=\"content.urlAuthor\"}}>{{content.author_name}}</a></dd>\n      {{/if}}\n      {{#if content.committer_name}}\n        <dt>{{i18n \"builds.committer\"}}</dt>\n        <dd class=\"committer\"><a {{bindAttr href=\"content.urlCommitter\"}}>{{content.committer_name}}</a></dd>\n      {{/if}}\n    </div>\n\n    <dt>{{i18n \"builds.message\"}}</dt>\n    <dd class=\"commit-message\">{{{content.formattedMessage}}}</dd>\n\n    {{#if content.isMatrix}}\n    {{else}}\n      <dt>{{i18n \"builds.config\"}}</dt>\n      <dd class=\"config\">{{content.formattedConfig}}</dd>\n    {{/if}}\n  </dl>\n\n  {{#if content.isMatrix}}\n    {{view Ember.View templateName=\"app/templates/jobs/list\" repositoryBinding=\"repository\" contentBinding=\"content\"}}\n  {{else}}\n    <pre class=\"log\">{{{content.matrix.firstObject.formattedLog}}}</pre>\n\n    {{#if content.matrix.firstObject.sponsor.name}}\n      <p class=\"sponsor\">\n      {{i18n \"builds.messages.sponsored_by\"}}\n        <a {{bindAttr href=\"content.matrix.firstObject.sponsor.url\"}}>{{content.matrix.firstObject.sponsor.name}}</a>\n      </p>\n    {{/if}}\n  {{/if}}\n</div>\n");Ember.TEMPLATES['app/templates/jobs/list']=Ember.Handlebars.compile("<table id=\"builds\" class=\"status_list\">\n  <caption>{{i18n \"jobs.build_matrix\"}}</caption>\n  <thead>\n    {{#collection tagName=\"tr\" contentBinding=\"content.formattedMatrixHeaders\" itemTagName=\"th\"}}\n      {{content}}\n    {{/collection}}\n  </thead>\n\n  {{#collection tagName=\"tbody\" contentBinding=\"content.required_matrix\" itemViewClass=\"Ember.View\" itemClassBinding=\"content.color\"}}\n    <td class=\"number\"><a {{bindAttr href=\"content.url\"}}>{{content.number}}</a></td>\n    <td class=\"duration\" {{bindAttr title=\"content.started_at\"}}>{{content.formattedDuration}}</td>\n    <td class=\"finished_at timeago\" {{bindAttr title=\"content.finished_at\"}}>{{content.formattedFinishedAt}}</td>\n    {{#each content.formattedConfigValues itemTagName=\"td\"}}\n      <td>{{value}}</td>\n    {{/each}}\n  {{/collection}}\n</table>\n\n{{#if content.hasFailureMatrix}}\n<table id=\"allow_failure_builds\">\n  <caption>{{i18n \"jobs.allowed_failures\"}}{{whats_this \"allow_failure_help\"}}\n</caption>\n  <thead>\n    {{#collection tagName=\"tr\" contentBinding=\"content.formattedMatrixHeaders\" itemTagName=\"th\"}}\n      {{content}}\n    {{/collection}}\n  </thead>\n\n  {{#collection tagName=\"tbody\" contentBinding=\"content.allow_failure_matrix\" itemViewClass=\"Ember.View\" itemClassBinding=\"content.color\"}}\n    <td class=\"number\"><a {{bindAttr href=\"content.url\"}}>{{content.number}}</a></td>\n    <td class=\"duration\" {{bindAttr title=\"content.started_at\"}}>{{content.formattedDuration}}</td>\n    <td class=\"finished_at timeago\" {{bindAttr title=\"content.finished_at\"}}>{{content.formattedFinishedAt}}</td>\n    {{#each content.formattedConfigValues itemTagName=\"td\"}}\n      <td>{{value}}</td>\n    {{/each}}\n  {{/collection}}\n</table>\n\n<div id=\"allow_failure_help\" class=\"context_help\">\n<div class=\"context_help_caption\">{{i18n \"jobs.allowed_failures\"}}</div>\n<div class=\"context_help_body\">Allowed Failures are items in your build matrix that are allowed to fail without causing the entire build to be shown as failed. This lets you add in experimental and preparatory builds to test against versions or configurations that you are not ready to officially support.<br><br>You can define allowed failures in the build matrix as follows:\n</br><pre>\nmatrix:\n  allow_failures:\n    - rvm: ruby-head\n</pre></div>\n</div>\n{{/if}}\n");Ember.TEMPLATES['app/templates/jobs/show']=Ember.Handlebars.compile("<div {{bindAttr class=\"content.color\"}}>\n  <dl class=\"summary clearfix\">\n    <div class=\"left\">\n      <dt>Job</dt>\n      <dd class=\"number\"><a {{bindAttr href=\"content.build.url\"}}>{{content.number}}</a></dd>\n      <dt class=\"finished_at_label\">{{i18n \"jobs.finished_at\"}}</dt>\n      <dd class=\"finished_at timeago\" {{bindAttr title=\"content.finished_at\"}}>{{content.formattedFinishedAt}}</dd>\n      <dt>{{i18n \"jobs.duration\"}}</dt>\n      <dd class=\"duration\" {{bindAttr title=\"content.started_at\"}}>{{content.formattedDuration}}</dd>\n    </div>\n\n    <div class=\"right\">\n      <dt>{{i18n \"jobs.commit\"}}</dt>\n      <dd class=\"commit-hash\"><a {{bindAttr href=\"content.build.urlGithubCommit\"}}>{{content.formattedCommit}}</a></dd>\n      {{#if content.compare_url}}\n        <dt>{{i18n \"jobs.compare\"}}</dt>\n        <dd class=\"compare_view\"><a {{bindAttr href=\"content.compare_url\"}}>{{content.formattedCompareUrl}}</a></dd>\n      {{/if}}\n      {{#if content.author_name}}\n        <dt>{{i18n \"jobs.author\"}}</dt>\n        <dd class=\"author\"><a {{bindAttr href=\"content.build.urlAuthor\"}}>{{content.author_name}}</a></dd>\n      {{/if}}\n      {{#if content.committer_name}}\n        <dt>{{i18n \"jobs.committer\"}}</dt>\n        <dd class=\"committer\"><a {{bindAttr href=\"content.build.urlCommitter\"}}>{{content.committer_name}}</a></dd>\n      {{/if}}\n    </div>\n\n    <dt>{{i18n \"jobs.message\"}}</dt>\n    <dd class=\"commit-message\">{{{content.formattedMessage}}}</dd>\n    <dt>{{i18n \"jobs.config\"}}</dt>\n    <dd class=\"config\">{{content.formattedConfig}}</dd>\n  </dl>\n\n  <pre class=\"log\">{{{content.formattedLog}}}</pre>\n\n  {{#if content.sponsor.name}}\n    <p class=\"sponsor\">\n      {{i18n \"jobs.messages.sponsored_by\"}}\n      <a {{bindAttr href=\"content.sponsor.url\"}}>{{content.sponsor.name}}</a>\n    </p>\n  {{/if}}\n</div>\n");Ember.TEMPLATES['app/templates/queue/show']=Ember.Handlebars.compile("<h4>{{i18n \"queue\"}}: {{friendly_queue_name}}</h4>\n{{#collection tagName=\"ul\" classBinding=\"className\" itemClass=\"job\" contentBinding=\"jobs\"}}\n  {{content.repository.slug}}\n  {{#if content.number}}\n    #{{content.number}}\n  {{/if}}\n{{else}}\n  {{i18n \"no_job\"}}\n{{/collection}}\n\n");Ember.TEMPLATES['app/templates/repositories/branch_summary']=Ember.Handlebars.compile("<table id=\"branch_summary\" class=\"status_list\">\n  <thead>\n    <tr>\n      <th>{{i18n \"repositories.branch\"}}</th>\n      <th>{{i18n \"repositories.commit\"}}</th>\n      <th>{{i18n \"repositories.message\"}}</th>\n      <th>{{i18n \"repositories.finished_at\"}}</th>\n    </tr>\n{{content}}\n  </thead>\n  {{#collection tagName=\"tbody\" contentBinding=\"branches\" itemViewClass=\"Ember.View\" itemClassBinding=\"content.color\"}}\n      <td class=\"number\"><a {{bindAttr href=\"content.buildUrl\"}}>{{content.branch}}</a></td>\n      <td class=\"commit\">{{content.formattedCommit}}</td>\n      <td class=\"message\">{{{content.message}}}</td>\n      <td class=\"finished_at timeago\" {{bindAttr title=\"content.finished_at\"}}>{{content.formattedFinishedAt}}</td>\n  {{/collection}}\n</table>\n");Ember.TEMPLATES['app/templates/repositories/list']=Ember.Handlebars.compile("{{#collection tagName=\"ul\" id=\"repositories\" contentBinding=\"repositories\" itemViewClass=\"Ember.View\" itemClassBinding=\"content.cssClasses\"}}\n  <div class=\"wrapper\">\n    <a {{bindAttr href=\"content.urlCurrent\"}} class=\"slug\">{{content.slug}}</a>\n    <a {{bindAttr href=\"content.urlLastBuild\"}} class=\"build\">#{{content.last_build_number}}</a>\n    <p class=\"summary\">\n      <span class=\"duration_label\">{{i18n \"repositories.duration\"}}:</span> <abbr class=\"duration\" {{bindAttr title=\"content.last_build_started_at\"}}>{{content.formattedLastBuildDuration}}</abbr>,\n      <span class=\"finished_at_label\">{{i18n \"repositories.finished_at\"}}:</span> <abbr class=\"finished_at timeago\" {{bindAttr title=\"content.last_build_finished_at\"}}>{{content.formattedLastBuildFinishedAt}}</abbr>\n    </p>\n    {{#if content.description}}\n      <p class=\"description\">{{content.description}}</p>\n    {{/if}}\n    <span class=\"indicator\"></span>\n  </div>\n{{/collection}}\n\n{{^collection contentBinding=\"repositories\" id=\"list\" class=\"loading\"}}\n  <p></p>\n{{/collection}}\n");Ember.TEMPLATES['app/templates/repositories/show']=Ember.Handlebars.compile("<div id=\"repository\">\n  <h3>\n    <a {{bindAttr href=\"repository.urlGithub\"}}>{{repository.slug}}</a>\n  </h3>\n\n  <p class=\"description\">{{repository.description}}</p>\n\n  <ul class=\"github-stats\">\n    <li class=\"language\">{{repository.last_build_language}}</li>\n    <li><a class=\"watchers\" title=\"Watches\" {{bindAttr href=\"repository.urlGithubWatchers\"}}></a></li>\n    <li><a class=\"forks\" title=\"Forks\" {{bindAttr href=\"repository.urlGithubNetwork\"}}></a></li>\n  </ul>\n\n  <ul class=\"tabs\">\n    <li id=\"tab_current\">\n      <h5><a {{bindAttr href=\"repository.urlCurrent\"}}>{{i18n \"repositories.tabs.current\"}}</a></h5>\n      <div class=\"tab\"></div>\n    </li>\n    <li id=\"tab_history\">\n      <h5><a {{bindAttr href=\"repository.urlBuilds\"}}>{{i18n \"repositories.tabs.build_history\"}}</a></h5>\n      <div class=\"tab\"></div>\n    </li>\n    <li id=\"tab_pull_requests\">\n      <h5><a {{bindAttr href=\"repository.urlPullRequests\"}}>{{i18n \"repositories.tabs.pull_requests\"}}</a></h5>\n      <div class=\"tab\"></div>\n    </li>\n    <li id=\"tab_branch_summary\">\n      <h5><a {{bindAttr href=\"repository.urlBranches\"}}>{{i18n \"repositories.tabs.branches\"}}</a></h5>\n      <div class=\"tab\"></div>\n    </li>\n    <li id=\"tab_build\">\n      <h5><a {{bindAttr href=\"build.url\"}}>{{i18n \"repositories.tabs.build\"}} #{{build.number}}</a></h5>\n      <div class=\"tab\"></div>\n    </li>\n    <li id=\"tab_job\">\n      <h5><a {{bindAttr href=\"job.url\"}}>{{i18n \"repositories.tabs.job\"}} #{{job.number}}</a></h5>\n      <div class=\"tab\"></div>\n    </li>\n  </ul>\n\n  <div class=\"tools\">\n    <a href=\"#\"></a>\n    <div class=\"content\">\n      <p><label>{{i18n \"repositories.branch\"}}:</label><select></select></p>\n      <p><label>{{i18n \"repositories.image_url\"}}:</label><input type=\"text\" class=\"url\"></input></p>\n      <p><label>{{i18n \"repositories.markdown\"}}:</label><input type=\"text\" class=\"markdown\"></input></p>\n      <p><label>{{i18n \"repositories.textile\"}}:</label><input type=\"text\" class=\"textile\"></input></p>\n      <p><label>{{i18n \"repositories.rdoc\"}}:</label><input type=\"text\" class=\"rdoc\"></input></p>\n    </div>\n  </div>\n</div>\n<script type=\"text/javascript\">\n    $('h5').tipsy();\n</script>\n\n");Ember.TEMPLATES['app/templates/service_hooks/list']=Ember.Handlebars.compile("<div class=\"message\">\n{{#if service_hooks.isSyncing}}\n  <p class=\"sync\">\n    Synchronizing your data from GitHub\n  </p>\n{{else}}\n  <p>\n    Last synchronized from GitHub: {{service_hooks.syncedAt}}\n    {{#view Ember.Button class=\"sync_now\" target=\"parentView.service_hooks\" action=\"sync\"}}\n      Sync now\n    {{/view}}\n  </p>\n{{/if}}\n</div>\n\n{{#collection tagName=\"ul\" itemViewClass=\"Ember.View\" itemClass=\"repository\" contentBinding=\"service_hooks\"}}\n  <a {{bindAttr href=\"content.url\"}} rel=\"nofollow\">{{content.owner_name}}/{{content.name}}</a>\n  <p class=\"description\">{{content.description}}</p>\n\n  <div class=\"controls\">\n    <a {{bindAttr href=\"content.urlGithubAdmin\"}} class=\"github-admin tool-tip\" title=\"Github service hooks admin page\"></a>\n    {{#view Ember.Button tagName=\"a\" class=\"switch\" classBinding=\"content.active\" contentBinding=\"content\" target=\"content\" action=\"toggle\"}}{{/view}}\n  </div>\n{{/collection}}\n");Ember.TEMPLATES['app/templates/workers/list']=Ember.Handlebars.compile("<h4>{{i18n \"workers\"}}</h4>\n{{#collection tagName=\"ul\" itemClass=\"group\" contentBinding=\"content\"}}\n  <h5>{{content.host}}</h5>\n  {{#collection tagName=\"ul\" itemClass=\"worker\" itemClassBinding=\"content.state\" contentBinding=\"content.workers\"}}\n    <div class=\"icon\"></div>\n    {{#if content.isTesting}}\n      <a {{bindAttr href=\"content.urlJob\"}} {{bindAttr title=\"content.last_seen_at\"}}>{{content.display}}</a>\n    {{else}}\n      <span {{bindAttr title=\"content.last_seen_at\"}}>{{content.display}}</span>\n    {{/if}}\n  {{/collection}}\n{{else}}\n  No workers\n{{/collection}}\n");(function() {
 
-  lastStatus: function() {
-    return 'status ' + this.getPath('builds.firstObject.color');
-  }.property('builds.firstObject.color'),
+  window.Pagination = function(parent, element, collection, count) {
+    this.parent = parent;
+    this.element = element;
+    this.collection = collection;
+    this.currentElement = $('.page .current-page', element);
+    this.lastElement = $('.page .last-page', element);
+    this.current = 1;
+    this.count = this.paged_count = count;
+    this.setup(['first', 'previous', 'next', 'last', 'all', 'paged']);
+    this.update();
+    return this;
+  };
 
-  _repositories: function() {
-    var slug = this.get('_slug');
-    return slug ? Travis.Repository.bySlug(slug) : Travis.Repository.recent();
-  }.property('_slug'),
-
-  _slug: function() {
-    var parts = $.compact([this.getPath('Travis.params.owner'), this.getPath('Travis.params.name')]);
-    if(parts.length > 0) return parts.join('/');
-  }.property('Travis.params')
-});
-Travis.Controllers.Builds.Show = Ember.Object.create({
-  repositoryBinding: 'Travis.Controllers.Builds.List.repository',
-  content: function() {
-    var build_id = this.getPath('Travis.params.id');
-    if (build_id) {
-      if (build_id == this.get('build_id')) {
-        return this.get('build');
+  $.extend(window.Pagination.prototype, {
+    setup: function(keys) {
+      var _this = this;
+      return $.each(keys, function(ix, key) {
+        return $('a.' + key, _this.element).click(function() {
+          return _this.onClick(key);
+        });
+      });
+    },
+    onClick: function(key) {
+      this[key]();
+      this.update();
+      return false;
+    },
+    first: function() {
+      this.current = 1;
+      return this.update();
+    },
+    next: function() {
+      this.current += 1;
+      if (this.current > this.lastPage()) {
+        this.current = 1;
       }
-      var build = Travis.Build.find(this.getPath('Travis.params.id'));
-      // A hack, but "necessary" to get all the attributes (just not the stuff
-      // listen in /builds.
-      build.refresh();
-      this.set('build', build);
-      this.set('build_id', build.get('id'));
-      return build;
-    } else {
-      return undefined;
+      return this.update();
+    },
+    previous: function() {
+      this.current -= 1;
+      return this.update();
+    },
+    last: function() {
+      this.current = this.lastPage();
+      return this.update();
+    },
+    all: function() {
+      this.current = 1;
+      this.count = this.length();
+      return this.update();
+    },
+    paged: function() {
+      this.count = this.paged_count;
+      return this.update();
+    },
+    update: function() {
+      this.parent.render(this.page());
+      this.element.toggle(!this.isPaged() || this.lastPage() > 1);
+      this.element.toggleClass('first_page', this.isFirst());
+      this.element.toggleClass('last_page', this.isLast());
+      this.element.toggleClass('paged', this.isPaged());
+      this.currentElement.html(this.current);
+      return this.lastElement.html(this.lastPage());
+    },
+    isFirst: function() {
+      return this.current === 1;
+    },
+    isLast: function() {
+      return this.current === this.lastPage();
+    },
+    isPaged: function() {
+      return this.count === this.paged_count;
+    },
+    lastPage: function() {
+      var current, rest, _ref;
+      current = parseInt(this.length() / this.count);
+      rest = this.length() % this.count;
+      return current + ((_ref = rest > 0) != null ? _ref : {
+        1: 0
+      });
+    },
+    length: function() {
+      return this.collection.length;
+    },
+    page: function() {
+      return this.collection.slice(this.start(), this.end());
+    },
+    start: function() {
+      return (this.current - 1) * this.count;
+    },
+    end: function() {
+      return this.start() + this.count;
     }
-  }.property('Travis.params')
-});
-Travis.Controllers.Jobs.Show = Ember.Object.create({
-  repositoryBinding: 'Travis.Controllers.Builds.List.repository',
-  content: function() {
-    var build_id = this.getPath('Travis.params.id');
-    if (build_id) {
-      if (build_id == this.get('job_id')) {
-        return this.get('job');
+  });
+
+}).call(this);
+(function() {
+  var Deck, Sponsor, Sponsors;
+
+  if (!Array.prototype.shuffle) {
+    Array.prototype.shuffle = function() {
+      var array, current, tmp, top;
+      array = this.slice();
+      top = array.length;
+      while (top && --top) {
+        current = Math.floor(Math.random() * (top + 1));
+        tmp = array[current];
+        array[current] = array[top];
+        array[top] = tmp;
       }
-      var build = Travis.Job.find(this.getPath('Travis.params.id'));
-      // A hack, but "necessary" to get all the attributes (just not the stuff
-      // listen in /builds.
-      build.refresh();
-      this.set('job', build);
-      this.set('job_id', build.get('id'));
-      return build;
-    } else {
-      return undefined;
-    }
-  }.property('Travis.params')
-});
-Travis.Controllers.Repositories.List = Ember.ArrayController.create({
-  content: Travis.Repository.recent()
-});
-Travis.Views.MobileBaseView = Ember.View.extend({
-  attributeBindings: ['data-role']
-});
-
-Travis.Views.PageView = Travis.Views.MobileBaseView.extend({
-  'data-role': 'page',
-
-  didInsertElement: function() {
-    var _self = this;
-    Ember.run.next(function() {
-      _self.$().page();
-    });
+      return array;
+    };
   }
-});
 
-Travis.Views.ToolbarBaseView = Travis.Views.MobileBaseView.extend({
-  attributeBindings: ['data-position'],
-  'data-position': function() {
-    if (this.get('isFullScreen')) {
-      return 'fullscreen';
+  Sponsors = function(element, collection, options) {
+    this.element = element;
+    this.pagination = new Pagination(this, $('.pagination', this.element.parent()), collection.shuffle(), 1);
+    return this;
+  };
+
+  $.extend(Sponsors, {
+    PACKAGES: ['platinum', 'gold', 'silver'],
+    SPEED: 15000,
+    load: function(callback) {
+      var _this = this;
+      return $.get('/sponsors.json', function(bundles) {
+        return callback(Sponsors.decksFrom(bundles));
+      });
+    },
+    decksFrom: function(bundles) {
+      var bundle, count, decks, i, sponsors, type, _i, _ref;
+      decks = {
+        banner: [],
+        text: []
+      };
+      for (bundle in bundles) {
+        sponsors = bundles[bundle].shuffle();
+        count = Deck.COUNTS[bundle];
+        type = bundle === 'silver' ? 'text' : 'banner';
+        for (i = _i = 0, _ref = sponsors.length - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = _i += count) {
+          decks[type].push(new Deck(type, bundle, sponsors.slice(i, i + count)));
+        }
+      }
+      return decks;
     }
+  });
 
-    if (this.get('isFixed')) {
-      return 'fixed';
+  $.extend(Sponsors.prototype, {
+    clear: function() {
+      return this.element.empty();
+    },
+    render: function(page) {
+      var deck, _i, _len, _results;
+      this.clear();
+      _results = [];
+      for (_i = 0, _len = page.length; _i < _len; _i++) {
+        deck = page[_i];
+        _results.push(this.element.append(deck.render()));
+      }
+      return _results;
+    },
+    run: function() {
+      var doRun;
+      if (this.pagination) {
+        doRun = function() {
+          this.pagination.next();
+          return this.run();
+        };
+        return setTimeout(doRun.bind(this), this.speed || Sponsors.SPEED);
+      }
     }
-    return '';
-  }.property('isFixed', 'isFullScreen').cacheable(),
+  });
 
-  isFixed: true,
-  isFullScreen: false
-});
+  Deck = function(type, bundle, sponsors) {
+    this.type = type;
+    this.bundle = bundle;
+    this.sponsors = type === 'banner' ? this.fill(sponsors) : sponsors;
+    return this;
+  };
 
-Travis.Views.HeaderView = Travis.Views.ToolbarBaseView.extend({
-  'data-role': 'header'
-});
+  $.extend(Deck, {
+    COUNTS: {
+      platinum: 1,
+      gold: 2,
+      silver: 6
+    }
+  });
 
-Travis.Views.ContentView = Travis.Views.MobileBaseView.extend({
-  'data-role': 'content'
-});
+  $.extend(Deck.prototype, {
+    fill: function(sponsors) {
+      while (sponsors.length < Deck.COUNTS[this.bundle]) {
+        sponsors.push({
+          image: this.placeholder()
+        });
+      }
+      return sponsors;
+    },
+    placeholder: function() {
+      return '/images/placeholder-' + this.bundle + '.png';
+    },
+    render: function() {
+      var node, sponsor, _i, _len, _ref;
+      node = $('<ul class="' + this.bundle + '"></ul>');
+      _ref = this.sponsors;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        sponsor = _ref[_i];
+        node.append(new Sponsor(this.type, sponsor).render());
+      }
+      return node;
+    }
+  });
 
-Travis.Views.FooterView = Travis.Views.MobileBaseView.extend({
-  'data-role': 'footer'
-});
+  Sponsor = function(type, data) {
+    this.type = type;
+    this.data = data;
+    return this;
+  };
 
-Travis.Views.ListItemView = Ember.View.extend({
-  tagName: 'li'
-});
+  $.extend(Sponsor.prototype, {
+    render: function() {
+      var html, node;
+      node = $('<li></li>');
+      html = this.type === 'banner' ? '<a href="' + this.data.url + '"><img src="' + this.img_url(this.data.image) + '"></a>' + this.data.text : this.data.link;
+      node.append($(html));
+      return node;
+    },
+    img_url: function(path) {
+      return "https://love.travis-ci.org/images/sponsors/" + path;
+    }
+  });
 
-Travis.Views.ListView = Ember.CollectionView.extend({
-  attributeBindings: ['data-role'],
-  'data-role': 'listview',
-  tagName: 'ul',
-  itemViewClass: Travis.Views.ListItemView,
+  $.fn.sponsors = function(decks, options) {
+    return new Sponsors(this, decks, options).run();
+  };
 
-  contentLengthDidChange: function() {
-    var _self = this;
-    Ember.run.next(function() {
-      _self.$().listview();
-    });
-  }.observes('content.length')
-});
+  $(function() {
+    if ($('.sponsors').length !== 0) {
+      return Sponsors.load(function(decks) {
+        $('#right .sponsors.top').sponsors(decks['banner']);
+        return $('#right .sponsors.bottom').sponsors(decks['text']);
+      });
+    }
+  });
 
-Travis.Views.Button = Ember.Button.extend({});
+}).call(this);
+var I18n = I18n || {};
+I18n.translations = {"ca":{"locales":{"en":"English","es":"Español","fr":"Français","ja":"日本語","nb":"Norsk Bokmål","nl":"Nederlands","pl":"Polski","pt-BR":"português brasileiro","ru":"Русский"}},"en":{"errors":{"messages":{"not_found":"not found","already_confirmed":"was already confirmed","not_locked":"was not locked"}},"devise":{"failure":{"unauthenticated":"You need to sign in or sign up before continuing.","unconfirmed":"You have to confirm your account before continuing.","locked":"Your account is locked.","invalid":"Invalid email or password.","invalid_token":"Invalid authentication token.","timeout":"Your session expired, please sign in again to continue.","inactive":"Your account was not activated yet."},"sessions":{"signed_in":"Signed in successfully.","signed_out":"Signed out successfully."},"passwords":{"send_instructions":"You will receive an email with instructions about how to reset your password in a few minutes.","updated":"Your password was changed successfully. You are now signed in."},"confirmations":{"send_instructions":"You will receive an email with instructions about how to confirm your account in a few minutes.","confirmed":"Your account was successfully confirmed. You are now signed in."},"registrations":{"signed_up":"You have signed up successfully. If enabled, a confirmation was sent to your e-mail.","updated":"You updated your account successfully.","destroyed":"Bye! Your account was successfully cancelled. We hope to see you again soon."},"unlocks":{"send_instructions":"You will receive an email with instructions about how to unlock your account in a few minutes.","unlocked":"Your account was successfully unlocked. You are now signed in."},"mailer":{"confirmation_instructions":{"subject":"Confirmation instructions"},"reset_password_instructions":{"subject":"Reset password instructions"},"unlock_instructions":{"subject":"Unlock Instructions"}}},"datetime":{"distance_in_words":{"hours_exact":{"one":"%{count} hour","other":"%{count} hours"},"minutes_exact":{"one":"%{count} minute","other":"%{count} minutes"},"seconds_exact":{"one":"%{count} second","other":"%{count} seconds"}}},"workers":"Workers","queue":"Queue","no_job":"There are no jobs","repositories":{"branch":"Branch","image_url":"Image URL","markdown":"Markdown","textile":"Textile","rdoc":"RDOC","commit":"Commit","message":"Message","started_at":"Started","duration":"Duration","finished_at":"Finished","tabs":{"current":"Current","build_history":"Build History","branches":"Branch Summary","pull_requests":"Pull Requests","build":"Build","job":"Job"}},"build":{"job":"Job","duration":"Duration","finished_at":"Finished"},"jobs":{"messages":{"sponsored_by":"This test series was run on a worker box sponsored by"},"build_matrix":"Build Matrix","allowed_failures":"Allowed Failures","author":"Author","config":"Config","compare":"Compare","committer":"Committer","branch":"Branch","commit":"Commit","message":"Message","started_at":"Started","duration":"Duration","finished_at":"Finished"},"builds":{"name":"Build","messages":{"sponsored_by":"This test series was run on a worker box sponsored by"},"build_matrix":"Build Matrix","allowed_failures":"Allowed Failures","author":"Author","config":"Config","compare":"Compare","committer":"Committer","branch":"Branch","commit":"Commit","message":"Message","started_at":"Started","duration":"Duration","finished_at":"Finished"},"layouts":{"top":{"home":"Home","blog":"Blog","docs":"Docs","stats":"Stats","github_login":"Sign in with Github","profile":"Profile","sign_out":"Sign Out","admin":"Admin"},"application":{"fork_me":"Fork me on Github","recent":"Recent","search":"Search","sponsers":"Sponsors","sponsors_link":"See all of our amazing sponsors &rarr;","my_repositories":"My Repositories"},"about":{"alpha":"This stuff is alpha.","messages":{"alpha":"Please do <strong>not</strong> consider this a stable service. We're still far from that! More info <a href='https://github.com/travis-ci'>here.</a>"},"join":"Join us and help!","mailing_list":"Mailing List","repository":"Repository","twitter":"Twitter"},"mobile":{"author":"Author","build":"Build","build_matrix":"Build Matrix","commit":"Commit","committer":"Committer","compare":"Compare","config":"Config","duration":"Duration","finished_at":"Finished at","job":"Job","log":"Log"}},"profiles":{"show":{"email":"Email","github":"Github","message":{"your_repos":"  Flick the switches below to turn on the Travis service hook for your projects, then push to GitHub.<br />\n  To test against multiple rubies, see","config":"how to configure custom build options"},"messages":{"notice":"To get started, please read our <a href=\"http://about.travis-ci.org/docs/user/getting-started/\">Getting Started guide</a>.\n  <small>It will only take a couple of minutes.</small>"},"token":"Token","your_repos":"Your Repositories","update":"Update","update_locale":"Update","your_locale":"Your Locale"}},"statistics":{"index":{"count":"Count","repo_growth":"Repository Growth","total_projects":"Total Projects/Repositories","build_count":"Build Count","last_month":"last month","total_builds":"Total Builds"}},"locales":{"en":"English","es":"Español","fr":"Français","ja":"日本語","nb":"Norsk Bokmål","pl":"Polski","ru":"Русский","nl":"Nederlands","pt-BR":"português brasileiro"}},"es":{"datetime":{"distance_in_words":{"hours_exact":{"one":"%{count} hora","other":"%{count} horas"},"minutes_exact":{"one":"%{count} minuto","other":"%{count} minutos"},"seconds_exact":{"one":"%{count} segundo","other":"%{count} segundos"}}},"workers":"Procesos","queue":"Cola","no_job":"No hay trabajos","repositories":{"branch":"Rama","image_url":"Imagen URL","markdown":"Markdown","textile":"Textile","rdoc":"RDOC","commit":"Commit","message":"Mensaje","started_at":"Iniciado","duration":"Duración","finished_at":"Finalizado","tabs":{"current":"Actual","build_history":"Histórico","branches":"Ramas","build":"Builds","job":"Trabajo"}},"build":{"job":"Trabajo","duration":"Duración","finished_at":"Finalizado"},"jobs":{"messages":{"sponsored_by":"Esta serie de tests han sido ejecutados en una caja de Proceso patrocinada por"},"build_matrix":"Matriz de Builds","allowed_failures":"Fallos Permitidos","author":"Autor","config":"Configuración","compare":"Comparar","committer":"Committer","branch":"Rama","commit":"Commit","message":"Mensaje","started_at":"Iniciado","duration":"Duración","finished_at":"Finalizado","sponsored_by":"Patrocinado por"},"builds":{"name":"Build","messages":{"sponsored_by":"Esta serie de tests han sido ejecutados en una caja de Proceso patrocinada por"},"build_matrix":"Matriz de Builds","allowed_failures":"Fallos Permitidos","author":"Autor","config":"Configuración","compare":"Comparar","committer":"Committer","branch":"Rama","commit":"Commit","message":"Mensaje","started_at":"Iniciado","duration":"Duración","finished_at":"Finalizado"},"layouts":{"top":{"home":"Inicio","blog":"Blog","docs":"Documentación","stats":"Estadísticas","github_login":"Iniciar sesión con Github","profile":"Perfil","sign_out":"Desconectar","admin":"Admin"},"application":{"fork_me":"Hazme un Fork en Github","recent":"Reciente","search":"Buscar","sponsers":"Patrocinadores","sponsors_link":"Ver todos nuestros patrocinadores &rarr;","my_repositories":"Mis Repositorios"},"about":{"alpha":"Esto es alpha.","messages":{"alpha":"Por favor <strong>no</strong> considereis esto un servicio estable. Estamos estamos aún lejos de ello! Más información <a href='https://github.com/travis-ci'>aquí.</a>"},"join":"Únetenos y ayudanos!","mailing_list":"Lista de Correos","repository":"Repositorio","twitter":"Twitter"}},"profiles":{"show":{"email":"Correo electrónico","github":"Github","message":{"your_repos":"  Activa los interruptores para inicial el  Travis service hook para tus proyectos, y haz un Push en GitHub.<br />\n  Para probar varias versiones de ruby, mira","config":"como configurar tus propias opciones para el Build"},"messages":{"notice":"Para comenzar, por favor lee nuestra <a href=\"http://about.travis-ci.org/docs/user/getting-started/\">Guía de Inicio </a>.\n  <small>Solo tomará unos pocos minutos.</small>"},"token":"Token","your_repos":"Tus repositorios","update":"Actualizar","update_locale":"Actualizar","your_locale":"Tu Idioma"}},"statistics":{"index":{"count":"Número","repo_growth":"Crecimiento de Repositorios","total_projects":"Total de Proyectos/Repositorios","build_count":"Número de Builds","last_month":"mes anterior","total_builds":"Total de Builds"}},"locales":{"en":"English","es":"Español","fr":"Français","ja":"日本語","nb":"Norsk Bokmål","pl":"Polski","ru":"Русский","nl":"Nederlands","pt-BR":"português brasileiro"}},"fr":{"datetime":{"distance_in_words":{"hours_exact":{"one":"%{count} heure","other":"%{count} heures"},"minutes_exact":{"one":"%{count} minute","other":"%{count} minutes"},"seconds_exact":{"one":"%{count} seconde","other":"%{count} secondes"}}},"workers":"Processus","queue":"File","no_job":"Pas de tâches","repositories":{"branch":"Branche","image_url":"Image","markdown":"Markdown","textile":"Textile","rdoc":"RDOC","commit":"Commit","message":"Message","started_at":"Commencé","duration":"Durée","finished_at":"Terminé","tabs":{"current":"Actuel","build_history":"Historique des tâches","branches":"Résumé des branches","build":"Construction","job":"Tâche"}},"build":{"job":"Tâche","duration":"Durée","finished_at":"Terminé"},"jobs":{"messages":{"sponsored_by":"Cette série de tests a été exécutée sur une machine sponsorisée par"},"build_matrix":"Matrice des versions","allowed_failures":"Échecs autorisés","author":"Auteur","config":"Config","compare":"Comparer","committer":"Committeur","branch":"Branche","commit":"Commit","message":"Message","started_at":"Commencé","duration":"Durée","finished_at":"Terminé","sponsored_by":"Cette série de tests a été exécutée sur une machine sponsorisée par"},"builds":{"name":"Version","messages":{"sponsored_by":"Cette série de tests a été exécutée sur une machine sponsorisée par"},"build_matrix":"Matrice des versions","allowed_failures":"Échecs autorisés","author":"Auteur","config":"Config","compare":"Comparer","committer":"Committeur","branch":"Branche","commit":"Commit","message":"Message","started_at":"Commencé","duration":"Durée","finished_at":"Terminé"},"layouts":{"top":{"home":"Accueil","blog":"Blog","docs":"Documentation","stats":"Statistiques","github_login":"Connection Github","profile":"Profil","sign_out":"Déconnection","admin":"Admin"},"application":{"fork_me":"Faites un Fork sur Github","recent":"Récent","search":"Chercher","sponsers":"Sponsors","sponsors_link":"Voir tous nos extraordinaire sponsors &rarr;","my_repositories":"Mes dépôts"},"about":{"alpha":"Ceci est en alpha.","messages":{"alpha":"S'il vous plaît ne considérez <strong>pas</strong> ce service comme étant stable. Nous sommes loin de ça! Plus d'infos <a href='https://github.com/travis-ci'>ici.</a>"},"join":"Joignez-vous à nous et aidez-nous!","mailing_list":"Liste de distribution","repository":"Dépôt","twitter":"Twitter"},"mobile":{"author":"Auteur","build":"Version","build_matrix":"Matrice des versions","commit":"Commit","committer":"Committeur","compare":"Comparer","config":"Config","duration":"Durée","finished_at":"Terminé à","job":"Tâche","log":"Journal"}},"profiles":{"show":{"github":"Github","message":{"your_repos":"Utilisez les boutons ci-dessous pour activer Travis sur vos projets puis déployez sur GitHub.<br />\nPour tester sur plus de versions de ruby, voir","config":"comment configurer des options de version personnalisées"},"messages":{"notice":"Pour commencer, veuillez lire notre <a href=\"http://about.travis-ci.org/docs/user/getting-started/\">guide de démarrage</a>.\n <small>Cela ne vous prendra que quelques minutes.</small>"},"token":"Jeton","your_repos":"Vos dépôts","email":"Courriel","update":"Modifier","update_locale":"Modifier","your_locale":"Votre langue"}},"statistics":{"index":{"count":"Décompte","repo_growth":"Croissance de dépôt","total_projects":"Total des projets/dépôts","build_count":"Décompte des versions","last_month":"mois dernier","total_builds":"Total des versions"}},"admin":{"actions":{"create":"créer","created":"créé","delete":"supprimer","deleted":"supprimé","update":"mise à jour","updated":"mis à jour"},"credentials":{"log_out":"Déconnection"},"delete":{"confirmation":"Oui, je suis sure","flash_confirmation":"%{name} a été détruit avec succès"},"flash":{"error":"%{name} n'a pas pu être %{action}","noaction":"Aucune action n'a été entreprise","successful":"%{name} a réussi à %{action}"},"history":{"name":"Historique","no_activity":"Aucune activité","page_name":"Historique pour %{name}"},"list":{"add_new":"Ajouter un nouveau","delete_action":"Supprimer","delete_selected":"Supprimer la sélection","edit_action":"Modifier","search":"Rechercher","select":"Sélectionner le %{name} à modifier","select_action":"Sélectionner","show_all":"Montrer tout"},"new":{"basic_info":"Information de base","cancel":"Annuler","chosen":"%{name} choisi","chose_all":"Choisir tout","clear_all":"Déselectionner tout","many_chars":"caractères ou moins","one_char":"caractère.","optional":"Optionnel","required":"Requis","save":"Sauvegarder","save_and_add_another":"Sauvegarder et en ajouter un autre","save_and_edit":"Sauvegarder et modifier","select_choice":"Faites vos choix et cliquez"},"dashboard":{"add_new":"Ajouter un nouveau","last_used":"Dernière utilisation","model_name":"Nom du modèle","modify":"Modification","name":"Tableau de bord","pagename":"Administration du site","records":"Enregistrements","show":"Voir","ago":"plus tôt"}},"home":{"name":"accueil"},"repository":{"duration":"Durée"},"devise":{"confirmations":{"confirmed":"Votre compte a été crée avec succès. Vous être maintenant connecté.","send_instructions":"Vous allez recevoir un courriel avec les instructions de confirmation de votre compte dans quelques minutes."},"failure":{"inactive":"Votre compte n'a pas encore été activé.","invalid":"Adresse courriel ou mot de passe invalide.","invalid_token":"Jeton d'authentification invalide.","locked":"Votre compte est bloqué.","timeout":"Votre session est expirée, veuillez vous reconnecter pour continuer.","unauthenticated":"Vous devez vous connecter ou vous enregistrer afin de continuer","unconfirmed":"Vous devez confirmer votre compte avant de continuer."},"mailer":{"confirmation_instructions":{"subject":"Instructions de confirmations"},"reset_password_instructions":{"subject":"Instruction de remise à zéro du mot de passe"},"unlock_instructions":{"subject":"Instruction de débloquage"}},"passwords":{"send_instructions":"Vous recevrez un courriel avec les instructions de remise à zéro du mot de passe dans quelques minutes.","updated":"Votre mot de passe a été changé avec succès. Vous êtes maintenant connecté."},"registrations":{"destroyed":"Au revoir! Votre compte a été annulé avec succès. Nous espérons vous revoir bientôt.","signed_up":"Vous êtes enregistré avec succès. Si activé, une confirmation vous a été envoyé par courriel.","updated":"Votre compte a été mis a jour avec succès"},"sessions":{"signed_in":"Connecté avec succès","signed_out":"Déconnecté avec succès"},"unlocks":{"send_instructions":"Vous recevrez un courriel contenant les instructions pour débloquer votre compte dans quelques minutes.","unlocked":"Votre compte a été débloqué avec succès."}},"errors":{"messages":{"already_confirmed":"étais déja confirmé","not_found":"n'a pas été trouvé","not_locked":"n'étais pas bloqué"}},"locales":{"en":"English","es":"Español","ja":"日本語","ru":"Русский","fr":"Français","nb":"Norsk Bokmål","pl":"Polski","nl":"Nederlands","pt-BR":"português brasileiro"}},"ja":{"workers":"ワーカー","queue":"キュー","no_job":"ジョブはありません","repositories":{"branch":"ブランチ","image_url":"画像URL","markdown":".md","textile":".textile","rdoc":".rdoc","commit":"コミット","message":"メッセージ","started_at":"開始時刻","duration":"処理時間","finished_at":"終了時刻","tabs":{"current":"最新","build_history":"ビルド履歴","branches":"ブランチまとめ","build":"ビルド","job":"ジョブ"}},"build":{"job":"ジョブ","duration":"処理時間","finished_at":"終了時刻"},"jobs":{"messages":{"sponsored_by":"このテストは以下のスポンサーの協力で行いました。"},"build_matrix":"ビルドマトリクス","allowed_failures":"失敗許容範囲内","author":"制作者","config":"設定","compare":"比較","committer":"コミット者","branch":"ブランチ","commit":"コミット","message":"メッセージ","started_at":"開始時刻","duration":"処理時間","finished_at":"終了時刻"},"builds":{"name":"ビルド","messages":{"sponsored_by":"このテストは以下のスポンサーの協力で行いました。"},"build_matrix":"失敗許容範囲外","allowed_failures":"失敗許容範囲内","author":"制作者","config":"設定","compare":"比較","committer":"コミット者","branch":"ブランチ","commit":"コミット","message":"メッセージ","started_at":"開始時刻","duration":"処理時間","finished_at":"終了時刻"},"layouts":{"about":{"alpha":"まだアルファですよ！","join":"参加してみよう！","mailing_list":"メールリスト","messages":{"alpha":"Travis-ciは安定したサービスまで後一歩！詳しくは<a href='https://github.com/travis-ci'>こちら</a>"},"repository":"リポジトリ","twitter":"ツイッター"},"application":{"fork_me":"Githubでフォークしよう","my_repositories":"マイリポジトリ","recent":"最近","search":"検索","sponsers":"スポンサー","sponsors_link":"スポンサーをもっと見る &rarr;"},"top":{"blog":"ブログ","docs":"Travisとは？","github_login":"Githubでログイン","home":"ホーム","profile":"プロフィール","sign_out":"ログアウト","stats":"統計","admin":"管理"},"mobile":{"author":"制作者","build":"ビルド","build_matrix":"ビルドマトリクス","commit":"コミット","committer":"コミット者","compare":"比較","config":"設定","duration":"処理時間","finished_at":"終了時刻","job":"ジョブ","log":"ログ"}},"profiles":{"show":{"github":"Github","email":"メール","message":{"config":"詳細設定","your_repos":"以下のスイッチを設定し、Travis-ciを有効にします。Githubへプッシュしたらビルドは自動的に開始します。複数バーションや細かい設定はこちらへ："},"messages":{"notice":"まずは<a href=\"http://about.travis-ci.org/docs/user/getting-started/\">Travisのはじめ方</a>を参照してください。"},"token":"トークン","your_repos":"リポジトリ","update":"更新","update_locale":"更新","your_locale":"言語設定"}},"statistics":{"index":{"build_count":"ビルド数","count":"数","last_month":"先月","repo_growth":"リポジトリ","total_builds":"合計ビルド数","total_projects":"合計リポジトリ"}},"locales":{"en":"English","es":"Español","fr":"Français","ja":"日本語","nb":"Norsk Bokmål","pl":"Polski","ru":"Русский","nl":"Nederlands","pt-BR":"português brasileiro"}},"nb":{"admin":{"actions":{"create":"opprett","created":"opprettet","delete":"slett","deleted":"slettet","update":"oppdater","updated":"oppdatert"},"credentials":{"log_out":"Logg ut"},"dashboard":{"add_new":"Legg til ny","ago":"siden","last_used":"Sist brukt","model_name":"Modell","modify":"Rediger","name":"Dashbord","pagename":"Nettstedsadministrasjon","records":"Oppføringer","show":"Vis"},"delete":{"confirmation":"Ja, jeg er sikker","flash_confirmation":"%{name} ble slettet"},"flash":{"error":"%{name} kunne ikke bli %{action}","noaction":"Ingen handlinger ble utført","successful":"%{name} ble %{action}"},"history":{"name":"Logg","no_activity":"Ingen aktivitet","page_name":"Logg for %{name}"},"list":{"add_new":"Legg til ny","delete_action":"Slett","delete_selected":"Slett valgte","edit_action":"Rediger","search":"Søk","select":"Velg %{name} for å redigere","select_action":"Velg","show_all":"Vis alle "},"new":{"basic_info":"Basisinformasjon","cancel":"Avbryt","chosen":"Valgt %{name}","chose_all":"Velg alle","clear_all":"Fjern alle","many_chars":"eller færre tegn.","one_char":"tegn.","optional":"Valgfri","required":"Påkrevd","save":"Lagre","save_and_add_another":"Lagre og legg til ny","save_and_edit":"Lagre og rediger","select_choice":"Kryss av for dine valg og klikk"}},"build":{"duration":"Varighet","finished_at":"Fullført","job":"Jobb"},"builds":{"allowed_failures":"Tillatte feil","author":"Forfatter","branch":"Gren","build_matrix":"Jobbmatrise","commit":"Innsending","committer":"Innsender","compare":"Sammenlign","config":"Oppsett","duration":"Varighet","finished_at":"Fullført","message":"Beskrivelse","messages":{"sponsored_by":"Denne testen ble kjørt på en maskin sponset av"},"name":"Jobb","started_at":"Startet"},"datetime":{"distance_in_words":{"hours_exact":{"one":"%{count} time","other":"%{count} timer"},"minutes_exact":{"one":"%{count} minutt","other":"%{count} minutter"},"seconds_exact":{"one":"%{count} sekund","other":"%{count} sekunder"}}},"devise":{"confirmations":{"confirmed":"Din konto er aktivert og du er nå innlogget.","send_instructions":"Om noen få minutter så vil du få en e-post med informasjon om hvordan du bekrefter kontoen din."},"failure":{"inactive":"Kontoen din har ikke blitt aktivert enda.","invalid":"Ugyldig e-post eller passord.","invalid_token":"Ugyldig autentiseringskode.","locked":"Kontoen din er låst.","timeout":"Du ble logget ut siden på grunn av mangel på aktivitet, vennligst logg inn på nytt.","unauthenticated":"Du må logge inn eller registrere deg for å fortsette.","unconfirmed":"Du må bekrefte kontoen din før du kan fortsette."},"mailer":{"confirmation_instructions":{"subject":"Bekreftelsesinformasjon"},"reset_password_instructions":{"subject":"Instruksjoner for å få nytt passord"},"unlock_instructions":{"subject":"Opplåsningsinstruksjoner"}},"passwords":{"send_instructions":"Om noen få minutter så vil du få en epost med informasjon om hvordan du kan få et nytt passord.","updated":"Passordet ditt ble endret, og du er logget inn."},"registrations":{"destroyed":"Adjø! Kontoen din ble kansellert. Vi håper vi ser deg igjen snart.","signed_up":"Du er nå registrert.","updated":"Kontoen din ble oppdatert."},"sessions":{"signed_in":"Du er nå logget inn.","signed_out":"Du er nå logget ut."},"unlocks":{"send_instructions":"Om noen få minutter så kommer du til å få en e-post med informasjon om hvordan du kan låse opp kontoen din.","unlocked":"Kontoen din ble låst opp, og du er nå logget inn igjen."}},"errors":{"messages":{"already_confirmed":"har allerede blitt bekreftet","not_found":"ikke funnnet","not_locked":"var ikke låst"}},"home":{"name":"hjem"},"jobs":{"allowed_failures":"Tillatte feil","author":"Forfatter","branch":"Gren","build_matrix":"Jobbmatrise","commit":"Innsending","committer":"Innsender","compare":"Sammenlign","config":"Oppsett","duration":"Varighet","finished_at":"Fullført","message":"Beskrivelse","messages":{"sponsored_by":"Denne testserien ble kjørt på en maskin sponset av"},"started_at":"Startet"},"layouts":{"about":{"alpha":"Dette er alfa-greier.","join":"Bli med og hjelp oss!","mailing_list":"E-postliste","messages":{"alpha":"Dette er <strong>ikke</strong> en stabil tjeneste. Vi har fremdeles et stykke igjen! Mer informasjon finner du <a href=\"https://github.com/travis-ci\">her</a>."},"repository":"Kodelager","twitter":"Twitter."},"application":{"fork_me":"Se koden på Github","my_repositories":"Mine kodelagre","recent":"Nylig","search":"Søk","sponsers":"Sponsorer","sponsors_link":"Se alle de flotte sponsorene våre &rarr;"},"mobile":{"author":"Forfatter","build":"Jobb","build_matrix":"Jobbmatrise","commit":"Innsending","committer":"Innsender","compare":"Sammenlign","config":"Oppsett","duration":"Varighet","finished_at":"Fullført","job":"Jobb","log":"Logg"},"top":{"admin":"Administrator","blog":"Blogg","docs":"Dokumentasjon","github_login":"Logg inn med Github","home":"Hjem","profile":"Profil","sign_out":"Logg ut","stats":"Statistikk"}},"no_job":"Ingen jobber finnnes","profiles":{"show":{"email":"E-post","github":"Github","message":{"config":"hvordan sette opp egne jobbinnstillinger","your_repos":"Slå\u0010 på Travis for prosjektene dine ved å dra i bryterne under, og send koden til Github.<br />\nFor å teste mot flere ruby-versjoner, se dokumentasjonen for"},"messages":{"notice":"For å komme i gang, vennligst les <a href=\"http://about.travis-ci.org/docs/user/getting-started/\">kom-i-gang-veivisereren</a> vår. <small>Det tar bare et par minutter.</small>"},"token":"Kode","update":"Oppdater","update_locale":"Oppdater","your_locale":"Ditt språk","your_repos":"Dine kodelagre"}},"queue":"Kø","repositories":{"branch":"Gren","commit":"Innsender","duration":"Varighet","finished_at":"Fullført","image_url":"Bilde-URL","markdown":"Markdown","message":"Beskrivelse","rdoc":"RDOC","started_at":"Startet","tabs":{"branches":"Grensammendrag","build":"Jobb","build_history":"Jobblogg","current":"Siste","job":"Jobb"},"textile":"Textile"},"repository":{"duration":"Varighet"},"statistics":{"index":{"build_count":"Antall jobber","count":"Antall","last_month":"siste måned","repo_growth":"Vekst i kodelager","total_builds":"Totale jobber","total_projects":"Antall prosjekter/kodelagre"}},"workers":"Arbeidere","locales":{"en":"English","es":"Español","ja":"日本語","ru":"Русский","fr":"Français","nb":"Norsk Bokmål","pl":"Polski","nl":"Nederlands","pt-BR":"português brasileiro"}},"nl":{"admin":{"actions":{"create":"aanmaken","created":"aangemaakt","delete":"verwijderen","deleted":"verwijderd","update":"bijwerken","updated":"bijgewerkt"},"credentials":{"log_out":"Afmelden"},"dashboard":{"add_new":"Nieuwe toevoegen","ago":"geleden","last_used":"Laatst gebruikt","model_name":"Model naam","modify":"Wijzigen","pagename":"Site administratie","show":"Laten zien","records":"Gegevens"},"delete":{"confirmation":"Ja, ik ben zeker","flash_confirmation":"%{name} is vernietigd"},"flash":{"error":"%{name} kon niet worden %{action}","noaction":"Er zijn geen acties genomen","successful":"%{name} is %{action}"},"history":{"name":"Geschiedenis","no_activity":"Geen activiteit","page_name":"Geschiedenis van %{name}"},"list":{"add_new":"Nieuwe toevoegen","delete_action":"Verwijderen","delete_selected":"Verwijder geselecteerden","edit_action":"Bewerken","search":"Zoeken","select":"Selecteer %{name} om te bewerken","select_action":"Selecteer","show_all":"Laat allen zien"},"new":{"basic_info":"Basisinfo","cancel":"Annuleren","chosen":"%{name} gekozen","chose_all":"Kies allen","clear_all":"Deselecteer allen","many_chars":"tekens of minder.","one_char":"teken.","optional":"Optioneel","required":"Vereist","save":"Opslaan","save_and_add_another":"Opslaan en een nieuwe toevoegen","save_and_edit":"Opslaan en bewerken","select_choice":"Selecteer uw keuzes en klik"}},"build":{"duration":"Duur","finished_at":"Voltooid","job":"Taak"},"builds":{"allowed_failures":"Toegestane mislukkingen","author":"Auteur","branch":"Tak","build_matrix":"Bouw Matrix","compare":"Vergelijk","config":"Configuratie","duration":"Duur","finished_at":"Voltooid","message":"Bericht","messages":{"sponsored_by":"Deze tests zijn gedraaid op een machine gesponsord door"},"name":"Bouw","started_at":"Gestart","commit":"Commit","committer":"Committer"},"datetime":{"distance_in_words":{"hours_exact":{"one":"%{count} uur","other":"%{count} uren"},"minutes_exact":{"one":"%{count} minuut","other":"%{count} minuten"},"seconds_exact":{"one":"%{count} seconde","other":"%{count} seconden"}}},"devise":{"confirmations":{"confirmed":"Uw account is bevestigd. U wordt nu ingelogd.","send_instructions":"Binnen enkele minuten zal u een email ontvangen met instructies om uw account te bevestigen."},"failure":{"inactive":"Uw account is nog niet geactiveerd.","invalid":"Ongeldig email adres of wachtwoord.","invalid_token":"Ongeldig authenticatie token.","locked":"Uw account is vergrendeld.","timeout":"Uw sessie is verlopen, gelieve opnieuw in te loggen om verder te gaan.","unauthenticated":"U moet inloggen of u registeren voordat u verder gaat.","unconfirmed":"U moet uw account bevestigen voordat u verder gaat."},"mailer":{"confirmation_instructions":{"subject":"Bevestigings-instructies"},"reset_password_instructions":{"subject":"Wachtwoord herstel instructies"},"unlock_instructions":{"subject":"Ontgrendel-instructies"}},"passwords":{"send_instructions":"Binnen enkele minuten zal u een email krijgen met instructies om uw wachtwoord opnieuw in te stellen.","updated":"Uw wachtwoord is veranderd. U wordt nu ingelogd."},"registrations":{"destroyed":"Dag! Uw account is geannuleerd. We hopen u vlug terug te zien.","signed_up":"Uw registratie is voltooid. Als het ingeschakeld is wordt een bevestiging naar uw email adres verzonden.","updated":"Het bijwerken van uw account is gelukt."},"sessions":{"signed_in":"Inloggen gelukt.","signed_out":"Uitloggen gelukt."},"unlocks":{"send_instructions":"Binnen enkele minuten zal u een email krijgen met instructies om uw account te ontgrendelen.","unlocked":"Uw account is ontgrendeld. U wordt nu ingelogd."}},"errors":{"messages":{"already_confirmed":"was al bevestigd","not_found":"niet gevonden","not_locked":"was niet vergrendeld"}},"jobs":{"allowed_failures":"Toegestane mislukkingen","author":"Auteur","branch":"Tak","build_matrix":"Bouw matrix","compare":"Vergelijk","config":"Configuratie","duration":"Duur","finished_at":"Voltooid","message":"Bericht","messages":{"sponsored_by":"Deze testen zijn uitgevoerd op een machine gesponsord door"},"started_at":"Gestart","commit":"Commit","committer":"Committer"},"layouts":{"about":{"alpha":"Dit is in alfa-stadium.","join":"Doe met ons mee en help!","mailing_list":"Mailing lijst","messages":{"alpha":"Gelieve deze service <strong>niet</strong> te beschouwen als stabiel. Daar zijn we nog lang niet! Meer info <a href='https://github.com/travis-ci'>hier.</a>"},"repository":"Repository","twitter":"Twitter"},"application":{"fork_me":"Maak een fork op Github","my_repositories":"Mijn repositories","recent":"Recent","search":"Zoeken","sponsers":"Sponsors","sponsors_link":"Bekijk al onze geweldige sponsors &rarr;"},"mobile":{"author":"Auteur","build":"Bouw","build_matrix":"Bouw matrix","compare":"Vergelijk","config":"Configuratie","duration":"Duur","finished_at":"Voltooid op","job":"Taak","commit":"Commit","committer":"Committer","log":"Logboek"},"top":{"admin":"Administratie","blog":"Blog","docs":"Documentatie","github_login":"Inloggen met Github","home":"Home","profile":"Profiel","sign_out":"Uitloggen","stats":"Statistieken"}},"locales":{"en":"English","es":"Español","fr":"Français","ja":"日本語","nb":"Norsk Bokmål","nl":"Nederlands","pl":"Polski","ru":"Русский","pt-BR":"português brasileiro"},"no_job":"Er zijn geen taken","profiles":{"show":{"email":"Email adres","github":"Github","message":{"config":"hoe eigen bouw-opties in te stellen","your_repos":"Zet de schakelaars hieronder aan om de Travis hook voor uw projecten te activeren en push daarna naar Github<br />\nOm te testen tegen meerdere rubies, zie"},"messages":{"notice":"Om te beginnen kunt u onze <a href=\\\"http://about.travis-ci.org/docs/user/getting-started/\\\">startersgids</a> lezen.\\n  <small>Het zal maar enkele minuten van uw tijd vergen.</small>"},"update":"Bijwerken","update_locale":"Bijwerken","your_locale":"Uw taal","your_repos":"Uw repositories","token":"Token"}},"queue":"Wachtrij","repositories":{"branch":"Tak","duration":"Duur","finished_at":"Voltooid","image_url":"Afbeeldings URL","message":"Bericht","started_at":"Gestart","tabs":{"branches":"Tak samenvatting","build":"Bouw","build_history":"Bouw geschiedenis","current":"Huidig","job":"Taak"},"commit":"Commit","markdown":"Markdown","rdoc":"RDOC","textile":"Textile"},"repository":{"duration":"Duur"},"statistics":{"index":{"build_count":"Bouw aantal","count":"Aantal","last_month":"voorbije maand","repo_growth":"Repository groei","total_builds":"Bouw totaal","total_projects":"Projecten/Repository totaal"}},"workers":"Machines","home":{"name":"Hoofdpagina"}},"pl":{"datetime":{"distance_in_words":{"hours_exact":{"one":"%{count} godzina","other":"%{count} godziny"},"minutes_exact":{"one":"%{count} minuta","other":"%{count} minuty"},"seconds_exact":{"one":"%{count} sekunda","other":"%{count} sekundy"}}},"workers":"Workers","queue":"Kolejka","no_job":"Brak zadań","repositories":{"branch":"Gałąź","image_url":"URL obrazka","markdown":"Markdown","textile":"Textile","rdoc":"RDOC","commit":"Commit","message":"Opis","started_at":"Rozpoczęto","duration":"Czas trwania","finished_at":"Zakończono","tabs":{"current":"Aktualny","build_history":"Historia Buildów","branches":"Wszystkie Gałęzie","build":"Build","job":"Zadanie"}},"build":{"job":"Zadanie","duration":"Czas trwania","finished_at":"Zakończono"},"jobs":{"messages":{"sponsored_by":"Te testy zostały uruchomione na maszynie sponsorowanej przez"},"build_matrix":"Macierz Buildów","allowed_failures":"Dopuszczalne Niepowodzenia","author":"Autor","config":"Konfiguracja","compare":"Porównanie","committer":"Committer","branch":"Gałąź","commit":"Commit","message":"Opis","started_at":"Rozpoczęto","duration":"Czas trwania","finished_at":"Zakończono","sponsored_by":"Te testy zostały uruchomione na maszynie sponsorowanej przez"},"builds":{"name":"Build","messages":{"sponsored_by":"Te testy zostały uruchomione na maszynie sponsorowanej przez"},"build_matrix":"Macierz Buildów","allowed_failures":"Dopuszczalne Niepowodzenia","author":"Autor","config":"Konfiguracja","compare":"Porównanie","committer":"Komitujący","branch":"Gałąź","commit":"Commit","message":"Opis","started_at":"Rozpoczęto","duration":"Czas trwania","finished_at":"Zakończono"},"layouts":{"top":{"home":"Start","blog":"Blog","docs":"Dokumentacja","stats":"Statystki","github_login":"Zaloguj się przy pomocy Githuba","profile":"Profil","sign_out":"Wyloguj się"},"application":{"fork_me":"Fork me on Github","recent":"Ostatnie","search":"Wyniki","sponsers":"Sponsorzy","sponsors_link":"Zobacz naszych wszystkich wspaniałych sponsorów &rarr;","my_repositories":"Moje repozytoria"},"about":{"alpha":"To wciąż jest wersja alpha.","messages":{"alpha":"Proszę <strong>nie</strong> traktuj tego jako stabilnej usługi. Wciąż nam wiele do tego brakuje! Więcej informacji znajdziesz <a href='https://github.com/travis-ci'>tutaj.</a>"},"join":"Pomóż i dołącz do nas!","mailing_list":"Lista mailingowa","repository":"Repozytorium","twitter":"Twitter"},"mobile":{"author":"Autor","build":"Build","build_matrix":"Macierz Buildów","commit":"Commit","committer":"Komitujący","compare":"Porównianie","config":"Konfiguracja","duration":"Czas trwania","finished_at":"Zakończono","job":"Zadanie","log":"Log"}},"profiles":{"show":{"email":"Email","github":"Github","message":{"your_repos":"  Przesuń suwak poniżej, aby włączyć Travisa, dla twoich projektów, a następnie umieść swój kod na GitHubie.<br />\n Aby testować swój kod przy użyciu wielu wersji Rubiego, zobacz","config":"jak skonfigurować niestandardowe opcje builda"},"messages":{"notice":"Aby zacząć, przeczytaj nasz <a href=\"http://about.travis-ci.org/docs/user/getting-started/\">Przewodnik </a>.\n  <small>Zajmie ci to tylko kilka minut.</small>"},"token":"Token","your_repos":"Twoje repozytoria"}},"statistics":{"index":{"count":"Ilość","repo_growth":"Przyrost repozytoriów","total_projects":"Łącznie projektów/repozytoriów","build_count":"Liczba buildów","last_month":"ostatni miesiąc","total_builds":"Łącznie Buildów"}},"date":{"abbr_day_names":["nie","pon","wto","śro","czw","pią","sob"],"abbr_month_names":["sty","lut","mar","kwi","maj","cze","lip","sie","wrz","paź","lis","gru"],"day_names":["niedziela","poniedziałek","wtorek","środa","czwartek","piątek","sobota"],"formats":{"default":"%d-%m-%Y","long":"%B %d, %Y","short":"%d %b"},"month_names":["styczeń","luty","marzec","kwiecień","maj","czerwiec","lipiec","sierpień","wrzesień","październik","listopad","grudzień"],"order":["day","month","year"]},"errors":{"format":"%{attribute} %{message}","messages":{"accepted":"musi zostać zaakceptowane","blank":"nie może być puste"}},"locales":{"en":"English","es":"Español","ja":"日本語","ru":"Русский","fr":"Français","nb":"Norsk Bokmål","pl":"Polski","nl":"Nederlands","pt-BR":"português brasileiro"}},"pt-BR":{"admin":{"actions":{"create":"criar","created":"criado","delete":"deletar","deleted":"deletado","update":"atualizar","updated":"atualizado"},"credentials":{"log_out":"Deslogar"},"dashboard":{"add_new":"Adicionar novo","ago":"atrás","last_used":"Última utilização","model_name":"Nome do modelo","modify":"Modificar","name":"Dashboard","pagename":"Administração do site","records":"Registros","show":"Mostrar"},"delete":{"confirmation":"Sim, tenho certeza","flash_confirmation":"%{name} foi destruído com sucesso"},"flash":{"error":"%{name} falhou ao %{action}","noaction":"Nenhuma ação foi tomada","successful":"%{name} foi %{action} com sucesso"},"history":{"name":"Histórico","no_activity":"Nenhuma Atividade","page_name":"Histórico para %{name}"},"list":{"add_new":"Adicionar novo","delete_action":"Deletar","delete_selected":"Deletar selecionados","edit_action":"Editar","search":"Buscar","select":"Selecionar %{name} para editar","select_action":"Selecionar","show_all":"Mostrar todos"},"new":{"basic_info":"Informações básicas","cancel":"Cancelar","chosen":"Escolhido %{name}","chose_all":"Escolher todos","clear_all":"Limpar todos","many_chars":"caracteres ou menos.","one_char":"caractere.","optional":"Opcional","required":"Requerido","save":"Salvar","save_and_add_another":"Salvar e adicionar outro","save_and_edit":"Salvar e alterar","select_choice":"Selecione e clique"}},"build":{"duration":"Duração","finished_at":"Concluído em","job":"Trabalho"},"builds":{"allowed_failures":"Falhas Permitidas","author":"Autor","branch":"Branch","build_matrix":"Matriz de Build","commit":"Commit","committer":"Committer","compare":"Comparar","config":"Config","duration":"Duração","finished_at":"Concluído em","message":"Mensagem","messages":{"sponsored_by":"Esta série de testes foi executada em uma caixa de processos patrocinada por"},"name":"Build","started_at":"Iniciou em"},"datetime":{"distance_in_words":{"hours_exact":{"one":"%{count} hora","other":"%{count} horas"},"minutes_exact":{"one":"%{count} minuto","other":"%{count} minutos"},"seconds_exact":{"one":"%{count} segundo","other":"%{count} segundos"}}},"devise":{"confirmations":{"confirmed":"Sua conta foi confirmada com sucesso. Você agora está logado.","send_instructions":"Você receberá um email com instruções de como confirmar sua conta em alguns minutos."},"failure":{"inactive":"Sua conta ainda não foi ativada.","invalid":"Email ou senha inválidos.","invalid_token":"Token de autenticação inválido.","locked":"Sua conta está trancada.","timeout":"Sua sessão expirou, por favor faça seu login novamente.","unauthenticated":"Você precisa fazer o login ou cadastrar-se antes de continuar.","unconfirmed":"Você precisa confirmar sua conta antes de continuar."},"mailer":{"confirmation_instructions":{"subject":"Instruções de confirmação"},"reset_password_instructions":{"subject":"Instruções de atualização de senha"},"unlock_instructions":{"subject":"Instruções de destrancamento"}},"passwords":{"send_instructions":"Você receberá um email com instruções de como atualizar sua senha em alguns minutos.","updated":"Sua senha foi alterada com sucesso. Você agora está logado."},"registrations":{"destroyed":"Tchau! Sua conta foi cancelada com sucesso. Esperamos vê-lo novamente em breve!","signed_up":"Você se cadastrou com sucesso. Se ativada, uma confirmação foi enviada para seu email.","updated":"Você atualizou sua conta com sucesso."},"sessions":{"signed_in":"Logado com sucesso.","signed_out":"Deslogado com sucesso."},"unlocks":{"send_instructions":"Você receberá um email com instruções de como destrancar sua conta em alguns minutos.","unlocked":"Sua conta foi destrancada com sucesso. Você agora está logado."}},"errors":{"messages":{"already_confirmed":"já foi confirmado","not_found":"não encontrado","not_locked":"não estava trancado"}},"home":{"name":"home"},"jobs":{"allowed_failures":"Falhas Permitidas","author":"Autor","branch":"Branch","build_matrix":"Matriz de Build","commit":"Commit","committer":"Committer","compare":"Comparar","config":"Config","duration":"Duração","finished_at":"Concluído em","message":"Mensagem","messages":{"sponsored_by":"Esta série de testes foi executada em uma caixa de processos patrocinada por"},"started_at":"Iniciou em"},"layouts":{"about":{"alpha":"Isto é um alpha.","join":"Junte-se à nós e ajude!","mailing_list":"Lista de email","messages":{"alpha":"Por favor, <strong>não</strong> considere isto um serviço estável. Estamos muito longe disso! Mais informações <a href='https://github.com/travis-ci'>aqui.</a>"},"repository":"Repositório","twitter":"Twitter"},"application":{"fork_me":"Faça fork no Github","my_repositories":"Meus Repositórios","recent":"Recentes","search":"Buscar","sponsers":"Patrocinadores","sponsors_link":"Conheça todos os nossos patrocinadores &rarr;"},"mobile":{"author":"Autor","build":"Build","build_matrix":"Matriz de Build","commit":"Commit","committer":"Committer","compare":"Comparar","config":"Config","duration":"Duração","finished_at":"Concluído em","job":"Trabalho","log":"Log"},"top":{"admin":"Admin","blog":"Blog","docs":"Documentação","github_login":"Logue com o Github","home":"Home","profile":"Perfil","sign_out":"Sair","stats":"Estatísticas"}},"locales":{"en":"English","es":"Español","fr":"Français","ja":"日本語","nb":"Norsk Bokmål","nl":"Nederlands","pl":"Polski","ru":"Русский","pt-BR":"português brasileiro"},"no_job":"Não há trabalhos","profiles":{"show":{"email":"Email","github":"Github","message":{"config":"como configurar opções de build","your_repos":"Use os botões abaixo para ligar ou desligar o hook de serviço do Travis para seus projetos, e então, faça um push para o Github.<br />Para testar com múltiplas versões do Ruby, leia"},"messages":{"notice":"Para começar, leia nosso <a href=\"http://about.travis-ci.org/docs/user/getting-started/\">Guia de início</a>. <small>Só leva alguns minutinhos.</small>"},"token":"Token","update":"Atualizar","update_locale":"Atualizar","your_locale":"Sua língua","your_repos":"Seus Repositórios"}},"queue":"Fila","repositories":{"branch":"Branch","commit":"Commit","duration":"Duração","finished_at":"Concluído em","image_url":"URL da imagem","markdown":"Markdown","message":"Mensagem","rdoc":"RDOC","started_at":"Iniciou em","tabs":{"branches":"Sumário do Branch","build":"Build","build_history":"Histórico de Build","current":"Atual","job":"Trabalho"},"textile":"Textile"},"repository":{"duration":"Duração"},"statistics":{"index":{"build_count":"Número de Builds","count":"Número","last_month":"último mês","repo_growth":"Crescimento de Repositório","total_builds":"Total de Builds","total_projects":"Total de Projetos/Repositórios"}},"workers":"Processos"},"ru":{"admin":{"actions":{"create":"создать","created":"создано","delete":"удалить","deleted":"удалено","update":"обновить","updated":"обновлено"},"credentials":{"log_out":"Выход"},"dashboard":{"add_new":"Добавить","ago":"назад","last_used":"Использовалось в последний раз","model_name":"Имя модели","modify":"Изменить","name":"Панель управления","pagename":"Управление сайтом","records":"Записи","show":"Показать"},"delete":{"confirmation":"Да, я уверен","flash_confirmation":"%{name} успешно удалено"},"history":{"name":"История","no_activity":"Нет активности","page_name":"История %{name}"},"list":{"add_new":"Добавить","delete_action":"Удалить","delete_selected":"Удалить выбранные","edit_action":"Редактировать","search":"Поиск","select":"Для редактирования выберите %{name}","select_action":"Выбрать","show_all":"Показать все"},"new":{"basic_info":"Основная информация","cancel":"Отмена","chosen":"Выбрано %{name}","chose_all":"Выбрать все","clear_all":"Очистить все","one_char":"символ.","optional":"Необязательно","required":"Обязательно","save":"Сохранить","save_and_add_another":"Сохранить и добавить другое","save_and_edit":"Сохранить и продолжить редактирование","select_choice":"Выберите и кликните","many_chars":"символов или меньше."},"flash":{"error":"%{name} не удалось %{action}","noaction":"Никаких действий не произведено","successful":"%{name} было успешно %{action}"}},"build":{"duration":"Длительность","finished_at":"Завершен","job":"Задача"},"builds":{"allowed_failures":"Допустимые неудачи","author":"Автор","branch":"Ветка","build_matrix":"Матрица","commit":"Коммит","committer":"Коммитер","compare":"Дифф","config":"Конфигурация","duration":"Длительность","finished_at":"Завершен","message":"Комментарий","messages":{"sponsored_by":"Эта серия тестов была запущена на машине, спонсируемой"},"name":"Билд","started_at":"Начало"},"datetime":{"distance_in_words":{"hours_exact":{"one":"%{count} час","few":"%{count} часа","many":"%{count} часов","other":"%{count} часа"},"minutes_exact":{"one":"%{count} минута","few":"%{count} минуты","many":"%{count} минут","other":"%{count} минуты"},"seconds_exact":{"one":"%{count} секунда","few":"%{count} секунды","many":"%{count} секунд","other":"%{count} секунды"}}},"devise":{"confirmations":{"confirmed":"Ваш аккаунт успешно подтвержден. Приветствуем!","send_instructions":"В течении нескольких минут вы получите электронное письмо с инструкциями для прохождения процедуры подтверждения аккаунта."},"failure":{"inactive":"Ваш аккаунт еще не активирован.","invalid":"Ошибка в адресе почты или пароле.","invalid_token":"Неправильный токен аутентификации.","locked":"Ваш аккаунт заблокирован.","timeout":"Сессия окончена. Для продолжения работы войдите снова.","unauthenticated":"Вам нужно войти или зарегистрироваться.","unconfirmed":"Вы должны сначала подтвердить свой аккаунт."},"mailer":{"confirmation_instructions":{"subject":"Инструкции для подтверждению аккаунта"},"reset_password_instructions":{"subject":"Инструкции для сброса пароля"},"unlock_instructions":{"subject":"Инструкции для разблокирования аккаунта"}},"passwords":{"send_instructions":"В течении нескольких минут вы получите электронное письмо с инструкциями для сброса пароля.","updated":"Ваш пароль успешно изменен. Приветствуем!"},"registrations":{"destroyed":"Ваш аккаунт был успешно удален. Живите долго и процветайте!","signed_up":"Вы успешно прошли регистрацию. Инструкции для подтверждения аккаунта отправлены на ваш электронный адрес.","updated":"Аккаунт успешно обновлен."},"sessions":{"signed_in":"Приветствуем!","signed_out":"Удачи!"},"unlocks":{"send_instructions":"В течении нескольких минут вы получите электронное письмо с инструкциям для разблокировния аккаунта.","unlocked":"Ваш аккаунт успешно разблокирован. Приветствуем!"}},"errors":{"messages":{"already_confirmed":"уже подтвержден","not_found":"не найден","not_locked":"не заблокирован"}},"home":{"name":"Главная"},"jobs":{"allowed_failures":"Допустимые неудачи","author":"Автор","branch":"Ветка","build_matrix":"Матрица","commit":"Коммит","committer":"Коммитер","compare":"Сравнение","config":"Конфигурация","duration":"Длительность","finished_at":"Завершен","message":"Комментарий","messages":{"sponsored_by":"Эта серия тестов была запущена на машине спонсируемой"},"started_at":"Начало"},"layouts":{"about":{"alpha":"Это альфа-версия","join":"Присоединяйтесь к нам и помогайте!","mailing_list":"Лист рассылки","messages":{"alpha":"Пожалуйста, <strong>не</strong> считайте данный сервис стабильным. Мы еще очень далеки от стабильности! <a href='https://github.com/travis-ci'>Подробности</a>"},"repository":"Репозиторий","twitter":"Twitter"},"application":{"fork_me":"Fork me on Github","my_repositories":"Мои репозитории","recent":"Недавние","search":"Поиск","sponsers":"Спонсоры","sponsors_link":"Список всех наших замечательных спонсоров &rarr;"},"mobile":{"author":"Автор","build":"Сборка","build_matrix":"Матрица сборок","commit":"Коммит","committer":"Коммитер","compare":"Сравнение","config":"Конфигурация","duration":"Длительность","finished_at":"Завершен","job":"Задача","log":"Журнал"},"top":{"admin":"Управление","blog":"Блог","docs":"Документация","github_login":"Войти через Github","home":"Главная","profile":"Профиль","sign_out":"Выход","stats":"Статистика"}},"no_job":"Очередь пуста","profiles":{"show":{"email":"Электронная почта","github":"Github","message":{"config":"как настроить специальные опции билда","your_repos":"Используйте переключатели, чтобы включить Travis service hook для вашего проекта, а потом отправьте код на GitHub.<br />\nДля тестирования на нескольких версиях Ruby смотрите"},"messages":{"notice":"Перед началом, пожалуйста, прочтите <a href=\"http://about.travis-ci.org/docs/user/getting-started/\">Руководство для быстрого старта</a>. <small>Это займет всего несколько минут.</small>"},"token":"Токен","update":"Обновить","update_locale":"Обновить","your_locale":"Ваш язык","your_repos":"Ваши репозитории"}},"queue":"Очередь","repositories":{"branch":"Ветка","commit":"Коммит","duration":"Длительность","finished_at":"Завершен","image_url":"URL изображения","markdown":"Markdown","message":"Комментарий","rdoc":"RDOC","started_at":"Начало","tabs":{"branches":"Статус веток","build":"Билд","build_history":"История","current":"Текущий","job":"Задача"},"textile":"Textile"},"repository":{"duration":"Длительность"},"statistics":{"index":{"build_count":"Количество билдов","count":"Количество","last_month":"прошлый месяц","repo_growth":"Рост числа репозиториев","total_builds":"Всего билдов","total_projects":"Всего проектов/репозиториев"}},"workers":"Машины","locales":{"en":"English","es":"Español","ja":"日本語","ru":"Русский","fr":"Français","nb":"Norsk Bokmål","pl":"Polski","nl":"Nederlands","pt-BR":"português brasileiro"}}};

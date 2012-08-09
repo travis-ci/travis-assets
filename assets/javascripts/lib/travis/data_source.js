@@ -64,7 +64,7 @@ Travis.DataSource = Ember.DataSource.extend({
   },
 
   _urlFor: function(recordType, id) {
-    return $.compact([recordType.resource, id]).join('/');
+    return '/' + $.compact([recordType.resource, id]).join('/');
   },
 
   _extractIds: function() {
