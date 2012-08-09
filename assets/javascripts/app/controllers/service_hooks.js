@@ -31,7 +31,7 @@ Travis.Controllers.ServiceHooks = Ember.ArrayController.extend({
       this.set('syncedAt', Travis.Helpers.Common.timeAgoInWords(user.synced_at) || '?');
 
       if(!user.is_syncing) {
-        var owner_name = location.href.split('/').pop();
+        var owner_name = location.href.split('/').slice(-2)[0];
         var attrs = { recordType: Travis.ServiceHook, options: { owner_name: owner_name, orderBy: 'name' } };
         var query = Travis.Query.create(attrs).toScQuery('remote');
         this.set('content', Travis.store.find(query));
