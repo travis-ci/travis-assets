@@ -12,6 +12,6 @@ Travis.ServiceHook = Travis.Record.extend({
 });
 
 Travis.ServiceHook.reopenClass({
-  resource: 'profile/service_hooks'
+  resource: 'service_hooks'
 });
 
