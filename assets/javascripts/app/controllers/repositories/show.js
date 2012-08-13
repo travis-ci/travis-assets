@@ -132,7 +132,7 @@ Travis.Controllers.Repositories.Show = Ember.Object.extend({
     var slug = this.getPath('repository.slug');
 
     if (branch && slug) {
-      return 'https://secure.travis-ci.org/' + slug + '.png?branch=' + branch;
+      return Travis.secureUrl(slug + '.png?branch=' + branch);
     }
   }.property('repository.slug'),
 

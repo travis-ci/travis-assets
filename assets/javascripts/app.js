@@ -11,6 +11,10 @@ var Travis = Ember.Application.create({
   active_channels: [],
   channel_prefix: '',
 
+  secureUrl: function(url) {
+    return 'https://secure.travis-ci.org/' + url;
+  },
+
   run: function() {
     var action = $('body').attr('id');
     if(this[action]) {
