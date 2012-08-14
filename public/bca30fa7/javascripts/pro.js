@@ -25,7 +25,9 @@
   $('document').ready(function() {
     Travis.channel_prefix = 'private-';
     Travis.secureUrl = function(url) {
-      return "https://" + document.domain + "/" + url;
+      var token;
+      token = $('meta[name=travis-token]').attr('value');
+      return "https://" + document.domain + "/" + url + "&token=" + token;
     };
     if (!(typeof TRAVIS_PRO_CHANNELS === 'undefined')) {
       return $.each(TRAVIS_PRO_CHANNELS, function(ix, channel) {
