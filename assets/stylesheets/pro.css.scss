@@ -35,26 +35,6 @@
   }
 }
 
-#session {
-  #main {
-    margin: 200px auto 0 auto;
-    padding: 25px 50px;
-
-    width: 300px;
-    border: 10px solid #bbb;
-    @include border-radius(8px);
-  }
-
-  h1 {
-    margin-bottom: 1em;
-    color: #333;
-  }
-
-  p {
-    color: #333;
-  }
-}
-
 form.subscription-form {
   display: inline-block;
   width: 900px;
