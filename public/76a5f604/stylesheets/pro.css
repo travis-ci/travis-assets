@@ -1,0 +1,77 @@
+/* line 36, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/_mixins.css.scss */
+.spinner {
+  width: 16px;
+  height: 8px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 20px;
+  height: 20px;
+}
+
+/* line 4, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+#top {
+  position: absolute;
+  /* this should probably be in travis-ci */
+  overflow: visible;
+}
+/* line 8, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+#top #navigation li:nth-child(2) {
+  display: none;
+}
+/* line 12, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+#top .profile {
+  margin-right: 10px;
+}
+/* line 14, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+#top .profile ul {
+  right: 15px;
+}
+
+/* line 20, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+#main {
+  padding-right: 30px;
+}
+/* line 24, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+#main #repository .github-stats,
+#main #repository .tools {
+  display: none;
+}
+
+/* line 39, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+.subscription-form {
+  width: 400px;
+  margin: 0 auto;
+}
+/* line 43, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+.subscription-form input, .subscription-form select {
+  border: 1px solid grey;
+  border-radius: 3px;
+  width: 97%;
+  margin-bottom: 7px;
+  font-size: 13px;
+  font-family: "Helvetica Neue";
+  padding: 5px;
+}
+/* line 53, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+.subscription-form input[type=submit] {
+  width: 200px;
+  float: right;
+}
+/* line 58, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+.subscription-form select.date-select {
+  width: 70px;
+}
+/* line 62, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+.subscription-form label {
+  float: left;
+  width: 100%;
+  font-size: 13px;
+}
+/* line 68, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+.subscription-form label.required-field {
+  font-weight: bold;
+}
+/* line 72, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+.subscription-form label.error {
+  color: red;
+}
