@@ -9,4 +9,4 @@
 //= require vendor/highcharts.js
 //= require vendor/ansiparse.js
 //= require vendor/facebox.js
-
+//= require vendor/tipsy.js

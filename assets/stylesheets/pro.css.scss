@@ -226,13 +226,8 @@ form.subscription-form {
       }
     }
   }
-  .error {
-    clear: both;
-    float: left;
-    display: block;
-    margin-left: 85px;
-    font-size: 13px;
-    color: #c00;
+  .error, div.error > input {
+    border-color: #c00;
   }
   .tipsy {
     margin-left: 20px;
