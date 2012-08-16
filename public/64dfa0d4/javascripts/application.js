@@ -42236,6 +42236,10 @@ var Travis = Ember.Application.create({
   active_channels: [],
   channel_prefix: '',
 
+  secureUrl: function(url) {
+    return 'https://secure.travis-ci.org/' + url;
+  },
+
   run: function() {
     var action = $('body').attr('id');
     if(this[action]) {
@@ -43918,7 +43922,7 @@ Travis.Controllers.Repositories.Show = Ember.Object.extend({
     var slug = this.getPath('repository.slug');
 
     if (branch && slug) {
-      return 'https://secure.travis-ci.org/' + slug + '.png?branch=' + branch;
+      return Travis.secureUrl(slug + '.png?branch=' + branch);
     }
   }.property('repository.slug'),
 
@@ -43941,7 +43945,7 @@ Travis.Controllers.ServiceHooks = Ember.ArrayController.extend({
     });
     this.view.appendTo('#service_hooks');
 
-    var owner_name = location.pathname.split('/')[2];
+    var owner_name = location.pathname.split('/')[2] || $('meta[name=user-login]').attr('content');
     var attrs = { recordType: Travis.ServiceHook, options: { owner_name: owner_name, orderBy: 'name' } };
     var query = Travis.Query.create(attrs).toScQuery('remote');
     this.set('content', Travis.store.find(query));
