@@ -101,6 +101,12 @@ form.subscription-form {
       margin: 0;
     }
 
+    legend {
+      padding-bottom: 10px;
+      color: #666;
+      font-size: 16px;
+    }
+
     .input {
       position: relative;
       height: 50px;
@@ -180,6 +186,7 @@ form.subscription-form {
       color: #666;
     }
   }
+
   #comment fieldset {
     margin-top: 12px;
   }
@@ -193,7 +200,7 @@ form.subscription-form {
 
     input {
       display: block;
-      float: left;
+      float: right;
       width: 148px;
       height: 40px;
       margin: 10px 20px 0 0px;
