@@ -49,7 +49,7 @@ var I18n = I18n || {};
 I18n.defaultLocale = "en";
 
 // Set default handling of translation fallbacks to false
-I18n.fallbacks = false;
+I18n.fallbacks = true;
 
 // Set default separator
 I18n.defaultSeparator = ".";
