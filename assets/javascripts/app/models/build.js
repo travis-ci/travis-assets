@@ -108,13 +108,11 @@ Travis.Build = Travis.Record.extend(Travis.Helpers.Common, {
   }.property('message'),
 
   shortMessage: function(){
-    return this.emojize(this.escape((this.get('message') || '').split(/\n/)[0]));
+    return this._shortMessage();
   }.property('message'),
 
   messageBody: function(){
-    var message = (this.get('message') || '').split(/\n/);
-    message.splice(0,1); // remove first sentance
-    return this.emojize(this.escape(message.join('\n')));
+	return this._messageBody();
   }.property('message'),
 
   url: function() {
@@ -138,7 +136,7 @@ Travis.Build = Travis.Record.extend(Travis.Helpers.Common, {
   }.property('committer_email').cacheable(),
 
   urlGithubCommit: function() {
-    return 'http://github.com/' + this.getPath('repository.slug') + '/commit/' + this.get('commit');
+    return this._urlGithubCommit();
   }.property('repository.slug', 'commit').cacheable()
 });
 

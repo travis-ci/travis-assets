@@ -1,37 +1,33 @@
 <div {{bindAttr class="content.color"}}>
-  <dl class="summary clearfix">
-    <div class="left">
-      <dt>Job</dt>
-      <dd class="number"><a {{bindAttr href="content.build.url"}}>{{content.number}}</a></dd>
-      <dt class="finished_at_label">{{i18n "jobs.finished_at"}}</dt>
-      <dd class="finished_at timeago" {{bindAttr title="content.finished_at"}}>{{content.formattedFinishedAt}}</dd>
-      <dt>{{i18n "jobs.duration"}}</dt>
-      <dd class="duration" {{bindAttr title="content.started_at"}}>{{content.formattedDuration}}</dd>
+  <div class="build-summary">
+    <aside>
+      <div class='status large'><span class='number'>#{{content.number}}</span> {{content.resultMessage}}</div>
+      <small>{{i18n "jobs.runtime" duration="content.formattedDuration"}}<br>{{content.formattedFinishedAt}}</small>
+    </aside>
+
+    <h1><strong>{{{content.branch}}} </strong>– {{{content.shortMessage}}}</h1>
+
+    <div class="commit-message">
+      {{{content.messageBody}}}
+      <p class='config'><small><strong>{{i18n "jobs.config"}}:</strong> {{content.formattedConfig}}</small></p>
     </div>
 
-    <div class="right">
-      <dt>{{i18n "jobs.commit"}}</dt>
-      <dd class="commit-hash"><a {{bindAttr href="content.build.urlGithubCommit"}}>{{content.formattedCommitAndBranch}}</a></dd>
-      {{#if content.compare_url}}
-        <dt>{{i18n "jobs.compare"}}</dt>
-        <dd class="compare_view"><a {{bindAttr href="content.compare_url"}}>{{content.formattedCompareUrl}}</a></dd>
-      {{/if}}
-      {{#if content.author_name}}
-        <dt>{{i18n "jobs.author"}}</dt>
-        <dd class="author"><a {{bindAttr href="content.build.urlAuthor"}}>{{content.author_name}}</a></dd>
-      {{/if}}
-      {{#if content.committer_name}}
-        <dt>{{i18n "jobs.committer"}}</dt>
-        <dd class="committer"><a {{bindAttr href="content.build.urlCommitter"}}>{{content.committer_name}}</a></dd>
-      {{/if}}
-    </div>
+    <footer>
+      <div class='author-and-committer'>
+        {{#if content.author_name}}
+        <img {{bindAttr src="content.gravatarAuthor"}}> <a class='author' {{bindAttr href="content.urlAuthor"}}>{{content.author_name}}</a> {{i18n "jobs.authored"}}
+        {{/if}}
+        {{#if content.committer_name}}
+        <img  {{bindAttr src="content.gravatarCommitter"}}><a class='committer' {{bindAttr href="content.urlCommitter"}}>{{content.committer_name}}</a> {{i18n "jobs.committed"}}
+        {{/if}}
+      </div>
 
-    <dt>{{i18n "jobs.message"}}</dt>
-    <dd class="commit-message">{{{content.formattedMessage}}}</dd>
-    <dt>{{i18n "jobs.config"}}</dt>
-    <dd class="config">{{content.formattedConfig}}</dd>
-  </dl>
+      <div class='commit-and-compare'>
+        <a {{bindAttr href="content.urlGithubCommit"}}>{{i18n "jobs.commit"}} {{content.formattedCommit}}</a> <a {{bindAttr href="content.compare_url"}}>{{i18n "jobs.compare_to" hash="content.compareToHash"}}</a></div>
+    </footer>
 
+  </div>
+  
   <pre class="log">{{{content.formattedLog}}}</pre>
 
   {{#if content.sponsor.name}}
