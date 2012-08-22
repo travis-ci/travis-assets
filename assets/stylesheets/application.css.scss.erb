@@ -11,6 +11,7 @@
 @import "compass";
 @import "facebox.scss";
 @import "jquery.tipsy.scss";
+@import "summary.css.scss";
 
 html {
   margin: 0;
@@ -514,38 +515,7 @@ caption {
   .profile dd {
     clear: right;
   }
-  .summary {
-    margin: 20px 0 0 0;
-    @include clearfix;
-  }
-  .summary .left,
-  .summary .right {
-    float: left;
-  }
-  .summary dt,
-  .summary dd {
-    float: left;
-    min-height: 25px;
-    margin: 0;
-  }
-  .summary dt {
-    clear: left;
-    width: 90px;
-  }
-  .summary dd {
-    width: 150px;
-  }
-  .summary > dd {
-    width: 80%;
-    min-width: 315px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  .summary .commit-message {
-    white-space: normal;
-    min-width: 0;
-  }
+
   .log {
     clear: left;
     white-space: pre-wrap;

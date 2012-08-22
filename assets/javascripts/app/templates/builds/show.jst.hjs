@@ -1,41 +1,34 @@
 <div {{bindAttr class="content.color"}}>
-  <dl class="summary clearfix">
-    <div class="left">
-      <dt>{{i18n "builds.name"}}</dt>
+  <div class="summary">
+    <aside>
+      <div class='status large'>#{{content.number}} {{content.resultMessage}}</div>
+      <small>{{i18n "builds.runtime" durationBinding="content.formattedDuration"}}<br>{{content.formattedFinishedAt}}</small>
+    </aside>
 
-      <dd class="number"><a {{bindAttr href="content.url"}}>{{content.number}}</a></dd>
-      <dt class="finished_at_label">{{i18n "builds.finished_at"}}</dt>
-      <dd class="finished_at timeago" {{bindAttr title="content.finished_at"}}>{{content.formattedFinishedAt}}</dd>
-      <dt>{{i18n "builds.duration"}}</dt>
-      <dd class="duration" {{bindAttr title="content.started_at"}}>{{content.formattedDuration}}</dd>
-    </div>
+    <h1><strong>{{{content.branch}}} </strong>– {{{content.shortMessage}}}</h1>
 
-    <div class="right">
-      <dt>{{i18n "builds.commit"}}</dt>
-      <dd class="commit-hash"><a {{bindAttr href="content.urlGithubCommit"}}>{{content.formattedCommit}}</a></dd>
-      {{#if content.compare_url}}
-        <dt>{{i18n "builds.compare"}}</dt>
-        <dd class="compare_view"><a {{bindAttr href="content.compare_url"}}>{{content.formattedCompareUrl}}</a></dd>
-      {{/if}}
-      {{#if content.author_name}}
-        <dt>{{i18n "builds.author"}}</dt>
-        <dd class="author"><a {{bindAttr href="content.urlAuthor"}}>{{content.author_name}}</a></dd>
-      {{/if}}
-      {{#if content.committer_name}}
-        <dt>{{i18n "builds.committer"}}</dt>
-        <dd class="committer"><a {{bindAttr href="content.urlCommitter"}}>{{content.committer_name}}</a></dd>
+    <div class="commit-message">
+      {{{content.messageBody}}}
+      {{#if content.isMatrix}}
+      <p class='config'><small><strong>{{i18n "builds.config"}}:</strong> {{content.formattedConfig}}</p>
       {{/if}}
     </div>
 
-    <dt>{{i18n "builds.message"}}</dt>
-    <dd class="commit-message">{{{content.formattedMessage}}}</dd>
+    <footer>
+      <div class='author-and-committer'>
+        {{#if content.author_name}}
+        <img {{bindAttr src="content.gravatarAuthor"}}> <a {{bindAttr href="content.urlAuthor"}}>{{content.author_name}}</a> {{i18n "builds.authored"}}
+        {{/if}}
+        {{#if content.committer_name}}
+        <img  {{bindAttr src="content.gravatarCommitter"}}><a {{bindAttr href="content.urlCommitter"}}>{{content.committer_name}}</a> {{i18n "builds.committed"}}
+        {{/if}}
+      </div>
 
-    {{#if content.isMatrix}}
-    {{else}}
-      <dt>{{i18n "builds.config"}}</dt>
-      <dd class="config">{{content.formattedConfig}}</dd>
-    {{/if}}
-  </dl>
+      <div class='commit-and-compare'>
+        <a {{bindAttr href="content.urlGithubCommit"}}>{{i18n "builds.commit"}} {{content.formattedCommit}}</a> <a {{bindAttr href="content.compare_url"}}>{{i18n "builds.compare_to" hashBinding="content.compareToHash"}}</a></div>
+    </footer>
+
+  </div>
 
   {{#if content.isMatrix}}
     {{view Ember.View templateName="app/templates/jobs/list" repositoryBinding="repository" contentBinding="content"}}

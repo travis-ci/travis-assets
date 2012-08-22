@@ -84,6 +84,10 @@ Travis.Job = Travis.Record.extend(Travis.Helpers.Common, {
   }.property('finished_at').cacheable(),
 
   formattedCommit: function() {
+    return (this.get('commit') || '').substr(0,7);
+  }.property('commit').cacheable(),
+
+  formattedCommitAndBranch: function() {
     return this._formattedCommit()
   }.property('commit', 'branch').cacheable(),
 

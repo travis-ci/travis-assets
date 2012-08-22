@@ -41,13 +41,17 @@ en:
     build_matrix: Build Matrix
     allowed_failures: Allowed Failures
     author: Author
+    authored: Authored
     config: Config
     compare: Compare
+    compare_to: ! 'Compare to %{hash}'
     committer: Committer
+    committed: Committed
     branch: Branch
     commit: Commit
     message: Message
     started_at: Started
+    runtime: ! '%{duration} runtime'
     duration: Duration
     finished_at: Finished
   builds:
@@ -57,13 +61,17 @@ en:
     build_matrix: Build Matrix
     allowed_failures: Allowed Failures
     author: Author
+    authored: Authored
     config: Config
     compare: Compare
+    compare_to: ! 'Compare to %{hash}'
     committer: Committer
+    committed: Committed
     branch: Branch
     commit: Commit
     message: Message
     started_at: Started
+    runtime: ! '%{duration} runtime'
     duration: Duration
     finished_at: Finished
   layouts:
