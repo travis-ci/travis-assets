@@ -1,8 +1,8 @@
 <div {{bindAttr class="content.color"}}>
-  <div class="summary">
+  <div class="build-summary">
     <aside>
       <div class='status large'>#{{content.number}} {{content.resultMessage}}</div>
-      <small>{{i18n "builds.runtime" durationBinding="content.formattedDuration"}}<br>{{content.formattedFinishedAt}}</small>
+      <small>{{i18n "builds.runtime" duration="content.formattedDuration"}}<br>{{content.formattedFinishedAt}}</small>
     </aside>
 
     <h1><strong>{{{content.branch}}} </strong>– {{{content.shortMessage}}}</h1>
@@ -25,7 +25,7 @@
       </div>
 
       <div class='commit-and-compare'>
-        <a {{bindAttr href="content.urlGithubCommit"}}>{{i18n "builds.commit"}} {{content.formattedCommit}}</a> <a {{bindAttr href="content.compare_url"}}>{{i18n "builds.compare_to" hashBinding="content.compareToHash"}}</a></div>
+        <a {{bindAttr href="content.urlGithubCommit"}}>{{i18n "builds.commit"}} {{content.formattedCommit}}</a> <a {{bindAttr href="content.compare_url"}}>{{i18n "builds.compare_to" hash="content.compareToHash"}}</a></div>
     </footer>
 
   </div>
