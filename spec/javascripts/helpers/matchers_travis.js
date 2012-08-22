@@ -64,16 +64,16 @@ $.extend(jasmine, {
   showsBuildSummary: function(element, build, errors) {
     element = $(element);
 
-    var commit       = build.get('commit').slice(0, 7) + (build.get('branch') ? ' (%@)'.fmt(build.get('branch')) : '');
+    var commit       = "Commit " + build.get('commit').slice(0, 7);
     var commitUrl    = 'http://github.com/' + build.getPath('repository.slug') + '/commit/' + build.get('commit');
 
     var expected = {
-      '.summary .number':        build.get('number'),
-      '.summary .commit-hash a': { text: commit, href: commitUrl },
-      '.summary .committer a':   { text: build.get('committer_name'), href: 'mailto:' + build.get('committer_email') },
-      '.summary .author a':      { text: build.get('author_name'), href: 'mailto:' + build.get('author_email') }
-      // '.summary .duration':      { title: build.get('duration'), text: build.get('formattedDuration') },
-      // '.summary .finished_at':   { title: build.get('finished_at'), text: build.get('formattedFinishedAt') },
+      '.build-summary .number':        					    "#" + build.get('number'),
+      '.build-summary .commit-and-compare a:first-child':   { text: commit, href: commitUrl },
+      '.build-summary .author-and-committer a.committer':   { text: build.get('committer_name'), href: 'mailto:' + build.get('committer_email') },
+      '.build-summary .author-and-committer a.author':      { text: build.get('author_name'), href: 'mailto:' + build.get('author_email') }
+      // '.build-summary .duration':      { title: build.get('duration'), text: build.get('formattedDuration') },
+      // '.build-summary .finished_at':   { title: build.get('finished_at'), text: build.get('formattedFinishedAt') },
     };
 
     $.each(expected, function(selector, text) {

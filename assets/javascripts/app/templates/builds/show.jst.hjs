@@ -1,7 +1,7 @@
 <div {{bindAttr class="content.color"}}>
   <div class="build-summary">
     <aside>
-      <div class='status large'>#{{content.number}} {{content.resultMessage}}</div>
+      <div class='status large'><span class='number'>#{{content.number}}</span> {{content.resultMessage}}</div>
       <small>{{i18n "builds.runtime" duration="content.formattedDuration"}}<br>{{content.formattedFinishedAt}}</small>
     </aside>
 
@@ -10,17 +10,17 @@
     <div class="commit-message">
       {{{content.messageBody}}}
       {{#if content.isMatrix}}
-      <p class='config'><small><strong>{{i18n "builds.config"}}:</strong> {{content.formattedConfig}}</p>
+      <p class='config'><small><strong>{{i18n "builds.config"}}:</strong> {{content.formattedConfig}}</small></p>
       {{/if}}
     </div>
 
     <footer>
       <div class='author-and-committer'>
         {{#if content.author_name}}
-        <img {{bindAttr src="content.gravatarAuthor"}}> <a {{bindAttr href="content.urlAuthor"}}>{{content.author_name}}</a> {{i18n "builds.authored"}}
+        <img {{bindAttr src="content.gravatarAuthor"}}> <a class='author' {{bindAttr href="content.urlAuthor"}}>{{content.author_name}}</a> {{i18n "builds.authored"}}
         {{/if}}
         {{#if content.committer_name}}
-        <img  {{bindAttr src="content.gravatarCommitter"}}><a {{bindAttr href="content.urlCommitter"}}>{{content.committer_name}}</a> {{i18n "builds.committed"}}
+        <img  {{bindAttr src="content.gravatarCommitter"}}><a class='committer' {{bindAttr href="content.urlCommitter"}}>{{content.committer_name}}</a> {{i18n "builds.committed"}}
         {{/if}}
       </div>
 
