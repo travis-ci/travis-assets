@@ -1,0 +1,94 @@
+.build-summary {
+  margin: 20px 0 0 0;
+  padding: 10px;
+  position: relative;
+  border-radius: 5px;
+  font-size: 14px;
+  background-color: rgb(250,250,250);
+  color: #666;
+
+  h1 {
+    margin: 0;
+    font-size: 17px;
+    line-height: 30px;
+    font-weight: normal;
+    white-space: normal;
+  }
+
+  aside {
+    float: right;
+    text-align: right;
+
+    small {
+      color: grey;
+      font-size: .8em;
+      margin-left: 5px;
+      display: block;
+    }
+  }
+
+  .commit-message {
+    margin: 10px 0 10px 0;
+    line-height: 1.5em;
+    white-space: normal;
+  }
+
+  .config {
+    margin: 10px 0 10px 0;
+    line-height: 1.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  footer {
+    font-size: 0.8em;
+    overflow: hidden;
+    clear: both;
+    line-height: 20px;
+
+    .author-and-committer {
+      float: left;
+      img {
+        width: 20px;
+        vertical-align: middle;
+        border-radius: 3px;
+        margin: 0 5px;
+        &:first-child { margin-left: 0; }
+      }
+    }
+
+    .commit-and-compare {
+      float: right;
+      text-align: right;
+      a[href^='https://github.com/'], a[href^='http://github.com/'] {
+        padding-right: 25px;
+        background-image: inline-image('icons/github-logo.png');
+        background-size: contain;
+        background-position: bottom right;
+        background-repeat: no-repeat;
+        display: inline-block;
+      }
+    }
+
+  }
+
+}
+
+.status.large {
+  @include background-image(linear-gradient(rgba(255,222,0,1) 0%,rgba(235,200,0,1) 100%));
+  font-size: 1em;
+  color: rgba(251,255,251,1);
+  padding: 0 8px;
+  display: inline-block;
+  border-radius: 3px;
+  font-weight: normal;
+  line-height: 30px;
+
+  .red & {
+    @include background-image(linear-gradient(rgba(255,36,0,1) 0%,rgba(235,24,0,1) 100%));
+  }
+  .green & {
+    @include background-image(linear-gradient(rgba(0,214,89,1) 0%, rgba(0,188,56,1) 100%));
+  }
+}

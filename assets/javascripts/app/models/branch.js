@@ -16,7 +16,7 @@ Travis.Branch = Travis.Record.extend(Travis.Helpers.Common, {
   }.property(),
 
   formattedCommit: function() {
-    return this.get('commit').substr(0,7);
+    return (this.get('commit') || '').substr(0,7);
   }.property(),
 
   formattedStartedAt: function() {

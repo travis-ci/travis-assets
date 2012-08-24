@@ -64,6 +64,10 @@ Travis.Build = Travis.Record.extend(Travis.Helpers.Common, {
     return this.colorForResult(this.get('result'));
   }.property('result').cacheable(),
 
+  resultMessage: function() {
+    return this.messageForResult(this.get('result'));
+  }.property('result').cacheable(),
+
   // VIEW HELPERS
 
   formattedDuration: function() {
@@ -75,8 +79,16 @@ Travis.Build = Travis.Record.extend(Travis.Helpers.Common, {
   }.property('finished_at').cacheable(),
 
   formattedCommit: function() {
-    return this._formattedCommit()
+    return (this.get('commit') || '').substr(0,7);
+  }.property('commit').cacheable(),
+
+  formattedCommitAndBranch: function() {
+    return this._formattedCommit();
   }.property('commit', 'branch').cacheable(),
+
+  compareToHash: function() {
+    return this._compareToHash();
+  }.property('compare_url').cacheable(),
 
   formattedCompareUrl: function() {
     return this._formattedCompareUrl();
@@ -96,7 +108,11 @@ Travis.Build = Travis.Record.extend(Travis.Helpers.Common, {
   }.property('message'),
 
   shortMessage: function(){
-    return this.emojize(this.escape((this.get('message') || '').split(/\n/)[0]));
+    return this._shortMessage();
+  }.property('message'),
+
+  messageBody: function(){
+	return this._messageBody();
   }.property('message'),
 
   url: function() {
@@ -107,12 +123,20 @@ Travis.Build = Travis.Record.extend(Travis.Helpers.Common, {
     return 'mailto:' + this.get('author_email');
   }.property('author_email').cacheable(),
 
+  gravatarAuthor: function() {
+    return this.gravatarUrl(this.get('author_email'), 40);
+  }.property('author_email').cacheable(),
+
   urlCommitter: function() {
     return 'mailto:' + this.get('committer_email');
   }.property('committer_email').cacheable(),
 
+  gravatarCommitter: function() {
+    return this.gravatarUrl(this.get('committer_email'), 40);
+  }.property('committer_email').cacheable(),
+
   urlGithubCommit: function() {
-    return 'http://github.com/' + this.getPath('repository.slug') + '/commit/' + this.get('commit');
+    return this._urlGithubCommit();
   }.property('repository.slug', 'commit').cacheable()
 });
 

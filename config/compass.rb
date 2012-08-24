@@ -4,3 +4,4 @@
 project_path = Travis::Assets.root.to_s
 css_dir  = 'tmp/assets/stylesheets'
 sass_dir = 'assets/stylesheets'
+images_dir = 'assets/images'
