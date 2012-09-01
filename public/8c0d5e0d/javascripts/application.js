@@ -43830,6 +43830,7 @@ Travis.Controllers.Repositories.Show = Ember.Object.extend({
     // TODO: FIXME
     // Delaying the call as branch selector is not yet on the page (looks like view is not completely rendered at the moment).
     Ember.run.later(this, this._setTooltips, 1000);
+
     Ember.run.later(this, this._updateGithubBranches, 1000);
   },
 
@@ -43864,43 +43865,43 @@ Travis.Controllers.Repositories.Show = Ember.Object.extend({
   }.property('params'),
 
   _updateGithubStats: function() {
-    if(window.__TESTING__) return;
-    var repository = this.get('repository');
-    if(repository && repository.get('slug')) $.getJSON('https://api.github.com/repos/' + repository.get('slug') + '?callback=?', function(response) {
-      if(response.meta.status == 404) return;
-      var element = $('.github-stats');
-      element.find('.watchers').attr('href', repository.get('urlGithubWatchers')).text(response.data.watchers);
-      element.find('.forks').attr('href',repository.get('urlGithubNetwork')).text(response.data.forks);
-      element.find('.github-admin').attr('href', repository.get('urlGithubAdmin'));
-    });
+    // if(window.__TESTING__) return;
+    // var repository = this.get('repository');
+    // if(repository && repository.get('slug')) $.getJSON('https://api.github.com/repos/' + repository.get('slug') + '?callback=?', function(response) {
+    //   if(response.meta.status == 404) return;
+    //   var element = $('.github-stats');
+    //   element.find('.watchers').attr('href', repository.get('urlGithubWatchers')).text(response.data.watchers);
+    //   element.find('.forks').attr('href',repository.get('urlGithubNetwork')).text(response.data.forks);
+    //   element.find('.github-admin').attr('href', repository.get('urlGithubAdmin'));
+    // });
   }.observes('repository.slug'),
 
   _updateGithubBranches: function() {
-    if(window.__TESTING__) return;
-    var selector = $(this.branchSelector);
-    var repository = this.get('repository');
+    // if(window.__TESTING__) return;
+    // var selector = $(this.branchSelector);
+    // var repository = this.get('repository');
 
-    selector.empty();
-    $('.tools input').val('');
+    // selector.empty();
+    // $('.tools input').val('');
 
-    // Seeing 404 when hitting travis-ci.org/ as repository exists (BUSY_LOADING?) and slug is null
-    // So let's ensure that the slug is populated before making this request.
-    if (selector.length > 0 && repository && repository.get('slug')) {
-      $.getJSON('https://api.github.com/repos/' + repository.get('slug') + '/branches?callback=?', function(response) {
-        if(response.meta.status == 404) return;
-        var branches = $.map(response.data, function(details) { return details.name; }).sort();
+    // // Seeing 404 when hitting travis-ci.org/ as repository exists (BUSY_LOADING?) and slug is null
+    // // So let's ensure that the slug is populated before making this request.
+    // if (selector.length > 0 && repository && repository.get('slug')) {
+    //   $.getJSON('https://api.github.com/repos/' + repository.get('slug') + '/branches?callback=?', function(response) {
+    //     if(response.meta.status == 404) return;
+    //     var branches = $.map(response.data, function(details) { return details.name; }).sort();
 
-        // TODO: FIXME
-        // Clear selector again as observing 'repository.slug' causes this method (as well as _updateGithubStats) being
-        // called twice while switching repository. That results in two identical API calls that lead to selector being
-        // updated twice too.
-        selector.empty();
-        $.each(branches, function(index, branch) { $('<option>', { value: branch }).html(branch).appendTo(selector); });
-        selector.val('master');
+    //     // TODO: FIXME
+    //     // Clear selector again as observing 'repository.slug' causes this method (as well as _updateGithubStats) being
+    //     // called twice while switching repository. That results in two identical API calls that lead to selector being
+    //     // updated twice too.
+    //     selector.empty();
+    //     $.each(branches, function(index, branch) { $('<option>', { value: branch }).html(branch).appendTo(selector); });
+    //     selector.val('master');
 
-        this._updateStatusImageCodes();
-      }.bind(this));
-    }
+    //     this._updateStatusImageCodes();
+    //   }.bind(this));
+    // }
   }.observes('repository.slug'),
 
   _updateStatusImageCodes: function() {
