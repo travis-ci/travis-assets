@@ -40,13 +40,16 @@
   {{#if content.isMatrix}}
     {{view Ember.View templateName="app/templates/jobs/list" repositoryBinding="repository" contentBinding="content"}}
   {{else}}
-    <pre class="log">{{{content.matrix.firstObject.formattedLog}}}</pre>
+    <pre class="log"><a href="#" id="tail" {{bindAttr class="Travis.tailing.active:active"}} {{action "toggle" on="click" target="Travis.tailing"}}>
+      <span class="status"></span>
+      <label>Follow logs</label>
+    </a>{{{content.matrix.firstObject.formattedLog}}}</pre>
 
-    {{#if content.matrix.firstObject.sponsor.name}}
-      <p class="sponsor">
-      {{i18n "builds.messages.sponsored_by"}}
+    <p class="sponsor">
+      {{#if content.matrix.firstObject.sponsor.name}}
+        {{i18n "builds.messages.sponsored_by"}}
         <a {{bindAttr href="content.matrix.firstObject.sponsor.url"}}>{{content.matrix.firstObject.sponsor.name}}</a>
-      </p>
-    {{/if}}
+      {{/if}}
+    </p>
   {{/if}}
 </div>

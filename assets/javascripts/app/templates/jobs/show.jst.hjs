@@ -32,12 +32,17 @@
     <dd class="config">{{content.formattedConfig}}</dd>
   </dl>
 
-  <pre class="log">{{{content.formattedLog}}}</pre>
+  <pre class="log"><a href="#" id="tail" {{bindAttr class="Travis.tailing.active:active"}} {{action "toggle" on="click" target="Travis.tailing"}}>
+    <span class="status"></span>
+    <label>Follow logs</label>
+  </a>{{{content.formattedLog}}}</pre>
 
-  {{#if content.sponsor.name}}
-    <p class="sponsor">
+  <p class="sponsor">
+    {{#if content.sponsor.name}}
       {{i18n "jobs.messages.sponsored_by"}}
       <a {{bindAttr href="content.sponsor.url"}}>{{content.sponsor.name}}</a>
-    </p>
-  {{/if}}
+    {{/if}}
+  </p>
+
+
 </div>
