@@ -13,6 +13,7 @@ Travis.Controllers.Jobs.Show = Ember.Object.extend({
       contentBinding: 'controller.job',
       templateName: 'app/templates/jobs/show',
       didInsertElement: function() {
+        // Travis.tailing.scroll();
         this._super.apply(this, arguments);
 
         if (self.parent.params.line_number) {
