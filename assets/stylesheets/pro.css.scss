@@ -89,7 +89,6 @@ form.subscription-form {
   }
 
   fieldset {
-    float: left;
     padding: 0;
     border: 0;
     margin: 12px 36px 0 0;
@@ -105,56 +104,62 @@ form.subscription-form {
       padding-bottom: 10px;
       color: #666;
       font-size: 16px;
+      font-weight: bold;
     }
 
     .input {
       position: relative;
-      height: 50px;
-
-      &.required:after {
-        content: '*';
-        position: absolute;
-        top: 17px;
-        right: -10px;
-        color: #c00;
-      }
+      height: 20px;
+      margin-bottom: 11px;
     }
+
     label {
       float: left;
       clear: both;
       width: 100px;
-      margin-bottom: 2px;
-      padding-right: 15px;
-      line-height: 45px;
+      margin-right: 14px;
+      padding-top: 5px;
+      line-height: 20px;
       text-align: right;
-      font-size: 15px;
+      font-size: 14px;
       text-shadow: 2px 2px 0px #fff;
       color: #666;
+
+      &.required:after {
+        content: '*';
+        top: 17px;
+        right: -10px;
+        padding-left: 3px;
+        color: #c00;
+      }
     }
     input, textarea, select {
       float: left;
+      font-family: "Helvetica Neue", Helvetica, Arial;
     }
     input, textarea {
-      padding: 8px;
       border: 1px solid #ddd;
-      font-size: 16px;
-      @include border-radius(8px);
+      font-size: 13px;
+      @include border-radius(1px);
     }
     input {
       margin-top: 4px;
+      height: 20px;
       width: 270px;
+      padding-left: 5px;
     }
     textarea {
       margin-top: 8px;
-      height: 40px;
+      height: 20px;
       width: 270px;
     }
     &.wide textarea {
       width: 740px;
     }
     select {
-      font-size: 18px;
-      margin-top: 10px;
+      font-size: 14px;
+      margin-top: 5px;
+      height: 20px;
     }
     .boolean {
       input {
@@ -172,7 +177,7 @@ form.subscription-form {
       }
     }
     .country select {
-      width: 290px;
+      width: 275px;
     }
     .hint {
       display: none;
@@ -194,16 +199,16 @@ form.subscription-form {
   .actions {
     display: block;
     clear: both;
-    margin: 12px 0 20px 85px;
     height: 40px;
     line-height: 60px;
 
-    input {
+    input, a {
       display: block;
-      float: right;
-      width: 148px;
+      float: left;
+      width: 184px;
       height: 40px;
       margin: 10px 20px 0 0px;
+      margin-left: 115px;
       border: 0;
       text-align: center;
       line-height: 37px;
@@ -222,14 +227,6 @@ form.subscription-form {
         @include background-image(linear-gradient(#ddd 0%, #ccc 100%));
         color: #f6f6f6;
         text-shadow: 2px 2px 0 #aaa;
-      }
-    }
-    a {
-      font-size: 14px;
-      color: #999;
-      text-decoration: none;
-      &:hover {
-        text-decoration: underline;
       }
     }
   }
