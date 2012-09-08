@@ -43375,6 +43375,10 @@ Travis.Record.reopenClass({
   }
 });
 Travis.Controllers.Tabs = Ember.Object.extend({
+  firstTab: function() {
+    return $('#left .tabs > li')[0].id.replace('tab_', '');
+  },
+
   activate: function(tab) {
     if(this.get('active') !== tab) {
       this.destroy();
@@ -43411,6 +43415,10 @@ Travis.Controllers.Tabs = Ember.Object.extend({
   }
 });
 Travis.Controllers.Tabs = Ember.Object.extend({
+  firstTab: function() {
+    return $('#left .tabs > li')[0].id.replace('tab_', '');
+  },
+
   activate: function(tab) {
     if(this.get('active') !== tab) {
       this.destroy();
@@ -43841,7 +43849,7 @@ Travis.Controllers.Repositories.List = Ember.ArrayController.extend({
   },
 
   searchObserver: function() {
-    this[this.searchBox.value ? 'search' : 'recent']();
+    this[this.searchBox.value ? 'search' : this.tabs.firstTab()]();
     this.tabs.setDisplay('search', this.searchBox.value);
   }.observes('searchBox.value'),
 

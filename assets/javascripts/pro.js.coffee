@@ -12,6 +12,8 @@ $.extend Travis.Controllers.Repositories.Show.proto(),
     @_updateStatusImageCodes()).observes('repository.slug'),
 
 $('document').ready ->
+  $('#tab_recent').remove()
+
   Travis.channel_prefix = 'private-'
   Travis.secureUrl = (url) ->
     token = $('meta[name=travis-token]').attr('value')
