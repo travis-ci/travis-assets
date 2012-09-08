@@ -23,6 +23,7 @@
   });
 
   $('document').ready(function() {
+    $('#tab_recent').remove();
     Travis.channel_prefix = 'private-';
     Travis.secureUrl = function(url) {
       var token;

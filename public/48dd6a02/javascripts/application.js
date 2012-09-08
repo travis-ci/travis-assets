@@ -43838,7 +43838,7 @@ Travis.Controllers.Repositories.List = Ember.ArrayController.extend({
     this.tabs.activate('recent');
   },
 
-  owned_by: function(githubId) {
+  my_repositories: function(githubId) {
     this.set('content', Travis.Repository.owned_by(githubId));
     this.tabs.activate('my_repositories');
   },
@@ -43849,7 +43849,7 @@ Travis.Controllers.Repositories.List = Ember.ArrayController.extend({
   },
 
   searchObserver: function() {
-    this[this.searchBox.value ? 'search' : 'recent']();
+    this[this.searchBox.value ? 'search' : this.tabs.firstTab()]();
     this.tabs.setDisplay('search', this.searchBox.value);
   }.observes('searchBox.value'),
 
