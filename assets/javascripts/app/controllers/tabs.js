@@ -1,4 +1,8 @@
 Travis.Controllers.Tabs = Ember.Object.extend({
+  firstTab: function() {
+    return $('#left .tabs > li')[0].id.replace('tab_', '');
+  },
+
   activate: function(tab) {
     if(this.get('active') !== tab) {
       this.destroy();

@@ -39,7 +39,7 @@ Travis.Controllers.Repositories.List = Ember.ArrayController.extend({
   },
 
   searchObserver: function() {
-    this[this.searchBox.value ? 'search' : 'recent']();
+    this[this.searchBox.value ? 'search' : this.tabs.firstTab()]();
     this.tabs.setDisplay('search', this.searchBox.value);
   }.observes('searchBox.value'),
 
