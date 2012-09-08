@@ -42314,7 +42314,7 @@ var Travis = Ember.Application.create({
       Travis.left.recent();
     });
     $('li#tab_my_repositories').click(function() {
-      Travis.left.owned_by($(this).data('github-id'));
+      Travis.left.my_repositories();
     });
     $('li#tab_search').click(function () {
       Travis.left.search();
@@ -43838,8 +43838,9 @@ Travis.Controllers.Repositories.List = Ember.ArrayController.extend({
     this.tabs.activate('recent');
   },
 
-  owned_by: function(githubId) {
-    this.set('content', Travis.Repository.owned_by(githubId));
+  my_repositories: function() {
+    var login = $('meta[name=user-login]').attr('content');
+    this.set('content', Travis.Repository.owned_by(login));
     this.tabs.activate('my_repositories');
   },
 

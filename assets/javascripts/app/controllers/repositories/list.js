@@ -28,8 +28,9 @@ Travis.Controllers.Repositories.List = Ember.ArrayController.extend({
     this.tabs.activate('recent');
   },
 
-  my_repositories: function(githubId) {
-    this.set('content', Travis.Repository.owned_by(githubId));
+  my_repositories: function() {
+    var login = $('meta[name=user-login]').attr('content');
+    this.set('content', Travis.Repository.owned_by(login));
     this.tabs.activate('my_repositories');
   },
 
