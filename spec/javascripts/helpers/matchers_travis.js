@@ -51,8 +51,8 @@ $.extend(jasmine, {
 
     var expected = {
       'h3 a':                    { href: 'http://github.com/' + repository.get('slug'), text: repository.get('slug') },
-      '.github-stats .watchers': { href: 'http://github.com/' + repository.get('slug') + '/watchers' },
-      '.github-stats .forks':    { href: 'http://github.com/' + repository.get('slug') + '/network' }
+      // '.github-stats .watchers': { href: 'http://github.com/' + repository.get('slug') + '/watchers' },
+      // '.github-stats .forks':    { href: 'http://github.com/' + repository.get('slug') + '/network' }
     };
     $.each(expected, function(selector, text) {
       jasmine.matchValues(selector, text, errors, element);
