@@ -10,10 +10,17 @@ Travis.Controllers.ServiceHooks = Ember.ArrayController.extend({
     var owner_name = location.pathname.split('/')[2] || $('meta[name=user-login]').attr('content');
     var attrs = { recordType: Travis.ServiceHook, options: { owner_name: owner_name, orderBy: 'name' } };
     var query = Travis.Query.create(attrs).toScQuery('remote');
-    this.set('content', Travis.store.find(query));
+    var content = Travis.store.find(query);
+
+    this.set('content', content);
+    this.set('syncedAt', '...');
 
     this.poll();
   },
+
+  isLoaded: function() {
+    return (this.getPath('content.status') & Ember.Record.READY) > 0;
+  }.property('content.status'),
 
   state: function() {
     return this.get('active') ? 'on' : 'off';

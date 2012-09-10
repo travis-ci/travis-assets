@@ -45,7 +45,7 @@ var Travis = Ember.Application.create({
 
   profile: function() {
     if($('#service_hooks').length > 0) {
-      Travis.Controllers.ServiceHooks.create();
+      this.service_hooks = Travis.Controllers.ServiceHooks.create();
     }
   },
 
