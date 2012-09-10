@@ -1,16 +1,16 @@
 <div class="message">
-{{#if service_hooks.isSyncing}}
-  <p class="sync">
-    Synchronizing your data from GitHub
-  </p>
-{{else}}
-  <p>
-    Last synchronized from GitHub: {{service_hooks.syncedAt}}
-    {{#view Ember.Button class="sync_now" target="parentView.service_hooks" action="sync"}}
-      Sync now
-    {{/view}}
-  </p>
-{{/if}}
+  {{#if service_hooks.isSyncing}}
+    <p class="sync">
+      Synchronizing your data from GitHub
+    </p>
+  {{else}}
+    <p>
+      Last synchronized from GitHub: {{service_hooks.syncedAt}}
+      {{#view Ember.Button class="sync_now" target="parentView.service_hooks" action="sync"}}
+        Sync now
+      {{/view}}
+    </p>
+  {{/if}}
 </div>
 
 {{#collection tagName="ul" itemViewClass="Ember.View" itemClass="repository" contentBinding="service_hooks"}}
