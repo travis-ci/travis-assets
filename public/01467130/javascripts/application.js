@@ -44049,10 +44049,10 @@ Travis.Controllers.ServiceHooks = Ember.ArrayController.extend({
       if(user.is_syncing == 'f') {
         user.is_syncing = false;
       }
+      this.set('syncedAt', Travis.Helpers.Common.timeAgoInWords(user.synced_at) || '?');
 
       if(user.is_syncing) {
         this.set('isSyncing', true);
-        this.set('syncedAt', Travis.Helpers.Common.timeAgoInWords(user.synced_at) || '?');
         this.set('content', []);
         Ember.run.later(this, this.poll.bind(this), 3000);
       } else if(this.get('isSyncing')) {
