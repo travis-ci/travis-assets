@@ -139,7 +139,7 @@ Travis.Controllers.Repositories.Show = Ember.Object.extend({
 
   _repositoryUrl: function() {
     var slug = this.getPath('repository.slug');
-    if (slug) return 'http://travis-ci.org/' + slug;
+    if (slug) return 'http://' + document.domain + '/' + slug;
   }.property('repository.slug'),
 
   repositoryDidChange: function() {
