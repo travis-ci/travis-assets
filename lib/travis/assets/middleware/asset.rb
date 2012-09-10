@@ -19,7 +19,7 @@ module Travis
         end
 
         def serve?
-          current? || path == '/current'
+          image? || current? || path == '/current'
         end
 
         def redirect?
@@ -31,6 +31,10 @@ module Travis
         end
 
         protected
+
+          def image?
+            path =~ %r(^/([\w]+)/images/)
+          end
 
           def current?
             version == current

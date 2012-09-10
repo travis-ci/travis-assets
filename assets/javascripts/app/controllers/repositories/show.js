@@ -126,14 +126,14 @@ Travis.Controllers.Repositories.Show = Ember.Object.extend({
     } else {
       $('.tools input').val('');
     }
-  },
+  }.observes('repository.slug'),
 
   _statusImageUrl: function() {
     var branch = $(this.branchSelector).val();
     var slug = this.getPath('repository.slug');
 
-    if (branch && slug) {
-      return Travis.secureUrl(slug + '.png?branch=' + branch);
+    if (slug) {
+      return Travis.secureUrl(slug + '.png' + (branch ? '?branch=' + branch : ''));
     }
   }.property('repository.slug'),
 
