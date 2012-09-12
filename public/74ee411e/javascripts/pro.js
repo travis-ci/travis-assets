@@ -25,10 +25,11 @@
   $('document').ready(function() {
     $('#tab_recent').remove();
     Travis.channel_prefix = 'private-';
-    Travis.secureUrl = function(url) {
-      var token;
+    Travis.secureUrl = function(path) {
+      var separator, token;
       token = $('meta[name=travis-token]').attr('value');
-      return "https://" + document.domain + "/" + url + "&token=" + token;
+      separator = path.indexOf('?') > -1 ? '&' : '?';
+      return "https://" + document.domain + "/" + path + separator + "token=" + token;
     };
     if (!(typeof TRAVIS_PRO_CHANNELS === 'undefined')) {
       return $.each(TRAVIS_PRO_CHANNELS, function(ix, channel) {

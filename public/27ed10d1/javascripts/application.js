@@ -43981,7 +43981,7 @@ Travis.Controllers.Repositories.Show = Ember.Object.extend({
   }.observes('repository.slug'),
 
   _updateStatusImageCodes: function() {
-    var imageUrl = this.get('_statusImageUrl');
+    var imageUrl = this.get('_statusImageUrl') + '?branch=';
     var repositoryUrl = this.get('_repositoryUrl');
 
     if (repositoryUrl && imageUrl) {
@@ -44028,7 +44028,7 @@ Travis.Controllers.ServiceHooks = Ember.ArrayController.extend({
     var content = Travis.store.find(query);
 
     this.set('content', content);
-    this.set('syncedAt', '?');
+    this.set('syncedAt', '...');
 
     this.poll();
   },

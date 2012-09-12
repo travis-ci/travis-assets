@@ -44026,7 +44026,9 @@ Travis.Controllers.ServiceHooks = Ember.ArrayController.extend({
     var attrs = { recordType: Travis.ServiceHook, options: { owner_name: owner_name, orderBy: 'name' } };
     var query = Travis.Query.create(attrs).toScQuery('remote');
     var content = Travis.store.find(query);
+
     this.set('content', content);
+    this.set('syncedAt', '...');
 
     this.poll();
   },

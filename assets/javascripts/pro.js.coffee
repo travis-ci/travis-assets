@@ -15,9 +15,10 @@ $('document').ready ->
   $('#tab_recent').remove()
 
   Travis.channel_prefix = 'private-'
-  Travis.secureUrl = (url) ->
+  Travis.secureUrl = (path) ->
     token = $('meta[name=travis-token]').attr('value')
-    "https://#{document.domain}/#{url}&token=#{token}"
+    separator = if path.indexOf('?') > -1 then '&' else '?'
+    "https://#{document.domain}/#{path}#{separator}token=#{token}"
 
   unless(typeof TRAVIS_PRO_CHANNELS == 'undefined')
     $.each(TRAVIS_PRO_CHANNELS, (ix, channel) ->
