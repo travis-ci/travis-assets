@@ -236,8 +236,18 @@ form.subscription-form {
       }
     }
   }
-  .error, div.error > input {
-    border-color: #c00;
+
+  div.error > input, input.error {
+    background: #f2dede;
+    border-color: #ddd;
+  }
+
+  #cc-errors {
+    color: #c00;
+    font-size: 14px;
+    font-family: "Helvetica Neue", Helvetica, Arial;
+    padding-left: 2px;
+    padding-bottom: 5px;
   }
   .tipsy {
     margin-left: 20px;
