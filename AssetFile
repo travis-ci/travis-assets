@@ -85,6 +85,9 @@ input 'assets/stylesheets', 'pro.css*' do
   concat 'stylesheets/pro.css'
 end
 
+input 'assets/javascripts', 'pro/vat.js' do
+  concat 'javascripts/pro/vat.js'
+end
 
 # how to use the copy filter with binary data?
 # input 'assets/images' do
