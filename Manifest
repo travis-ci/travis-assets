@@ -9,7 +9,7 @@ vendor/sproutcore-2.0/**/*.js*
 vendor/ansiparse.js
 vendor/facebox.js
 vendor/highcharts.js
-vendor/pusher-1.6.min.js
+vendor/pusher-1.12.min.js
 vendor/i18n.js
 
 app.js

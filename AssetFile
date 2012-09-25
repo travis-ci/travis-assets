@@ -19,6 +19,7 @@ tmpdir 'tmp'
 output "public/#{version}"
 
 paths = Travis::Assets.paths('javascripts')
+puts paths
 
 input 'assets/javascripts', "{#{paths.join(',')}}" do
   paths.map! { |path| path.gsub(/.hjs|.coffee/, '') }
@@ -38,7 +39,7 @@ mobile_paths = %w(
   vendor/sproutcore-2.0/**/*.js*
   vendor/ansiparse.js
   vendor/highcharts.js
-  vendor/pusher-1.6.min.js
+  vendor/pusher-1.12.min.js
   vendor/i18n.js
   mobile.js
   lib/**/*.js
