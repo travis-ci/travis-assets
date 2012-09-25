@@ -5,7 +5,7 @@
 //= require vendor/ember-0.9.6.min.js
 //= require vendor/sproutcore-datastore.js
 //= require_tree ./vendor/sproutcore-2.0
-//= require vendor/pusher-1.6.min.js
+//= require vendor/pusher-1.12.min.js
 //= require vendor/highcharts.js
 //= require vendor/ansiparse.js
 //= require vendor/facebox.js
