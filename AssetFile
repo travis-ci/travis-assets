@@ -19,7 +19,6 @@ tmpdir 'tmp'
 output "public/#{version}"
 
 paths = Travis::Assets.paths('javascripts')
-puts paths
 
 input 'assets/javascripts', "{#{paths.join(',')}}" do
   paths.map! { |path| path.gsub(/.hjs|.coffee/, '') }

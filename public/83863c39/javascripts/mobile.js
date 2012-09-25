@@ -3947,7 +3947,7 @@ var Sizzle = function( selector, context, results, seed ) {
 	if ( context.nodeType !== 1 && context.nodeType !== 9 ) {
 		return [];
 	}
-
+	
 	if ( !selector || typeof selector !== "string" ) {
 		return results;
 	}
@@ -3957,7 +3957,7 @@ var Sizzle = function( selector, context, results, seed ) {
 		contextXML = Sizzle.isXML( context ),
 		parts = [],
 		soFar = selector;
-
+	
 	// Reset the position of the chunker regexp (start from head)
 	do {
 		chunker.exec( "" );
@@ -3965,9 +3965,9 @@ var Sizzle = function( selector, context, results, seed ) {
 
 		if ( m ) {
 			soFar = m[3];
-
+		
 			parts.push( m[1] );
-
+		
 			if ( m[2] ) {
 				extra = m[3];
 				break;
@@ -3991,7 +3991,7 @@ var Sizzle = function( selector, context, results, seed ) {
 				if ( Expr.relative[ selector ] ) {
 					selector += parts.shift();
 				}
-
+				
 				set = posProcess( selector, set, seed );
 			}
 		}
@@ -4119,7 +4119,7 @@ Sizzle.find = function( expr, context, isXML ) {
 
 	for ( i = 0, len = Expr.order.length; i < len; i++ ) {
 		type = Expr.order[i];
-
+		
 		if ( (match = Expr.leftMatch[ type ].exec( expr )) ) {
 			left = match[1];
 			match.splice( 1, 1 );
@@ -4491,7 +4491,7 @@ var Expr = Sizzle.selectors = {
 
 		ATTR: function( match, curLoop, inplace, result, not, isXML ) {
 			var name = match[1] = match[1].replace( rBackslash, "" );
-
+			
 			if ( !isXML && Expr.attrMap[name] ) {
 				match[1] = Expr.attrMap[name];
 			}
@@ -4525,7 +4525,7 @@ var Expr = Sizzle.selectors = {
 			} else if ( Expr.match.POS.test( match[0] ) || Expr.match.CHILD.test( match[0] ) ) {
 				return true;
 			}
-
+			
 			return match;
 		},
 
@@ -4535,7 +4535,7 @@ var Expr = Sizzle.selectors = {
 			return match;
 		}
 	},
-
+	
 	filters: {
 		enabled: function( elem ) {
 			return elem.disabled === false && elem.type !== "hidden";
@@ -4548,14 +4548,14 @@ var Expr = Sizzle.selectors = {
 		checked: function( elem ) {
 			return elem.checked === true;
 		},
-
+		
 		selected: function( elem ) {
 			// Accessing this property makes selected-by-default
 			// options in Safari work properly
 			if ( elem.parentNode ) {
 				elem.parentNode.selectedIndex;
 			}
-
+			
 			return elem.selected === true;
 		},
 
@@ -4577,7 +4577,7 @@ var Expr = Sizzle.selectors = {
 
 		text: function( elem ) {
 			var attr = elem.getAttribute( "type" ), type = elem.type;
-			// IE6 and 7 will map elem.type to 'text' for new HTML5 types (search, etc)
+			// IE6 and 7 will map elem.type to 'text' for new HTML5 types (search, etc) 
 			// use getAttribute instead to test this case
 			return elem.nodeName.toLowerCase() === "input" && "text" === type && ( attr === type || attr === null );
 		},
@@ -4696,21 +4696,21 @@ var Expr = Sizzle.selectors = {
 				case "only":
 				case "first":
 					while ( (node = node.previousSibling) )	 {
-						if ( node.nodeType === 1 ) {
-							return false;
+						if ( node.nodeType === 1 ) { 
+							return false; 
 						}
 					}
 
-					if ( type === "first" ) {
-						return true;
+					if ( type === "first" ) { 
+						return true; 
 					}
 
 					node = elem;
 
 				case "last":
 					while ( (node = node.nextSibling) )	 {
-						if ( node.nodeType === 1 ) {
-							return false;
+						if ( node.nodeType === 1 ) { 
+							return false; 
 						}
 					}
 
@@ -4723,22 +4723,22 @@ var Expr = Sizzle.selectors = {
 					if ( first === 1 && last === 0 ) {
 						return true;
 					}
-
+					
 					doneName = match[0];
 					parent = elem.parentNode;
-
+	
 					if ( parent && (parent[ expando ] !== doneName || !elem.nodeIndex) ) {
 						count = 0;
-
+						
 						for ( node = parent.firstChild; node; node = node.nextSibling ) {
 							if ( node.nodeType === 1 ) {
 								node.nodeIndex = ++count;
 							}
-						}
+						} 
 
 						parent[ expando ] = doneName;
 					}
-
+					
 					diff = elem.nodeIndex - last;
 
 					if ( first === 0 ) {
@@ -4757,7 +4757,7 @@ var Expr = Sizzle.selectors = {
 		TAG: function( elem, match ) {
 			return (match === "*" && elem.nodeType === 1) || !!elem.nodeName && elem.nodeName.toLowerCase() === match;
 		},
-
+		
 		CLASS: function( elem, match ) {
 			return (" " + (elem.className || elem.getAttribute("class")) + " ")
 				.indexOf( match ) > -1;
@@ -4827,7 +4827,7 @@ var makeArray = function( array, results ) {
 		results.push.apply( results, array );
 		return results;
 	}
-
+	
 	return array;
 };
 
@@ -5059,7 +5059,7 @@ if ( document.querySelectorAll ) {
 		if ( div.querySelectorAll && div.querySelectorAll(".TEST").length === 0 ) {
 			return;
 		}
-
+	
 		Sizzle = function( query, context, extra, seed ) {
 			context = context || document;
 
@@ -5068,24 +5068,24 @@ if ( document.querySelectorAll ) {
 			if ( !seed && !Sizzle.isXML(context) ) {
 				// See if we find a selector to speed up
 				var match = /^(\w+$)|^\.([\w\-]+$)|^#([\w\-]+$)/.exec( query );
-
+				
 				if ( match && (context.nodeType === 1 || context.nodeType === 9) ) {
 					// Speed-up: Sizzle("TAG")
 					if ( match[1] ) {
 						return makeArray( context.getElementsByTagName( query ), extra );
-
+					
 					// Speed-up: Sizzle(".CLASS")
 					} else if ( match[2] && Expr.find.CLASS && context.getElementsByClassName ) {
 						return makeArray( context.getElementsByClassName( match[2] ), extra );
 					}
 				}
-
+				
 				if ( context.nodeType === 9 ) {
 					// Speed-up: Sizzle("body")
 					// The body element only exists once, optimize finding it
 					if ( query === "body" && context.body ) {
 						return makeArray( [ context.body ], extra );
-
+						
 					// Speed-up: Sizzle("#ID")
 					} else if ( match && match[3] ) {
 						var elem = context.getElementById( match[3] );
@@ -5098,12 +5098,12 @@ if ( document.querySelectorAll ) {
 							if ( elem.id === match[3] ) {
 								return makeArray( [ elem ], extra );
 							}
-
+							
 						} else {
 							return makeArray( [], extra );
 						}
 					}
-
+					
 					try {
 						return makeArray( context.querySelectorAll(query), extra );
 					} catch(qsaError) {}
@@ -5141,7 +5141,7 @@ if ( document.querySelectorAll ) {
 					}
 				}
 			}
-
+		
 			return oldSizzle(query, context, extra, seed);
 		};
 
@@ -5168,7 +5168,7 @@ if ( document.querySelectorAll ) {
 			// This should fail with an exception
 			// Gecko does not error, returns false instead
 			matches.call( document.documentElement, "[test!='']:sizzle" );
-
+	
 		} catch( pseudoError ) {
 			pseudoWorks = true;
 		}
@@ -5178,7 +5178,7 @@ if ( document.querySelectorAll ) {
 			expr = expr.replace(/\=\s*([^'"\]]*)\s*\]/g, "='$1']");
 
 			if ( !Sizzle.isXML( node ) ) {
-				try {
+				try { 
 					if ( pseudoWorks || !Expr.match.PSEUDO.test( expr ) && !/!=/.test( expr ) ) {
 						var ret = matches.call( node, expr );
 
@@ -5215,7 +5215,7 @@ if ( document.querySelectorAll ) {
 	if ( div.getElementsByClassName("e").length === 1 ) {
 		return;
 	}
-
+	
 	Expr.order.splice(1, 0, "CLASS");
 	Expr.find.CLASS = function( match, context, isXML ) {
 		if ( typeof context.getElementsByClassName !== "undefined" && !isXML ) {
@@ -5266,7 +5266,7 @@ function dirCheck( dir, cur, doneName, checkSet, nodeCheck, isXML ) {
 
 		if ( elem ) {
 			var match = false;
-
+			
 			elem = elem[dir];
 
 			while ( elem ) {
@@ -5319,7 +5319,7 @@ if ( document.documentElement.contains ) {
 
 Sizzle.isXML = function( elem ) {
 	// documentElement is verified for cases where it doesn't yet exist
-	// (such as loading iframes in IE - #4833)
+	// (such as loading iframes in IE - #4833) 
 	var documentElement = (elem ? elem.ownerDocument || elem : 0).documentElement;
 
 	return documentElement ? documentElement.nodeName !== "HTML" : false;
@@ -5436,11 +5436,11 @@ jQuery.fn.extend({
 	},
 
 	is: function( selector ) {
-		return !!selector && (
+		return !!selector && ( 
 			typeof selector === "string" ?
 				// If this is a positional selector, check membership in the returned set
 				// so $("p:first").is("p:last") won't return true for a doc with two "p".
-				POS.test( selector ) ?
+				POS.test( selector ) ? 
 					jQuery( selector, this.context ).index( this[0] ) >= 0 :
 					jQuery.filter( selector, this ).length > 0 :
 				this.filter( selector ).length > 0 );
@@ -5448,7 +5448,7 @@ jQuery.fn.extend({
 
 	closest: function( selectors, context ) {
 		var ret = [], i, l, cur = this[0];
-
+		
 		// Array (deprecated as of jQuery 1.7)
 		if ( jQuery.isArray( selectors ) ) {
 			var level = 1;
@@ -9297,48 +9297,7 @@ jQuery.each([ "Height", "Width" ], function( i, name ) {
 
 // Expose jQuery to the global object
 window.jQuery = window.$ = jQuery;
-})( window );/**
- * jQuery Cookie plugin
- *
- * Copyright (c) 2010 Klaus Hartl (stilbuero.de)
- * Dual licensed under the MIT and GPL licenses:
- * http://www.opensource.org/licenses/mit-license.php
- * http://www.gnu.org/licenses/gpl.html
- *
- */
-jQuery.cookie = function (key, value, options) {
-
-    // key and at least value given, set cookie...
-    if (arguments.length > 1 && String(value) !== "[object Object]") {
-        options = jQuery.extend({}, options);
-
-        if (value === null || value === undefined) {
-            options.expires = -1;
-        }
-
-        if (typeof options.expires === 'number') {
-            var days = options.expires, t = options.expires = new Date();
-            t.setDate(t.getDate() + days);
-        }
-
-        value = String(value);
-
-        return (document.cookie = [
-            encodeURIComponent(key), '=',
-            options.raw ? value : encodeURIComponent(value),
-            options.expires ? '; expires=' + options.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
-            options.path ? '; path=' + options.path : '',
-            options.domain ? '; domain=' + options.domain : '',
-            options.secure ? '; secure' : ''
-        ].join(''));
-    }
-
-    // key and possibly options given, get cookie...
-    options = value || {};
-    var result, decode = options.raw ? function (s) { return s; } : decodeURIComponent;
-    return (result = new RegExp('(?:^|; )' + encodeURIComponent(key) + '=([^;]*)').exec(document.cookie)) ? decode(result[1]) : null;
-};
-/*
+})( window );/*
  * timeago: a jQuery plugin, version: 0.9.2 (2010-09-14)
  * @requires jQuery v1.2.3 or later
  *
@@ -9479,46 +9438,87 @@ jQuery.cookie = function (key, value, options) {
 })(jQuery);
 
 
+/**
+ * jQuery Cookie plugin
+ *
+ * Copyright (c) 2010 Klaus Hartl (stilbuero.de)
+ * Dual licensed under the MIT and GPL licenses:
+ * http://www.opensource.org/licenses/mit-license.php
+ * http://www.gnu.org/licenses/gpl.html
+ *
+ */
+jQuery.cookie = function (key, value, options) {
+
+    // key and at least value given, set cookie...
+    if (arguments.length > 1 && String(value) !== "[object Object]") {
+        options = jQuery.extend({}, options);
+
+        if (value === null || value === undefined) {
+            options.expires = -1;
+        }
+
+        if (typeof options.expires === 'number') {
+            var days = options.expires, t = options.expires = new Date();
+            t.setDate(t.getDate() + days);
+        }
+
+        value = String(value);
+
+        return (document.cookie = [
+            encodeURIComponent(key), '=',
+            options.raw ? value : encodeURIComponent(value),
+            options.expires ? '; expires=' + options.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
+            options.path ? '; path=' + options.path : '',
+            options.domain ? '; domain=' + options.domain : '',
+            options.secure ? '; secure' : ''
+        ].join(''));
+    }
+
+    // key and possibly options given, get cookie...
+    options = value || {};
+    var result, decode = options.raw ? function (s) { return s; } : decodeURIComponent;
+    return (result = new RegExp('(?:^|; )' + encodeURIComponent(key) + '=([^;]*)').exec(document.cookie)) ? decode(result[1]) : null;
+};
 // tipsy, facebook style tooltips for jquery
 // version 1.0.0a
 // (c) 2008-2010 jason frame [jason@onehackoranother.com]
 // releated under the MIT license
 
 (function($) {
-
+    
     function fixTitle($ele) {
         if ($ele.attr('title') || typeof($ele.attr('original-title')) != 'string') {
             $ele.attr('original-title', $ele.attr('title') || '').removeAttr('title');
         }
     }
-
+    
     function Tipsy(element, options) {
         this.$element = $(element);
         this.options = options;
         this.enabled = true;
         fixTitle(this.$element);
     }
-
+    
     Tipsy.prototype = {
         show: function() {
             var title = this.getTitle();
             if (title && this.enabled) {
                 var $tip = this.tip();
-
+                
                 $tip.find('.tipsy-inner')[this.options.html ? 'html' : 'text'](title);
                 $tip[0].className = 'tipsy'; // reset classname in case of dynamic gravity
                 $tip.remove().css({top: 0, left: 0, visibility: 'hidden', display: 'block'}).appendTo(document.body);
-
+                
                 var pos = $.extend({}, this.$element.offset(), {
                     width: this.$element[0].offsetWidth,
                     height: this.$element[0].offsetHeight
                 });
-
+                
                 var actualWidth = $tip[0].offsetWidth, actualHeight = $tip[0].offsetHeight;
                 var gravity = (typeof this.options.gravity == 'function')
                                 ? this.options.gravity.call(this.$element[0])
                                 : this.options.gravity;
-
+                
                 var tp;
                 switch (gravity.charAt(0)) {
                     case 'n':
@@ -9534,7 +9534,7 @@ jQuery.cookie = function (key, value, options) {
                         tp = {top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left + pos.width + this.options.offset};
                         break;
                 }
-
+                
                 if (gravity.length == 2) {
                     if (gravity.charAt(1) == 'w') {
                         tp.left = pos.left + pos.width / 2 - 15;
@@ -9542,9 +9542,9 @@ jQuery.cookie = function (key, value, options) {
                         tp.left = pos.left + pos.width / 2 - actualWidth + 15;
                     }
                 }
-
+                
                 $tip.css(tp).addClass('tipsy-' + gravity);
-
+                
                 if (this.options.fade) {
                     $tip.stop().css({opacity: 0, display: 'block', visibility: 'visible'}).animate({opacity: this.options.opacity});
                 } else {
@@ -9552,7 +9552,7 @@ jQuery.cookie = function (key, value, options) {
                 }
             }
         },
-
+        
         hide: function() {
             if (this.options.fade) {
                 this.tip().stop().fadeOut(function() { $(this).remove(); });
@@ -9560,7 +9560,7 @@ jQuery.cookie = function (key, value, options) {
                 this.tip().remove();
             }
         },
-
+        
         getTitle: function() {
             var title, $e = this.$element, o = this.options;
             fixTitle($e);
@@ -9573,33 +9573,33 @@ jQuery.cookie = function (key, value, options) {
             title = ('' + title).replace(/(^\s*|\s*$)/, "");
             return title || o.fallback;
         },
-
+        
         tip: function() {
             if (!this.$tip) {
                 this.$tip = $('<div class="tipsy"></div>').html('<div class="tipsy-arrow"></div><div class="tipsy-inner"/></div>');
             }
             return this.$tip;
         },
-
+        
         validate: function() {
             if (!this.$element[0].parentNode) this.hide();
         },
-
+        
         enable: function() { this.enabled = true; },
         disable: function() { this.enabled = false; },
         toggleEnabled: function() { this.enabled = !this.enabled; }
     };
-
+    
     $.fn.tipsy = function(options) {
-
+        
         if (options === true) {
             return this.data('tipsy');
         } else if (typeof options == 'string') {
             return this.data('tipsy')[options]();
         }
-
+        
         options = $.extend({}, $.fn.tipsy.defaults, options);
-
+        
         function get(ele) {
             var tipsy = $.data(ele, 'tipsy');
             if (!tipsy) {
@@ -9608,7 +9608,7 @@ jQuery.cookie = function (key, value, options) {
             }
             return tipsy;
         }
-
+        
         function enter() {
             var tipsy = get(this);
             tipsy.hoverState = 'in';
@@ -9618,7 +9618,7 @@ jQuery.cookie = function (key, value, options) {
                 setTimeout(function() { if (tipsy.hoverState == 'in') tipsy.show(); }, options.delayIn);
             }
         };
-
+        
         function leave() {
             var tipsy = get(this);
             tipsy.hoverState = 'out';
@@ -9628,20 +9628,20 @@ jQuery.cookie = function (key, value, options) {
                 setTimeout(function() { if (tipsy.hoverState == 'out') tipsy.hide(); }, options.delayOut);
             }
         };
-
+        
         if (!options.live) this.each(function() { get(this); });
-
+        
         if (options.trigger != 'manual') {
             var binder   = options.live ? 'live' : 'bind',
                 eventIn  = options.trigger == 'hover' ? 'mouseenter' : 'focus',
                 eventOut = options.trigger == 'hover' ? 'mouseleave' : 'blur';
             this[binder](eventIn, enter)[binder](eventOut, leave);
         }
-
+        
         return this;
-
+        
     };
-
+    
     $.fn.tipsy.defaults = {
         delayIn: 0,
         delayOut: 0,
@@ -9655,7 +9655,7 @@ jQuery.cookie = function (key, value, options) {
         title: 'title',
         trigger: 'hover'
     };
-
+    
     // Overwrite this method to provide options on a per-element basis.
     // For example, you could store the gravity in a 'tipsy-gravity' attribute:
     // return $.extend({}, options, {gravity: $(ele).attr('tipsy-gravity') || 'n' });
@@ -9663,15 +9663,15 @@ jQuery.cookie = function (key, value, options) {
     $.fn.tipsy.elementOptions = function(ele, options) {
         return $.metadata ? $.extend({}, options, $(ele).metadata()) : options;
     };
-
+    
     $.fn.tipsy.autoNS = function() {
         return $(this).offset().top > ($(document).scrollTop() + $(window).height() / 2) ? 's' : 'n';
     };
-
+    
     $.fn.tipsy.autoWE = function() {
         return $(this).offset().left > ($(document).scrollLeft() + $(window).width() / 2) ? 'e' : 'w';
     };
-
+    
 })(jQuery);
 (function() {
 /*global __fail__*/
@@ -12031,7 +12031,7 @@ Ember.isArray = function(obj) {
       Ember.makeArray();          => []
       Ember.makeArray(null);      => []
       Ember.makeArray(undefined); => []
-      Ember.makeArray('lindsay'); => ['lindsay']
+      Ember.makeArray('lindsay'); => ['lindsay'] 
       Ember.makeArray([1,2,42]);  => [1,2,42]
 
       var controller = Ember.ArrayProxy.create({ content: [] });
@@ -13018,7 +13018,7 @@ var Cp = ComputedProperty.prototype;
       });
 
   It is common to use `cacheable()` on nearly every computed property
-  you define.
+  you define. 
 
   @name Ember.ComputedProperty.cacheable
   @param {Boolean} aFlag optional set to false to disable cacheing
@@ -15227,11 +15227,11 @@ Ember.RunLoop = RunLoop;
 // ..........................................................
 // Ember.run - this is ideally the only public API the dev sees
 //
-/**
+/** 
 * @namespace Ember.run is both a function and a namespace for
 * RunLoop-related functions.
 * @name Ember.run
-*/
+*/ 
 
 /**
   Runs the passed target and method inside of a RunLoop, ensuring any
@@ -15244,7 +15244,7 @@ Ember.RunLoop = RunLoop;
   call.
 
       Ember.run(function(){
-        // code to be execute within a RunLoop
+        // code to be execute within a RunLoop 
       });
 
   @name run^2
@@ -15283,7 +15283,7 @@ var run = Ember.run;
   an lower-level way to use a RunLoop instead of using Ember.run().
 
       Ember.run.begin();
-      // code to be execute within a RunLoop
+      // code to be execute within a RunLoop 
       Ember.run.end();
 
 
@@ -15299,7 +15299,7 @@ Ember.run.begin = function() {
   instead of using Ember.run().
 
       Ember.run.begin();
-      // code to be execute within a RunLoop
+      // code to be execute within a RunLoop 
       Ember.run.end();
 
   @returns {void}
@@ -16940,7 +16940,7 @@ Ember.inspect = function(obj) {
 /**
   Compares two objects, returning true if they are logically equal.  This is
   a deeper comparison than a simple triple equal. For sets it will compare the
-  internal objects.  For any other object that implements `isEqual()` it will
+  internal objects.  For any other object that implements `isEqual()` it will 
   respect that method.
 
       Ember.isEqual('hello', 'hello');  => true
@@ -17122,7 +17122,7 @@ Ember.String = {
         > beta
         > gamma
 
-    @param {String} str
+    @param {String} str 
       The string to split
 
     @returns {String} split string
@@ -17131,7 +17131,7 @@ Ember.String = {
 
   /**
     Converts a camelized string into all lower case separated by underscores.
-
+    
         'innerHTML'.decamelize()         => 'inner_html'
         'action_name'.decamelize()       => 'action_name'
         'css-class-name'.decamelize()    => 'css-class-name'
@@ -17148,7 +17148,7 @@ Ember.String = {
 
   /**
     Replaces underscores or spaces with dashes.
-
+    
         'innerHTML'.dasherize()         => 'inner-html'
         'action_name'.dasherize()       => 'action-name'
         'css-class-name'.dasherize()    => 'css-class-name'
@@ -17175,7 +17175,7 @@ Ember.String = {
 
   /**
     Returns the lowerCaseCamel form of a string.
-
+    
         'innerHTML'.camelize()         => 'innerHTML'
         'action_name'.camelize()       => 'actionName'
         'css-class-name'.camelize()    => 'cssClassName'
@@ -17301,7 +17301,7 @@ if (Ember.EXTEND_PROTOTYPES) {
 
   /**
     The `property` extension of Javascript's Function prototype is available
-    when Ember.EXTEND_PROTOTYPES is true, which is the default.
+    when Ember.EXTEND_PROTOTYPES is true, which is the default. 
 
     Computed properties allow you to treat a function like a property:
 
@@ -17353,7 +17353,7 @@ if (Ember.EXTEND_PROTOTYPES) {
 
   /**
     The `observes` extension of Javascript's Function prototype is available
-    when Ember.EXTEND_PROTOTYPES is true, which is the default.
+    when Ember.EXTEND_PROTOTYPES is true, which is the default. 
 
     You can observe property changes simply by adding the `observes`
     call to the end of your method declarations in classes that you write.
@@ -17364,7 +17364,7 @@ if (Ember.EXTEND_PROTOTYPES) {
             // Executes whenever the "value" property changes
           }.observes('value')
         });
-
+    
     @see Ember.Observable
   */
   Function.prototype.observes = function() {
@@ -17374,7 +17374,7 @@ if (Ember.EXTEND_PROTOTYPES) {
 
   /**
     The `observesBefore` extension of Javascript's Function prototype is
-    available when Ember.EXTEND_PROTOTYPES is true, which is the default.
+    available when Ember.EXTEND_PROTOTYPES is true, which is the default. 
 
     You can get notified when a property changes is about to happen by
     by adding the `observesBefore` call to the end of your method
@@ -17385,7 +17385,7 @@ if (Ember.EXTEND_PROTOTYPES) {
             // Executes whenever the "value" property is about to change
           }.observesBefore('value')
         });
-
+    
     @see Ember.Observable
   */
   Function.prototype.observesBefore = function() {
@@ -18025,9 +18025,9 @@ Ember.Enumerable = Ember.Mixin.create( /** @lends Ember.Enumerable */ {
 
   /**
     Returns a copy of the array with all null elements removed.
-
+    
         var arr = ["a", null, "c", null];
-        arr.compact(); => ["a", "c"]
+        arr.compact(); => ["a", "c"] 
 
     @returns {Array} the array without null elements.
   */
@@ -18997,7 +18997,7 @@ Ember.MutableArray = Ember.Mixin.create(Ember.Array, Ember.MutableEnumerable,
         colors.clear();  => []
         colors.length(); => 0
 
-    @returns {Ember.Array} An empty Array.
+    @returns {Ember.Array} An empty Array. 
   */
   clear: function () {
     var len = get(this, 'length');
@@ -19193,15 +19193,15 @@ var get = Ember.get, set = Ember.set;
   @class
 
   ## Overview
-
+  
   This mixin provides properties and property observing functionality, core
   features of the Ember object model.
-
+  
   Properties and observers allow one object to observe changes to a
   property on another object. This is one of the fundamental ways that
   models, controllers and views communicate with each other in an Ember
   application.
-
+  
   Any object that has this mixin applied can be used in observer
   operations. That includes Ember.Object and most objects you will
   interact with as you write your Ember application.
@@ -19209,16 +19209,16 @@ var get = Ember.get, set = Ember.set;
   Note that you will not generally apply this mixin to classes yourself,
   but you will use the features provided by this module frequently, so it
   is important to understand how to use it.
-
+  
   ## Using get() and set()
-
+  
   Because of Ember's support for bindings and observers, you will always
   access properties using the get method, and set properties using the
   set method. This allows the observing objects to be notified and
   computed properties to be handled properly.
-
+  
   More documentation about `get` and `set` are below.
-
+  
   ## Observing Property Changes
 
   You typically observe property changes simply by adding the `observes`
@@ -19230,7 +19230,7 @@ var get = Ember.get, set = Ember.set;
           // Executes whenever the "value" property changes
         }.observes('value')
       });
-
+    
   Although this is the most common way to add an observer, this capability
   is actually built into the Ember.Object class on top of two methods
   defined in this mixin: `addObserver` and `removeObserver`. You can use
@@ -19243,7 +19243,7 @@ var get = Ember.get, set = Ember.set;
 
   This will call the `targetAction` method on the `targetObject` to be called
   whenever the value of the `propertyKey` changes.
-
+  
   @extends Ember.Mixin
 */
 Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
@@ -19257,7 +19257,7 @@ Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
     This method is usually similar to using object[keyName] or object.keyName,
     however it supports both computed properties and the unknownProperty
     handler.
-
+    
     Because `get` unifies the syntax for accessing all these kinds
     of properties, it can make many refactorings easier, such as replacing a
     simple property with a computed property, or vice versa.
@@ -19453,11 +19453,11 @@ Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
     Ember.propertyDidChange(this, keyName);
     return this;
   },
-
+  
   /**
     Convenience method to call `propertyWillChange` and `propertyDidChange` in
     succession.
-
+  
     @param {String} keyName The property key to be notified about.
     @returns {Ember.Observable}
   */
@@ -19545,7 +19545,7 @@ Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
     This method will be called when a client attempts to get the value of a
     property that has not been defined in one of the typical ways. Override
     this method to create "virtual" properties.
-
+    
     @param {String} key The name of the unknown property that was requested.
     @returns {Object} The property value or undefined. Default is undefined.
   */
@@ -19557,7 +19557,7 @@ Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
     This method will be called when a client attempts to set the value of a
     property that has not been defined in one of the typical ways. Override
     this method to create "virtual" properties.
-
+    
     @param {String} key The name of the unknown property to be set.
     @param {Object} value The value the unknown property is to be set to.
   */
@@ -19568,7 +19568,7 @@ Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
   /**
     This is like `get`, but allows you to pass in a dot-separated property
     path.
-
+    
         person.getPath('address.zip'); // return the zip
         person.getPath('children.firstObject.age'); // return the first kid's age
 
@@ -19584,7 +19584,7 @@ Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
   /**
     This is like `set`, but allows you to specify the property you want to
     set as a dot-separated property path.
-
+    
         person.setPath('address.zip', 10011); // set the zip to 10011
         person.setPath('children.firstObject.age', 6); // set the first kid's age to 6
 
@@ -19602,9 +19602,9 @@ Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
   /**
     Retrieves the value of a property, or a default value in the case that the property
     returns undefined.
-
+    
         person.getWithDefault('lastName', 'Doe');
-
+    
     @param {String} keyName The name of the property to retrieve
     @param {Object} defaultValue The value to return if the property value is undefined
     @returns {Object} The property value or the defaultValue.
@@ -19615,10 +19615,10 @@ Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
 
   /**
     Set the value of a property to the current value plus some amount.
-
+    
         person.incrementProperty('age');
         team.incrementProperty('score', 2);
-
+    
     @param {String} keyName The name of the property to increment
     @param {Object} increment The amount to increment by. Defaults to 1
     @returns {Object} The new property value
@@ -19628,13 +19628,13 @@ Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
     set(this, keyName, (get(this, keyName) || 0)+increment);
     return get(this, keyName);
   },
-
+  
   /**
     Set the value of a property to the current value minus some amount.
-
+    
         player.decrementProperty('lives');
         orc.decrementProperty('health', 5);
-
+    
     @param {String} keyName The name of the property to decrement
     @param {Object} increment The amount to decrement by. Defaults to 1
     @returns {Object} The new property value
@@ -19648,9 +19648,9 @@ Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
   /**
     Set the value of a boolean property to the opposite of it's
     current value.
-
+    
         starship.toggleProperty('warpDriveEnaged');
-
+    
     @param {String} keyName The name of the property to toggle
     @returns {Object} The new property value
   */
@@ -20271,7 +20271,7 @@ Ember.Set = Ember.CoreObject.extend(Ember.MutableEnumerable, Ember.Copyable, Emb
 
   /**
     Removes the last element from the set and returns it, or null if it's empty.
-
+    
         var colors = new Ember.Set(["green", "blue"]);
         colors.pop(); => "blue"
         colors.pop(); => "green"
@@ -24117,7 +24117,7 @@ var childViewsProperty = Ember.computed(function() {
   The views in a container's `childViews` array should be added and removed by manipulating
   the `childViews` property directly.
 
-  To remove a view pass that view into a `removeObject` call on the container's `childViews` property.
+  To remove a view pass that view into a `removeObject` call on the container's `childViews` property. 
 
   Given an empty `<body>` the following code
 
@@ -24154,7 +24154,7 @@ var childViewsProperty = Ember.computed(function() {
         </div>
 
 
-  Similarly, adding a child view is accomplished by adding `Ember.View` instances to the
+  Similarly, adding a child view is accomplished by adding `Ember.View` instances to the 
   container's `childViews` property.
 
   Given an empty `<body>` the following code
@@ -24197,7 +24197,7 @@ var childViewsProperty = Ember.computed(function() {
         </div>
 
 
-  Direct manipulation of childViews presence or absence in the DOM via calls to
+  Direct manipulation of childViews presence or absence in the DOM via calls to 
   `remove` or `removeFromParent` or calls to a container's `removeChild` may not behave
   correctly.
 
@@ -24243,7 +24243,7 @@ var childViewsProperty = Ember.computed(function() {
 
   ## Templates and Layout
   A `template`, `templateName`, `defaultTempalte`, `layout`, `layoutName` or `defaultLayout`
-  property on a container view will not result in the template or layout being rendered.
+  property on a container view will not result in the template or layout being rendered. 
   The HTML contents of a `Ember.ContainerView`'s DOM representation will only be the rendered HTML
   of its child views.
 
@@ -24469,7 +24469,7 @@ var get = Ember.get, set = Ember.set, fmt = Ember.String.fmt;
   @class
 
   `Ember.CollectionView` is an `Ember.View` descendent responsible for managing a
-  collection (an array or array-like object) by maintaing a child view object and
+  collection (an array or array-like object) by maintaing a child view object and 
   associated DOM representation for each item in the array and ensuring that child
   views and their associated rendered HTML are updated when items in the array
   are added, removed, or replaced.
@@ -24513,7 +24513,7 @@ var get = Ember.get, set = Ember.set, fmt = Ember.String.fmt;
 
 
   ## Automatic matching of parent/child tagNames
-  Setting the `tagName` property of a `CollectionView` to any of
+  Setting the `tagName` property of a `CollectionView` to any of 
   "ul", "ol", "table", "thead", "tbody", "tfoot", "tr", or "select" will result
   in the item views receiving an appropriately matched `tagName` property.
 
@@ -24862,7 +24862,7 @@ Ember.State = Ember.Object.extend({
 var get = Ember.get, set = Ember.set, getPath = Ember.getPath, fmt = Ember.String.fmt;
 /**
   @class
-
+  
   StateManager is part of Ember's implementation of a finite state machine. A StateManager
   instance manages a number of properties that are instances of `Ember.State`,
   tracks the current active state, and triggers callbacks when states have changed.
@@ -24901,7 +24901,7 @@ var get = Ember.get, set = Ember.set, getPath = Ember.getPath, fmt = Ember.Strin
 
   ## The Initial State
   When created a StateManager instance will immediately enter into the state
-  defined as its `start` property or the state referenced by name in its
+  defined as its `start` property or the state referenced by name in its 
   `initialState` property:
 
       managerA = Ember.StateManager.create({
@@ -24949,11 +24949,11 @@ var get = Ember.get, set = Ember.set, getPath = Ember.getPath, fmt = Ember.Strin
        robotManager.getPath('currentState.name') // 'poweredUp'
 
   Before transitioning into a new state the existing `currentState` will have its
-  `exit` method called with with the StateManager instance as its first argument and
+  `exit` method called with with the StateManager instance as its first argument and 
   an object representing the the transition as its second argument.
 
   After transitioning into a new state the new `currentState` will have its
-  `enter` method called with with the StateManager instance as its first argument and
+  `enter` method called with with the StateManager instance as its first argument and 
   an object representing the the transition as its second argument.
 
       robotManager = Ember.StateManager.create({
@@ -24978,7 +24978,7 @@ var get = Ember.get, set = Ember.set, getPath = Ember.getPath, fmt = Ember.Strin
 
 
   Once a StateManager is already in a state, subsequent attempts to enter that state will
-  not trigger enter or exit method calls. Attempts to transition into a state that the
+  not trigger enter or exit method calls. Attempts to transition into a state that the 
   manager does not have will result in no changes in the StateManager's current state:
 
       robotManager = Ember.StateManager.create({
@@ -25006,9 +25006,9 @@ var get = Ember.get, set = Ember.set, getPath = Ember.getPath, fmt = Ember.Strin
       robotManager.getPath('currentState.name') // 'poweredUp'
 
 
-  Each state property may itself contain properties that are instances of Ember.State.
+  Each state property may itself contain properties that are instances of Ember.State. 
   The StateManager can transition to specific sub-states in a series of goToState method calls or
-  via a single goToState with the full path to the specific state. The StateManager will also
+  via a single goToState with the full path to the specific state. The StateManager will also 
   keep track of the full path to its currentState
 
 
@@ -25038,7 +25038,7 @@ var get = Ember.get, set = Ember.set, getPath = Ember.getPath, fmt = Ember.Strin
 
        robotManager.getPath('currentState.get.path') // 'poweredDown.charging'
 
-    Enter transition methods will be called for each state and nested child state in their
+    Enter transition methods will be called for each state and nested child state in their 
     hierarchical order.  Exit methods will be called for each state and its nested states in
     reverse hierarchical order.
 
@@ -25109,7 +25109,7 @@ var get = Ember.get, set = Ember.set, getPath = Ember.getPath, fmt = Ember.Strin
   can receive and route action messages to its states via the `send` method.  Calling to `send` with
   an action name will begin searching for a method with the same name starting at the current state
   and moving up through the parent states in a state hierarchy until an appropriate method is found
-  or the StateManager instance itself is reached.
+  or the StateManager instance itself is reached. 
 
   If an appropriately named method is found it will be called with the state manager as the first
   argument and an optional `context` object as the second argument.
@@ -25192,7 +25192,7 @@ var get = Ember.get, set = Ember.set, getPath = Ember.getPath, fmt = Ember.Strin
          })
 
          robotManager.getPath('currentState.name') // 'charging'
-         robotManager.send('boot') // throws error, no boot action
+         robotManager.send('boot') // throws error, no boot action  
                                    // in current hierarchy
          robotManager.getPath('currentState.name') // remains 'charging'
 
@@ -25211,12 +25211,12 @@ var get = Ember.get, set = Ember.set, getPath = Ember.getPath, fmt = Ember.Strin
 
 
   ## Interactions with Ember's View System.
-  When combined with instances of `Ember.ViewState`, StateManager is designed to
-  interact with Ember's view system to control which views are added to
+  When combined with instances of `Ember.ViewState`, StateManager is designed to 
+  interact with Ember's view system to control which views are added to 
   and removed from the DOM based on the manager's current state.
 
   By default, a StateManager will manage views inside the 'body' element. This can be
-  customized by setting the `rootElement` property to a CSS selector of an existing
+  customized by setting the `rootElement` property to a CSS selector of an existing 
   HTML element you would prefer to receive view rendering.
 
 
@@ -25231,7 +25231,7 @@ var get = Ember.get, set = Ember.set, getPath = Ember.getPath, fmt = Ember.Strin
       aLayoutView = Ember.ContainerView.create()
 
       // make sure this view instance is added to the browser
-      aLayoutView.appendTo('body')
+      aLayoutView.appendTo('body') 
 
       App.viewStates = Ember.StateManager.create({
         rootView: aLayoutView
@@ -25385,8 +25385,8 @@ var get = Ember.get, set = Ember.set, getPath = Ember.getPath, fmt = Ember.Strin
 
 
   If you prefer to start with an empty body and manage state programmatically you
-  can also take advantage of StateManager's `rootView` property and the ability of
-  `Ember.ContainerView`s to manually manage their child views.
+  can also take advantage of StateManager's `rootView` property and the ability of 
+  `Ember.ContainerView`s to manually manage their child views. 
 
 
       dashboard = Ember.ContainerView.create({
@@ -25418,7 +25418,7 @@ var get = Ember.get, set = Ember.set, getPath = Ember.getPath, fmt = Ember.Strin
       dashboard.appendTo('body')
 
   ## User Manipulation of State via `{{action}}` Helpers
-  The Handlebars `{{action}}` helper is StateManager-aware and will use StateManager action sending
+  The Handlebars `{{action}}` helper is StateManager-aware and will use StateManager action sending 
   to connect user interaction to action-based state transitions.
 
   Given the following body and handlebars template
@@ -25444,7 +25444,7 @@ var get = Ember.get, set = Ember.set, getPath = Ember.getPath, fmt = Ember.Strin
   `App.appStates.aState` with `App.appStates` as the first argument and a
   `jQuery.Event` object as the second object. The `jQuery.Event` will include a property
   `view` that references the `Ember.View` object that was interacted with.
-
+  
 **/
 Ember.StateManager = Ember.State.extend(
 /** @scope Ember.State.prototype */ {
@@ -27203,7 +27203,7 @@ var get = Ember.get, getPath = Ember.Handlebars.getPath, fmt = Ember.String.fmt;
   @param {String} path
   @param {Hash} options
   @returns {String} HTML string
-
+  
   `{{collection}}` is a `Ember.Handlebars` helper for adding instances of
   `Ember.CollectionView` to a template.  See `Ember.CollectionView` for additional
   information on how a `CollectionView` functions.
@@ -27303,8 +27303,8 @@ var get = Ember.get, getPath = Ember.Handlebars.getPath, fmt = Ember.String.fmt;
         <p class="ember-view greeting">Howdy Mary</p>
         <p class="ember-view greeting">Howdy Sara</p>
       </div>
-
-
+  
+  
 */
 Ember.Handlebars.registerHelper('collection', function(path, options) {
   // If no path is provided, treat path param as options.
@@ -27585,7 +27585,7 @@ ActionHelper.registerAction = function(actionName, eventName, target, view, cont
           </div>
         </div>
 
-  Clicking "click me" will trigger the `anActionName` method of the `aView` object with a
+  Clicking "click me" will trigger the `anActionName` method of the `aView` object with a 
   `jQuery.Event` object as its argument. The `jQuery.Event` object will be extended to include
   a `view` property that is set to the original view interacted with (in this case the `aView` object).
 
@@ -27600,9 +27600,9 @@ ActionHelper.registerAction = function(actionName, eventName, target, view, cont
             </div>
         </script>
 
-  Clicking "click me" in the rendered HTML of the above template will trigger the
-  `anActionName` method of the object at `MyApplication.someObject`.  The first argument
-  to this method will be a `jQuery.Event` extended to include a `view` property that is
+  Clicking "click me" in the rendered HTML of the above template will trigger the 
+  `anActionName` method of the object at `MyApplication.someObject`.  The first argument 
+  to this method will be a `jQuery.Event` extended to include a `view` property that is 
   set to the original view interacted with.
 
   A path relative to the template's `Ember.View` instance can also be used as a target:
@@ -27613,7 +27613,7 @@ ActionHelper.registerAction = function(actionName, eventName, target, view, cont
             </div>
         </script>
 
-  Clicking "click me" in the rendered HTML of the above template will trigger the
+  Clicking "click me" in the rendered HTML of the above template will trigger the 
   `anActionName` method of the view's parent view.
 
   The `{{action}}` helper is `Ember.StateManager` aware. If the target of
@@ -27658,7 +27658,7 @@ ActionHelper.registerAction = function(actionName, eventName, target, view, cont
   See `Ember.EventDispatcher` for a list of acceptable DOM event names.
 
   Because `{{action}}` depends on Ember's event dispatch system it will only function if
-  an `Ember.EventDispatcher` instance is available. An `Ember.EventDispatcher` instance
+  an `Ember.EventDispatcher` instance is available. An `Ember.EventDispatcher` instance 
   will be created when a new `Ember.Application` is created. Having an instance of
   `Ember.Application` will satisfy this requirement.
 
@@ -27783,36 +27783,36 @@ var set = Ember.set, get = Ember.get;
 
 /**
   @class
-
+  
   Creates an HTML input view in one of two formats.
-
+  
   If a `title` property or binding is provided the input will be wrapped in
   a `div` and `label` tag. View properties like `classNames` will be applied to
   the outermost `div`. This behavior is deprecated and will issue a warning in development.
-
-
+  
+  
       {{view Ember.Checkbox classNames="applicaton-specific-checkbox" title="Some title"}}
-
-
+      
+      
       <div id="ember1" class="ember-view ember-checkbox applicaton-specific-checkbox">
         <label><input type="checkbox" />Some title</label>
       </div>
-
+  
   If `title` isn't provided the view will render as an input element of the 'checkbox' type and HTML
   related properties will be applied directly to the input.
-
+  
       {{view Ember.Checkbox classNames="applicaton-specific-checkbox"}}
-
+      
       <input id="ember1" class="ember-view ember-checkbox applicaton-specific-checkbox" type="checkbox">
-
+  
   You can add a `label` tag yourself in the template where the Ember.Checkbox is being used.
-
+  
       <label>
         Some Title
         {{view Ember.Checkbox classNames="applicaton-specific-checkbox"}}
       </label>
-
-
+      
+  
   The `checked` attribute of an Ember.Checkbox object should always be set
   through the Ember object or by interacting with its rendered element representation
   via the mouse, keyboard, or touch.  Updating the value of the checkbox via jQuery will
@@ -27860,7 +27860,7 @@ Ember.Checkbox = Ember.View.extend({
     Ember.run.once(this, this._updateElementValue);
     // returning false will cause IE to not change checkbox state
   },
-
+  
   /**
     @private
   */
@@ -41179,315 +41179,6 @@ if (typeof module == "object" && typeof window == "undefined") {
   module.exports = ansiparse;
 }
 /*
- * Facebox (for jQuery)
- * version: 1.2 (05/05/2008)
- * @requires jQuery v1.2 or later
- *
- * Examples at http://famspam.com/facebox/
- *
- * Licensed under the MIT:
- *   http://www.opensource.org/licenses/mit-license.php
- *
- * Copyright 2007, 2008 Chris Wanstrath [ chris@ozmm.org ]
- *
- * Usage:
- *
- *  jQuery(document).ready(function() {
- *    jQuery('a[rel*=facebox]').facebox()
- *  })
- *
- *  <a href="#terms" rel="facebox">Terms</a>
- *    Loads the #terms div in the box
- *
- *  <a href="terms.html" rel="facebox">Terms</a>
- *    Loads the terms.html page in the box
- *
- *  <a href="terms.png" rel="facebox">Terms</a>
- *    Loads the terms.png image in the box
- *
- *
- *  You can also use it programmatically:
- *
- *    jQuery.facebox('some html')
- *    jQuery.facebox('some html', 'my-groovy-style')
- *
- *  The above will open a facebox with "some html" as the content.
- *
- *    jQuery.facebox(function($) {
- *      $.get('blah.html', function(data) { $.facebox(data) })
- *    })
- *
- *  The above will show a loading screen before the passed function is called,
- *  allowing for a better ajaxy experience.
- *
- *  The facebox function can also display an ajax page, an image, or the contents of a div:
- *
- *    jQuery.facebox({ ajax: 'remote.html' })
- *    jQuery.facebox({ ajax: 'remote.html' }, 'my-groovy-style')
- *    jQuery.facebox({ image: 'stairs.jpg' })
- *    jQuery.facebox({ image: 'stairs.jpg' }, 'my-groovy-style')
- *    jQuery.facebox({ div: '#box' })
- *    jQuery.facebox({ div: '#box' }, 'my-groovy-style')
- *
- *  Want to close the facebox?  Trigger the 'close.facebox' document event:
- *
- *    jQuery(document).trigger('close.facebox')
- *
- *  Facebox also has a bunch of other hooks:
- *
- *    loading.facebox
- *    beforeReveal.facebox
- *    reveal.facebox (aliased as 'afterReveal.facebox')
- *    init.facebox
- *    afterClose.facebox
- *
- *  Simply bind a function to any of these hooks:
- *
- *   $(document).bind('reveal.facebox', function() { ...stuff to do after the facebox and contents are revealed... })
- *
- */
-(function($) {
-  $.facebox = function(data, klass) {
-    $.facebox.loading()
-
-    if (data.ajax) fillFaceboxFromAjax(data.ajax, klass)
-    else if (data.image) fillFaceboxFromImage(data.image, klass)
-    else if (data.div) fillFaceboxFromHref(data.div, klass)
-    else if ($.isFunction(data)) data.call($)
-    else $.facebox.reveal(data, klass)
-  }
-
-  /*
-   * Public, $.facebox methods
-   */
-
-  $.extend($.facebox, {
-    settings: {
-      opacity      : 0.2,
-      overlay      : true,
-      loadingImage : '/facebox/loading.gif',
-      closeImage   : '/facebox/closelabel.png',
-      imageTypes   : [ 'png', 'jpg', 'jpeg', 'gif' ],
-      faceboxHtml  : '\
-    <div id="facebox" style="display:none;"> \
-      <div class="popup"> \
-        <div class="content"> \
-        </div> \
-        <a href="#" class="close"><img src="/facebox/closelabel.png" title="close" class="close_image" /></a> \
-      </div> \
-    </div>'
-    },
-
-    loading: function() {
-      init()
-      if ($('#facebox .loading').length == 1) return true
-      showOverlay()
-
-      $('#facebox .content').empty()
-      $('#facebox .body').children().hide().end().
-        append('<div class="loading"><img src="'+$.facebox.settings.loadingImage+'"/></div>')
-
-      $('#facebox').css({
-        top:	getPageScroll()[1] + (getPageHeight() / 10),
-        left:	$(window).width() / 2 - 205
-      }).show()
-
-      $(document).bind('keydown.facebox', function(e) {
-        if (e.keyCode == 27) $.facebox.close()
-        return true
-      })
-      $(document).trigger('loading.facebox')
-    },
-
-    reveal: function(data, klass) {
-      $(document).trigger('beforeReveal.facebox')
-      if (klass) $('#facebox .content').addClass(klass)
-      $('#facebox .content').append(data)
-      $('#facebox .loading').remove()
-      $('#facebox .body').children().fadeIn('normal')
-      $('#facebox').css('left', $(window).width() / 2 - ($('#facebox .popup').width() / 2))
-      $(document).trigger('reveal.facebox').trigger('afterReveal.facebox')
-    },
-
-    close: function() {
-      $(document).trigger('close.facebox')
-      return false
-    }
-  })
-
-  /*
-   * Public, $.fn methods
-   */
-
-  $.fn.facebox = function(settings) {
-    if ($(this).length == 0) return
-
-    init(settings)
-
-    function clickHandler() {
-      $.facebox.loading(true)
-
-      // support for rel="facebox.inline_popup" syntax, to add a class
-      // also supports deprecated "facebox[.inline_popup]" syntax
-      var klass = this.rel.match(/facebox\[?\.(\w+)\]?/)
-      if (klass) klass = klass[1]
-
-      fillFaceboxFromHref(this.href, klass)
-      return false
-    }
-
-    return this.bind('click.facebox', clickHandler)
-  }
-
-  /*
-   * Private methods
-   */
-
-  // called one time to setup facebox on this page
-  function init(settings) {
-    if ($.facebox.settings.inited) return true
-    else $.facebox.settings.inited = true
-
-    $(document).trigger('init.facebox')
-    makeCompatible()
-
-    var imageTypes = $.facebox.settings.imageTypes.join('|')
-    $.facebox.settings.imageTypesRegexp = new RegExp('\.(' + imageTypes + ')$', 'i')
-
-    if (settings) $.extend($.facebox.settings, settings)
-    $('body').append($.facebox.settings.faceboxHtml)
-
-    var preload = [ new Image(), new Image() ]
-    preload[0].src = $.facebox.settings.closeImage
-    preload[1].src = $.facebox.settings.loadingImage
-
-    $('#facebox').find('.b:first, .bl').each(function() {
-      preload.push(new Image())
-      preload.slice(-1).src = $(this).css('background-image').replace(/url\((.+)\)/, '$1')
-    })
-
-    $('#facebox .close').click($.facebox.close)
-    $('#facebox .close_image').attr('src', $.facebox.settings.closeImage)
-  }
-
-  // getPageScroll() by quirksmode.com
-  function getPageScroll() {
-    var xScroll, yScroll;
-    if (self.pageYOffset) {
-      yScroll = self.pageYOffset;
-      xScroll = self.pageXOffset;
-    } else if (document.documentElement && document.documentElement.scrollTop) {	 // Explorer 6 Strict
-      yScroll = document.documentElement.scrollTop;
-      xScroll = document.documentElement.scrollLeft;
-    } else if (document.body) {// all other Explorers
-      yScroll = document.body.scrollTop;
-      xScroll = document.body.scrollLeft;
-    }
-    return new Array(xScroll,yScroll)
-  }
-
-  // Adapted from getPageSize() by quirksmode.com
-  function getPageHeight() {
-    var windowHeight
-    if (self.innerHeight) {	// all except Explorer
-      windowHeight = self.innerHeight;
-    } else if (document.documentElement && document.documentElement.clientHeight) { // Explorer 6 Strict Mode
-      windowHeight = document.documentElement.clientHeight;
-    } else if (document.body) { // other Explorers
-      windowHeight = document.body.clientHeight;
-    }
-    return windowHeight
-  }
-
-  // Backwards compatibility
-  function makeCompatible() {
-    var $s = $.facebox.settings
-
-    $s.loadingImage = $s.loading_image || $s.loadingImage
-    $s.closeImage = $s.close_image || $s.closeImage
-    $s.imageTypes = $s.image_types || $s.imageTypes
-    $s.faceboxHtml = $s.facebox_html || $s.faceboxHtml
-  }
-
-  // Figures out what you want to display and displays it
-  // formats are:
-  //     div: #id
-  //   image: blah.extension
-  //    ajax: anything else
-  function fillFaceboxFromHref(href, klass) {
-    // div
-    if (href.match(/#/)) {
-      var url    = window.location.href.split('#')[0]
-      var target = href.replace(url,'')
-      if (target == '#') return
-      $.facebox.reveal($(target).html(), klass)
-
-    // image
-    } else if (href.match($.facebox.settings.imageTypesRegexp)) {
-      fillFaceboxFromImage(href, klass)
-    // ajax
-    } else {
-      fillFaceboxFromAjax(href, klass)
-    }
-  }
-
-  function fillFaceboxFromImage(href, klass) {
-    var image = new Image()
-    image.onload = function() {
-      $.facebox.reveal('<div class="image"><img src="' + image.src + '" /></div>', klass)
-    }
-    image.src = href
-  }
-
-  function fillFaceboxFromAjax(href, klass) {
-    $.get(href, function(data) { $.facebox.reveal(data, klass) })
-  }
-
-  function skipOverlay() {
-    return $.facebox.settings.overlay == false || $.facebox.settings.opacity === null
-  }
-
-  function showOverlay() {
-    if (skipOverlay()) return
-
-    if ($('#facebox_overlay').length == 0)
-      $("body").append('<div id="facebox_overlay" class="facebox_hide"></div>')
-
-    $('#facebox_overlay').hide().addClass("facebox_overlayBG")
-      .css('opacity', $.facebox.settings.opacity)
-      .click(function() { $(document).trigger('close.facebox') })
-      .fadeIn(200)
-    return false
-  }
-
-  function hideOverlay() {
-    if (skipOverlay()) return
-
-    $('#facebox_overlay').fadeOut(200, function(){
-      $("#facebox_overlay").removeClass("facebox_overlayBG")
-      $("#facebox_overlay").addClass("facebox_hide")
-      $("#facebox_overlay").remove()
-    })
-
-    return false
-  }
-
-  /*
-   * Bindings
-   */
-
-  $(document).bind('close.facebox', function() {
-    $(document).unbind('keydown.facebox')
-    $('#facebox').fadeOut(function() {
-      $('#facebox .content').removeClass().addClass('content')
-      $('#facebox .loading').remove()
-      $(document).trigger('afterClose.facebox')
-    })
-    hideOverlay()
-  })
-
-})(jQuery);
-/*
  Highcharts JS v2.1.9 (2011-11-11)
 
  (c) 2009-2011 Torstein H?nsi
@@ -41662,7 +41353,54 @@ i.shadowGroup=b.g("shadow").attr({zIndex:4}).add();if(!e)e=i.group=b.g("point").
 g,h,i=A(d.softConnector,true),j=d.distance,m=this.center,v=m[2]/2;m=m[1];var P=j>0,T=[[],[]],Y,H,U,z,M=2,y;if(d.enabled){sb.prototype.drawDataLabels.apply(this);u(a,function(gb){if(gb.dataLabel)T[gb.labelPos[7]<kc/2?0:1].push(gb)});T[1].reverse();z=function(gb,Lb){return Lb.y-gb.y};for(a=T[0][0]&&T[0][0].dataLabel&&ja(T[0][0].dataLabel.styles.lineHeight);M--;){var C=[],Z=[],Sa=T[M],Na=Sa.length,Ea;for(y=m-v-j;y<=m+v+j;y+=a)C.push(y);U=C.length;if(Na>U){h=[].concat(Sa);h.sort(z);for(y=Na;y--;)h[y].rank=
 y;for(y=Na;y--;)Sa[y].rank>=U&&Sa.splice(y,1);Na=Sa.length}for(y=0;y<Na;y++){b=Sa[y];h=b.labelPos;b=9999;for(H=0;H<U;H++){g=bb(C[H]-h[1]);if(g<b){b=g;Ea=H}}if(Ea<y&&C[y]!==null)Ea=y;else{if(U<Na-y+Ea&&C[y]!==null)Ea=U-Na+y;for(;C[Ea]===null;)Ea++}Z.push({i:Ea,y:C[Ea]});C[Ea]=null}Z.sort(z);for(y=0;y<Na;y++){b=Sa[y];h=b.labelPos;g=b.dataLabel;H=Z.pop();Y=h[1];U=b.visible===false?ob:Ab;Ea=H.i;H=H.y;if(Y>H&&C[Ea+1]!==null||Y<H&&C[Ea-1]!==null)H=Y;Y=this.getX(Ea===0||Ea===C.length-1?Y:H,M);g.attr({visibility:U,
 align:h[6]})[g.moved?"animate":"attr"]({x:Y+d.x+({left:e,right:-e}[h[6]]||0),y:H+d.y});g.moved=true;if(P&&f){g=b.connector;h=i?[Za,Y+(h[6]==="left"?5:-5),H,"C",Y,H,2*h[2]-h[4],2*h[3]-h[5],h[2],h[3],Ka,h[4],h[5]]:[Za,Y+(h[6]==="left"?5:-5),H,Ka,h[2],h[3],Ka,h[4],h[5]];if(g){g.animate({d:h});g.attr("visibility",U)}else b.connector=g=this.chart.renderer.path(h).attr({"stroke-width":f,stroke:d.connectorColor||b.color||"#606060",visibility:U,zIndex:3}).translate(c.plotLeft,c.plotTop).add()}}}}},drawTracker:hd.prototype.drawTracker,
-getSymbol:function(){}});wb.pie=ma;db.Highcharts={Chart:Nd,dateFormat:Zc,pathAnim:Nc,getOptions:function(){return Xa},hasRtlBug:me,numberFormat:Ed,Point:Oc,Color:bc,Renderer:fd,seriesTypes:wb,setOptions:function(a){Xa=Ca(Xa,a);Id();return Xa},Series:sb,addEvent:Qa,removeEvent:pb,createElement:hb,discardElement:pc,css:Ja,each:u,extend:sa,map:tc,merge:Ca,pick:A,extendClass:yb,product:"Highcharts",version:"2.1.9"}})();// https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/indexOf
+getSymbol:function(){}});wb.pie=ma;db.Highcharts={Chart:Nd,dateFormat:Zc,pathAnim:Nc,getOptions:function(){return Xa},hasRtlBug:me,numberFormat:Ed,Point:Oc,Color:bc,Renderer:fd,seriesTypes:wb,setOptions:function(a){Xa=Ca(Xa,a);Id();return Xa},Series:sb,addEvent:Qa,removeEvent:pb,createElement:hb,discardElement:pc,css:Ja,each:u,extend:sa,map:tc,merge:Ca,pick:A,extendClass:yb,product:"Highcharts",version:"2.1.9"}})();/*!
+ * Pusher JavaScript Library v1.12.2
+ * http://pusherapp.com/
+ *
+ * Copyright 2011, Pusher
+ * Released under the MIT licence.
+ */
+
+(function(){if(Function.prototype.scopedTo===void 0)Function.prototype.scopedTo=function(a,b){var e=this;return function(){return e.apply(a,Array.prototype.slice.call(b||[]).concat(Array.prototype.slice.call(arguments)))}};var c=function(a,b){this.options=b||{};this.key=a;this.channels=new c.Channels;this.global_emitter=new c.EventsDispatcher;var e=this;this.checkAppKey();this.connection=new c.Connection(this.key,this.options);this.connection.bind("connected",function(){e.subscribeAll()}).bind("message",
+function(b){var a=b.event.indexOf("pusher_internal:")===0;if(b.channel){var c;(c=e.channel(b.channel))&&c.emit(b.event,b.data)}a||e.global_emitter.emit(b.event,b.data)}).bind("disconnected",function(){e.channels.disconnect()}).bind("error",function(b){c.warn("Error",b)});c.instances.push(this);c.isReady&&e.connect()};c.instances=[];c.prototype={channel:function(a){return this.channels.find(a)},connect:function(){this.connection.connect()},disconnect:function(){this.connection.disconnect()},bind:function(a,
+b){this.global_emitter.bind(a,b);return this},bind_all:function(a){this.global_emitter.bind_all(a);return this},subscribeAll:function(){for(channelName in this.channels.channels)this.channels.channels.hasOwnProperty(channelName)&&this.subscribe(channelName)},subscribe:function(a){var b=this,e=this.channels.add(a,this);this.connection.state==="connected"&&e.authorize(this.connection.socket_id,this.options,function(c,f){c?e.emit("pusher:subscription_error",f):b.send_event("pusher:subscribe",{channel:a,
+auth:f.auth,channel_data:f.channel_data})});return e},unsubscribe:function(a){this.channels.remove(a);this.connection.state==="connected"&&this.send_event("pusher:unsubscribe",{channel:a})},send_event:function(a,b,e){return this.connection.send_event(a,b,e)},checkAppKey:function(){(this.key===null||this.key===void 0)&&c.warn("Warning","You must pass your app key when you instantiate Pusher.")}};c.Util={extend:function b(e,c){for(var f in c)e[f]=c[f]&&c[f].constructor&&c[f].constructor===Object?b(e[f]||
+{},c[f]):c[f];return e},stringify:function(){for(var b=["Pusher"],e=0;e<arguments.length;e++)typeof arguments[e]==="string"?b.push(arguments[e]):window.JSON==void 0?b.push(arguments[e].toString()):b.push(JSON.stringify(arguments[e]));return b.join(" : ")},arrayIndexOf:function(b,e){var c=Array.prototype.indexOf;if(b==null)return-1;if(c&&b.indexOf===c)return b.indexOf(e);for(i=0,l=b.length;i<l;i++)if(b[i]===e)return i;return-1}};c.debug=function(){c.log&&c.log(c.Util.stringify.apply(this,arguments))};
+c.warn=function(){window.console&&window.console.warn?window.console.warn(c.Util.stringify.apply(this,arguments)):c.log&&c.log(c.Util.stringify.apply(this,arguments))};c.VERSION="1.12.2";c.host="ws.pusherapp.com";c.ws_port=80;c.wss_port=443;c.channel_auth_endpoint="/pusher/auth";c.cdn_http="http://js.pusher.com/";c.cdn_https="https://d3dy5gmtp8yhk7.cloudfront.net/";c.dependency_suffix=".min";c.channel_auth_transport="ajax";c.activity_timeout=12E4;c.pong_timeout=3E4;c.isReady=!1;c.ready=function(){c.isReady=
+!0;for(var b=0,e=c.instances.length;b<e;b++)c.instances[b].connect()};this.Pusher=c}).call(this);
+(function(){function c(){this._callbacks={}}function a(b){this.callbacks=new c;this.global_callbacks=[];this.failThrough=b}c.prototype.get=function(b){return this._callbacks[this._prefix(b)]};c.prototype.add=function(b,a){var c=this._prefix(b);this._callbacks[c]=this._callbacks[c]||[];this._callbacks[c].push(a)};c.prototype.remove=function(b,a){if(this.get(b)){var c=Pusher.Util.arrayIndexOf(this.get(b),a);this._callbacks[this._prefix(b)].splice(c,1)}};c.prototype._prefix=function(b){return"_"+b};
+a.prototype.bind=function(b,a){this.callbacks.add(b,a);return this};a.prototype.unbind=function(b,a){this.callbacks.remove(b,a);return this};a.prototype.emit=function(b,a){for(var c=0;c<this.global_callbacks.length;c++)this.global_callbacks[c](b,a);var f=this.callbacks.get(b);if(f)for(c=0;c<f.length;c++)f[c](a);else this.failThrough&&this.failThrough(b,a);return this};a.prototype.bind_all=function(b){this.global_callbacks.push(b);return this};this.Pusher.EventsDispatcher=a}).call(this);
+(function(){function c(b,a,c){if(a[b]!==void 0)a[b](c)}function a(a,c,f){b.EventsDispatcher.call(this);this.state=void 0;this.errors=[];this.stateActions=f;this.transitions=c;this.transition(a)}var b=this.Pusher;a.prototype.transition=function(a,g){var f=this.state,h=this.stateActions;if(f&&b.Util.arrayIndexOf(this.transitions[f],a)==-1)throw this.emit("invalid_transition_attempt",{oldState:f,newState:a}),Error("Invalid transition ["+f+" to "+a+"]");c(f+"Exit",h,g);c(f+"To"+(a.substr(0,1).toUpperCase()+
+a.substr(1)),h,g);c(a+"Pre",h,g);this.state=a;this.emit("state_change",{oldState:f,newState:a});c(a+"Post",h,g)};a.prototype.is=function(b){return this.state===b};a.prototype.isNot=function(b){return this.state!==b};b.Util.extend(a.prototype,b.EventsDispatcher.prototype);this.Pusher.Machine=a}).call(this);
+(function(){var c=function(){var a=this;Pusher.EventsDispatcher.call(this);window.addEventListener!==void 0&&(window.addEventListener("online",function(){a.emit("online",null)},!1),window.addEventListener("offline",function(){a.emit("offline",null)},!1))};c.prototype.isOnLine=function(){return window.navigator.onLine===void 0?!0:window.navigator.onLine};Pusher.Util.extend(c.prototype,Pusher.EventsDispatcher.prototype);this.Pusher.NetInfo=c}).call(this);
+(function(){function c(a){a.connectionWait=0;a.openTimeout=b.TransportType==="flash"?5E3:2E3;a.connectedTimeout=2E3;a.connectionSecure=a.compulsorySecure;a.connectionAttempts=0}function a(a,r){function k(){d.connectionWait<s&&(d.connectionWait+=g);d.openTimeout<t&&(d.openTimeout+=f);d.connectedTimeout<u&&(d.connectedTimeout+=h);if(d.compulsorySecure!==!0)d.connectionSecure=!d.connectionSecure;d.connectionAttempts++}function m(){d._machine.transition("impermanentlyClosing")}function p(){d._activityTimer&&
+clearTimeout(d._activityTimer);d._activityTimer=setTimeout(function(){d.send_event("pusher:ping",{});d._activityTimer=setTimeout(function(){d.socket.close()},d.options.pong_timeout||b.pong_timeout)},d.options.activity_timeout||b.activity_timeout)}function v(){var b=d.connectionWait;if(b===0&&d.connectedAt){var a=(new Date).getTime()-d.connectedAt;a<1E3&&(b=1E3-a)}return b}function w(){d._machine.transition("open")}function x(b){b=q(b);if(b!==void 0)if(b.event==="pusher:connection_established")d._machine.transition("connected",
+b.data.socket_id);else if(b.event==="pusher:error"){var a=b.data.code;d.emit("error",{type:"PusherError",data:{code:a,message:b.data.message}});a===4E3?(d.compulsorySecure=!0,d.connectionSecure=!0,d.options.encrypted=!0,m()):a<4100?d._machine.transition("permanentlyClosing"):a<4200?(d.connectionWait=1E3,d._machine.transition("waiting")):a<4300?m():d._machine.transition("permanentlyClosing")}}function y(a){p();a=q(a);if(a!==void 0){b.debug("Event recd",a);switch(a.event){case "pusher:error":d.emit("error",
+{type:"PusherError",data:a.data});break;case "pusher:ping":d.send_event("pusher:pong",{})}d.emit("message",a)}}function q(b){try{var a=JSON.parse(b.data);if(typeof a.data==="string")try{a.data=JSON.parse(a.data)}catch(c){if(!(c instanceof SyntaxError))throw c;}return a}catch(e){d.emit("error",{type:"MessageParseError",error:e,data:b.data})}}function n(){d._machine.transition("waiting")}function o(b){d.emit("error",{type:"WebSocketError",error:b})}function j(a,c){var e=d.state;d.state=a;e!==a&&(b.debug("State changed",
+e+" -> "+a),d.emit("state_change",{previous:e,current:a}),d.emit(a,c))}var d=this;b.EventsDispatcher.call(this);this.options=b.Util.extend({encrypted:!1},r);this.netInfo=new b.NetInfo;this.netInfo.bind("online",function(){d._machine.is("waiting")&&(d._machine.transition("connecting"),j("connecting"))});this.netInfo.bind("offline",function(){if(d._machine.is("connected"))d.socket.onclose=void 0,d.socket.onmessage=void 0,d.socket.onerror=void 0,d.socket.onopen=void 0,d.socket.close(),d.socket=void 0,
+d._machine.transition("waiting")});this._machine=new b.Machine("initialized",e,{initializedPre:function(){d.compulsorySecure=d.options.encrypted;d.key=a;d.socket=null;d.socket_id=null;d.state="initialized"},waitingPre:function(){d.connectionWait>0&&d.emit("connecting_in",d.connectionWait);d.netInfo.isOnLine()&&d.connectionAttempts<=4?j("connecting"):j("unavailable");if(d.netInfo.isOnLine())d._waitingTimer=setTimeout(function(){d._machine.transition("connecting")},v())},waitingExit:function(){clearTimeout(d._waitingTimer)},
+connectingPre:function(){if(d.netInfo.isOnLine()===!1)d._machine.transition("waiting"),j("unavailable");else{var a;a=b.ws_port;var c="ws://";if(d.connectionSecure||document.location.protocol==="https:")a=b.wss_port,c="wss://";a=c+b.host+":"+a+"/app/"+d.key+"?protocol=5&client=js&version="+b.VERSION+"&flash="+(b.TransportType==="flash"?"true":"false");b.debug("Connecting",a);d.socket=new b.Transport(a);d.socket.onopen=w;d.socket.onclose=n;d.socket.onerror=o;d._connectingTimer=setTimeout(m,d.openTimeout)}},
+connectingExit:function(){clearTimeout(d._connectingTimer);d.socket.onopen=void 0},connectingToWaiting:function(){k()},connectingToImpermanentlyClosing:function(){k()},openPre:function(){d.socket.onmessage=x;d.socket.onerror=o;d.socket.onclose=n;d._openTimer=setTimeout(m,d.connectedTimeout)},openExit:function(){clearTimeout(d._openTimer);d.socket.onmessage=void 0},openToWaiting:function(){k()},openToImpermanentlyClosing:function(){k()},connectedPre:function(a){d.socket_id=a;d.socket.onmessage=y;d.socket.onerror=
+o;d.socket.onclose=n;c(d);d.connectedAt=(new Date).getTime();p()},connectedPost:function(){j("connected")},connectedExit:function(){d._activityTimer&&clearTimeout(d._activityTimer);j("disconnected")},impermanentlyClosingPost:function(){if(d.socket)d.socket.onclose=n,d.socket.close()},permanentlyClosingPost:function(){d.socket?(d.socket.onclose=function(){c(d);d._machine.transition("permanentlyClosed")},d.socket.close()):(c(d),d._machine.transition("permanentlyClosed"))},failedPre:function(){j("failed");
+b.debug("WebSockets are not available in this browser.")},permanentlyClosedPost:function(){j("disconnected")}})}var b=this.Pusher,e={initialized:["waiting","failed"],waiting:["connecting","permanentlyClosed"],connecting:["open","permanentlyClosing","impermanentlyClosing","waiting"],open:["connected","permanentlyClosing","impermanentlyClosing","waiting"],connected:["permanentlyClosing","waiting"],impermanentlyClosing:["waiting","permanentlyClosing"],permanentlyClosing:["permanentlyClosed"],permanentlyClosed:["waiting",
+"failed"],failed:["permanentlyClosed"]},g=2E3,f=2E3,h=2E3,s=5*g,t=5*f,u=5*h;a.prototype.connect=function(){!this._machine.is("failed")&&!b.Transport?this._machine.transition("failed"):this._machine.is("initialized")?(c(this),this._machine.transition("waiting")):this._machine.is("waiting")&&this.netInfo.isOnLine()===!0?this._machine.transition("connecting"):this._machine.is("permanentlyClosed")&&(c(this),this._machine.transition("waiting"))};a.prototype.send=function(a){if(this._machine.is("connected")){var b=
+this;setTimeout(function(){b.socket.send(a)},0);return!0}else return!1};a.prototype.send_event=function(a,c,e){a={event:a,data:c};e&&(a.channel=e);b.debug("Event sent",a);return this.send(JSON.stringify(a))};a.prototype.disconnect=function(){this._machine.is("permanentlyClosed")||(this._machine.is("waiting")||this._machine.is("failed")?this._machine.transition("permanentlyClosed"):this._machine.transition("permanentlyClosing"))};b.Util.extend(a.prototype,b.EventsDispatcher.prototype);this.Pusher.Connection=
+a}).call(this);
+(function(){Pusher.Channels=function(){this.channels={}};Pusher.Channels.prototype={add:function(a,b){var c=this.find(a);c||(c=Pusher.Channel.factory(a,b),this.channels[a]=c);return c},find:function(a){return this.channels[a]},remove:function(a){delete this.channels[a]},disconnect:function(){for(var a in this.channels)this.channels[a].disconnect()}};Pusher.Channel=function(a,b){var c=this;Pusher.EventsDispatcher.call(this,function(b){Pusher.debug("No callbacks on "+a+" for "+b)});this.pusher=b;this.name=
+a;this.subscribed=!1;this.bind("pusher_internal:subscription_succeeded",function(a){c.onSubscriptionSucceeded(a)})};Pusher.Channel.prototype={init:function(){},disconnect:function(){this.subscribed=!1;this.emit("pusher_internal:disconnected")},onSubscriptionSucceeded:function(){this.subscribed=!0;this.emit("pusher:subscription_succeeded")},authorize:function(a,b,c){return c(!1,{})},trigger:function(a,b){return this.pusher.send_event(a,b,this.name)}};Pusher.Util.extend(Pusher.Channel.prototype,Pusher.EventsDispatcher.prototype);
+Pusher.Channel.PrivateChannel={authorize:function(a,b,c){var g=this;return(new Pusher.Channel.Authorizer(this,Pusher.channel_auth_transport,b)).authorize(a,function(a,b){a||g.emit("pusher_internal:authorized",b);c(a,b)})}};Pusher.Channel.PresenceChannel={init:function(){this.members=new c(this)},onSubscriptionSucceeded:function(){this.subscribed=!0}};var c=function(a){var b=this,c=function(){this._members_map={};this.count=0;this.me=null};c.call(this);a.bind("pusher_internal:authorized",function(c){var e=
+JSON.parse(c.channel_data);a.bind("pusher_internal:subscription_succeeded",function(c){b._members_map=c.presence.hash;b.count=c.presence.count;b.me=b.get(e.user_id);a.emit("pusher:subscription_succeeded",b)})});a.bind("pusher_internal:member_added",function(c){b.get(c.user_id)===null&&b.count++;b._members_map[c.user_id]=c.user_info;a.emit("pusher:member_added",b.get(c.user_id))});a.bind("pusher_internal:member_removed",function(c){var e=b.get(c.user_id);e&&(delete b._members_map[c.user_id],b.count--,
+a.emit("pusher:member_removed",e))});a.bind("pusher_internal:disconnected",function(){c.call(b)})};c.prototype={each:function(a){for(var b in this._members_map)a(this.get(b))},get:function(a){return this._members_map.hasOwnProperty(a)?{id:a,info:this._members_map[a]}:null}};Pusher.Channel.factory=function(a,b){var c=new Pusher.Channel(a,b);a.indexOf("private-")===0?Pusher.Util.extend(c,Pusher.Channel.PrivateChannel):a.indexOf("presence-")===0&&(Pusher.Util.extend(c,Pusher.Channel.PrivateChannel),
+Pusher.Util.extend(c,Pusher.Channel.PresenceChannel));c.init();return c}}).call(this);
+(function(){Pusher.Channel.Authorizer=function(c,a,b){this.channel=c;this.type=a;this.authOptions=(b||{}).auth||{}};Pusher.Channel.Authorizer.prototype={composeQuery:function(c){var c="&socket_id="+encodeURIComponent(c)+"&channel_name="+encodeURIComponent(this.channel.name),a;for(a in this.authOptions.params)c+="&"+encodeURIComponent(a)+"="+encodeURIComponent(this.authOptions.params[a]);return c},authorize:function(c,a){return Pusher.authorizers[this.type].call(this,c,a)}};Pusher.auth_callbacks={};
+Pusher.authorizers={ajax:function(c,a){var b;b=Pusher.XHR?new Pusher.XHR:window.XMLHttpRequest?new window.XMLHttpRequest:new ActiveXObject("Microsoft.XMLHTTP");b.open("POST",Pusher.channel_auth_endpoint,!0);b.setRequestHeader("Content-Type","application/x-www-form-urlencoded");for(var e in this.authOptions.headers)b.setRequestHeader(e,this.authOptions.headers[e]);b.onreadystatechange=function(){if(b.readyState==4)if(b.status==200){var c,e=!1;try{c=JSON.parse(b.responseText),e=!0}catch(h){a(!0,"JSON returned from webapp was invalid, yet status code was 200. Data was: "+
+b.responseText)}e&&a(!1,c)}else Pusher.warn("Couldn't get auth info from your webapp",b.status),a(!0,b.status)};b.send(this.composeQuery(c));return b},jsonp:function(c,a){this.authOptions.headers!==void 0&&Pusher.warn("Warn","To send headers with the auth request, you must use AJAX, rather than JSONP.");var b=document.createElement("script");Pusher.auth_callbacks[this.channel.name]=function(b){a(!1,b)};b.src=Pusher.channel_auth_endpoint+"?callback="+encodeURIComponent("Pusher.auth_callbacks['"+this.channel.name+
+"']")+this.composeQuery(c);var e=document.getElementsByTagName("head")[0]||document.documentElement;e.insertBefore(b,e.firstChild)}}}).call(this);
+var _require=function(){function c(a,c){document.addEventListener?a.addEventListener("load",c,!1):a.attachEvent("onreadystatechange",function(){(a.readyState=="loaded"||a.readyState=="complete")&&c()})}function a(a,e){var g=document.getElementsByTagName("head")[0],f=document.createElement("script");f.setAttribute("src",a);f.setAttribute("type","text/javascript");f.setAttribute("async",!0);c(f,function(){e()});g.appendChild(f)}return function(b,c){for(var g=0,f=0;f<b.length;f++)a(b[f],function(){b.length==
+++g&&setTimeout(c,0)})}}();
+(function(){!window.WebSocket&&window.MozWebSocket&&(window.WebSocket=window.MozWebSocket);if(window.WebSocket)Pusher.Transport=window.WebSocket,Pusher.TransportType="native";var c=(document.location.protocol=="http:"?Pusher.cdn_http:Pusher.cdn_https)+Pusher.VERSION,a=[];window.JSON||a.push(c+"/json2"+Pusher.dependency_suffix+".js");if(!window.WebSocket)window.WEB_SOCKET_DISABLE_AUTO_INITIALIZATION=!0,a.push(c+"/flashfallback"+Pusher.dependency_suffix+".js");var b=function(){return window.WebSocket?function(){Pusher.ready()}:
+function(){window.WebSocket?(Pusher.Transport=window.WebSocket,Pusher.TransportType="flash",window.WEB_SOCKET_SWF_LOCATION=c+"/WebSocketMain.swf",WebSocket.__addTask(function(){Pusher.ready()}),WebSocket.__initialize()):(Pusher.Transport=null,Pusher.TransportType="none",Pusher.ready())}}(),e=function(a){var b=function(){document.body?a():setTimeout(b,0)};b()},g=function(){e(b)};a.length>0?_require(a,g):g()})();
+// https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/indexOf
 if (!Array.prototype.indexOf) {
   Array.prototype.indexOf = function(searchElement /*, fromIndex */) {
     "use strict";
@@ -42193,139 +41931,73 @@ I18n.currentLocale = function() {
 I18n.t = I18n.translate;
 I18n.l = I18n.localize;
 I18n.p = I18n.pluralize;
-// __DEBUG__ = true;
-// Ember.LOG_BINDINGS = true;
-
 var Travis = Ember.Application.create({
   Controllers: { Repositories: {}, Builds: {}, Jobs: {} }, Models: {}, Helpers: {}, Views: {},
 
-  UPDATE_TIMES_INTERVAL: 5000,
-
   store: Ember.Store.create().from('Travis.DataSource'),
-  channels: ['common'],
-  active_channels: [],
-  channel_prefix: '',
-
-  secureUrl: function(url) {
-    return 'https://secure.travis-ci.org/' + url;
-  },
 
   run: function() {
     var action = $('body').attr('id');
-    if(this[action]) {
+    if (this[action]) {
       this[action]();
     }
-    this.initPusher();
     this.initEvents();
-    $.facebox.settings.closeImage = '/images/facebox/closelabel.png';
-    $.facebox.settings.loadingImage = '/images/facebox/loading.gif';
   },
 
   home: function() {
-    this.events  = Travis.Controllers.Events.create();
-    this.main    = Travis.Controllers.Repositories.Show.create();
-    this.left    = Travis.Controllers.Repositories.List.create();
-    this.right   = Travis.Controllers.Sidebar.create();
-    this.tailing = Travis.Controllers.Log.Tailing.create();
+    Ember.routes.add('!/:owner/:name/jobs/:id', function(params) {
+      Travis.set('params', params);
+      Travis.transitionTo('#job_page');
+    });
 
-    Ember.routes.add('!/:owner/:name/jobs/:id/:line_number', function(params) { Travis.main.activate('job', params) });
-    Ember.routes.add('!/:owner/:name/jobs/:id',       function(params) { Travis.main.activate('job',     params) });
-    Ember.routes.add('!/:owner/:name/builds/:id',     function(params) { Travis.main.activate('build',   params) });
-    Ember.routes.add('!/:owner/:name/builds',         function(params) { Travis.main.activate('history', params) });
-    Ember.routes.add('!/:owner/:name/pull_requests',  function(params) { Travis.main.activate('pull_requests', params) });
-    Ember.routes.add('!/:owner/:name/branch_summary', function(params) { Travis.main.activate('branch_summary', params) });
-    Ember.routes.add('!/:owner/:name',                function(params) { Travis.main.activate('current', params) });
-    Ember.routes.add('',                              function(params) { Travis.main.activate('current', params) });
-  },
+    Ember.routes.add('!/:owner/:name/builds/:id', function(params) {
+      Travis.set('params', params);
+      Travis.transitionTo('#jobs_list');
+    });
 
-  profile: function() {
-    if($('#service_hooks').length > 0) {
-      this.service_hooks = Travis.Controllers.ServiceHooks.create();
-    }
-  },
+    Ember.routes.add('!/:owner/:name', function(params) {
+      Travis.set('params', params);
+      Travis.transitionTo('#builds_list');
+    });
 
-  receive: function(event, data) {
-    if(Travis.events) Travis.events.receive(event, data);
-  },
+    Ember.routes.add('', function(params) {
+      Travis.set('params', params);
+      Travis.transitionTo('#repositories_list');
+    });
 
-  subscribe: function(channel) {
-    if(this.active_channels.indexOf(channel) == -1) {
-      this.active_channels.push(channel);
-      if(window.pusher) pusher.subscribe(this.channel_prefix + channel).bind_all(this.receive);
-    }
-  },
+    // Ember.routes.add('!/:owner/:name/jobs/:id',   function(params) { Travis.main.activate('job',    params) });
+    // Ember.routes.add('!/:owner/:name/builds/:id', function(params) { Travis.main.activate('build',  params) });
+    // Ember.routes.add('!/:owner/:name/builds',     function(params) { Travis.main.activate('builds', params) });
+    // Ember.routes.add('!/:owner/:name',            function(params) { Travis.main.activate('builds', params) });
+    // Ember.routes.add('',                          function(params) { Travis.main.activate('list',   params) });
 
-  unsubscribe: function(channel) {
-    var ix = this.active_channels.indexOf(channel);
-    if(ix == -1) {
-      this.active_channels.splice(ix, 1);
-      if(window.pusher) pusher.unsubscribe(this.channel_prefix + channel);
-    }
-  },
-
-  initPusher: function() {
-    if(window.pusher) {
-      $.each(Travis.channels, function(ix, channel) { this.subscribe(channel); }.bind(this))
-    }
   },
 
   initEvents: function() {
-    //this is only going to work for rendered elements
-
-    $('.tool-tip').tipsy({ gravity: 'n', fade: true });
     $('.fold').live('click', function() { $(this).toggleClass('open'); });
-
-    $('#top .profile').mouseover(function() { $('#top .profile ul').show(); });
-    $('#top .profile').mouseout(function() { $('#top .profile ul').hide(); });
-
-    $('#workers .group').live('click', function() { $(this).toggleClass('open'); })
-
-    $('li#tab_recent').click(function () {
-      Travis.left.recent();
-    });
-    $('li#tab_my_repositories').click(function() {
-      Travis.left.my_repositories();
-    });
-    $('li#tab_search').click(function () {
-      Travis.left.search();
-    });
-
-    $('.repository').live('mouseover', function() {
-      $(this).find('.description').show();
-    });
-
-    $('.repository').live('mouseout', function() {
-      $(this).find('.description').hide();
-    });
-
-    $('.tools').live('click', function() {
-      $(this).find('.content').toggle();
-    }).find('.content').live('click', function(event){
-      event.stopPropagation();
-    }).find('input[type=text]').live('focus', function() {
-      this.select();
-    }).live('mouseup', function(e) {
-      e.preventDefault();
-    });
-
-    $('html').click(function(e) {
-      if ($(e.target).closest('.tools .content').length == 0 && $('.tools .content').css('display') != 'none') {
-        $('.tools .content').fadeOut('fast');
-      }
-    });
   },
 
   startLoading: function() {
-    $("#main").addClass("loading");
   },
 
   stopLoading: function() {
-    $("#main").removeClass("loading");
+  },
+
+  transitionTo: function(page_selector) {
+    var newPage = $(page_selector);
+    var oldPage = this.get('currentPage');
+
+    if (oldPage) {
+      oldPage.removeClass('active').addClass('inactive');
+    }
+    newPage.removeClass('inactive').addClass('active');
+
+    this.set('currentPage', newPage);
   }
 });
 
-$('document').ready(function() {
-  if(window.env !== undefined && window.env !== 'jasmine') Travis.run();
+$(function() {
+  Travis.run();
 });
 
 $.ajaxSetup({
@@ -42616,7 +42288,7 @@ Travis.DataSource = Ember.DataSource.extend({
     }, this);
   }
 });
-Travis.Helpers.EmojiDictionary =
+Travis.Helpers.EmojiDictionary = 
 [ "-1",
   "0",
   "1",
@@ -43344,785 +43016,6 @@ Travis.Record.reopenClass({
     return Travis.store.find(Travis.Query.cached(this, options || {}, mode));
   }
 });
-Travis.Controllers.Tabs = Ember.Object.extend({
-  firstTab: function() {
-    return $('#left .tabs > li')[0].id.replace('tab_', '');
-  },
-
-  activate: function(tab) {
-    if(this.get('active') !== tab) {
-      this.destroy();
-      Ember.run.next(function() {
-        this.create(tab);
-        this.setActive(tab);
-      }.bind(this));
-    }
-  },
-
-  setActive: function(tab) {
-    $('.tabs > li', this.selector).removeClass('active');
-    $('.tabs > li', this.selector).removeClass('display');
-    $('#tab_' + tab, this.selector).addClass('active');
-
-    this.set('active', tab);
-    if(tab == 'job') this.setDisplay('build', true);
-  },
-
-  setDisplay: function(tab, visible) {
-    $('#tab_' + tab)[visible ? 'addClass' : 'removeClass']('display');
-  },
-
-  create: function(tab) {
-    if(this.tabs) {
-      this.tab = this.tabs[tab].create({ parent: this.parent, selector: '#tab_' + tab + ' .tab' });
-      this.tab.view.appendTo('#tab_' + tab + ' .tab');
-    }
-  },
-
-  destroy: function() {
-    if(this.tab) this.tab.destroy();
-    delete this.tab;
-  }
-});
-Travis.Controllers.Tabs = Ember.Object.extend({
-  firstTab: function() {
-    return $('#left .tabs > li')[0].id.replace('tab_', '');
-  },
-
-  activate: function(tab) {
-    if(this.get('active') !== tab) {
-      this.destroy();
-      Ember.run.next(function() {
-        this.create(tab);
-        this.setActive(tab);
-      }.bind(this));
-    }
-  },
-
-  setActive: function(tab) {
-    $('.tabs > li', this.selector).removeClass('active');
-    $('.tabs > li', this.selector).removeClass('display');
-    $('#tab_' + tab, this.selector).addClass('active');
-
-    this.set('active', tab);
-    if(tab == 'job') this.setDisplay('build', true);
-  },
-
-  setDisplay: function(tab, visible) {
-    $('#tab_' + tab)[visible ? 'addClass' : 'removeClass']('display');
-  },
-
-  create: function(tab) {
-    if(this.tabs) {
-      this.tab = this.tabs[tab].create({ parent: this.parent, selector: '#tab_' + tab + ' .tab' });
-      this.tab.view.appendTo('#tab_' + tab + ' .tab');
-    }
-  },
-
-  destroy: function() {
-    if(this.tab) this.tab.destroy();
-    delete this.tab;
-  }
-});
-Travis.Controllers.Builds.List = Ember.ArrayController.extend({
-  parent: null,
-  repositoryBinding: 'parent.repository',
-  contentBinding: 'parent.repository.builds',
-
-  init: function() {
-    this._super();
-    Ember.run.later(this.updateTimes.bind(this), Travis.UPDATE_TIMES_INTERVAL);
-
-    this.view = Ember.View.create({
-      builds: this,
-      repositoryBinding: 'builds.repository',
-      templateName: 'app/templates/builds/list',
-      click: function(e){
-        var buildUrl = $(e.target).closest('tr').find('.number a').attr('href');
-        if (buildUrl) { window.location = buildUrl };
-      }
-    });
-  },
-
-  destroy: function() {
-    // console.log('destroying list in: ' + this.selector + ' .details')
-    if(this.view) {
-      this.view.$().remove();
-      this.view.destroy();
-    }
-  },
-
-  updateTimes: function() {
-    var builds  = this.get('builds');
-    if(builds) {
-      $.each(builds, function(ix, build) { build.updateTimes(); }.bind(this));
-    }
-    Ember.run.later(this.updateTimes.bind(this), Travis.UPDATE_TIMES_INTERVAL);
-  },
-
-  showMore: function() {
-    var id = this.getPath('repository.id'),
-      number = this.getPath('content.lastObject.number');
-    Travis.Build.olderThanNumber(id, number);
-  },
-
-  showMoreIsVisibleBinding: Em.Binding.oneWay('content.lastObject.number').transform(function(value) {
-    return value > 1;
-  })
-});
-Travis.Controllers.Builds.Show = Ember.Object.extend({
-  buildBinding: 'parent.build',
-  repositoryBinding: 'parent.repository',
-
-  init: function() {
-    this._super();
-    Ember.run.later(this.updateTimes.bind(this), Travis.UPDATE_TIMES_INTERVAL);
-    var self = this;
-
-    this.view = Ember.View.create({
-      controller: this,
-      repositoryBinding: 'controller.repository',
-      contentBinding: 'controller.build',
-      jobsBinding: 'controller.jobs',
-      branchesBinding: 'controller.branches',
-      templateName: 'app/templates/builds/show',
-      click: function(e){
-        var buildUrl = $(e.target).closest('tr').find('.number a').attr('href');
-        if (buildUrl) { window.location = buildUrl };
-      }
-    });
-  },
-
-  buildDidChange: function() {
-    var build = this.get('build');
-
-    //this stops jobs from subscribing?
-
-    if (build && build.get('isLoaded')) {
-      this.subscribeToFirstJob();
-    } else {
-      if (!build) { return; }
-      build.addObserver('isLoaded', this, 'subscribeToFirstJob');
-    }
-  }.observes('build'),
-
-  subscribeToFirstJob: function() {
-    var build = this.get('build'),
-        matrix = build.get('matrix'),
-        length = matrix.get('length');
-    if (build.get('isLoaded')) {
-      build.removeObserver('isLoaded', this, 'subscribeToFirstJob');
-
-      if (length > 1) {
-        return true;
-      } else if (length === 1) {
-        this.subscribeToFirstJobWhenMatrixReady();
-      } else {
-        matrix.addObserver('length', this, 'subscribeToFirstJobWhenMatrixReady');
-      }
-    }
-  },
-
-  subscribeToFirstJobWhenMatrixReady: function() {
-    var matrix = this.getPath('build.matrix'), job;
-    matrix.removeObserver('length', this, 'subscribeToFirstJobWhenMatrixReady');
-    if (matrix.get('length') === 1) {
-      job = matrix.objectAt(0);
-      if (job && job.get('isReady') && (job.get('state') != 'finished')) {
-        job.subscribe();
-      }
-    }
-  },
-
-  destroy: function() {
-    if(this.view) {
-      this.view.$().remove();
-      this.view.destroy();
-    }
-  },
-
-  updateTimes: function() {
-    var build  = this.get('build');
-    if(build) build.updateTimes();
-
-    var matrix = this.getPath('build.matrix');
-    if(matrix) $.each(matrix.toArray(), function(ix, job) { job.updateTimes(); }.bind(this));
-
-    Ember.run.later(this.updateTimes.bind(this), Travis.UPDATE_TIMES_INTERVAL);
-  },
-
-  _buildObserver: function() {
-    if(this.getPath('build.isReady') && this.getPath('build.matrix.length') === 0) {
-      this.get('build').refresh();
-    }
-    if(this.getPath('build.isReady') && this.getPath('build.matrix.length') == 1 && this.getPath('build.matrix').objectAt(0).get('log') === null) {
-      // TODO why does firstObject not work here?
-      this.getPath('build.matrix').objectAt(0).refresh();
-    }
-  }.observes('build.status')
-});
-Travis.Controllers.Events = Ember.Object.extend({
-  receive: function(event, data) {
-    var events = this;
-    var action = $.camelize(event.replace(':', '_'), false);
-    events[action](data);
-  },
-
-  jobCreated: function(data) {
-    Travis.Job.createOrUpdate($.extend(data, { state: 'created' }));
-  },
-
-  jobStarted: function(data) {
-    var job = Travis.Job.find(data.id);
-    if(job) job.whenReady(function() {
-      job.update($.extend(data, { state: 'started' }));
-    });
-  },
-
-  jobLog: function(data) {
-    var job = Travis.Job.find(data.id);
-    if(job) job.whenReady(function(job) {
-      job.appendLog(data._log);
-    });
-  },
-
-  jobFinished: function(data) {
-    var job = Travis.Job.find(data.id);
-    if(job) job.whenReady(function() {
-      job.update($.extend(data, { state: 'finished' }));
-      job.unsubscribe(); // TODO make Job listen to it's state and unsubscribe on finished
-    });
-  },
-
-  buildStarted: function(data) {
-    this.updateFrom(data);
-  },
-
-  buildFinished: function(data) {
-    this.updateFrom(data);
-  },
-
-  workerAdded: function(data) {
-    Travis.Worker.createOrUpdate(data);
-  },
-
-  workerCreated: function(data) {
-    Travis.Worker.createOrUpdate(data);
-  },
-
-  workerUpdated: function(data) {
-    Travis.Worker.createOrUpdate(data);
-  },
-
-  workerRemoved: function(data) {
-    var worker = Travis.Worker.find(data.id);
-    if(worker) worker.whenReady(function(worker) { if(worker) worker.destroy(); });
-  },
-
-  updateFrom: function(data) {
-    if(data.repository) Travis.Repository.createOrUpdate(data.repository);
-    if(data.build) Travis.Build.createOrUpdate(data.build);
-  }
-});
-Travis.Controllers.Jobs.Show = Ember.Object.extend({
-  jobBinding: 'parent.job',
-  repositoryBinding: 'parent.repository',
-
-  init: function() {
-    this._super();
-    Ember.run.later(this.updateTimes.bind(this), Travis.UPDATE_TIMES_INTERVAL);
-    var self = this;
-
-    this.view = Ember.View.create({
-      controller: this,
-      repositoryBinding: 'controller.repository',
-      contentBinding: 'controller.job',
-      templateName: 'app/templates/jobs/show',
-      didInsertElement: function() {
-        // Travis.tailing.scroll();
-        this._super.apply(this, arguments);
-
-        if (self.parent.params.line_number) {
-          setTimeout(function() {
-            var line_element = $("a[name='" + self.parent.params.line_number + "']");
-            if(line_element.length > 0) {
-              // TODO: FIXME:
-              // Warning: this is quite a dirty implementation for line numbers. The problem with SC is
-              // that didInsertElement all all the post-render callbacks don't really do what we require,
-              // they are called before we've got information from server, which is absolutely incorrect.
-              // Especially taken into consideration that most interest for that feature are when the
-              // page is loaded.
-              //
-              // Other than the pageload, element IDs make hashtags/anchors to get handled auto-magically.
-              $(window).scrollTop(line_element.offset().top);
-              line_element.addClass("highlight");
-            }
-          }, 1000);
-        }
-      }
-    });
-  },
-
-  destroy: function() {
-    if(this.view) {
-      this.view.$().remove();
-      this.view.destroy();
-    }
-  },
-
-  updateTimes: function() {
-    var build  = this.get('build');
-    if(build) build.updateTimes();
-    Ember.run.later(this.updateTimes.bind(this), Travis.UPDATE_TIMES_INTERVAL);
-  },
-
-  _jobRefresher: function() {
-    if((this.getPath('job.status') & Ember.Record.READY) && (this.getPath('job.log') === null)) {
-      this.get('job').refresh();
-    }
-  }.observes('job.status'),
-
-  _jobSubscriber: function() {
-    if((this.getPath('job.status') & Ember.Record.READY) && (this.getPath('job.state') != 'finished')) {
-      this.get('job').subscribe();
-    }
-  }.observes('job.status')
-});
-
-Travis.Controllers.Log = Ember.Namespace.create();
-
-Travis.Controllers.Log.Tailing = Ember.Object.extend({
-  options: {
-    timeout: 200
-  },
-
-  init: function() {
-    Ember.run.later(this.run.bind(this), this.options.timeout);
-    $(window).scroll(function(event) { this.scrollButton(); }.bind(this));
-  },
-
-  run: function() {
-    this.autoScroll();
-    Ember.run.later(this.run.bind(this), this.options.timeout);
-  },
-
-  active: function() {
-    return $('#tail').hasClass('active');
-  }.property(),
-
-  toggle: function(event) {
-    this.get('active') ? this.stop() : this.start();
-    event.preventDefault();
-  },
-
-  start: function() {
-    $('#tail').addClass('active');
-  },
-
-  stop: function() {
-    $('#tail').removeClass('active');
-  },
-
-  autoScroll: function() {
-    if(this.get('active')) {
-      var win = $(window);
-      var log = $('#main .log');
-      var logBottom = log.offset().top + log.outerHeight() + 40;
-      var winBottom = win.scrollTop() + win.height();
-
-      if(logBottom - winBottom > 0) {
-        win.scrollTop(logBottom - win.height());
-      }
-    }
-  },
-
-  scrollButton: function() {
-    var tail = $('#tail');
-    if(tail.length == 0) return;
-
-    var offset = $(window).scrollTop() - $('.log').offset().top;
-    var max = $('.log').height() - $('#tail').height() + 5;
-
-    if(offset > max) {
-      offset = max;
-    }
-
-    if(offset > 0) {
-      tail.css({ top: offset - 2 });
-    } else {
-      tail.css({ top: 0 });
-    }
-  },
-});
-Travis.Controllers.Repositories.BranchSummary = Ember.Object.extend({
-  repositoryBinding: 'parent.repository',
-
-  init: function() {
-    this._super();
-    this.view = Ember.View.create({
-      controller: this,
-      branchesBinding: 'controller.repository.branchSummary',
-      templateName: 'app/templates/repositories/branch_summary',
-      click: function(e){
-        var buildUrl = $(e.target).closest('tr').find('.number a').attr('href');
-        if (buildUrl) { window.location = buildUrl };
-      }
-    });
-  },
-
-  destroy: function() {
-    // console.log('destroying list in: ' + this.selector + ' .details')
-    if(this.view) {
-      this.view.$().remove();
-      this.view.destroy();
-    }
-  },
-});
-//= require app/controllers/tabs.js
-
-Travis.Controllers.Repositories.List = Ember.ArrayController.extend({
-  searchBox: Ember.TextField.create({
-  }),
-
-  init: function() {
-    this._super();
-    Ember.run.later(this.updateTimes.bind(this), Travis.UPDATE_TIMES_INTERVAL);
-
-    this.tabs = Travis.Controllers.Tabs.create({
-      selector: '#left',
-      parent: this
-    });
-
-    this.view = Ember.View.create({
-      repositories: this,
-      templateName: 'app/templates/repositories/list'
-    });
-    this.view.appendTo('#left');
-
-    this.searchBox.appendTo('#search_box');
-    this.recent();
-  },
-
-  recent: function() {
-    this.set('content', Travis.Repository.recent());
-    this.tabs.activate('recent');
-  },
-
-  my_repositories: function() {
-    var login = $('meta[name=user-login]').attr('content');
-    this.set('content', Travis.Repository.owned_by(login));
-    this.tabs.activate('my_repositories');
-  },
-
-  search: function() {
-    this.set('content', Travis.Repository.search(this.searchBox.value));
-    this.tabs.activate('search');
-  },
-
-  searchObserver: function() {
-    this[this.searchBox.value ? 'search' : this.tabs.firstTab()]();
-    this.tabs.setDisplay('search', this.searchBox.value);
-  }.observes('searchBox.value'),
-
-  updateTimes: function() {
-    var repositories  = this.get('content');
-    if(repositories) repositories.forEach(function(repository) { repository.updateTimes(); }.bind(this));
-
-    Ember.run.later(this.updateTimes.bind(this), Travis.UPDATE_TIMES_INTERVAL);
-  }
-});
-Travis.Controllers.Repositories.PullRequests = Travis.Controllers.Builds.List.extend({
-  contentBinding: 'parent.repository.pull_requests'
-});
-//= require app/controllers/tabs.js
-// __TESTING__ = true
-Travis.Controllers.Repositories.Show = Ember.Object.extend({
-  tabs: Travis.Controllers.Tabs.create({
-    selector: '#repository',
-    tabs: {
-      current:  Travis.Controllers.Builds.Show,
-      history:  Travis.Controllers.Builds.List,
-      build:    Travis.Controllers.Builds.Show,
-      job:      Travis.Controllers.Jobs.Show,
-      branch_summary: Travis.Controllers.Repositories.BranchSummary,
-      pull_requests: Travis.Controllers.Repositories.PullRequests
-    }
-  }),
-
-  /* repositoryBinding: '_repositories.firstObject', */
-  buildBinding: '_buildProxy.content',
-
-  // binding doesn't seem to fire on the _repositories.firstObject binding above?
-  repository: function() {
-    return this.getPath('_repositories.firstObject');
-  }.property('_repositories.length'),
-
-  init: function() {
-    this._super();
-    this.tabs.parent = this;
-    this.view = Ember.View.create({
-      controller: this,
-      // repositoryBinding: 'controller.repository',
-      repositoryBinding: 'controller.repository',
-      buildBinding: 'controller.build',
-      jobBinding: 'controller.job',
-      templateName: 'app/templates/repositories/show'
-    });
-    this.view.appendTo('#main');
-
-    this.branchSelector = '.tools select';
-    $(this.branchSelector).live('change', this._updateStatusImageCodes.bind(this));
-
-    // TODO: FIXME
-    // Delaying the call as branch selector is not yet on the page (looks like view is not completely rendered at the moment).
-    Ember.run.later(this, this._setTooltips, 1000);
-
-    Ember.run.later(this, this._updateGithubBranches, 1000);
-  },
-
-  _setTooltips: function() {
-    $(".tool-tip").tipsy();
-  },
-
-  activate: function(tab, params) {
-    this.set('params', params);
-
-    if(tab == 'current') {
-      this.set('_buildProxy', Ember.Object.create({ parent: this, contentBinding: 'parent.repository.lastBuild' }));
-      this.set('job', undefined);
-    } else if(tab == 'build') {
-      this.set('_buildProxy', Ember.Object.create({ parent: this, content: Travis.Build.find(params.id) }));
-      this.set('job', undefined);
-    } else if(tab == 'job') {
-      this.set('_buildProxy', Ember.Object.create({ parent: this, contentBinding: 'parent.job.build' }));
-      this.set('job', Travis.Job.find(params.id));
-    }
-    this.tabs.activate(tab);
-  },
-
-  _repositories: function() {
-    var slug = this.get('_slug');
-    return slug ? Travis.Repository.bySlug(slug) : Travis.Repository.recent();
-  }.property('_slug'),
-
-  _slug: function() {
-    var parts = $.compact([this.getPath('params.owner'), this.getPath('params.name')]);
-    if(parts.length > 0) return parts.join('/');
-  }.property('params'),
-
-  _updateGithubStats: function() {
-    // if(window.__TESTING__) return;
-    // var repository = this.get('repository');
-    // if(repository && repository.get('slug')) $.getJSON('https://api.github.com/repos/' + repository.get('slug') + '?callback=?', function(response) {
-    //   if(response.meta.status == 404) return;
-    //   var element = $('.github-stats');
-    //   element.find('.watchers').attr('href', repository.get('urlGithubWatchers')).text(response.data.watchers);
-    //   element.find('.forks').attr('href',repository.get('urlGithubNetwork')).text(response.data.forks);
-    //   element.find('.github-admin').attr('href', repository.get('urlGithubAdmin'));
-    // });
-  }.observes('repository.slug'),
-
-  _updateGithubBranches: function() {
-    // if(window.__TESTING__) return;
-    // var selector = $(this.branchSelector);
-    // var repository = this.get('repository');
-
-    // selector.empty();
-    // $('.tools input').val('');
-
-    // // Seeing 404 when hitting travis-ci.org/ as repository exists (BUSY_LOADING?) and slug is null
-    // // So let's ensure that the slug is populated before making this request.
-    // if (selector.length > 0 && repository && repository.get('slug')) {
-    //   $.getJSON('https://api.github.com/repos/' + repository.get('slug') + '/branches?callback=?', function(response) {
-    //     if(response.meta.status == 404) return;
-    //     var branches = $.map(response.data, function(details) { return details.name; }).sort();
-
-    //     // TODO: FIXME
-    //     // Clear selector again as observing 'repository.slug' causes this method (as well as _updateGithubStats) being
-    //     // called twice while switching repository. That results in two identical API calls that lead to selector being
-    //     // updated twice too.
-    //     selector.empty();
-    //     $.each(branches, function(index, branch) { $('<option>', { value: branch }).html(branch).appendTo(selector); });
-    //     selector.val('master');
-
-    //     this._updateStatusImageCodes();
-    //   }.bind(this));
-    // }
-  }.observes('repository.slug'),
-
-  _updateStatusImageCodes: function() {
-    var imageUrl = this.get('_statusImageUrl');
-    var repositoryUrl = this.get('_repositoryUrl');
-
-    if (repositoryUrl && imageUrl) {
-      $('.tools input.url').val(imageUrl);
-      $('.tools input.markdown').val('[![Build Status](' + imageUrl + ')](' + repositoryUrl + ')');
-      $('.tools input.textile').val('!' + imageUrl + '(Build Status)!:' + repositoryUrl);
-      $('.tools input.rdoc').val('{<img src="' + imageUrl + '" alt="Build Status" />}[' + repositoryUrl + ']');
-    } else {
-      $('.tools input').val('');
-    }
-  }.observes('repository.slug'),
-
-  _statusImageUrl: function() {
-    var branch = $(this.branchSelector).val();
-    var slug = this.getPath('repository.slug');
-
-    if (slug) {
-      return Travis.secureUrl(slug + '.png' + (branch ? '?branch=' + branch : ''));
-    }
-  }.property('repository.slug'),
-
-  _repositoryUrl: function() {
-    var slug = this.getPath('repository.slug');
-    if (slug) return 'http://' + document.domain + '/' + slug;
-  }.property('repository.slug'),
-
-  repositoryDidChange: function() {
-    var repository = this.get('repository');
-    if(repository) repository.select;
-  }.observes('repository')
-});
-Travis.Controllers.ServiceHooks = Ember.ArrayController.extend({
-  init: function() {
-    this._super();
-    this.view = Ember.View.create({
-      service_hooks: this,
-      template: Ember.TEMPLATES['app/templates/service_hooks/list']
-    });
-    this.view.appendTo('#service_hooks');
-
-    var owner_name = location.pathname.split('/')[2] || $('meta[name=user-login]').attr('content');
-    var attrs = { recordType: Travis.ServiceHook, options: { owner_name: owner_name, orderBy: 'name' } };
-    var query = Travis.Query.create(attrs).toScQuery('remote');
-    var content = Travis.store.find(query);
-
-    this.set('content', content);
-    this.set('syncedAt', '...');
-
-    this.poll();
-  },
-
-  isLoaded: function() {
-    return (this.getPath('content.status') & Ember.Record.READY) > 0;
-  }.property('content.status'),
-
-  state: function() {
-    return this.get('active') ? 'on' : 'off';
-  }.property('active'),
-
-  githubUrl: function() {
-    return '%@/admin/hooks#travis_minibucket'.fmt(this.get('url'));
-  }.property('url'),
-
-  sync: function() {
-    this.set('content', []);
-    this.set('isSyncing', true);
-    $.post('/profile/sync', this.poll.bind(this));
-  },
-
-  poll: function(syncing) {
-    $.get('/profile.json', function(user) {
-      if(user.is_syncing == 'f') {
-        user.is_syncing = false;
-      }
-      this.set('syncedAt', Travis.Helpers.Common.timeAgoInWords(user.synced_at) || '?');
-
-      if(user.is_syncing) {
-        this.set('isSyncing', true);
-        this.set('content', []);
-        Ember.run.later(this, this.poll.bind(this), 3000);
-      } else if(this.get('isSyncing')) {
-        document.location.reload();
-      }
-    }.bind(this));
-  }
-});
-
-Travis.Controllers.Queue = Ember.ArrayController.extend({
-  init: function() {
-    this._super();
-    this.view = Ember.View.create({
-      jobs: this,
-      friendly_queue_name: this.get('display'),
-      templateName: 'app/templates/queue/show',
-      classNames: ['queue-' + this.get('queue').replace('.', '_')]
-    });
-    this.view.appendTo('#jobs');
-    this.set('content', Travis.Job.all({ state: 'created', queue: this.get('queue') }));
-  }
-});
-Travis.Controllers.Workers = Ember.ArrayController.extend({
-  init: function() {
-    this._super();
-    this.view = Ember.View.create({
-      content: this,
-      templateName: 'app/templates/workers/list'
-    });
-    this.view.appendTo('#workers');
-
-    this.set('workers', Travis.Worker.all({ orderBy: 'host' }));
-    this.set('content', []);
-  },
-
-  workersObserver: function() {
-    this.groups = {};
-    var workers = this.get('workers') || [];
-
-    workers.forEach(function(worker) {
-      var host = worker.get('host');
-      if(!(host in this.groups)) this.groups[host] = Travis.WorkerGroup.create();
-      this.groups[host].add(worker);
-    }.bind(this));
-
-    this.set('content', $.values(this.groups));
-  }.observes('workers.length')
-});
-Travis.Controllers.Sidebar = Ember.Object.extend({
-  cookie: 'sidebar_minimized',
-  queues: [
-    { name: 'common',  display: 'Common' },
-    { name: 'php',     display: 'PHP, Perl and Python' },
-    { name: 'jvmotp',  display: 'JVM, Node.js and Erlang' },
-    { name: 'rails',   display: 'Rails' },
-    { name: 'spree',   display: 'Spree' },
-  ],
-
-  init: function() {
-    this._super();
-    Travis.Controllers.Workers.create();
-    $.each(this.queues, function(ix, queue) {
-      Travis.Controllers.Queue.create({ queue: 'builds.' + queue.name, display: queue.display });
-    });
-
-    $(".slider").click(function() { this.toggle(); }.bind(this));
-    if($.cookie(this.cookie) === 'true') { this.minimize(); }
-    this.persist();
-  },
-
-  toggle: function() {
-    this.isMinimized() ? this.maximize() : this.minimize();
-    this.persist();
-  },
-
-  isMinimized: function() {
-    return $('#right').hasClass('minimized');
-  },
-
-  minimize: function() {
-    $('#right').addClass('minimized');
-    $('#main').addClass('maximized');
-  },
-
-  maximize: function() {
-    $('#right').removeClass('minimized');
-    $('#main').removeClass('maximized');
-  },
-
-  persist: function() {
-    $.cookie(this.cookie, this.isMinimized());
-  }
-});
 Travis.Helpers.Common = {
   colorForResult: function(result) {
     return result == 0 ? 'green' : result == 1 ? 'red' : null;
@@ -44723,252 +43616,127 @@ Travis.Worker.reopenClass({
   resource: 'workers'
 });
 
-Ember.TEMPLATES['app/templates/builds/list']=Ember.Handlebars.compile("<table id=\"builds\" class=\"status_list\">\n  <thead>\n    <tr>\n      <th>{{i18n \"builds.name\"}}</th>\n      <th>{{i18n \"builds.branch\"}}</th>\n      <th>{{i18n \"builds.message\"}}</th>\n      <th>{{i18n \"builds.duration\"}}</th>\n      <th>{{i18n \"builds.finished_at\"}}</th>\n    </tr>\n  </thead>\n\n  {{#collection tagName=\"tbody\" contentBinding=\"builds\" itemViewClass=\"Ember.View\" itemClassBinding=\"content.color\"}}\n      <td class=\"number\"><a {{bindAttr href=\"content.url\"}}>{{content.number}}</a></td>\n      <td class=\"branch\">{{content.branch}}</td>\n      <td class=\"message\">{{{content.shortMessage}}}</td>\n      <td class=\"duration\" {{bindAttr title=\"content.started_at\"}}>{{content.formattedDuration}}</td>\n      <td class=\"finished_at timeago\" {{bindAttr title=\"content.finished_at\"}}>{{content.formattedFinishedAt}}</td>\n  {{/collection}}\n</table>\n\n{{#view Ember.Button targetBinding=\"builds\" action=\"showMore\" isVisibleBinding=\"builds.showMoreIsVisible\"}}Show More{{/view}}");Ember.TEMPLATES['app/templates/builds/show']=Ember.Handlebars.compile("<div {{bindAttr class=\"content.color\"}}>\n  <dl class=\"summary clearfix\">\n    <div class=\"left\">\n      <dt>{{i18n \"builds.name\"}}</dt>\n\n      <dd class=\"number\"><a {{bindAttr href=\"content.url\"}}>{{content.number}}</a></dd>\n      <dt class=\"finished_at_label\">{{i18n \"builds.finished_at\"}}</dt>\n      <dd class=\"finished_at timeago\" {{bindAttr title=\"content.finished_at\"}}>{{content.formattedFinishedAt}}</dd>\n      <dt>{{i18n \"builds.duration\"}}</dt>\n      <dd class=\"duration\" {{bindAttr title=\"content.started_at\"}}>{{content.formattedDuration}}</dd>\n    </div>\n\n    <div class=\"right\">\n      <dt>{{i18n \"builds.commit\"}}</dt>\n      <dd class=\"commit-hash\"><a {{bindAttr href=\"content.urlGithubCommit\"}}>{{content.formattedCommit}}</a></dd>\n      {{#if content.compare_url}}\n        <dt>{{i18n \"builds.compare\"}}</dt>\n        <dd class=\"compare_view\"><a {{bindAttr href=\"content.compare_url\"}}>{{content.formattedCompareUrl}}</a></dd>\n      {{/if}}\n      {{#if content.author_name}}\n        <dt>{{i18n \"builds.author\"}}</dt>\n        <dd class=\"author\"><a {{bindAttr href=\"content.urlAuthor\"}}>{{content.author_name}}</a></dd>\n      {{/if}}\n      {{#if content.committer_name}}\n        <dt>{{i18n \"builds.committer\"}}</dt>\n        <dd class=\"committer\"><a {{bindAttr href=\"content.urlCommitter\"}}>{{content.committer_name}}</a></dd>\n      {{/if}}\n    </div>\n\n    <dt>{{i18n \"builds.message\"}}</dt>\n    <dd class=\"commit-message\">{{{content.formattedMessage}}}</dd>\n\n    {{#if content.isMatrix}}\n    {{else}}\n      <dt>{{i18n \"builds.config\"}}</dt>\n      <dd class=\"config\">{{content.formattedConfig}}</dd>\n    {{/if}}\n  </dl>\n\n  {{#if content.isMatrix}}\n    {{view Ember.View templateName=\"app/templates/jobs/list\" repositoryBinding=\"repository\" contentBinding=\"content\"}}\n  {{else}}\n    <pre class=\"log\"><a href=\"#\" id=\"tail\" {{bindAttr class=\"Travis.tailing.active:active\"}} {{action \"toggle\" on=\"click\" target=\"Travis.tailing\"}}>\n      <span class=\"status\"></span>\n      <label>Follow logs</label>\n    </a>{{{content.matrix.firstObject.formattedLog}}}</pre>\n\n    <p class=\"sponsor\">\n      {{#if content.matrix.firstObject.sponsor.name}}\n        {{i18n \"builds.messages.sponsored_by\"}}\n        <a {{bindAttr href=\"content.matrix.firstObject.sponsor.url\"}}>{{content.matrix.firstObject.sponsor.name}}</a>\n      {{/if}}\n    </p>\n  {{/if}}\n</div>\n");Ember.TEMPLATES['app/templates/jobs/list']=Ember.Handlebars.compile("<table id=\"builds\" class=\"status_list\">\n  <caption>{{i18n \"jobs.build_matrix\"}}</caption>\n  <thead>\n    {{#collection tagName=\"tr\" contentBinding=\"content.formattedMatrixHeaders\" itemTagName=\"th\"}}\n      {{content}}\n    {{/collection}}\n  </thead>\n\n  {{#collection tagName=\"tbody\" contentBinding=\"content.required_matrix\" itemViewClass=\"Ember.View\" itemClassBinding=\"content.color\"}}\n    <td class=\"number\"><a {{bindAttr href=\"content.url\"}}>{{content.number}}</a></td>\n    <td class=\"duration\" {{bindAttr title=\"content.started_at\"}}>{{content.formattedDuration}}</td>\n    <td class=\"finished_at timeago\" {{bindAttr title=\"content.finished_at\"}}>{{content.formattedFinishedAt}}</td>\n    {{#each content.formattedConfigValues itemTagName=\"td\"}}\n      <td>{{value}}</td>\n    {{/each}}\n  {{/collection}}\n</table>\n\n{{#if content.hasFailureMatrix}}\n<table id=\"allow_failure_builds\">\n  <caption>{{i18n \"jobs.allowed_failures\"}}{{whats_this \"allow_failure_help\"}}\n</caption>\n  <thead>\n    {{#collection tagName=\"tr\" contentBinding=\"content.formattedMatrixHeaders\" itemTagName=\"th\"}}\n      {{content}}\n    {{/collection}}\n  </thead>\n\n  {{#collection tagName=\"tbody\" contentBinding=\"content.allow_failure_matrix\" itemViewClass=\"Ember.View\" itemClassBinding=\"content.color\"}}\n    <td class=\"number\"><a {{bindAttr href=\"content.url\"}}>{{content.number}}</a></td>\n    <td class=\"duration\" {{bindAttr title=\"content.started_at\"}}>{{content.formattedDuration}}</td>\n    <td class=\"finished_at timeago\" {{bindAttr title=\"content.finished_at\"}}>{{content.formattedFinishedAt}}</td>\n    {{#each content.formattedConfigValues itemTagName=\"td\"}}\n      <td>{{value}}</td>\n    {{/each}}\n  {{/collection}}\n</table>\n\n<div id=\"allow_failure_help\" class=\"context_help\">\n<div class=\"context_help_caption\">{{i18n \"jobs.allowed_failures\"}}</div>\n<div class=\"context_help_body\">Allowed Failures are items in your build matrix that are allowed to fail without causing the entire build to be shown as failed. This lets you add in experimental and preparatory builds to test against versions or configurations that you are not ready to officially support.<br><br>You can define allowed failures in the build matrix as follows:\n</br><pre>\nmatrix:\n  allow_failures:\n    - rvm: ruby-head\n</pre></div>\n</div>\n{{/if}}\n");Ember.TEMPLATES['app/templates/jobs/show']=Ember.Handlebars.compile("<div {{bindAttr class=\"content.color\"}}>\n  <dl class=\"summary clearfix\">\n    <div class=\"left\">\n      <dt>Job</dt>\n      <dd class=\"number\"><a {{bindAttr href=\"content.build.url\"}}>{{content.number}}</a></dd>\n      <dt class=\"finished_at_label\">{{i18n \"jobs.finished_at\"}}</dt>\n      <dd class=\"finished_at timeago\" {{bindAttr title=\"content.finished_at\"}}>{{content.formattedFinishedAt}}</dd>\n      <dt>{{i18n \"jobs.duration\"}}</dt>\n      <dd class=\"duration\" {{bindAttr title=\"content.started_at\"}}>{{content.formattedDuration}}</dd>\n    </div>\n\n    <div class=\"right\">\n      <dt>{{i18n \"jobs.commit\"}}</dt>\n      <dd class=\"commit-hash\"><a {{bindAttr href=\"content.build.urlGithubCommit\"}}>{{content.formattedCommit}}</a></dd>\n      {{#if content.compare_url}}\n        <dt>{{i18n \"jobs.compare\"}}</dt>\n        <dd class=\"compare_view\"><a {{bindAttr href=\"content.compare_url\"}}>{{content.formattedCompareUrl}}</a></dd>\n      {{/if}}\n      {{#if content.author_name}}\n        <dt>{{i18n \"jobs.author\"}}</dt>\n        <dd class=\"author\"><a {{bindAttr href=\"content.build.urlAuthor\"}}>{{content.author_name}}</a></dd>\n      {{/if}}\n      {{#if content.committer_name}}\n        <dt>{{i18n \"jobs.committer\"}}</dt>\n        <dd class=\"committer\"><a {{bindAttr href=\"content.build.urlCommitter\"}}>{{content.committer_name}}</a></dd>\n      {{/if}}\n    </div>\n\n    <dt>{{i18n \"jobs.message\"}}</dt>\n    <dd class=\"commit-message\">{{{content.formattedMessage}}}</dd>\n    <dt>{{i18n \"jobs.config\"}}</dt>\n    <dd class=\"config\">{{content.formattedConfig}}</dd>\n  </dl>\n\n  <pre class=\"log\"><a href=\"#\" id=\"tail\" {{bindAttr class=\"Travis.tailing.active:active\"}} {{action \"toggle\" on=\"click\" target=\"Travis.tailing\"}}>\n    <span class=\"status\"></span>\n    <label>Follow logs</label>\n  </a>{{{content.formattedLog}}}</pre>\n\n  <p class=\"sponsor\">\n    {{#if content.sponsor.name}}\n      {{i18n \"jobs.messages.sponsored_by\"}}\n      <a {{bindAttr href=\"content.sponsor.url\"}}>{{content.sponsor.name}}</a>\n    {{/if}}\n  </p>\n\n\n</div>\n");Ember.TEMPLATES['app/templates/queue/show']=Ember.Handlebars.compile("<h4>{{i18n \"queue\"}}: {{friendly_queue_name}}</h4>\n{{#collection tagName=\"ul\" classBinding=\"className\" itemClass=\"job\" contentBinding=\"jobs\"}}\n  {{content.repository.slug}}\n  {{#if content.number}}\n    #{{content.number}}\n  {{/if}}\n{{else}}\n  {{i18n \"no_job\"}}\n{{/collection}}\n\n");Ember.TEMPLATES['app/templates/repositories/branch_summary']=Ember.Handlebars.compile("<table id=\"branch_summary\" class=\"status_list\">\n  <thead>\n    <tr>\n      <th>{{i18n \"repositories.branch\"}}</th>\n      <th>{{i18n \"repositories.commit\"}}</th>\n      <th>{{i18n \"repositories.message\"}}</th>\n      <th>{{i18n \"repositories.finished_at\"}}</th>\n    </tr>\n{{content}}\n  </thead>\n  {{#collection tagName=\"tbody\" contentBinding=\"branches\" itemViewClass=\"Ember.View\" itemClassBinding=\"content.color\"}}\n      <td class=\"number\"><a {{bindAttr href=\"content.buildUrl\"}}>{{content.branch}}</a></td>\n      <td class=\"commit\">{{content.formattedCommit}}</td>\n      <td class=\"message\">{{{content.message}}}</td>\n      <td class=\"finished_at timeago\" {{bindAttr title=\"content.finished_at\"}}>{{content.formattedFinishedAt}}</td>\n  {{/collection}}\n</table>\n");Ember.TEMPLATES['app/templates/repositories/list']=Ember.Handlebars.compile("{{#collection tagName=\"ul\" id=\"repositories\" contentBinding=\"repositories\" itemViewClass=\"Ember.View\" itemClassBinding=\"content.cssClasses\"}}\n  <div class=\"wrapper\">\n    <a {{bindAttr href=\"content.urlCurrent\"}} class=\"slug\">{{content.slug}}</a>\n    <a {{bindAttr href=\"content.urlLastBuild\"}} class=\"build\">#{{content.last_build_number}}</a>\n    <p class=\"summary\">\n      <span class=\"duration_label\">{{i18n \"repositories.duration\"}}:</span> <abbr class=\"duration\" {{bindAttr title=\"content.last_build_started_at\"}}>{{content.formattedLastBuildDuration}}</abbr>,\n      <span class=\"finished_at_label\">{{i18n \"repositories.finished_at\"}}:</span> <abbr class=\"finished_at timeago\" {{bindAttr title=\"content.last_build_finished_at\"}}>{{content.formattedLastBuildFinishedAt}}</abbr>\n    </p>\n    {{#if content.description}}\n      <p class=\"description\">{{content.description}}</p>\n    {{/if}}\n    <span class=\"indicator\"></span>\n  </div>\n{{/collection}}\n\n{{^collection contentBinding=\"repositories\" id=\"list\" class=\"loading\"}}\n  <p></p>\n{{/collection}}\n");Ember.TEMPLATES['app/templates/repositories/show']=Ember.Handlebars.compile("<div id=\"repository\">\n  <h3>\n    <a {{bindAttr href=\"repository.urlGithub\"}}>{{repository.slug}}</a>\n  </h3>\n\n  <p class=\"description\">{{repository.description}}</p>\n\n  <!--\n  <ul class=\"github-stats\">\n    <li class=\"language\">{{repository.last_build_language}}</li>\n    <li><a class=\"watchers\" title=\"Watches\" {{bindAttr href=\"repository.urlGithubWatchers\"}}></a></li>\n    <li><a class=\"forks\" title=\"Forks\" {{bindAttr href=\"repository.urlGithubNetwork\"}}></a></li>\n  </ul>\n  -->\n\n  <ul class=\"tabs\">\n    <li id=\"tab_current\">\n      <h5><a {{bindAttr href=\"repository.urlCurrent\"}}>{{i18n \"repositories.tabs.current\"}}</a></h5>\n      <div class=\"tab\"></div>\n    </li>\n    <li id=\"tab_history\">\n      <h5><a {{bindAttr href=\"repository.urlBuilds\"}}>{{i18n \"repositories.tabs.build_history\"}}</a></h5>\n      <div class=\"tab\"></div>\n    </li>\n    <li id=\"tab_pull_requests\">\n      <h5><a {{bindAttr href=\"repository.urlPullRequests\"}}>{{i18n \"repositories.tabs.pull_requests\"}}</a></h5>\n      <div class=\"tab\"></div>\n    </li>\n    <li id=\"tab_branch_summary\">\n      <h5><a {{bindAttr href=\"repository.urlBranches\"}}>{{i18n \"repositories.tabs.branches\"}}</a></h5>\n      <div class=\"tab\"></div>\n    </li>\n    <li id=\"tab_build\">\n      <h5><a {{bindAttr href=\"build.url\"}}>{{i18n \"repositories.tabs.build\"}} #{{build.number}}</a></h5>\n      <div class=\"tab\"></div>\n    </li>\n    <li id=\"tab_job\">\n      <h5><a {{bindAttr href=\"job.url\"}}>{{i18n \"repositories.tabs.job\"}} #{{job.number}}</a></h5>\n      <div class=\"tab\"></div>\n    </li>\n  </ul>\n\n  <div class=\"tools\">\n    <a href=\"#\"></a>\n    <div class=\"content\">\n      <!-- <p><label>{{i18n \"repositories.branch\"}}:</label><select></select></p> -->\n      <p><label>{{i18n \"repositories.image_url\"}}:</label><input type=\"text\" class=\"url\"></input></p>\n      <p><label>{{i18n \"repositories.markdown\"}}:</label><input type=\"text\" class=\"markdown\"></input></p>\n      <p><label>{{i18n \"repositories.textile\"}}:</label><input type=\"text\" class=\"textile\"></input></p>\n      <p><label>{{i18n \"repositories.rdoc\"}}:</label><input type=\"text\" class=\"rdoc\"></input></p>\n    </div>\n  </div>\n</div>\n<script type=\"text/javascript\">\n    $('h5').tipsy();\n</script>\n\n");Ember.TEMPLATES['app/templates/service_hooks/list']=Ember.Handlebars.compile("<div class=\"message\">\n  {{#if service_hooks.isSyncing}}\n    <p class=\"sync\">\n      Synchronizing your data from GitHub\n    </p>\n  {{else}}\n    <p>\n      Last synchronized from GitHub: {{service_hooks.syncedAt}}\n      {{#view Ember.Button class=\"sync_now\" target=\"parentView.service_hooks\" action=\"sync\"}}\n        Sync now\n      {{/view}}\n    </p>\n  {{/if}}\n</div>\n\n{{#collection tagName=\"ul\" itemViewClass=\"Ember.View\" itemClass=\"repository\" contentBinding=\"service_hooks\" isLoadedBinding=\"service_hooks.isLoaded\"}}\n  <a {{bindAttr href=\"content.url\"}} rel=\"nofollow\">{{content.owner_name}}/{{content.name}}</a>\n  <p class=\"description\">{{content.description}}</p>\n\n  <div class=\"controls\">\n    <a {{bindAttr href=\"content.urlGithubAdmin\"}} class=\"github-admin tool-tip\" title=\"Github service hooks admin page\"></a>\n    {{#view Ember.Button tagName=\"a\" class=\"switch\" classBinding=\"content.active\" contentBinding=\"content\" target=\"content\" action=\"toggle\"}}{{/view}}\n  </div>\n{{else}}\n  {{#if Travis.service_hooks.isLoaded}}\n    You do not seem to have any repositories that we could sync.\n  {{else}}\n    Loading ...\n  {{/if}}\n{{/collection}}\n");Ember.TEMPLATES['app/templates/workers/list']=Ember.Handlebars.compile("<h4>{{i18n \"workers\"}}</h4>\n{{#collection tagName=\"ul\" itemClass=\"group\" contentBinding=\"content\"}}\n  <h5>{{content.host}}</h5>\n  {{#collection tagName=\"ul\" itemClass=\"worker\" itemClassBinding=\"content.state\" contentBinding=\"content.workers\"}}\n    <div class=\"icon\"></div>\n    {{#if content.isTesting}}\n      <a {{bindAttr href=\"content.urlJob\"}} {{bindAttr title=\"content.last_seen_at\"}}>{{content.display}}</a>\n    {{else}}\n      <span {{bindAttr title=\"content.last_seen_at\"}}>{{content.display}}</span>\n    {{/if}}\n  {{/collection}}\n{{else}}\n  No workers\n{{/collection}}\n");(function() {
+Travis.Controllers.Builds.List = Ember.ArrayController.create({
+  repositoryBinding: '_repositories.firstObject',
+  buildsBinding: 'repository.builds',
 
-  window.Pagination = function(parent, element, collection, count) {
-    this.parent = parent;
-    this.element = element;
-    this.collection = collection;
-    this.currentElement = $('.page .current-page', element);
-    this.lastElement = $('.page .last-page', element);
-    this.current = 1;
-    this.count = this.paged_count = count;
-    this.setup(['first', 'previous', 'next', 'last', 'all', 'paged']);
-    this.update();
-    return this;
-  };
+  lastStatus: function() {
+    return 'status ' + this.getPath('builds.firstObject.color');
+  }.property('builds.firstObject.color'),
 
-  $.extend(window.Pagination.prototype, {
-    setup: function(keys) {
-      var _this = this;
-      return $.each(keys, function(ix, key) {
-        return $('a.' + key, _this.element).click(function() {
-          return _this.onClick(key);
-        });
-      });
-    },
-    onClick: function(key) {
-      this[key]();
-      this.update();
-      return false;
-    },
-    first: function() {
-      this.current = 1;
-      return this.update();
-    },
-    next: function() {
-      this.current += 1;
-      if (this.current > this.lastPage()) {
-        this.current = 1;
+  _repositories: function() {
+    var slug = this.get('_slug');
+    return slug ? Travis.Repository.bySlug(slug) : Travis.Repository.recent();
+  }.property('_slug'),
+
+  _slug: function() {
+    var parts = $.compact([this.getPath('Travis.params.owner'), this.getPath('Travis.params.name')]);
+    if(parts.length > 0) return parts.join('/');
+  }.property('Travis.params')
+});
+Travis.Controllers.Builds.Show = Ember.Object.create({
+  repositoryBinding: 'Travis.Controllers.Builds.List.repository',
+  content: function() {
+    var build_id = this.getPath('Travis.params.id');
+    if (build_id) {
+      if (build_id == this.get('build_id')) {
+        return this.get('build');
       }
-      return this.update();
-    },
-    previous: function() {
-      this.current -= 1;
-      return this.update();
-    },
-    last: function() {
-      this.current = this.lastPage();
-      return this.update();
-    },
-    all: function() {
-      this.current = 1;
-      this.count = this.length();
-      return this.update();
-    },
-    paged: function() {
-      this.count = this.paged_count;
-      return this.update();
-    },
-    update: function() {
-      this.parent.render(this.page());
-      this.element.toggle(!this.isPaged() || this.lastPage() > 1);
-      this.element.toggleClass('first_page', this.isFirst());
-      this.element.toggleClass('last_page', this.isLast());
-      this.element.toggleClass('paged', this.isPaged());
-      this.currentElement.html(this.current);
-      return this.lastElement.html(this.lastPage());
-    },
-    isFirst: function() {
-      return this.current === 1;
-    },
-    isLast: function() {
-      return this.current === this.lastPage();
-    },
-    isPaged: function() {
-      return this.count === this.paged_count;
-    },
-    lastPage: function() {
-      var current, rest, _ref;
-      current = parseInt(this.length() / this.count);
-      rest = this.length() % this.count;
-      return current + ((_ref = rest > 0) != null ? _ref : {
-        1: 0
-      });
-    },
-    length: function() {
-      return this.collection.length;
-    },
-    page: function() {
-      return this.collection.slice(this.start(), this.end());
-    },
-    start: function() {
-      return (this.current - 1) * this.count;
-    },
-    end: function() {
-      return this.start() + this.count;
+      var build = Travis.Build.find(this.getPath('Travis.params.id'));
+      // A hack, but "necessary" to get all the attributes (just not the stuff
+      // listen in /builds.
+      build.refresh();
+      this.set('build', build);
+      this.set('build_id', build.get('id'));
+      return build;
+    } else {
+      return undefined;
     }
-  });
-
-}).call(this);
-(function() {
-  var Deck, Sponsor, Sponsors;
-
-  if (!Array.prototype.shuffle) {
-    Array.prototype.shuffle = function() {
-      var array, current, tmp, top;
-      array = this.slice();
-      top = array.length;
-      while (top && --top) {
-        current = Math.floor(Math.random() * (top + 1));
-        tmp = array[current];
-        array[current] = array[top];
-        array[top] = tmp;
+  }.property('Travis.params')
+});
+Travis.Controllers.Jobs.Show = Ember.Object.create({
+  repositoryBinding: 'Travis.Controllers.Builds.List.repository',
+  content: function() {
+    var build_id = this.getPath('Travis.params.id');
+    if (build_id) {
+      if (build_id == this.get('job_id')) {
+        return this.get('job');
       }
-      return array;
-    };
+      var build = Travis.Job.find(this.getPath('Travis.params.id'));
+      // A hack, but "necessary" to get all the attributes (just not the stuff
+      // listen in /builds.
+      build.refresh();
+      this.set('job', build);
+      this.set('job_id', build.get('id'));
+      return build;
+    } else {
+      return undefined;
+    }
+  }.property('Travis.params')
+});
+Travis.Controllers.Repositories.List = Ember.ArrayController.create({
+  content: Travis.Repository.recent()
+});
+Travis.Views.MobileBaseView = Ember.View.extend({
+  attributeBindings: ['data-role']
+});
+
+Travis.Views.PageView = Travis.Views.MobileBaseView.extend({
+  'data-role': 'page',
+
+  didInsertElement: function() {
+    var _self = this;
+    Ember.run.next(function() {
+      _self.$().page();
+    });
   }
+});
 
-  Sponsors = function(element, collection, options) {
-    this.element = element;
-    this.pagination = new Pagination(this, $('.pagination', this.element.parent()), collection.shuffle(), 1);
-    return this;
-  };
-
-  $.extend(Sponsors, {
-    PACKAGES: ['platinum', 'gold', 'silver'],
-    SPEED: 15000,
-    load: function(callback) {
-      var _this = this;
-      return $.get('/sponsors.json', function(bundles) {
-        return callback(Sponsors.decksFrom(bundles));
-      });
-    },
-    decksFrom: function(bundles) {
-      var bundle, count, decks, i, sponsors, type, _i, _ref;
-      decks = {
-        banner: [],
-        text: []
-      };
-      for (bundle in bundles) {
-        sponsors = bundles[bundle].shuffle();
-        count = Deck.COUNTS[bundle];
-        type = bundle === 'silver' ? 'text' : 'banner';
-        for (i = _i = 0, _ref = sponsors.length - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = _i += count) {
-          decks[type].push(new Deck(type, bundle, sponsors.slice(i, i + count)));
-        }
-      }
-      return decks;
+Travis.Views.ToolbarBaseView = Travis.Views.MobileBaseView.extend({
+  attributeBindings: ['data-position'],
+  'data-position': function() {
+    if (this.get('isFullScreen')) {
+      return 'fullscreen';
     }
-  });
 
-  $.extend(Sponsors.prototype, {
-    clear: function() {
-      return this.element.empty();
-    },
-    render: function(page) {
-      var deck, _i, _len, _results;
-      this.clear();
-      _results = [];
-      for (_i = 0, _len = page.length; _i < _len; _i++) {
-        deck = page[_i];
-        _results.push(this.element.append(deck.render()));
-      }
-      return _results;
-    },
-    run: function() {
-      var doRun;
-      if (this.pagination) {
-        doRun = function() {
-          this.pagination.next();
-          return this.run();
-        };
-        return setTimeout(doRun.bind(this), this.speed || Sponsors.SPEED);
-      }
+    if (this.get('isFixed')) {
+      return 'fixed';
     }
-  });
+    return '';
+  }.property('isFixed', 'isFullScreen').cacheable(),
 
-  Deck = function(type, bundle, sponsors) {
-    this.type = type;
-    this.bundle = bundle;
-    this.sponsors = type === 'banner' ? this.fill(sponsors) : sponsors;
-    return this;
-  };
+  isFixed: true,
+  isFullScreen: false
+});
 
-  $.extend(Deck, {
-    COUNTS: {
-      platinum: 1,
-      gold: 2,
-      silver: 6
-    }
-  });
+Travis.Views.HeaderView = Travis.Views.ToolbarBaseView.extend({
+  'data-role': 'header'
+});
 
-  $.extend(Deck.prototype, {
-    fill: function(sponsors) {
-      while (sponsors.length < Deck.COUNTS[this.bundle]) {
-        sponsors.push({
-          image: this.placeholder()
-        });
-      }
-      return sponsors;
-    },
-    placeholder: function() {
-      return '/images/placeholder-' + this.bundle + '.png';
-    },
-    render: function() {
-      var node, sponsor, _i, _len, _ref;
-      node = $('<ul class="' + this.bundle + '"></ul>');
-      _ref = this.sponsors;
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        sponsor = _ref[_i];
-        node.append(new Sponsor(this.type, sponsor).render());
-      }
-      return node;
-    }
-  });
+Travis.Views.ContentView = Travis.Views.MobileBaseView.extend({
+  'data-role': 'content'
+});
 
-  Sponsor = function(type, data) {
-    this.type = type;
-    this.data = data;
-    return this;
-  };
+Travis.Views.FooterView = Travis.Views.MobileBaseView.extend({
+  'data-role': 'footer'
+});
 
-  $.extend(Sponsor.prototype, {
-    render: function() {
-      var html, node;
-      node = $('<li></li>');
-      html = this.type === 'banner' ? '<a href="' + this.data.url + '"><img src="' + this.img_url(this.data.image) + '"></a>' + this.data.text : this.data.link;
-      node.append($(html));
-      return node;
-    },
-    img_url: function(path) {
-      return "https://love.travis-ci.org/images/sponsors/" + path;
-    }
-  });
+Travis.Views.ListItemView = Ember.View.extend({
+  tagName: 'li'
+});
 
-  $.fn.sponsors = function(decks, options) {
-    return new Sponsors(this, decks, options).run();
-  };
+Travis.Views.ListView = Ember.CollectionView.extend({
+  attributeBindings: ['data-role'],
+  'data-role': 'listview',
+  tagName: 'ul',
+  itemViewClass: Travis.Views.ListItemView,
 
-  $(function() {
-    if ($('.sponsors').length !== 0) {
-      return Sponsors.load(function(decks) {
-        $('#right .sponsors.top').sponsors(decks['banner']);
-        return $('#right .sponsors.bottom').sponsors(decks['text']);
-      });
-    }
-  });
+  contentLengthDidChange: function() {
+    var _self = this;
+    Ember.run.next(function() {
+      _self.$().listview();
+    });
+  }.observes('content.length')
+});
 
-}).call(this);
-var I18n = I18n || {};
-I18n.translations = {"ca":{"locales":{"en":"English","es":"Español","fr":"Français","ja":"日本語","nb":"Norsk Bokmål","nl":"Nederlands","pl":"Polski","pt-BR":"português brasileiro","ru":"Русский"}},"en":{"errors":{"messages":{"not_found":"not found","already_confirmed":"was already confirmed","not_locked":"was not locked"}},"devise":{"failure":{"unauthenticated":"You need to sign in or sign up before continuing.","unconfirmed":"You have to confirm your account before continuing.","locked":"Your account is locked.","invalid":"Invalid email or password.","invalid_token":"Invalid authentication token.","timeout":"Your session expired, please sign in again to continue.","inactive":"Your account was not activated yet."},"sessions":{"signed_in":"Signed in successfully.","signed_out":"Signed out successfully."},"passwords":{"send_instructions":"You will receive an email with instructions about how to reset your password in a few minutes.","updated":"Your password was changed successfully. You are now signed in."},"confirmations":{"send_instructions":"You will receive an email with instructions about how to confirm your account in a few minutes.","confirmed":"Your account was successfully confirmed. You are now signed in."},"registrations":{"signed_up":"You have signed up successfully. If enabled, a confirmation was sent to your e-mail.","updated":"You updated your account successfully.","destroyed":"Bye! Your account was successfully cancelled. We hope to see you again soon."},"unlocks":{"send_instructions":"You will receive an email with instructions about how to unlock your account in a few minutes.","unlocked":"Your account was successfully unlocked. You are now signed in."},"mailer":{"confirmation_instructions":{"subject":"Confirmation instructions"},"reset_password_instructions":{"subject":"Reset password instructions"},"unlock_instructions":{"subject":"Unlock Instructions"}}},"datetime":{"distance_in_words":{"hours_exact":{"one":"%{count} hour","other":"%{count} hours"},"minutes_exact":{"one":"%{count} minute","other":"%{count} minutes"},"seconds_exact":{"one":"%{count} second","other":"%{count} seconds"}}},"workers":"Workers","queue":"Queue","no_job":"There are no jobs","repositories":{"branch":"Branch","image_url":"Image URL","markdown":"Markdown","textile":"Textile","rdoc":"RDOC","commit":"Commit","message":"Message","started_at":"Started","duration":"Duration","finished_at":"Finished","tabs":{"current":"Current","build_history":"Build History","branches":"Branch Summary","pull_requests":"Pull Requests","build":"Build","job":"Job"}},"build":{"job":"Job","duration":"Duration","finished_at":"Finished"},"jobs":{"messages":{"sponsored_by":"This test series was run on a worker box sponsored by"},"build_matrix":"Build Matrix","allowed_failures":"Allowed Failures","author":"Author","config":"Config","compare":"Compare","committer":"Committer","branch":"Branch","commit":"Commit","message":"Message","started_at":"Started","duration":"Duration","finished_at":"Finished"},"builds":{"name":"Build","messages":{"sponsored_by":"This test series was run on a worker box sponsored by"},"build_matrix":"Build Matrix","allowed_failures":"Allowed Failures","author":"Author","config":"Config","compare":"Compare","committer":"Committer","branch":"Branch","commit":"Commit","message":"Message","started_at":"Started","duration":"Duration","finished_at":"Finished"},"layouts":{"top":{"home":"Home","blog":"Blog","docs":"Docs","stats":"Stats","github_login":"Sign in with Github","profile":"Profile","sign_out":"Sign Out","admin":"Admin"},"application":{"fork_me":"Fork me on Github","recent":"Recent","search":"Search","sponsers":"Sponsors","sponsors_link":"See all of our amazing sponsors &rarr;","my_repositories":"My Repositories"},"about":{"alpha":"This stuff is alpha.","messages":{"alpha":"Please do <strong>not</strong> consider this a stable service. We're still far from that! More info <a href='https://github.com/travis-ci'>here.</a>"},"join":"Join us and help!","mailing_list":"Mailing List","repository":"Repository","twitter":"Twitter"},"mobile":{"author":"Author","build":"Build","build_matrix":"Build Matrix","commit":"Commit","committer":"Committer","compare":"Compare","config":"Config","duration":"Duration","finished_at":"Finished at","job":"Job","log":"Log"}},"profiles":{"show":{"email":"Email","github":"Github","message":{"your_repos":"  Flick the switches below to turn on the Travis service hook for your projects, then push to GitHub.<br />\n  To test against multiple rubies, see","config":"how to configure custom build options"},"messages":{"notice":"To get started, please read our <a href=\"http://about.travis-ci.org/docs/user/getting-started/\">Getting Started guide</a>.\n  <small>It will only take a couple of minutes.</small>"},"token":"Token","your_repos":"Your Repositories","update":"Update","update_locale":"Update","your_locale":"Your Locale"}},"statistics":{"index":{"count":"Count","repo_growth":"Repository Growth","total_projects":"Total Projects/Repositories","build_count":"Build Count","last_month":"last month","total_builds":"Total Builds"}},"locales":{"en":"English","es":"Español","fr":"Français","ja":"日本語","nb":"Norsk Bokmål","pl":"Polski","ru":"Русский","nl":"Nederlands","pt-BR":"português brasileiro"}},"es":{"datetime":{"distance_in_words":{"hours_exact":{"one":"%{count} hora","other":"%{count} horas"},"minutes_exact":{"one":"%{count} minuto","other":"%{count} minutos"},"seconds_exact":{"one":"%{count} segundo","other":"%{count} segundos"}}},"workers":"Procesos","queue":"Cola","no_job":"No hay trabajos","repositories":{"branch":"Rama","image_url":"Imagen URL","markdown":"Markdown","textile":"Textile","rdoc":"RDOC","commit":"Commit","message":"Mensaje","started_at":"Iniciado","duration":"Duración","finished_at":"Finalizado","tabs":{"current":"Actual","build_history":"Histórico","branches":"Ramas","build":"Builds","job":"Trabajo"}},"build":{"job":"Trabajo","duration":"Duración","finished_at":"Finalizado"},"jobs":{"messages":{"sponsored_by":"Esta serie de tests han sido ejecutados en una caja de Proceso patrocinada por"},"build_matrix":"Matriz de Builds","allowed_failures":"Fallos Permitidos","author":"Autor","config":"Configuración","compare":"Comparar","committer":"Committer","branch":"Rama","commit":"Commit","message":"Mensaje","started_at":"Iniciado","duration":"Duración","finished_at":"Finalizado","sponsored_by":"Patrocinado por"},"builds":{"name":"Build","messages":{"sponsored_by":"Esta serie de tests han sido ejecutados en una caja de Proceso patrocinada por"},"build_matrix":"Matriz de Builds","allowed_failures":"Fallos Permitidos","author":"Autor","config":"Configuración","compare":"Comparar","committer":"Committer","branch":"Rama","commit":"Commit","message":"Mensaje","started_at":"Iniciado","duration":"Duración","finished_at":"Finalizado"},"layouts":{"top":{"home":"Inicio","blog":"Blog","docs":"Documentación","stats":"Estadísticas","github_login":"Iniciar sesión con Github","profile":"Perfil","sign_out":"Desconectar","admin":"Admin"},"application":{"fork_me":"Hazme un Fork en Github","recent":"Reciente","search":"Buscar","sponsers":"Patrocinadores","sponsors_link":"Ver todos nuestros patrocinadores &rarr;","my_repositories":"Mis Repositorios"},"about":{"alpha":"Esto es alpha.","messages":{"alpha":"Por favor <strong>no</strong> considereis esto un servicio estable. Estamos estamos aún lejos de ello! Más información <a href='https://github.com/travis-ci'>aquí.</a>"},"join":"Únetenos y ayudanos!","mailing_list":"Lista de Correos","repository":"Repositorio","twitter":"Twitter"}},"profiles":{"show":{"email":"Correo electrónico","github":"Github","message":{"your_repos":"  Activa los interruptores para inicial el  Travis service hook para tus proyectos, y haz un Push en GitHub.<br />\n  Para probar varias versiones de ruby, mira","config":"como configurar tus propias opciones para el Build"},"messages":{"notice":"Para comenzar, por favor lee nuestra <a href=\"http://about.travis-ci.org/docs/user/getting-started/\">Guía de Inicio </a>.\n  <small>Solo tomará unos pocos minutos.</small>"},"token":"Token","your_repos":"Tus repositorios","update":"Actualizar","update_locale":"Actualizar","your_locale":"Tu Idioma"}},"statistics":{"index":{"count":"Número","repo_growth":"Crecimiento de Repositorios","total_projects":"Total de Proyectos/Repositorios","build_count":"Número de Builds","last_month":"mes anterior","total_builds":"Total de Builds"}},"locales":{"en":"English","es":"Español","fr":"Français","ja":"日本語","nb":"Norsk Bokmål","pl":"Polski","ru":"Русский","nl":"Nederlands","pt-BR":"português brasileiro"}},"fr":{"datetime":{"distance_in_words":{"hours_exact":{"one":"%{count} heure","other":"%{count} heures"},"minutes_exact":{"one":"%{count} minute","other":"%{count} minutes"},"seconds_exact":{"one":"%{count} seconde","other":"%{count} secondes"}}},"workers":"Processus","queue":"File","no_job":"Pas de tâches","repositories":{"branch":"Branche","image_url":"Image","markdown":"Markdown","textile":"Textile","rdoc":"RDOC","commit":"Commit","message":"Message","started_at":"Commencé","duration":"Durée","finished_at":"Terminé","tabs":{"current":"Actuel","build_history":"Historique des tâches","branches":"Résumé des branches","build":"Construction","job":"Tâche"}},"build":{"job":"Tâche","duration":"Durée","finished_at":"Terminé"},"jobs":{"messages":{"sponsored_by":"Cette série de tests a été exécutée sur une machine sponsorisée par"},"build_matrix":"Matrice des versions","allowed_failures":"Échecs autorisés","author":"Auteur","config":"Config","compare":"Comparer","committer":"Committeur","branch":"Branche","commit":"Commit","message":"Message","started_at":"Commencé","duration":"Durée","finished_at":"Terminé","sponsored_by":"Cette série de tests a été exécutée sur une machine sponsorisée par"},"builds":{"name":"Version","messages":{"sponsored_by":"Cette série de tests a été exécutée sur une machine sponsorisée par"},"build_matrix":"Matrice des versions","allowed_failures":"Échecs autorisés","author":"Auteur","config":"Config","compare":"Comparer","committer":"Committeur","branch":"Branche","commit":"Commit","message":"Message","started_at":"Commencé","duration":"Durée","finished_at":"Terminé"},"layouts":{"top":{"home":"Accueil","blog":"Blog","docs":"Documentation","stats":"Statistiques","github_login":"Connection Github","profile":"Profil","sign_out":"Déconnection","admin":"Admin"},"application":{"fork_me":"Faites un Fork sur Github","recent":"Récent","search":"Chercher","sponsers":"Sponsors","sponsors_link":"Voir tous nos extraordinaire sponsors &rarr;","my_repositories":"Mes dépôts"},"about":{"alpha":"Ceci est en alpha.","messages":{"alpha":"S'il vous plaît ne considérez <strong>pas</strong> ce service comme étant stable. Nous sommes loin de ça! Plus d'infos <a href='https://github.com/travis-ci'>ici.</a>"},"join":"Joignez-vous à nous et aidez-nous!","mailing_list":"Liste de distribution","repository":"Dépôt","twitter":"Twitter"},"mobile":{"author":"Auteur","build":"Version","build_matrix":"Matrice des versions","commit":"Commit","committer":"Committeur","compare":"Comparer","config":"Config","duration":"Durée","finished_at":"Terminé à","job":"Tâche","log":"Journal"}},"profiles":{"show":{"github":"Github","message":{"your_repos":"Utilisez les boutons ci-dessous pour activer Travis sur vos projets puis déployez sur GitHub.<br />\nPour tester sur plus de versions de ruby, voir","config":"comment configurer des options de version personnalisées"},"messages":{"notice":"Pour commencer, veuillez lire notre <a href=\"http://about.travis-ci.org/docs/user/getting-started/\">guide de démarrage</a>.\n <small>Cela ne vous prendra que quelques minutes.</small>"},"token":"Jeton","your_repos":"Vos dépôts","email":"Courriel","update":"Modifier","update_locale":"Modifier","your_locale":"Votre langue"}},"statistics":{"index":{"count":"Décompte","repo_growth":"Croissance de dépôt","total_projects":"Total des projets/dépôts","build_count":"Décompte des versions","last_month":"mois dernier","total_builds":"Total des versions"}},"admin":{"actions":{"create":"créer","created":"créé","delete":"supprimer","deleted":"supprimé","update":"mise à jour","updated":"mis à jour"},"credentials":{"log_out":"Déconnection"},"delete":{"confirmation":"Oui, je suis sure","flash_confirmation":"%{name} a été détruit avec succès"},"flash":{"error":"%{name} n'a pas pu être %{action}","noaction":"Aucune action n'a été entreprise","successful":"%{name} a réussi à %{action}"},"history":{"name":"Historique","no_activity":"Aucune activité","page_name":"Historique pour %{name}"},"list":{"add_new":"Ajouter un nouveau","delete_action":"Supprimer","delete_selected":"Supprimer la sélection","edit_action":"Modifier","search":"Rechercher","select":"Sélectionner le %{name} à modifier","select_action":"Sélectionner","show_all":"Montrer tout"},"new":{"basic_info":"Information de base","cancel":"Annuler","chosen":"%{name} choisi","chose_all":"Choisir tout","clear_all":"Déselectionner tout","many_chars":"caractères ou moins","one_char":"caractère.","optional":"Optionnel","required":"Requis","save":"Sauvegarder","save_and_add_another":"Sauvegarder et en ajouter un autre","save_and_edit":"Sauvegarder et modifier","select_choice":"Faites vos choix et cliquez"},"dashboard":{"add_new":"Ajouter un nouveau","last_used":"Dernière utilisation","model_name":"Nom du modèle","modify":"Modification","name":"Tableau de bord","pagename":"Administration du site","records":"Enregistrements","show":"Voir","ago":"plus tôt"}},"home":{"name":"accueil"},"repository":{"duration":"Durée"},"devise":{"confirmations":{"confirmed":"Votre compte a été crée avec succès. Vous être maintenant connecté.","send_instructions":"Vous allez recevoir un courriel avec les instructions de confirmation de votre compte dans quelques minutes."},"failure":{"inactive":"Votre compte n'a pas encore été activé.","invalid":"Adresse courriel ou mot de passe invalide.","invalid_token":"Jeton d'authentification invalide.","locked":"Votre compte est bloqué.","timeout":"Votre session est expirée, veuillez vous reconnecter pour continuer.","unauthenticated":"Vous devez vous connecter ou vous enregistrer afin de continuer","unconfirmed":"Vous devez confirmer votre compte avant de continuer."},"mailer":{"confirmation_instructions":{"subject":"Instructions de confirmations"},"reset_password_instructions":{"subject":"Instruction de remise à zéro du mot de passe"},"unlock_instructions":{"subject":"Instruction de débloquage"}},"passwords":{"send_instructions":"Vous recevrez un courriel avec les instructions de remise à zéro du mot de passe dans quelques minutes.","updated":"Votre mot de passe a été changé avec succès. Vous êtes maintenant connecté."},"registrations":{"destroyed":"Au revoir! Votre compte a été annulé avec succès. Nous espérons vous revoir bientôt.","signed_up":"Vous êtes enregistré avec succès. Si activé, une confirmation vous a été envoyé par courriel.","updated":"Votre compte a été mis a jour avec succès"},"sessions":{"signed_in":"Connecté avec succès","signed_out":"Déconnecté avec succès"},"unlocks":{"send_instructions":"Vous recevrez un courriel contenant les instructions pour débloquer votre compte dans quelques minutes.","unlocked":"Votre compte a été débloqué avec succès."}},"errors":{"messages":{"already_confirmed":"étais déja confirmé","not_found":"n'a pas été trouvé","not_locked":"n'étais pas bloqué"}},"locales":{"en":"English","es":"Español","ja":"日本語","ru":"Русский","fr":"Français","nb":"Norsk Bokmål","pl":"Polski","nl":"Nederlands","pt-BR":"português brasileiro"}},"ja":{"workers":"ワーカー","queue":"キュー","no_job":"ジョブはありません","repositories":{"branch":"ブランチ","image_url":"画像URL","markdown":".md","textile":".textile","rdoc":".rdoc","commit":"コミット","message":"メッセージ","started_at":"開始時刻","duration":"処理時間","finished_at":"終了時刻","tabs":{"current":"最新","build_history":"ビルド履歴","branches":"ブランチまとめ","build":"ビルド","job":"ジョブ"}},"build":{"job":"ジョブ","duration":"処理時間","finished_at":"終了時刻"},"jobs":{"messages":{"sponsored_by":"このテストは以下のスポンサーの協力で行いました。"},"build_matrix":"ビルドマトリクス","allowed_failures":"失敗許容範囲内","author":"制作者","config":"設定","compare":"比較","committer":"コミット者","branch":"ブランチ","commit":"コミット","message":"メッセージ","started_at":"開始時刻","duration":"処理時間","finished_at":"終了時刻"},"builds":{"name":"ビルド","messages":{"sponsored_by":"このテストは以下のスポンサーの協力で行いました。"},"build_matrix":"失敗許容範囲外","allowed_failures":"失敗許容範囲内","author":"制作者","config":"設定","compare":"比較","committer":"コミット者","branch":"ブランチ","commit":"コミット","message":"メッセージ","started_at":"開始時刻","duration":"処理時間","finished_at":"終了時刻"},"layouts":{"about":{"alpha":"まだアルファですよ！","join":"参加してみよう！","mailing_list":"メールリスト","messages":{"alpha":"Travis-ciは安定したサービスまで後一歩！詳しくは<a href='https://github.com/travis-ci'>こちら</a>"},"repository":"リポジトリ","twitter":"ツイッター"},"application":{"fork_me":"Githubでフォークしよう","my_repositories":"マイリポジトリ","recent":"最近","search":"検索","sponsers":"スポンサー","sponsors_link":"スポンサーをもっと見る &rarr;"},"top":{"blog":"ブログ","docs":"Travisとは？","github_login":"Githubでログイン","home":"ホーム","profile":"プロフィール","sign_out":"ログアウト","stats":"統計","admin":"管理"},"mobile":{"author":"制作者","build":"ビルド","build_matrix":"ビルドマトリクス","commit":"コミット","committer":"コミット者","compare":"比較","config":"設定","duration":"処理時間","finished_at":"終了時刻","job":"ジョブ","log":"ログ"}},"profiles":{"show":{"github":"Github","email":"メール","message":{"config":"詳細設定","your_repos":"以下のスイッチを設定し、Travis-ciを有効にします。Githubへプッシュしたらビルドは自動的に開始します。複数バーションや細かい設定はこちらへ："},"messages":{"notice":"まずは<a href=\"http://about.travis-ci.org/docs/user/getting-started/\">Travisのはじめ方</a>を参照してください。"},"token":"トークン","your_repos":"リポジトリ","update":"更新","update_locale":"更新","your_locale":"言語設定"}},"statistics":{"index":{"build_count":"ビルド数","count":"数","last_month":"先月","repo_growth":"リポジトリ","total_builds":"合計ビルド数","total_projects":"合計リポジトリ"}},"locales":{"en":"English","es":"Español","fr":"Français","ja":"日本語","nb":"Norsk Bokmål","pl":"Polski","ru":"Русский","nl":"Nederlands","pt-BR":"português brasileiro"}},"nb":{"admin":{"actions":{"create":"opprett","created":"opprettet","delete":"slett","deleted":"slettet","update":"oppdater","updated":"oppdatert"},"credentials":{"log_out":"Logg ut"},"dashboard":{"add_new":"Legg til ny","ago":"siden","last_used":"Sist brukt","model_name":"Modell","modify":"Rediger","name":"Dashbord","pagename":"Nettstedsadministrasjon","records":"Oppføringer","show":"Vis"},"delete":{"confirmation":"Ja, jeg er sikker","flash_confirmation":"%{name} ble slettet"},"flash":{"error":"%{name} kunne ikke bli %{action}","noaction":"Ingen handlinger ble utført","successful":"%{name} ble %{action}"},"history":{"name":"Logg","no_activity":"Ingen aktivitet","page_name":"Logg for %{name}"},"list":{"add_new":"Legg til ny","delete_action":"Slett","delete_selected":"Slett valgte","edit_action":"Rediger","search":"Søk","select":"Velg %{name} for å redigere","select_action":"Velg","show_all":"Vis alle "},"new":{"basic_info":"Basisinformasjon","cancel":"Avbryt","chosen":"Valgt %{name}","chose_all":"Velg alle","clear_all":"Fjern alle","many_chars":"eller færre tegn.","one_char":"tegn.","optional":"Valgfri","required":"Påkrevd","save":"Lagre","save_and_add_another":"Lagre og legg til ny","save_and_edit":"Lagre og rediger","select_choice":"Kryss av for dine valg og klikk"}},"build":{"duration":"Varighet","finished_at":"Fullført","job":"Jobb"},"builds":{"allowed_failures":"Tillatte feil","author":"Forfatter","branch":"Gren","build_matrix":"Jobbmatrise","commit":"Innsending","committer":"Innsender","compare":"Sammenlign","config":"Oppsett","duration":"Varighet","finished_at":"Fullført","message":"Beskrivelse","messages":{"sponsored_by":"Denne testen ble kjørt på en maskin sponset av"},"name":"Jobb","started_at":"Startet"},"datetime":{"distance_in_words":{"hours_exact":{"one":"%{count} time","other":"%{count} timer"},"minutes_exact":{"one":"%{count} minutt","other":"%{count} minutter"},"seconds_exact":{"one":"%{count} sekund","other":"%{count} sekunder"}}},"devise":{"confirmations":{"confirmed":"Din konto er aktivert og du er nå innlogget.","send_instructions":"Om noen få minutter så vil du få en e-post med informasjon om hvordan du bekrefter kontoen din."},"failure":{"inactive":"Kontoen din har ikke blitt aktivert enda.","invalid":"Ugyldig e-post eller passord.","invalid_token":"Ugyldig autentiseringskode.","locked":"Kontoen din er låst.","timeout":"Du ble logget ut siden på grunn av mangel på aktivitet, vennligst logg inn på nytt.","unauthenticated":"Du må logge inn eller registrere deg for å fortsette.","unconfirmed":"Du må bekrefte kontoen din før du kan fortsette."},"mailer":{"confirmation_instructions":{"subject":"Bekreftelsesinformasjon"},"reset_password_instructions":{"subject":"Instruksjoner for å få nytt passord"},"unlock_instructions":{"subject":"Opplåsningsinstruksjoner"}},"passwords":{"send_instructions":"Om noen få minutter så vil du få en epost med informasjon om hvordan du kan få et nytt passord.","updated":"Passordet ditt ble endret, og du er logget inn."},"registrations":{"destroyed":"Adjø! Kontoen din ble kansellert. Vi håper vi ser deg igjen snart.","signed_up":"Du er nå registrert.","updated":"Kontoen din ble oppdatert."},"sessions":{"signed_in":"Du er nå logget inn.","signed_out":"Du er nå logget ut."},"unlocks":{"send_instructions":"Om noen få minutter så kommer du til å få en e-post med informasjon om hvordan du kan låse opp kontoen din.","unlocked":"Kontoen din ble låst opp, og du er nå logget inn igjen."}},"errors":{"messages":{"already_confirmed":"har allerede blitt bekreftet","not_found":"ikke funnnet","not_locked":"var ikke låst"}},"home":{"name":"hjem"},"jobs":{"allowed_failures":"Tillatte feil","author":"Forfatter","branch":"Gren","build_matrix":"Jobbmatrise","commit":"Innsending","committer":"Innsender","compare":"Sammenlign","config":"Oppsett","duration":"Varighet","finished_at":"Fullført","message":"Beskrivelse","messages":{"sponsored_by":"Denne testserien ble kjørt på en maskin sponset av"},"started_at":"Startet"},"layouts":{"about":{"alpha":"Dette er alfa-greier.","join":"Bli med og hjelp oss!","mailing_list":"E-postliste","messages":{"alpha":"Dette er <strong>ikke</strong> en stabil tjeneste. Vi har fremdeles et stykke igjen! Mer informasjon finner du <a href=\"https://github.com/travis-ci\">her</a>."},"repository":"Kodelager","twitter":"Twitter."},"application":{"fork_me":"Se koden på Github","my_repositories":"Mine kodelagre","recent":"Nylig","search":"Søk","sponsers":"Sponsorer","sponsors_link":"Se alle de flotte sponsorene våre &rarr;"},"mobile":{"author":"Forfatter","build":"Jobb","build_matrix":"Jobbmatrise","commit":"Innsending","committer":"Innsender","compare":"Sammenlign","config":"Oppsett","duration":"Varighet","finished_at":"Fullført","job":"Jobb","log":"Logg"},"top":{"admin":"Administrator","blog":"Blogg","docs":"Dokumentasjon","github_login":"Logg inn med Github","home":"Hjem","profile":"Profil","sign_out":"Logg ut","stats":"Statistikk"}},"no_job":"Ingen jobber finnnes","profiles":{"show":{"email":"E-post","github":"Github","message":{"config":"hvordan sette opp egne jobbinnstillinger","your_repos":"Slå\u0010 på Travis for prosjektene dine ved å dra i bryterne under, og send koden til Github.<br />\nFor å teste mot flere ruby-versjoner, se dokumentasjonen for"},"messages":{"notice":"For å komme i gang, vennligst les <a href=\"http://about.travis-ci.org/docs/user/getting-started/\">kom-i-gang-veivisereren</a> vår. <small>Det tar bare et par minutter.</small>"},"token":"Kode","update":"Oppdater","update_locale":"Oppdater","your_locale":"Ditt språk","your_repos":"Dine kodelagre"}},"queue":"Kø","repositories":{"branch":"Gren","commit":"Innsender","duration":"Varighet","finished_at":"Fullført","image_url":"Bilde-URL","markdown":"Markdown","message":"Beskrivelse","rdoc":"RDOC","started_at":"Startet","tabs":{"branches":"Grensammendrag","build":"Jobb","build_history":"Jobblogg","current":"Siste","job":"Jobb"},"textile":"Textile"},"repository":{"duration":"Varighet"},"statistics":{"index":{"build_count":"Antall jobber","count":"Antall","last_month":"siste måned","repo_growth":"Vekst i kodelager","total_builds":"Totale jobber","total_projects":"Antall prosjekter/kodelagre"}},"workers":"Arbeidere","locales":{"en":"English","es":"Español","ja":"日本語","ru":"Русский","fr":"Français","nb":"Norsk Bokmål","pl":"Polski","nl":"Nederlands","pt-BR":"português brasileiro"}},"nl":{"admin":{"actions":{"create":"aanmaken","created":"aangemaakt","delete":"verwijderen","deleted":"verwijderd","update":"bijwerken","updated":"bijgewerkt"},"credentials":{"log_out":"Afmelden"},"dashboard":{"add_new":"Nieuwe toevoegen","ago":"geleden","last_used":"Laatst gebruikt","model_name":"Model naam","modify":"Wijzigen","pagename":"Site administratie","show":"Laten zien","records":"Gegevens"},"delete":{"confirmation":"Ja, ik ben zeker","flash_confirmation":"%{name} is vernietigd"},"flash":{"error":"%{name} kon niet worden %{action}","noaction":"Er zijn geen acties genomen","successful":"%{name} is %{action}"},"history":{"name":"Geschiedenis","no_activity":"Geen activiteit","page_name":"Geschiedenis van %{name}"},"list":{"add_new":"Nieuwe toevoegen","delete_action":"Verwijderen","delete_selected":"Verwijder geselecteerden","edit_action":"Bewerken","search":"Zoeken","select":"Selecteer %{name} om te bewerken","select_action":"Selecteer","show_all":"Laat allen zien"},"new":{"basic_info":"Basisinfo","cancel":"Annuleren","chosen":"%{name} gekozen","chose_all":"Kies allen","clear_all":"Deselecteer allen","many_chars":"tekens of minder.","one_char":"teken.","optional":"Optioneel","required":"Vereist","save":"Opslaan","save_and_add_another":"Opslaan en een nieuwe toevoegen","save_and_edit":"Opslaan en bewerken","select_choice":"Selecteer uw keuzes en klik"}},"build":{"duration":"Duur","finished_at":"Voltooid","job":"Taak"},"builds":{"allowed_failures":"Toegestane mislukkingen","author":"Auteur","branch":"Tak","build_matrix":"Bouw Matrix","compare":"Vergelijk","config":"Configuratie","duration":"Duur","finished_at":"Voltooid","message":"Bericht","messages":{"sponsored_by":"Deze tests zijn gedraaid op een machine gesponsord door"},"name":"Bouw","started_at":"Gestart","commit":"Commit","committer":"Committer"},"datetime":{"distance_in_words":{"hours_exact":{"one":"%{count} uur","other":"%{count} uren"},"minutes_exact":{"one":"%{count} minuut","other":"%{count} minuten"},"seconds_exact":{"one":"%{count} seconde","other":"%{count} seconden"}}},"devise":{"confirmations":{"confirmed":"Uw account is bevestigd. U wordt nu ingelogd.","send_instructions":"Binnen enkele minuten zal u een email ontvangen met instructies om uw account te bevestigen."},"failure":{"inactive":"Uw account is nog niet geactiveerd.","invalid":"Ongeldig email adres of wachtwoord.","invalid_token":"Ongeldig authenticatie token.","locked":"Uw account is vergrendeld.","timeout":"Uw sessie is verlopen, gelieve opnieuw in te loggen om verder te gaan.","unauthenticated":"U moet inloggen of u registeren voordat u verder gaat.","unconfirmed":"U moet uw account bevestigen voordat u verder gaat."},"mailer":{"confirmation_instructions":{"subject":"Bevestigings-instructies"},"reset_password_instructions":{"subject":"Wachtwoord herstel instructies"},"unlock_instructions":{"subject":"Ontgrendel-instructies"}},"passwords":{"send_instructions":"Binnen enkele minuten zal u een email krijgen met instructies om uw wachtwoord opnieuw in te stellen.","updated":"Uw wachtwoord is veranderd. U wordt nu ingelogd."},"registrations":{"destroyed":"Dag! Uw account is geannuleerd. We hopen u vlug terug te zien.","signed_up":"Uw registratie is voltooid. Als het ingeschakeld is wordt een bevestiging naar uw email adres verzonden.","updated":"Het bijwerken van uw account is gelukt."},"sessions":{"signed_in":"Inloggen gelukt.","signed_out":"Uitloggen gelukt."},"unlocks":{"send_instructions":"Binnen enkele minuten zal u een email krijgen met instructies om uw account te ontgrendelen.","unlocked":"Uw account is ontgrendeld. U wordt nu ingelogd."}},"errors":{"messages":{"already_confirmed":"was al bevestigd","not_found":"niet gevonden","not_locked":"was niet vergrendeld"}},"jobs":{"allowed_failures":"Toegestane mislukkingen","author":"Auteur","branch":"Tak","build_matrix":"Bouw matrix","compare":"Vergelijk","config":"Configuratie","duration":"Duur","finished_at":"Voltooid","message":"Bericht","messages":{"sponsored_by":"Deze testen zijn uitgevoerd op een machine gesponsord door"},"started_at":"Gestart","commit":"Commit","committer":"Committer"},"layouts":{"about":{"alpha":"Dit is in alfa-stadium.","join":"Doe met ons mee en help!","mailing_list":"Mailing lijst","messages":{"alpha":"Gelieve deze service <strong>niet</strong> te beschouwen als stabiel. Daar zijn we nog lang niet! Meer info <a href='https://github.com/travis-ci'>hier.</a>"},"repository":"Repository","twitter":"Twitter"},"application":{"fork_me":"Maak een fork op Github","my_repositories":"Mijn repositories","recent":"Recent","search":"Zoeken","sponsers":"Sponsors","sponsors_link":"Bekijk al onze geweldige sponsors &rarr;"},"mobile":{"author":"Auteur","build":"Bouw","build_matrix":"Bouw matrix","compare":"Vergelijk","config":"Configuratie","duration":"Duur","finished_at":"Voltooid op","job":"Taak","commit":"Commit","committer":"Committer","log":"Logboek"},"top":{"admin":"Administratie","blog":"Blog","docs":"Documentatie","github_login":"Inloggen met Github","home":"Home","profile":"Profiel","sign_out":"Uitloggen","stats":"Statistieken"}},"locales":{"en":"English","es":"Español","fr":"Français","ja":"日本語","nb":"Norsk Bokmål","nl":"Nederlands","pl":"Polski","ru":"Русский","pt-BR":"português brasileiro"},"no_job":"Er zijn geen taken","profiles":{"show":{"email":"Email adres","github":"Github","message":{"config":"hoe eigen bouw-opties in te stellen","your_repos":"Zet de schakelaars hieronder aan om de Travis hook voor uw projecten te activeren en push daarna naar Github<br />\nOm te testen tegen meerdere rubies, zie"},"messages":{"notice":"Om te beginnen kunt u onze <a href=\\\"http://about.travis-ci.org/docs/user/getting-started/\\\">startersgids</a> lezen.\\n  <small>Het zal maar enkele minuten van uw tijd vergen.</small>"},"update":"Bijwerken","update_locale":"Bijwerken","your_locale":"Uw taal","your_repos":"Uw repositories","token":"Token"}},"queue":"Wachtrij","repositories":{"branch":"Tak","duration":"Duur","finished_at":"Voltooid","image_url":"Afbeeldings URL","message":"Bericht","started_at":"Gestart","tabs":{"branches":"Tak samenvatting","build":"Bouw","build_history":"Bouw geschiedenis","current":"Huidig","job":"Taak"},"commit":"Commit","markdown":"Markdown","rdoc":"RDOC","textile":"Textile"},"repository":{"duration":"Duur"},"statistics":{"index":{"build_count":"Bouw aantal","count":"Aantal","last_month":"voorbije maand","repo_growth":"Repository groei","total_builds":"Bouw totaal","total_projects":"Projecten/Repository totaal"}},"workers":"Machines","home":{"name":"Hoofdpagina"}},"pl":{"datetime":{"distance_in_words":{"hours_exact":{"one":"%{count} godzina","other":"%{count} godziny"},"minutes_exact":{"one":"%{count} minuta","other":"%{count} minuty"},"seconds_exact":{"one":"%{count} sekunda","other":"%{count} sekundy"}}},"workers":"Workers","queue":"Kolejka","no_job":"Brak zadań","repositories":{"branch":"Gałąź","image_url":"URL obrazka","markdown":"Markdown","textile":"Textile","rdoc":"RDOC","commit":"Commit","message":"Opis","started_at":"Rozpoczęto","duration":"Czas trwania","finished_at":"Zakończono","tabs":{"current":"Aktualny","build_history":"Historia Buildów","branches":"Wszystkie Gałęzie","build":"Build","job":"Zadanie"}},"build":{"job":"Zadanie","duration":"Czas trwania","finished_at":"Zakończono"},"jobs":{"messages":{"sponsored_by":"Te testy zostały uruchomione na maszynie sponsorowanej przez"},"build_matrix":"Macierz Buildów","allowed_failures":"Dopuszczalne Niepowodzenia","author":"Autor","config":"Konfiguracja","compare":"Porównanie","committer":"Committer","branch":"Gałąź","commit":"Commit","message":"Opis","started_at":"Rozpoczęto","duration":"Czas trwania","finished_at":"Zakończono","sponsored_by":"Te testy zostały uruchomione na maszynie sponsorowanej przez"},"builds":{"name":"Build","messages":{"sponsored_by":"Te testy zostały uruchomione na maszynie sponsorowanej przez"},"build_matrix":"Macierz Buildów","allowed_failures":"Dopuszczalne Niepowodzenia","author":"Autor","config":"Konfiguracja","compare":"Porównanie","committer":"Komitujący","branch":"Gałąź","commit":"Commit","message":"Opis","started_at":"Rozpoczęto","duration":"Czas trwania","finished_at":"Zakończono"},"layouts":{"top":{"home":"Start","blog":"Blog","docs":"Dokumentacja","stats":"Statystki","github_login":"Zaloguj się przy pomocy Githuba","profile":"Profil","sign_out":"Wyloguj się"},"application":{"fork_me":"Fork me on Github","recent":"Ostatnie","search":"Wyniki","sponsers":"Sponsorzy","sponsors_link":"Zobacz naszych wszystkich wspaniałych sponsorów &rarr;","my_repositories":"Moje repozytoria"},"about":{"alpha":"To wciąż jest wersja alpha.","messages":{"alpha":"Proszę <strong>nie</strong> traktuj tego jako stabilnej usługi. Wciąż nam wiele do tego brakuje! Więcej informacji znajdziesz <a href='https://github.com/travis-ci'>tutaj.</a>"},"join":"Pomóż i dołącz do nas!","mailing_list":"Lista mailingowa","repository":"Repozytorium","twitter":"Twitter"},"mobile":{"author":"Autor","build":"Build","build_matrix":"Macierz Buildów","commit":"Commit","committer":"Komitujący","compare":"Porównianie","config":"Konfiguracja","duration":"Czas trwania","finished_at":"Zakończono","job":"Zadanie","log":"Log"}},"profiles":{"show":{"email":"Email","github":"Github","message":{"your_repos":"  Przesuń suwak poniżej, aby włączyć Travisa, dla twoich projektów, a następnie umieść swój kod na GitHubie.<br />\n Aby testować swój kod przy użyciu wielu wersji Rubiego, zobacz","config":"jak skonfigurować niestandardowe opcje builda"},"messages":{"notice":"Aby zacząć, przeczytaj nasz <a href=\"http://about.travis-ci.org/docs/user/getting-started/\">Przewodnik </a>.\n  <small>Zajmie ci to tylko kilka minut.</small>"},"token":"Token","your_repos":"Twoje repozytoria"}},"statistics":{"index":{"count":"Ilość","repo_growth":"Przyrost repozytoriów","total_projects":"Łącznie projektów/repozytoriów","build_count":"Liczba buildów","last_month":"ostatni miesiąc","total_builds":"Łącznie Buildów"}},"date":{"abbr_day_names":["nie","pon","wto","śro","czw","pią","sob"],"abbr_month_names":["sty","lut","mar","kwi","maj","cze","lip","sie","wrz","paź","lis","gru"],"day_names":["niedziela","poniedziałek","wtorek","środa","czwartek","piątek","sobota"],"formats":{"default":"%d-%m-%Y","long":"%B %d, %Y","short":"%d %b"},"month_names":["styczeń","luty","marzec","kwiecień","maj","czerwiec","lipiec","sierpień","wrzesień","październik","listopad","grudzień"],"order":["day","month","year"]},"errors":{"format":"%{attribute} %{message}","messages":{"accepted":"musi zostać zaakceptowane","blank":"nie może być puste"}},"locales":{"en":"English","es":"Español","ja":"日本語","ru":"Русский","fr":"Français","nb":"Norsk Bokmål","pl":"Polski","nl":"Nederlands","pt-BR":"português brasileiro"}},"pt-BR":{"admin":{"actions":{"create":"criar","created":"criado","delete":"deletar","deleted":"deletado","update":"atualizar","updated":"atualizado"},"credentials":{"log_out":"Deslogar"},"dashboard":{"add_new":"Adicionar novo","ago":"atrás","last_used":"Última utilização","model_name":"Nome do modelo","modify":"Modificar","name":"Dashboard","pagename":"Administração do site","records":"Registros","show":"Mostrar"},"delete":{"confirmation":"Sim, tenho certeza","flash_confirmation":"%{name} foi destruído com sucesso"},"flash":{"error":"%{name} falhou ao %{action}","noaction":"Nenhuma ação foi tomada","successful":"%{name} foi %{action} com sucesso"},"history":{"name":"Histórico","no_activity":"Nenhuma Atividade","page_name":"Histórico para %{name}"},"list":{"add_new":"Adicionar novo","delete_action":"Deletar","delete_selected":"Deletar selecionados","edit_action":"Editar","search":"Buscar","select":"Selecionar %{name} para editar","select_action":"Selecionar","show_all":"Mostrar todos"},"new":{"basic_info":"Informações básicas","cancel":"Cancelar","chosen":"Escolhido %{name}","chose_all":"Escolher todos","clear_all":"Limpar todos","many_chars":"caracteres ou menos.","one_char":"caractere.","optional":"Opcional","required":"Requerido","save":"Salvar","save_and_add_another":"Salvar e adicionar outro","save_and_edit":"Salvar e alterar","select_choice":"Selecione e clique"}},"build":{"duration":"Duração","finished_at":"Concluído em","job":"Trabalho"},"builds":{"allowed_failures":"Falhas Permitidas","author":"Autor","branch":"Branch","build_matrix":"Matriz de Build","commit":"Commit","committer":"Committer","compare":"Comparar","config":"Config","duration":"Duração","finished_at":"Concluído em","message":"Mensagem","messages":{"sponsored_by":"Esta série de testes foi executada em uma caixa de processos patrocinada por"},"name":"Build","started_at":"Iniciou em"},"datetime":{"distance_in_words":{"hours_exact":{"one":"%{count} hora","other":"%{count} horas"},"minutes_exact":{"one":"%{count} minuto","other":"%{count} minutos"},"seconds_exact":{"one":"%{count} segundo","other":"%{count} segundos"}}},"devise":{"confirmations":{"confirmed":"Sua conta foi confirmada com sucesso. Você agora está logado.","send_instructions":"Você receberá um email com instruções de como confirmar sua conta em alguns minutos."},"failure":{"inactive":"Sua conta ainda não foi ativada.","invalid":"Email ou senha inválidos.","invalid_token":"Token de autenticação inválido.","locked":"Sua conta está trancada.","timeout":"Sua sessão expirou, por favor faça seu login novamente.","unauthenticated":"Você precisa fazer o login ou cadastrar-se antes de continuar.","unconfirmed":"Você precisa confirmar sua conta antes de continuar."},"mailer":{"confirmation_instructions":{"subject":"Instruções de confirmação"},"reset_password_instructions":{"subject":"Instruções de atualização de senha"},"unlock_instructions":{"subject":"Instruções de destrancamento"}},"passwords":{"send_instructions":"Você receberá um email com instruções de como atualizar sua senha em alguns minutos.","updated":"Sua senha foi alterada com sucesso. Você agora está logado."},"registrations":{"destroyed":"Tchau! Sua conta foi cancelada com sucesso. Esperamos vê-lo novamente em breve!","signed_up":"Você se cadastrou com sucesso. Se ativada, uma confirmação foi enviada para seu email.","updated":"Você atualizou sua conta com sucesso."},"sessions":{"signed_in":"Logado com sucesso.","signed_out":"Deslogado com sucesso."},"unlocks":{"send_instructions":"Você receberá um email com instruções de como destrancar sua conta em alguns minutos.","unlocked":"Sua conta foi destrancada com sucesso. Você agora está logado."}},"errors":{"messages":{"already_confirmed":"já foi confirmado","not_found":"não encontrado","not_locked":"não estava trancado"}},"home":{"name":"home"},"jobs":{"allowed_failures":"Falhas Permitidas","author":"Autor","branch":"Branch","build_matrix":"Matriz de Build","commit":"Commit","committer":"Committer","compare":"Comparar","config":"Config","duration":"Duração","finished_at":"Concluído em","message":"Mensagem","messages":{"sponsored_by":"Esta série de testes foi executada em uma caixa de processos patrocinada por"},"started_at":"Iniciou em"},"layouts":{"about":{"alpha":"Isto é um alpha.","join":"Junte-se à nós e ajude!","mailing_list":"Lista de email","messages":{"alpha":"Por favor, <strong>não</strong> considere isto um serviço estável. Estamos muito longe disso! Mais informações <a href='https://github.com/travis-ci'>aqui.</a>"},"repository":"Repositório","twitter":"Twitter"},"application":{"fork_me":"Faça fork no Github","my_repositories":"Meus Repositórios","recent":"Recentes","search":"Buscar","sponsers":"Patrocinadores","sponsors_link":"Conheça todos os nossos patrocinadores &rarr;"},"mobile":{"author":"Autor","build":"Build","build_matrix":"Matriz de Build","commit":"Commit","committer":"Committer","compare":"Comparar","config":"Config","duration":"Duração","finished_at":"Concluído em","job":"Trabalho","log":"Log"},"top":{"admin":"Admin","blog":"Blog","docs":"Documentação","github_login":"Logue com o Github","home":"Home","profile":"Perfil","sign_out":"Sair","stats":"Estatísticas"}},"locales":{"en":"English","es":"Español","fr":"Français","ja":"日本語","nb":"Norsk Bokmål","nl":"Nederlands","pl":"Polski","ru":"Русский","pt-BR":"português brasileiro"},"no_job":"Não há trabalhos","profiles":{"show":{"email":"Email","github":"Github","message":{"config":"como configurar opções de build","your_repos":"Use os botões abaixo para ligar ou desligar o hook de serviço do Travis para seus projetos, e então, faça um push para o Github.<br />Para testar com múltiplas versões do Ruby, leia"},"messages":{"notice":"Para começar, leia nosso <a href=\"http://about.travis-ci.org/docs/user/getting-started/\">Guia de início</a>. <small>Só leva alguns minutinhos.</small>"},"token":"Token","update":"Atualizar","update_locale":"Atualizar","your_locale":"Sua língua","your_repos":"Seus Repositórios"}},"queue":"Fila","repositories":{"branch":"Branch","commit":"Commit","duration":"Duração","finished_at":"Concluído em","image_url":"URL da imagem","markdown":"Markdown","message":"Mensagem","rdoc":"RDOC","started_at":"Iniciou em","tabs":{"branches":"Sumário do Branch","build":"Build","build_history":"Histórico de Build","current":"Atual","job":"Trabalho"},"textile":"Textile"},"repository":{"duration":"Duração"},"statistics":{"index":{"build_count":"Número de Builds","count":"Número","last_month":"último mês","repo_growth":"Crescimento de Repositório","total_builds":"Total de Builds","total_projects":"Total de Projetos/Repositórios"}},"workers":"Processos"},"ru":{"admin":{"actions":{"create":"создать","created":"создано","delete":"удалить","deleted":"удалено","update":"обновить","updated":"обновлено"},"credentials":{"log_out":"Выход"},"dashboard":{"add_new":"Добавить","ago":"назад","last_used":"Использовалось в последний раз","model_name":"Имя модели","modify":"Изменить","name":"Панель управления","pagename":"Управление сайтом","records":"Записи","show":"Показать"},"delete":{"confirmation":"Да, я уверен","flash_confirmation":"%{name} успешно удалено"},"history":{"name":"История","no_activity":"Нет активности","page_name":"История %{name}"},"list":{"add_new":"Добавить","delete_action":"Удалить","delete_selected":"Удалить выбранные","edit_action":"Редактировать","search":"Поиск","select":"Для редактирования выберите %{name}","select_action":"Выбрать","show_all":"Показать все"},"new":{"basic_info":"Основная информация","cancel":"Отмена","chosen":"Выбрано %{name}","chose_all":"Выбрать все","clear_all":"Очистить все","one_char":"символ.","optional":"Необязательно","required":"Обязательно","save":"Сохранить","save_and_add_another":"Сохранить и добавить другое","save_and_edit":"Сохранить и продолжить редактирование","select_choice":"Выберите и кликните","many_chars":"символов или меньше."},"flash":{"error":"%{name} не удалось %{action}","noaction":"Никаких действий не произведено","successful":"%{name} было успешно %{action}"}},"build":{"duration":"Длительность","finished_at":"Завершен","job":"Задача"},"builds":{"allowed_failures":"Допустимые неудачи","author":"Автор","branch":"Ветка","build_matrix":"Матрица","commit":"Коммит","committer":"Коммитер","compare":"Дифф","config":"Конфигурация","duration":"Длительность","finished_at":"Завершен","message":"Комментарий","messages":{"sponsored_by":"Эта серия тестов была запущена на машине, спонсируемой"},"name":"Билд","started_at":"Начало"},"datetime":{"distance_in_words":{"hours_exact":{"one":"%{count} час","few":"%{count} часа","many":"%{count} часов","other":"%{count} часа"},"minutes_exact":{"one":"%{count} минута","few":"%{count} минуты","many":"%{count} минут","other":"%{count} минуты"},"seconds_exact":{"one":"%{count} секунда","few":"%{count} секунды","many":"%{count} секунд","other":"%{count} секунды"}}},"devise":{"confirmations":{"confirmed":"Ваш аккаунт успешно подтвержден. Приветствуем!","send_instructions":"В течении нескольких минут вы получите электронное письмо с инструкциями для прохождения процедуры подтверждения аккаунта."},"failure":{"inactive":"Ваш аккаунт еще не активирован.","invalid":"Ошибка в адресе почты или пароле.","invalid_token":"Неправильный токен аутентификации.","locked":"Ваш аккаунт заблокирован.","timeout":"Сессия окончена. Для продолжения работы войдите снова.","unauthenticated":"Вам нужно войти или зарегистрироваться.","unconfirmed":"Вы должны сначала подтвердить свой аккаунт."},"mailer":{"confirmation_instructions":{"subject":"Инструкции для подтверждению аккаунта"},"reset_password_instructions":{"subject":"Инструкции для сброса пароля"},"unlock_instructions":{"subject":"Инструкции для разблокирования аккаунта"}},"passwords":{"send_instructions":"В течении нескольких минут вы получите электронное письмо с инструкциями для сброса пароля.","updated":"Ваш пароль успешно изменен. Приветствуем!"},"registrations":{"destroyed":"Ваш аккаунт был успешно удален. Живите долго и процветайте!","signed_up":"Вы успешно прошли регистрацию. Инструкции для подтверждения аккаунта отправлены на ваш электронный адрес.","updated":"Аккаунт успешно обновлен."},"sessions":{"signed_in":"Приветствуем!","signed_out":"Удачи!"},"unlocks":{"send_instructions":"В течении нескольких минут вы получите электронное письмо с инструкциям для разблокировния аккаунта.","unlocked":"Ваш аккаунт успешно разблокирован. Приветствуем!"}},"errors":{"messages":{"already_confirmed":"уже подтвержден","not_found":"не найден","not_locked":"не заблокирован"}},"home":{"name":"Главная"},"jobs":{"allowed_failures":"Допустимые неудачи","author":"Автор","branch":"Ветка","build_matrix":"Матрица","commit":"Коммит","committer":"Коммитер","compare":"Сравнение","config":"Конфигурация","duration":"Длительность","finished_at":"Завершен","message":"Комментарий","messages":{"sponsored_by":"Эта серия тестов была запущена на машине спонсируемой"},"started_at":"Начало"},"layouts":{"about":{"alpha":"Это альфа-версия","join":"Присоединяйтесь к нам и помогайте!","mailing_list":"Лист рассылки","messages":{"alpha":"Пожалуйста, <strong>не</strong> считайте данный сервис стабильным. Мы еще очень далеки от стабильности! <a href='https://github.com/travis-ci'>Подробности</a>"},"repository":"Репозиторий","twitter":"Twitter"},"application":{"fork_me":"Fork me on Github","my_repositories":"Мои репозитории","recent":"Недавние","search":"Поиск","sponsers":"Спонсоры","sponsors_link":"Список всех наших замечательных спонсоров &rarr;"},"mobile":{"author":"Автор","build":"Сборка","build_matrix":"Матрица сборок","commit":"Коммит","committer":"Коммитер","compare":"Сравнение","config":"Конфигурация","duration":"Длительность","finished_at":"Завершен","job":"Задача","log":"Журнал"},"top":{"admin":"Управление","blog":"Блог","docs":"Документация","github_login":"Войти через Github","home":"Главная","profile":"Профиль","sign_out":"Выход","stats":"Статистика"}},"no_job":"Очередь пуста","profiles":{"show":{"email":"Электронная почта","github":"Github","message":{"config":"как настроить специальные опции билда","your_repos":"Используйте переключатели, чтобы включить Travis service hook для вашего проекта, а потом отправьте код на GitHub.<br />\nДля тестирования на нескольких версиях Ruby смотрите"},"messages":{"notice":"Перед началом, пожалуйста, прочтите <a href=\"http://about.travis-ci.org/docs/user/getting-started/\">Руководство для быстрого старта</a>. <small>Это займет всего несколько минут.</small>"},"token":"Токен","update":"Обновить","update_locale":"Обновить","your_locale":"Ваш язык","your_repos":"Ваши репозитории"}},"queue":"Очередь","repositories":{"branch":"Ветка","commit":"Коммит","duration":"Длительность","finished_at":"Завершен","image_url":"URL изображения","markdown":"Markdown","message":"Комментарий","rdoc":"RDOC","started_at":"Начало","tabs":{"branches":"Статус веток","build":"Билд","build_history":"История","current":"Текущий","job":"Задача"},"textile":"Textile"},"repository":{"duration":"Длительность"},"statistics":{"index":{"build_count":"Количество билдов","count":"Количество","last_month":"прошлый месяц","repo_growth":"Рост числа репозиториев","total_builds":"Всего билдов","total_projects":"Всего проектов/репозиториев"}},"workers":"Машины","locales":{"en":"English","es":"Español","ja":"日本語","ru":"Русский","fr":"Français","nb":"Norsk Bokmål","pl":"Polski","nl":"Nederlands","pt-BR":"português brasileiro"}}};
+Travis.Views.Button = Ember.Button.extend({});

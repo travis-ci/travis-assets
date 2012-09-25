@@ -2,7 +2,9 @@ Travis.Controllers.Events = Ember.Object.extend({
   receive: function(event, data) {
     var events = this;
     var action = $.camelize(event.replace(':', '_'), false);
-    events[action](data);
+    if(events[action]) {
+      events[action](data);
+    }
   },
 
   jobCreated: function(data) {
