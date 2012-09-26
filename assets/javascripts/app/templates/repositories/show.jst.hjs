@@ -5,14 +5,6 @@
 
   <p class="description">{{repository.description}}</p>
 
-  <!--
-  <ul class="github-stats">
-    <li class="language">{{repository.last_build_language}}</li>
-    <li><a class="watchers" title="Watches" {{bindAttr href="repository.urlGithubWatchers"}}></a></li>
-    <li><a class="forks" title="Forks" {{bindAttr href="repository.urlGithubNetwork"}}></a></li>
-  </ul>
-  -->
-
   <ul class="tabs">
     <li id="tab_current">
       <h5><a {{bindAttr href="repository.urlCurrent"}}>{{i18n "repositories.tabs.current"}}</a></h5>
