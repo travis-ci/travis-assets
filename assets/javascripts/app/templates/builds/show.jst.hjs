@@ -1,4 +1,4 @@
-{{#if content.isLoaded}}
+{{#if content.id}}
   <div {{bindAttr class="content.color"}}>
     <dl class="summary clearfix">
       <div class="left">
@@ -54,6 +54,4 @@
       </p>
     {{/if}}
   </div>
-{{else}}
-  <p class="loading">Loading ...</p>
 {{/if}}
