@@ -2357,7 +2357,7 @@ Ember.isArray = function(obj) {
       Ember.makeArray();          => []
       Ember.makeArray(null);      => []
       Ember.makeArray(undefined); => []
-      Ember.makeArray('lindsay'); => ['lindsay'] 
+      Ember.makeArray('lindsay'); => ['lindsay']
       Ember.makeArray([1,2,42]);  => [1,2,42]
 
       var controller = Ember.ArrayProxy.create({ content: [] });
@@ -3344,7 +3344,7 @@ var Cp = ComputedProperty.prototype;
       });
 
   It is common to use `cacheable()` on nearly every computed property
-  you define. 
+  you define.
 
   @name Ember.ComputedProperty.cacheable
   @param {Boolean} aFlag optional set to false to disable cacheing
@@ -7200,7 +7200,7 @@ Ember.inspect = function(obj) {
 /**
   Compares two objects, returning true if they are logically equal.  This is
   a deeper comparison than a simple triple equal. For sets it will compare the
-  internal objects.  For any other object that implements `isEqual()` it will 
+  internal objects.  For any other object that implements `isEqual()` it will
   respect that method.
 
       Ember.isEqual('hello', 'hello');  => true
@@ -7382,7 +7382,7 @@ Ember.String = {
         > beta
         > gamma
 
-    @param {String} str 
+    @param {String} str
       The string to split
 
     @returns {String} split string
@@ -7391,7 +7391,7 @@ Ember.String = {
 
   /**
     Converts a camelized string into all lower case separated by underscores.
-    
+
         'innerHTML'.decamelize()         => 'inner_html'
         'action_name'.decamelize()       => 'action_name'
         'css-class-name'.decamelize()    => 'css-class-name'
@@ -7408,7 +7408,7 @@ Ember.String = {
 
   /**
     Replaces underscores or spaces with dashes.
-    
+
         'innerHTML'.dasherize()         => 'inner-html'
         'action_name'.dasherize()       => 'action-name'
         'css-class-name'.dasherize()    => 'css-class-name'
@@ -7435,7 +7435,7 @@ Ember.String = {
 
   /**
     Returns the lowerCaseCamel form of a string.
-    
+
         'innerHTML'.camelize()         => 'innerHTML'
         'action_name'.camelize()       => 'actionName'
         'css-class-name'.camelize()    => 'cssClassName'
@@ -7561,7 +7561,7 @@ if (Ember.EXTEND_PROTOTYPES) {
 
   /**
     The `property` extension of Javascript's Function prototype is available
-    when Ember.EXTEND_PROTOTYPES is true, which is the default. 
+    when Ember.EXTEND_PROTOTYPES is true, which is the default.
 
     Computed properties allow you to treat a function like a property:
 
@@ -7613,7 +7613,7 @@ if (Ember.EXTEND_PROTOTYPES) {
 
   /**
     The `observes` extension of Javascript's Function prototype is available
-    when Ember.EXTEND_PROTOTYPES is true, which is the default. 
+    when Ember.EXTEND_PROTOTYPES is true, which is the default.
 
     You can observe property changes simply by adding the `observes`
     call to the end of your method declarations in classes that you write.
@@ -7624,7 +7624,7 @@ if (Ember.EXTEND_PROTOTYPES) {
             // Executes whenever the "value" property changes
           }.observes('value')
         });
-    
+
     @see Ember.Observable
   */
   Function.prototype.observes = function() {
@@ -7634,7 +7634,7 @@ if (Ember.EXTEND_PROTOTYPES) {
 
   /**
     The `observesBefore` extension of Javascript's Function prototype is
-    available when Ember.EXTEND_PROTOTYPES is true, which is the default. 
+    available when Ember.EXTEND_PROTOTYPES is true, which is the default.
 
     You can get notified when a property changes is about to happen by
     by adding the `observesBefore` call to the end of your method
@@ -7645,7 +7645,7 @@ if (Ember.EXTEND_PROTOTYPES) {
             // Executes whenever the "value" property is about to change
           }.observesBefore('value')
         });
-    
+
     @see Ember.Observable
   */
   Function.prototype.observesBefore = function() {
@@ -8285,9 +8285,9 @@ Ember.Enumerable = Ember.Mixin.create( /** @lends Ember.Enumerable */ {
 
   /**
     Returns a copy of the array with all null elements removed.
-    
+
         var arr = ["a", null, "c", null];
-        arr.compact(); => ["a", "c"] 
+        arr.compact(); => ["a", "c"]
 
     @returns {Array} the array without null elements.
   */
@@ -8490,7 +8490,7 @@ Ember.Enumerable = Ember.Mixin.create( /** @lends Ember.Enumerable */ {
 // ==========================================================================
 // ..........................................................
 // HELPERS
-// 
+//
 
 var get = Ember.get, set = Ember.set, meta = Ember.meta, map = Ember.ArrayUtils.map;
 
@@ -8504,7 +8504,7 @@ function xform(target, method, params) {
 
 // ..........................................................
 // ARRAY
-// 
+//
 /**
   @namespace
 
@@ -8541,7 +8541,7 @@ Ember.Array = Ember.Mixin.create(Ember.Enumerable, /** @scope Ember.Array.protot
 
   /** @private - compatibility */
   isSCArray: true,
-  
+
   /**
     @field {Number} length
 
@@ -8580,7 +8580,7 @@ Ember.Array = Ember.Mixin.create(Ember.Enumerable, /** @scope Ember.Array.protot
   nextObject: function(idx) {
     return this.objectAt(idx);
   },
-  
+
   /**
     @field []
 
@@ -8629,7 +8629,7 @@ Ember.Array = Ember.Mixin.create(Ember.Enumerable, /** @scope Ember.Array.protot
   /**
     Returns the index of the given object's first occurrence.
     If no startAt argument is given, the starting location to
-    search is 0. If it's negative, will count backward from 
+    search is 0. If it's negative, will count backward from
     the end of the array. Returns -1 if no match is found.
 
     @param {Object} object the item to search for
@@ -8660,7 +8660,7 @@ Ember.Array = Ember.Mixin.create(Ember.Enumerable, /** @scope Ember.Array.protot
   /**
     Returns the index of the given object's last occurrence.
     If no startAt argument is given, the search starts from
-    the last position. If it's negative, will count backward 
+    the last position. If it's negative, will count backward
     from the end of the array. Returns -1 if no match is found.
 
     @param {Object} object the item to search for
@@ -8687,36 +8687,36 @@ Ember.Array = Ember.Mixin.create(Ember.Enumerable, /** @scope Ember.Array.protot
     }
     return -1;
   },
-  
+
   // ..........................................................
   // ARRAY OBSERVERS
-  // 
-  
+  //
+
   /**
     Adds an array observer to the receiving array.  The array observer object
     normally must implement two methods:
-    
+
     * `arrayWillChange(start, removeCount, addCount)` - This method will be
       called just before the array is modified.
     * `arrayDidChange(start, removeCount, addCount)` - This method will be
       called just after the array is modified.
-      
-    Both callbacks will be passed the starting index of the change as well a 
+
+    Both callbacks will be passed the starting index of the change as well a
     a count of the items to be removed and added.  You can use these callbacks
-    to optionally inspect the array during the change, clear caches, or do 
+    to optionally inspect the array during the change, clear caches, or do
     any other bookkeeping necessary.
-    
-    In addition to passing a target, you can also include an options hash 
+
+    In addition to passing a target, you can also include an options hash
     which you can use to override the method names that will be invoked on the
     target.
-    
+
     @param {Object} target
       The observer object.
-      
+
     @param {Hash} opts
       Optional hash of configuration options including willChange, didChange,
       and a context option.
-      
+
     @returns {Ember.Array} receiver
   */
   addArrayObserver: function(target, opts) {
@@ -8730,15 +8730,15 @@ Ember.Array = Ember.Mixin.create(Ember.Enumerable, /** @scope Ember.Array.protot
     if (!hasObservers) Ember.propertyDidChange(this, 'hasArrayObservers');
     return this;
   },
-  
+
   /**
-    Removes an array observer from the object if the observer is current 
+    Removes an array observer from the object if the observer is current
     registered.  Calling this method multiple times with the same object will
     have no effect.
-    
+
     @param {Object} target
       The object observing the array.
-    
+
     @returns {Ember.Array} receiver
   */
   removeArrayObserver: function(target, opts) {
@@ -8752,32 +8752,32 @@ Ember.Array = Ember.Mixin.create(Ember.Enumerable, /** @scope Ember.Array.protot
     if (hasObservers) Ember.propertyDidChange(this, 'hasArrayObservers');
     return this;
   },
-  
+
   /**
     Becomes true whenever the array currently has observers watching changes
     on the array.
-    
+
     @property {Boolean}
   */
   hasArrayObservers: Ember.computed(function() {
     return Ember.hasListeners(this, '@array:change') || Ember.hasListeners(this, '@array:before');
   }).property().cacheable(),
-  
+
   /**
-    If you are implementing an object that supports Ember.Array, call this 
+    If you are implementing an object that supports Ember.Array, call this
     method just before the array content changes to notify any observers and
     invalidate any related properties.  Pass the starting index of the change
     as well as a delta of the amounts to change.
-    
+
     @param {Number} startIdx
       The starting index in the array that will change.
-      
+
     @param {Number} removeAmt
       The number of items that will be removed.  If you pass null assumes 0
-    
+
     @param {Number} addAmt
       The number of items that will be added.  If you pass null assumes 0.
-      
+
     @returns {Ember.Array} receiver
   */
   arrayContentWillChange: function(startIdx, removeAmt, addAmt) {
@@ -8801,14 +8801,14 @@ Ember.Array = Ember.Mixin.create(Ember.Enumerable, /** @scope Ember.Array.protot
     } else {
       removing = removeAmt;
     }
-    
+
     this.enumerableContentWillChange(removing, addAmt);
 
     // Make sure the @each proxy is set up if anyone is observing @each
     if (Ember.isWatching(this, '@each')) { get(this, '@each'); }
     return this;
   },
-  
+
   arrayContentDidChange: function(startIdx, removeAmt, addAmt) {
 
     // if no args are passed assume everything changes
@@ -8819,7 +8819,7 @@ Ember.Array = Ember.Mixin.create(Ember.Enumerable, /** @scope Ember.Array.protot
       if (!removeAmt) removeAmt=0;
       if (!addAmt) addAmt=0;
     }
-    
+
     var adding, lim;
     if (startIdx>=0 && addAmt>=0 && get(this, 'hasEnumerableObservers')) {
       adding = [];
@@ -8833,15 +8833,15 @@ Ember.Array = Ember.Mixin.create(Ember.Enumerable, /** @scope Ember.Array.protot
     Ember.sendEvent(this, '@array:change', startIdx, removeAmt, addAmt);
     return this;
   },
-  
+
   // ..........................................................
   // ENUMERATED PROPERTIES
-  // 
-  
+  //
+
   /**
     Returns a special object that can be used to observe individual properties
     on the array.  Just get an equivalent property on this object and it will
-    return an enumerable that maps automatically to the named key on the 
+    return an enumerable that maps automatically to the named key on the
     member objects.
   */
   '@each': Ember.computed(function() {
@@ -9261,7 +9261,7 @@ Ember.MutableArray = Ember.Mixin.create(Ember.Array, Ember.MutableEnumerable,
         colors.clear();  => []
         colors.length(); => 0
 
-    @returns {Ember.Array} An empty Array. 
+    @returns {Ember.Array} An empty Array.
   */
   clear: function () {
     var len = get(this, 'length');
@@ -9457,15 +9457,15 @@ var get = Ember.get, set = Ember.set;
   @class
 
   ## Overview
-  
+
   This mixin provides properties and property observing functionality, core
   features of the Ember object model.
-  
+
   Properties and observers allow one object to observe changes to a
   property on another object. This is one of the fundamental ways that
   models, controllers and views communicate with each other in an Ember
   application.
-  
+
   Any object that has this mixin applied can be used in observer
   operations. That includes Ember.Object and most objects you will
   interact with as you write your Ember application.
@@ -9473,16 +9473,16 @@ var get = Ember.get, set = Ember.set;
   Note that you will not generally apply this mixin to classes yourself,
   but you will use the features provided by this module frequently, so it
   is important to understand how to use it.
-  
+
   ## Using get() and set()
-  
+
   Because of Ember's support for bindings and observers, you will always
   access properties using the get method, and set properties using the
   set method. This allows the observing objects to be notified and
   computed properties to be handled properly.
-  
+
   More documentation about `get` and `set` are below.
-  
+
   ## Observing Property Changes
 
   You typically observe property changes simply by adding the `observes`
@@ -9494,7 +9494,7 @@ var get = Ember.get, set = Ember.set;
           // Executes whenever the "value" property changes
         }.observes('value')
       });
-    
+
   Although this is the most common way to add an observer, this capability
   is actually built into the Ember.Object class on top of two methods
   defined in this mixin: `addObserver` and `removeObserver`. You can use
@@ -9507,7 +9507,7 @@ var get = Ember.get, set = Ember.set;
 
   This will call the `targetAction` method on the `targetObject` to be called
   whenever the value of the `propertyKey` changes.
-  
+
   @extends Ember.Mixin
 */
 Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
@@ -9521,7 +9521,7 @@ Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
     This method is usually similar to using object[keyName] or object.keyName,
     however it supports both computed properties and the unknownProperty
     handler.
-    
+
     Because `get` unifies the syntax for accessing all these kinds
     of properties, it can make many refactorings easier, such as replacing a
     simple property with a computed property, or vice versa.
@@ -9709,11 +9709,11 @@ Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
     Ember.propertyDidChange(this, keyName);
     return this;
   },
-  
+
   /**
     Convenience method to call `propertyWillChange` and `propertyDidChange` in
     succession.
-  
+
     @param {String} keyName The property key to be notified about.
     @returns {Ember.Observable}
   */
@@ -9801,7 +9801,7 @@ Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
     This method will be called when a client attempts to get the value of a
     property that has not been defined in one of the typical ways. Override
     this method to create "virtual" properties.
-    
+
     @param {String} key The name of the unknown property that was requested.
     @returns {Object} The property value or undefined. Default is undefined.
   */
@@ -9813,7 +9813,7 @@ Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
     This method will be called when a client attempts to set the value of a
     property that has not been defined in one of the typical ways. Override
     this method to create "virtual" properties.
-    
+
     @param {String} key The name of the unknown property to be set.
     @param {Object} value The value the unknown property is to be set to.
   */
@@ -9824,7 +9824,7 @@ Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
   /**
     This is like `get`, but allows you to pass in a dot-separated property
     path.
-    
+
         person.getPath('address.zip'); // return the zip
         person.getPath('children.firstObject.age'); // return the first kid's age
 
@@ -9840,7 +9840,7 @@ Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
   /**
     This is like `set`, but allows you to specify the property you want to
     set as a dot-separated property path.
-    
+
         person.setPath('address.zip', 10011); // set the zip to 10011
         person.setPath('children.firstObject.age', 6); // set the first kid's age to 6
 
@@ -9858,9 +9858,9 @@ Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
   /**
     Retrieves the value of a property, or a default value in the case that the property
     returns undefined.
-    
+
         person.getWithDefault('lastName', 'Doe');
-    
+
     @param {String} keyName The name of the property to retrieve
     @param {Object} defaultValue The value to return if the property value is undefined
     @returns {Object} The property value or the defaultValue.
@@ -9871,10 +9871,10 @@ Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
 
   /**
     Set the value of a property to the current value plus some amount.
-    
+
         person.incrementProperty('age');
         team.incrementProperty('score', 2);
-    
+
     @param {String} keyName The name of the property to increment
     @param {Object} increment The amount to increment by. Defaults to 1
     @returns {Object} The new property value
@@ -9884,13 +9884,13 @@ Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
     set(this, keyName, (get(this, keyName) || 0)+increment);
     return get(this, keyName);
   },
-  
+
   /**
     Set the value of a property to the current value minus some amount.
-    
+
         player.decrementProperty('lives');
         orc.decrementProperty('health', 5);
-    
+
     @param {String} keyName The name of the property to decrement
     @param {Object} increment The amount to decrement by. Defaults to 1
     @returns {Object} The new property value
@@ -9904,9 +9904,9 @@ Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
   /**
     Set the value of a boolean property to the opposite of it's
     current value.
-    
+
         starship.toggleProperty('warpDriveEnaged');
-    
+
     @param {String} keyName The name of the property to toggle
     @returns {Object} The new property value
   */
@@ -10523,7 +10523,7 @@ Ember.Set = Ember.CoreObject.extend(Ember.MutableEnumerable, Ember.Copyable, Emb
 
   /**
     Removes the last element from the set and returns it, or null if it's empty.
-    
+
         var colors = new Ember.Set(["green", "blue"]);
         colors.pop(); => "blue"
         colors.pop(); => "green"
@@ -15467,6 +15467,7 @@ Ember.ViewState = Ember.State.extend({
 
   Metamorph.prototype.checkRemoved = function() {
     if (this.isRemoved()) {
+      console.log(this)
       throw new Error("Cannot perform operations on a Metamorph that is not in the DOM.");
     }
   };
