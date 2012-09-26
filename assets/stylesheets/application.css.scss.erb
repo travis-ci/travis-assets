@@ -344,7 +344,7 @@ caption {
 #main {
   z-index: 30;
   display: block;
-  padding: 60px 290px 60px 440px;
+  padding: 15px 290px 60px 440px;
   @include transition(padding .5s ease-out);
 
   &.maximized {
@@ -778,11 +778,6 @@ caption {
   padding-right: 40px;
 }
 
-#home #main.loading {
-  opacity: .1;
-  min-height: 1000px;
-}
-
 .emoji {
   vertical-align: middle;
   width: 20px;
@@ -1028,6 +1023,10 @@ caption {
     }
   }
 
+}
+
+.loading {
+  font-size: 13px;
 }
 
 .list.loading h4 {
