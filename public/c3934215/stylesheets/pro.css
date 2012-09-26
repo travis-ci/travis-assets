@@ -1,0 +1,300 @@
+/* line 36, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/_mixins.css.scss */
+.spinner {
+  width: 16px;
+  height: 8px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 20px;
+  height: 20px;
+}
+
+/* line 4, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+#top {
+  position: absolute;
+  /* this should probably be in travis-ci */
+  overflow: visible;
+}
+/* line 8, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+#top #navigation li:nth-child(2) {
+  display: none;
+}
+/* line 12, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+#top .profile {
+  margin-right: 10px;
+}
+/* line 14, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+#top .profile ul {
+  right: 15px;
+}
+
+/* line 21, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+#left #tab_recent {
+  display: none;
+}
+
+/* line 26, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+#main {
+  padding-top: 55px;
+  padding-right: 30px;
+}
+/* line 30, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+#main #repository .github-stats {
+  display: none;
+}
+
+/* line 45, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form {
+  display: inline-block;
+  width: 900px;
+}
+/* line 49, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form h2 {
+  margin-bottom: 13px;
+}
+/* line 52, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form h3 {
+  margin: 24px 0 0 0;
+}
+/* line 55, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form p {
+  line-height: 160%;
+  font-size: 16px;
+  color: #666;
+}
+/* line 60, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+/* line 64, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form ul li {
+  margin: 0;
+}
+/* line 68, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form ul.footnotes {
+  margin: 36px 60px 0 85px;
+  list-style-type: none;
+}
+/* line 72, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form sup.required {
+  color: #c00;
+  font-size: 15px;
+}
+/* line 76, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form .message {
+  float: left;
+  display: none;
+  padding-left: 24px;
+  background: url(/images/spinner.gif) no-repeat left center;
+  color: #999;
+}
+/* line 83, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form .note {
+  font-size: 12px;
+  color: #666;
+  width: 840px;
+}
+/* line 89, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form > div {
+  display: inline-block;
+  height: 1%;
+}
+/* line 94, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form fieldset + p {
+  clear: both;
+}
+/* line 98, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form fieldset {
+  padding: 0;
+  border: 0;
+  margin: 12px 36px 0 0;
+}
+/* line 103, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form fieldset:nth-child(odd) {
+  margin-right: 0;
+}
+/* line 106, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form fieldset.wide {
+  margin: 0;
+}
+/* line 110, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form fieldset legend {
+  padding-bottom: 10px;
+  color: #666;
+  font-size: 16px;
+  font-weight: bold;
+}
+/* line 117, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form fieldset .input {
+  position: relative;
+  height: 20px;
+  margin-bottom: 11px;
+}
+/* line 123, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form fieldset label {
+  float: left;
+  clear: both;
+  width: 100px;
+  margin-right: 14px;
+  padding-top: 5px;
+  line-height: 20px;
+  text-align: right;
+  font-size: 14px;
+  text-shadow: 2px 2px 0px #fff;
+  color: #666;
+}
+/* line 135, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form fieldset label.required:after {
+  content: '*';
+  top: 17px;
+  right: -10px;
+  padding-left: 3px;
+  color: #c00;
+}
+/* line 143, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form fieldset input, form.subscription-form fieldset textarea, form.subscription-form fieldset select {
+  float: left;
+  font-family: "Helvetica Neue", Helvetica, Arial;
+}
+/* line 147, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form fieldset input, form.subscription-form fieldset textarea {
+  border: 1px solid #ddd;
+  font-size: 13px;
+  -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
+  -ms-border-radius: 1px;
+  -o-border-radius: 1px;
+  border-radius: 1px;
+}
+/* line 152, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form fieldset input {
+  margin-top: 4px;
+  height: 20px;
+  width: 270px;
+  padding-left: 5px;
+}
+/* line 158, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form fieldset textarea {
+  margin-top: 8px;
+  height: 20px;
+  width: 270px;
+}
+/* line 163, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form fieldset.wide textarea {
+  width: 740px;
+}
+/* line 166, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form fieldset select {
+  font-size: 14px;
+  margin-top: 5px;
+  height: 20px;
+}
+/* line 172, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form fieldset .boolean input {
+  margin: 8px 8px 0 86px;
+  width: auto;
+  clear: left;
+}
+/* line 177, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form fieldset .boolean label {
+  clear: none;
+  width: auto;
+  margin-top: 8px;
+  line-height: 16px;
+  text-align: left;
+  font-size: 12px;
+}
+/* line 186, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form fieldset .country select {
+  width: 275px;
+}
+/* line 189, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form fieldset .hint {
+  display: none;
+}
+/* line 192, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form fieldset p {
+  float: left;
+  width: 740px;
+  margin: 0 0 2px 0;
+  line-height: 41px;
+  font-size: 13px;
+  color: #666;
+}
+/* line 202, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form #comment fieldset {
+  margin-top: 12px;
+}
+/* line 206, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form .actions {
+  display: block;
+  clear: both;
+  height: 40px;
+  line-height: 60px;
+}
+/* line 212, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form .actions input, form.subscription-form .actions a {
+  display: block;
+  float: left;
+  width: 184px;
+  height: 40px;
+  margin: 10px 20px 0 0px;
+  margin-left: 115px;
+  border: 0;
+  text-align: center;
+  line-height: 37px;
+  font-size: 20px;
+  text-decoration: none;
+  color: white;
+  text-shadow: 2px 2px 0 #666;
+  cursor: hand;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
+  border-radius: 6px;
+  background-color: #19A509;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #3f9c33), color-stop(100%, #348629));
+  background-image: -webkit-linear-gradient(#3f9c33 0%, #348629 100%);
+  background-image: -moz-linear-gradient(#3f9c33 0%, #348629 100%);
+  background-image: -o-linear-gradient(#3f9c33 0%, #348629 100%);
+  background-image: -ms-linear-gradient(#3f9c33 0%, #348629 100%);
+  background-image: linear-gradient(#3f9c33 0%, #348629 100%);
+}
+/* line 230, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form .actions input:hover, form.subscription-form .actions a:hover {
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #1cbe0a), color-stop(100%, #158f07));
+  background-image: -webkit-linear-gradient(#1cbe0a 0%, #158f07 100%);
+  background-image: -moz-linear-gradient(#1cbe0a 0%, #158f07 100%);
+  background-image: -o-linear-gradient(#1cbe0a 0%, #158f07 100%);
+  background-image: -ms-linear-gradient(#1cbe0a 0%, #158f07 100%);
+  background-image: linear-gradient(#1cbe0a 0%, #158f07 100%);
+}
+/* line 233, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form .actions input[disabled], form.subscription-form .actions a[disabled] {
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #dddddd), color-stop(100%, #cccccc));
+  background-image: -webkit-linear-gradient(#dddddd 0%, #cccccc 100%);
+  background-image: -moz-linear-gradient(#dddddd 0%, #cccccc 100%);
+  background-image: -o-linear-gradient(#dddddd 0%, #cccccc 100%);
+  background-image: -ms-linear-gradient(#dddddd 0%, #cccccc 100%);
+  background-image: linear-gradient(#dddddd 0%, #cccccc 100%);
+  color: #f6f6f6;
+  text-shadow: 2px 2px 0 #aaa;
+}
+/* line 241, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form div.error > input, form.subscription-form input.error {
+  background: #f2dede;
+  border-color: #ddd;
+}
+/* line 246, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form #cc-errors {
+  color: #c00;
+  font-size: 14px;
+  font-family: "Helvetica Neue", Helvetica, Arial;
+  padding-left: 2px;
+  padding-bottom: 5px;
+}
+/* line 253, /Users/sven/Development/projects/travis/travis-assets/assets/stylesheets/pro.css.scss */
+form.subscription-form .tipsy {
+  margin-left: 20px;
+}
