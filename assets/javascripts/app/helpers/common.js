@@ -1,3 +1,5 @@
+$.timeago.settings.allowFuture = false;
+
 Travis.Helpers.Common = {
   colorForResult: function(result) {
     return result == 0 ? 'green' : result == 1 ? 'red' : null;
@@ -8,8 +10,9 @@ Travis.Helpers.Common = {
   },
 
   durationFrom: function(started, finished) {
+    var now = this._nowUtc();
     started  = started  && this._toUtc(new Date(this._normalizeDateString(started)));
-    finished = finished ? this._toUtc(new Date(this._normalizeDateString(finished))) : this._nowUtc();
+    finished = finished ? this._toUtc(new Date(this._normalizeDateString(finished))) : now;
     return started && finished ? Math.round((finished - started) / 1000) : 0;
   },
 
