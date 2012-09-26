@@ -1,4 +1,7 @@
-{{content.id}}
+<p style="display: none;">
+  {{content.id}}
+</p>
+
 <div {{bindAttr class="content.color"}}>
   <dl class="summary clearfix">
     <div class="left">
