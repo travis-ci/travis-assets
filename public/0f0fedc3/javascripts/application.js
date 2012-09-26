@@ -12031,7 +12031,7 @@ Ember.isArray = function(obj) {
       Ember.makeArray();          => []
       Ember.makeArray(null);      => []
       Ember.makeArray(undefined); => []
-      Ember.makeArray('lindsay'); => ['lindsay'] 
+      Ember.makeArray('lindsay'); => ['lindsay']
       Ember.makeArray([1,2,42]);  => [1,2,42]
 
       var controller = Ember.ArrayProxy.create({ content: [] });
@@ -13018,7 +13018,7 @@ var Cp = ComputedProperty.prototype;
       });
 
   It is common to use `cacheable()` on nearly every computed property
-  you define. 
+  you define.
 
   @name Ember.ComputedProperty.cacheable
   @param {Boolean} aFlag optional set to false to disable cacheing
@@ -15227,11 +15227,11 @@ Ember.RunLoop = RunLoop;
 // ..........................................................
 // Ember.run - this is ideally the only public API the dev sees
 //
-/** 
+/**
 * @namespace Ember.run is both a function and a namespace for
 * RunLoop-related functions.
 * @name Ember.run
-*/ 
+*/
 
 /**
   Runs the passed target and method inside of a RunLoop, ensuring any
@@ -15244,7 +15244,7 @@ Ember.RunLoop = RunLoop;
   call.
 
       Ember.run(function(){
-        // code to be execute within a RunLoop 
+        // code to be execute within a RunLoop
       });
 
   @name run^2
@@ -15283,7 +15283,7 @@ var run = Ember.run;
   an lower-level way to use a RunLoop instead of using Ember.run().
 
       Ember.run.begin();
-      // code to be execute within a RunLoop 
+      // code to be execute within a RunLoop
       Ember.run.end();
 
 
@@ -15299,7 +15299,7 @@ Ember.run.begin = function() {
   instead of using Ember.run().
 
       Ember.run.begin();
-      // code to be execute within a RunLoop 
+      // code to be execute within a RunLoop
       Ember.run.end();
 
   @returns {void}
@@ -16940,7 +16940,7 @@ Ember.inspect = function(obj) {
 /**
   Compares two objects, returning true if they are logically equal.  This is
   a deeper comparison than a simple triple equal. For sets it will compare the
-  internal objects.  For any other object that implements `isEqual()` it will 
+  internal objects.  For any other object that implements `isEqual()` it will
   respect that method.
 
       Ember.isEqual('hello', 'hello');  => true
@@ -17122,7 +17122,7 @@ Ember.String = {
         > beta
         > gamma
 
-    @param {String} str 
+    @param {String} str
       The string to split
 
     @returns {String} split string
@@ -17131,7 +17131,7 @@ Ember.String = {
 
   /**
     Converts a camelized string into all lower case separated by underscores.
-    
+
         'innerHTML'.decamelize()         => 'inner_html'
         'action_name'.decamelize()       => 'action_name'
         'css-class-name'.decamelize()    => 'css-class-name'
@@ -17148,7 +17148,7 @@ Ember.String = {
 
   /**
     Replaces underscores or spaces with dashes.
-    
+
         'innerHTML'.dasherize()         => 'inner-html'
         'action_name'.dasherize()       => 'action-name'
         'css-class-name'.dasherize()    => 'css-class-name'
@@ -17175,7 +17175,7 @@ Ember.String = {
 
   /**
     Returns the lowerCaseCamel form of a string.
-    
+
         'innerHTML'.camelize()         => 'innerHTML'
         'action_name'.camelize()       => 'actionName'
         'css-class-name'.camelize()    => 'cssClassName'
@@ -17301,7 +17301,7 @@ if (Ember.EXTEND_PROTOTYPES) {
 
   /**
     The `property` extension of Javascript's Function prototype is available
-    when Ember.EXTEND_PROTOTYPES is true, which is the default. 
+    when Ember.EXTEND_PROTOTYPES is true, which is the default.
 
     Computed properties allow you to treat a function like a property:
 
@@ -17353,7 +17353,7 @@ if (Ember.EXTEND_PROTOTYPES) {
 
   /**
     The `observes` extension of Javascript's Function prototype is available
-    when Ember.EXTEND_PROTOTYPES is true, which is the default. 
+    when Ember.EXTEND_PROTOTYPES is true, which is the default.
 
     You can observe property changes simply by adding the `observes`
     call to the end of your method declarations in classes that you write.
@@ -17364,7 +17364,7 @@ if (Ember.EXTEND_PROTOTYPES) {
             // Executes whenever the "value" property changes
           }.observes('value')
         });
-    
+
     @see Ember.Observable
   */
   Function.prototype.observes = function() {
@@ -17374,7 +17374,7 @@ if (Ember.EXTEND_PROTOTYPES) {
 
   /**
     The `observesBefore` extension of Javascript's Function prototype is
-    available when Ember.EXTEND_PROTOTYPES is true, which is the default. 
+    available when Ember.EXTEND_PROTOTYPES is true, which is the default.
 
     You can get notified when a property changes is about to happen by
     by adding the `observesBefore` call to the end of your method
@@ -17385,7 +17385,7 @@ if (Ember.EXTEND_PROTOTYPES) {
             // Executes whenever the "value" property is about to change
           }.observesBefore('value')
         });
-    
+
     @see Ember.Observable
   */
   Function.prototype.observesBefore = function() {
@@ -18025,9 +18025,9 @@ Ember.Enumerable = Ember.Mixin.create( /** @lends Ember.Enumerable */ {
 
   /**
     Returns a copy of the array with all null elements removed.
-    
+
         var arr = ["a", null, "c", null];
-        arr.compact(); => ["a", "c"] 
+        arr.compact(); => ["a", "c"]
 
     @returns {Array} the array without null elements.
   */
@@ -18997,7 +18997,7 @@ Ember.MutableArray = Ember.Mixin.create(Ember.Array, Ember.MutableEnumerable,
         colors.clear();  => []
         colors.length(); => 0
 
-    @returns {Ember.Array} An empty Array. 
+    @returns {Ember.Array} An empty Array.
   */
   clear: function () {
     var len = get(this, 'length');
@@ -19193,15 +19193,15 @@ var get = Ember.get, set = Ember.set;
   @class
 
   ## Overview
-  
+
   This mixin provides properties and property observing functionality, core
   features of the Ember object model.
-  
+
   Properties and observers allow one object to observe changes to a
   property on another object. This is one of the fundamental ways that
   models, controllers and views communicate with each other in an Ember
   application.
-  
+
   Any object that has this mixin applied can be used in observer
   operations. That includes Ember.Object and most objects you will
   interact with as you write your Ember application.
@@ -19209,16 +19209,16 @@ var get = Ember.get, set = Ember.set;
   Note that you will not generally apply this mixin to classes yourself,
   but you will use the features provided by this module frequently, so it
   is important to understand how to use it.
-  
+
   ## Using get() and set()
-  
+
   Because of Ember's support for bindings and observers, you will always
   access properties using the get method, and set properties using the
   set method. This allows the observing objects to be notified and
   computed properties to be handled properly.
-  
+
   More documentation about `get` and `set` are below.
-  
+
   ## Observing Property Changes
 
   You typically observe property changes simply by adding the `observes`
@@ -19230,7 +19230,7 @@ var get = Ember.get, set = Ember.set;
           // Executes whenever the "value" property changes
         }.observes('value')
       });
-    
+
   Although this is the most common way to add an observer, this capability
   is actually built into the Ember.Object class on top of two methods
   defined in this mixin: `addObserver` and `removeObserver`. You can use
@@ -19243,7 +19243,7 @@ var get = Ember.get, set = Ember.set;
 
   This will call the `targetAction` method on the `targetObject` to be called
   whenever the value of the `propertyKey` changes.
-  
+
   @extends Ember.Mixin
 */
 Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
@@ -19257,7 +19257,7 @@ Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
     This method is usually similar to using object[keyName] or object.keyName,
     however it supports both computed properties and the unknownProperty
     handler.
-    
+
     Because `get` unifies the syntax for accessing all these kinds
     of properties, it can make many refactorings easier, such as replacing a
     simple property with a computed property, or vice versa.
@@ -19453,11 +19453,11 @@ Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
     Ember.propertyDidChange(this, keyName);
     return this;
   },
-  
+
   /**
     Convenience method to call `propertyWillChange` and `propertyDidChange` in
     succession.
-  
+
     @param {String} keyName The property key to be notified about.
     @returns {Ember.Observable}
   */
@@ -19545,7 +19545,7 @@ Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
     This method will be called when a client attempts to get the value of a
     property that has not been defined in one of the typical ways. Override
     this method to create "virtual" properties.
-    
+
     @param {String} key The name of the unknown property that was requested.
     @returns {Object} The property value or undefined. Default is undefined.
   */
@@ -19557,7 +19557,7 @@ Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
     This method will be called when a client attempts to set the value of a
     property that has not been defined in one of the typical ways. Override
     this method to create "virtual" properties.
-    
+
     @param {String} key The name of the unknown property to be set.
     @param {Object} value The value the unknown property is to be set to.
   */
@@ -19568,7 +19568,7 @@ Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
   /**
     This is like `get`, but allows you to pass in a dot-separated property
     path.
-    
+
         person.getPath('address.zip'); // return the zip
         person.getPath('children.firstObject.age'); // return the first kid's age
 
@@ -19584,7 +19584,7 @@ Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
   /**
     This is like `set`, but allows you to specify the property you want to
     set as a dot-separated property path.
-    
+
         person.setPath('address.zip', 10011); // set the zip to 10011
         person.setPath('children.firstObject.age', 6); // set the first kid's age to 6
 
@@ -19602,9 +19602,9 @@ Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
   /**
     Retrieves the value of a property, or a default value in the case that the property
     returns undefined.
-    
+
         person.getWithDefault('lastName', 'Doe');
-    
+
     @param {String} keyName The name of the property to retrieve
     @param {Object} defaultValue The value to return if the property value is undefined
     @returns {Object} The property value or the defaultValue.
@@ -19615,10 +19615,10 @@ Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
 
   /**
     Set the value of a property to the current value plus some amount.
-    
+
         person.incrementProperty('age');
         team.incrementProperty('score', 2);
-    
+
     @param {String} keyName The name of the property to increment
     @param {Object} increment The amount to increment by. Defaults to 1
     @returns {Object} The new property value
@@ -19628,13 +19628,13 @@ Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
     set(this, keyName, (get(this, keyName) || 0)+increment);
     return get(this, keyName);
   },
-  
+
   /**
     Set the value of a property to the current value minus some amount.
-    
+
         player.decrementProperty('lives');
         orc.decrementProperty('health', 5);
-    
+
     @param {String} keyName The name of the property to decrement
     @param {Object} increment The amount to decrement by. Defaults to 1
     @returns {Object} The new property value
@@ -19648,9 +19648,9 @@ Ember.Observable = Ember.Mixin.create(/** @scope Ember.Observable.prototype */ {
   /**
     Set the value of a boolean property to the opposite of it's
     current value.
-    
+
         starship.toggleProperty('warpDriveEnaged');
-    
+
     @param {String} keyName The name of the property to toggle
     @returns {Object} The new property value
   */
@@ -20271,7 +20271,7 @@ Ember.Set = Ember.CoreObject.extend(Ember.MutableEnumerable, Ember.Copyable, Emb
 
   /**
     Removes the last element from the set and returns it, or null if it's empty.
-    
+
         var colors = new Ember.Set(["green", "blue"]);
         colors.pop(); => "blue"
         colors.pop(); => "green"
@@ -23859,7 +23859,7 @@ Ember.View.states.inBuffer = {
   // when a view is rendered in a buffer, rerendering it simply
   // replaces the existing buffer with a new one
   rerender: function(view) {
-    ember_deprecate("Something you did caused a view to re-render after it rendered but before it was inserted into the DOM. Because this is avoidable and the cause of significant performance issues in applications, this behavior is deprecated. If you want to use the debugger to find out what caused this, you can set ENV.RAISE_ON_DEPRECATION to true.");
+    // ember_deprecate("Something you did caused a view to re-render after it rendered but before it was inserted into the DOM. Because this is avoidable and the cause of significant performance issues in applications, this behavior is deprecated. If you want to use the debugger to find out what caused this, you can set ENV.RAISE_ON_DEPRECATION to true.");
 
     view._notifyWillRerender();
 
@@ -24117,7 +24117,7 @@ var childViewsProperty = Ember.computed(function() {
   The views in a container's `childViews` array should be added and removed by manipulating
   the `childViews` property directly.
 
-  To remove a view pass that view into a `removeObject` call on the container's `childViews` property. 
+  To remove a view pass that view into a `removeObject` call on the container's `childViews` property.
 
   Given an empty `<body>` the following code
 
@@ -24154,7 +24154,7 @@ var childViewsProperty = Ember.computed(function() {
         </div>
 
 
-  Similarly, adding a child view is accomplished by adding `Ember.View` instances to the 
+  Similarly, adding a child view is accomplished by adding `Ember.View` instances to the
   container's `childViews` property.
 
   Given an empty `<body>` the following code
@@ -24197,7 +24197,7 @@ var childViewsProperty = Ember.computed(function() {
         </div>
 
 
-  Direct manipulation of childViews presence or absence in the DOM via calls to 
+  Direct manipulation of childViews presence or absence in the DOM via calls to
   `remove` or `removeFromParent` or calls to a container's `removeChild` may not behave
   correctly.
 
@@ -24243,7 +24243,7 @@ var childViewsProperty = Ember.computed(function() {
 
   ## Templates and Layout
   A `template`, `templateName`, `defaultTempalte`, `layout`, `layoutName` or `defaultLayout`
-  property on a container view will not result in the template or layout being rendered. 
+  property on a container view will not result in the template or layout being rendered.
   The HTML contents of a `Ember.ContainerView`'s DOM representation will only be the rendered HTML
   of its child views.
 
@@ -24469,7 +24469,7 @@ var get = Ember.get, set = Ember.set, fmt = Ember.String.fmt;
   @class
 
   `Ember.CollectionView` is an `Ember.View` descendent responsible for managing a
-  collection (an array or array-like object) by maintaing a child view object and 
+  collection (an array or array-like object) by maintaing a child view object and
   associated DOM representation for each item in the array and ensuring that child
   views and their associated rendered HTML are updated when items in the array
   are added, removed, or replaced.
@@ -24513,7 +24513,7 @@ var get = Ember.get, set = Ember.set, fmt = Ember.String.fmt;
 
 
   ## Automatic matching of parent/child tagNames
-  Setting the `tagName` property of a `CollectionView` to any of 
+  Setting the `tagName` property of a `CollectionView` to any of
   "ul", "ol", "table", "thead", "tbody", "tfoot", "tr", or "select" will result
   in the item views receiving an appropriately matched `tagName` property.
 
@@ -24862,7 +24862,7 @@ Ember.State = Ember.Object.extend({
 var get = Ember.get, set = Ember.set, getPath = Ember.getPath, fmt = Ember.String.fmt;
 /**
   @class
-  
+
   StateManager is part of Ember's implementation of a finite state machine. A StateManager
   instance manages a number of properties that are instances of `Ember.State`,
   tracks the current active state, and triggers callbacks when states have changed.
@@ -24901,7 +24901,7 @@ var get = Ember.get, set = Ember.set, getPath = Ember.getPath, fmt = Ember.Strin
 
   ## The Initial State
   When created a StateManager instance will immediately enter into the state
-  defined as its `start` property or the state referenced by name in its 
+  defined as its `start` property or the state referenced by name in its
   `initialState` property:
 
       managerA = Ember.StateManager.create({
@@ -24949,11 +24949,11 @@ var get = Ember.get, set = Ember.set, getPath = Ember.getPath, fmt = Ember.Strin
        robotManager.getPath('currentState.name') // 'poweredUp'
 
   Before transitioning into a new state the existing `currentState` will have its
-  `exit` method called with with the StateManager instance as its first argument and 
+  `exit` method called with with the StateManager instance as its first argument and
   an object representing the the transition as its second argument.
 
   After transitioning into a new state the new `currentState` will have its
-  `enter` method called with with the StateManager instance as its first argument and 
+  `enter` method called with with the StateManager instance as its first argument and
   an object representing the the transition as its second argument.
 
       robotManager = Ember.StateManager.create({
@@ -24978,7 +24978,7 @@ var get = Ember.get, set = Ember.set, getPath = Ember.getPath, fmt = Ember.Strin
 
 
   Once a StateManager is already in a state, subsequent attempts to enter that state will
-  not trigger enter or exit method calls. Attempts to transition into a state that the 
+  not trigger enter or exit method calls. Attempts to transition into a state that the
   manager does not have will result in no changes in the StateManager's current state:
 
       robotManager = Ember.StateManager.create({
@@ -25006,9 +25006,9 @@ var get = Ember.get, set = Ember.set, getPath = Ember.getPath, fmt = Ember.Strin
       robotManager.getPath('currentState.name') // 'poweredUp'
 
 
-  Each state property may itself contain properties that are instances of Ember.State. 
+  Each state property may itself contain properties that are instances of Ember.State.
   The StateManager can transition to specific sub-states in a series of goToState method calls or
-  via a single goToState with the full path to the specific state. The StateManager will also 
+  via a single goToState with the full path to the specific state. The StateManager will also
   keep track of the full path to its currentState
 
 
@@ -25038,7 +25038,7 @@ var get = Ember.get, set = Ember.set, getPath = Ember.getPath, fmt = Ember.Strin
 
        robotManager.getPath('currentState.get.path') // 'poweredDown.charging'
 
-    Enter transition methods will be called for each state and nested child state in their 
+    Enter transition methods will be called for each state and nested child state in their
     hierarchical order.  Exit methods will be called for each state and its nested states in
     reverse hierarchical order.
 
@@ -25109,7 +25109,7 @@ var get = Ember.get, set = Ember.set, getPath = Ember.getPath, fmt = Ember.Strin
   can receive and route action messages to its states via the `send` method.  Calling to `send` with
   an action name will begin searching for a method with the same name starting at the current state
   and moving up through the parent states in a state hierarchy until an appropriate method is found
-  or the StateManager instance itself is reached. 
+  or the StateManager instance itself is reached.
 
   If an appropriately named method is found it will be called with the state manager as the first
   argument and an optional `context` object as the second argument.
@@ -25192,7 +25192,7 @@ var get = Ember.get, set = Ember.set, getPath = Ember.getPath, fmt = Ember.Strin
          })
 
          robotManager.getPath('currentState.name') // 'charging'
-         robotManager.send('boot') // throws error, no boot action  
+         robotManager.send('boot') // throws error, no boot action
                                    // in current hierarchy
          robotManager.getPath('currentState.name') // remains 'charging'
 
@@ -25211,12 +25211,12 @@ var get = Ember.get, set = Ember.set, getPath = Ember.getPath, fmt = Ember.Strin
 
 
   ## Interactions with Ember's View System.
-  When combined with instances of `Ember.ViewState`, StateManager is designed to 
-  interact with Ember's view system to control which views are added to 
+  When combined with instances of `Ember.ViewState`, StateManager is designed to
+  interact with Ember's view system to control which views are added to
   and removed from the DOM based on the manager's current state.
 
   By default, a StateManager will manage views inside the 'body' element. This can be
-  customized by setting the `rootElement` property to a CSS selector of an existing 
+  customized by setting the `rootElement` property to a CSS selector of an existing
   HTML element you would prefer to receive view rendering.
 
 
@@ -25231,7 +25231,7 @@ var get = Ember.get, set = Ember.set, getPath = Ember.getPath, fmt = Ember.Strin
       aLayoutView = Ember.ContainerView.create()
 
       // make sure this view instance is added to the browser
-      aLayoutView.appendTo('body') 
+      aLayoutView.appendTo('body')
 
       App.viewStates = Ember.StateManager.create({
         rootView: aLayoutView
@@ -25385,8 +25385,8 @@ var get = Ember.get, set = Ember.set, getPath = Ember.getPath, fmt = Ember.Strin
 
 
   If you prefer to start with an empty body and manage state programmatically you
-  can also take advantage of StateManager's `rootView` property and the ability of 
-  `Ember.ContainerView`s to manually manage their child views. 
+  can also take advantage of StateManager's `rootView` property and the ability of
+  `Ember.ContainerView`s to manually manage their child views.
 
 
       dashboard = Ember.ContainerView.create({
@@ -25418,7 +25418,7 @@ var get = Ember.get, set = Ember.set, getPath = Ember.getPath, fmt = Ember.Strin
       dashboard.appendTo('body')
 
   ## User Manipulation of State via `{{action}}` Helpers
-  The Handlebars `{{action}}` helper is StateManager-aware and will use StateManager action sending 
+  The Handlebars `{{action}}` helper is StateManager-aware and will use StateManager action sending
   to connect user interaction to action-based state transitions.
 
   Given the following body and handlebars template
@@ -25444,7 +25444,7 @@ var get = Ember.get, set = Ember.set, getPath = Ember.getPath, fmt = Ember.Strin
   `App.appStates.aState` with `App.appStates` as the first argument and a
   `jQuery.Event` object as the second object. The `jQuery.Event` will include a property
   `view` that references the `Ember.View` object that was interacted with.
-  
+
 **/
 Ember.StateManager = Ember.State.extend(
 /** @scope Ember.State.prototype */ {
@@ -26126,6 +26126,7 @@ Ember.ViewState = Ember.State.extend({
 
   Metamorph.prototype.checkRemoved = function() {
     if (this.isRemoved()) {
+      console.log(this)
       throw new Error("Cannot perform operations on a Metamorph that is not in the DOM.");
     }
   };
@@ -27203,7 +27204,7 @@ var get = Ember.get, getPath = Ember.Handlebars.getPath, fmt = Ember.String.fmt;
   @param {String} path
   @param {Hash} options
   @returns {String} HTML string
-  
+
   `{{collection}}` is a `Ember.Handlebars` helper for adding instances of
   `Ember.CollectionView` to a template.  See `Ember.CollectionView` for additional
   information on how a `CollectionView` functions.
@@ -27303,8 +27304,8 @@ var get = Ember.get, getPath = Ember.Handlebars.getPath, fmt = Ember.String.fmt;
         <p class="ember-view greeting">Howdy Mary</p>
         <p class="ember-view greeting">Howdy Sara</p>
       </div>
-  
-  
+
+
 */
 Ember.Handlebars.registerHelper('collection', function(path, options) {
   // If no path is provided, treat path param as options.
@@ -27585,7 +27586,7 @@ ActionHelper.registerAction = function(actionName, eventName, target, view, cont
           </div>
         </div>
 
-  Clicking "click me" will trigger the `anActionName` method of the `aView` object with a 
+  Clicking "click me" will trigger the `anActionName` method of the `aView` object with a
   `jQuery.Event` object as its argument. The `jQuery.Event` object will be extended to include
   a `view` property that is set to the original view interacted with (in this case the `aView` object).
 
@@ -27600,9 +27601,9 @@ ActionHelper.registerAction = function(actionName, eventName, target, view, cont
             </div>
         </script>
 
-  Clicking "click me" in the rendered HTML of the above template will trigger the 
-  `anActionName` method of the object at `MyApplication.someObject`.  The first argument 
-  to this method will be a `jQuery.Event` extended to include a `view` property that is 
+  Clicking "click me" in the rendered HTML of the above template will trigger the
+  `anActionName` method of the object at `MyApplication.someObject`.  The first argument
+  to this method will be a `jQuery.Event` extended to include a `view` property that is
   set to the original view interacted with.
 
   A path relative to the template's `Ember.View` instance can also be used as a target:
@@ -27613,7 +27614,7 @@ ActionHelper.registerAction = function(actionName, eventName, target, view, cont
             </div>
         </script>
 
-  Clicking "click me" in the rendered HTML of the above template will trigger the 
+  Clicking "click me" in the rendered HTML of the above template will trigger the
   `anActionName` method of the view's parent view.
 
   The `{{action}}` helper is `Ember.StateManager` aware. If the target of
@@ -27658,7 +27659,7 @@ ActionHelper.registerAction = function(actionName, eventName, target, view, cont
   See `Ember.EventDispatcher` for a list of acceptable DOM event names.
 
   Because `{{action}}` depends on Ember's event dispatch system it will only function if
-  an `Ember.EventDispatcher` instance is available. An `Ember.EventDispatcher` instance 
+  an `Ember.EventDispatcher` instance is available. An `Ember.EventDispatcher` instance
   will be created when a new `Ember.Application` is created. Having an instance of
   `Ember.Application` will satisfy this requirement.
 
@@ -27783,36 +27784,36 @@ var set = Ember.set, get = Ember.get;
 
 /**
   @class
-  
+
   Creates an HTML input view in one of two formats.
-  
+
   If a `title` property or binding is provided the input will be wrapped in
   a `div` and `label` tag. View properties like `classNames` will be applied to
   the outermost `div`. This behavior is deprecated and will issue a warning in development.
-  
-  
+
+
       {{view Ember.Checkbox classNames="applicaton-specific-checkbox" title="Some title"}}
-      
-      
+
+
       <div id="ember1" class="ember-view ember-checkbox applicaton-specific-checkbox">
         <label><input type="checkbox" />Some title</label>
       </div>
-  
+
   If `title` isn't provided the view will render as an input element of the 'checkbox' type and HTML
   related properties will be applied directly to the input.
-  
+
       {{view Ember.Checkbox classNames="applicaton-specific-checkbox"}}
-      
+
       <input id="ember1" class="ember-view ember-checkbox applicaton-specific-checkbox" type="checkbox">
-  
+
   You can add a `label` tag yourself in the template where the Ember.Checkbox is being used.
-  
+
       <label>
         Some Title
         {{view Ember.Checkbox classNames="applicaton-specific-checkbox"}}
       </label>
-      
-  
+
+
   The `checked` attribute of an Ember.Checkbox object should always be set
   through the Ember object or by interacting with its rendered element representation
   via the mouse, keyboard, or touch.  Updating the value of the checkbox via jQuery will
@@ -27860,7 +27861,7 @@ Ember.Checkbox = Ember.View.extend({
     Ember.run.once(this, this._updateElementValue);
     // returning false will cause IE to not change checkbox state
   },
-  
+
   /**
     @private
   */
@@ -44772,7 +44773,7 @@ Travis.Worker.reopenClass({
   resource: 'workers'
 });
 
-Ember.TEMPLATES['app/templates/builds/list']=Ember.Handlebars.compile("<table id=\"builds\" class=\"status_list\">\n  <thead>\n    <tr>\n      <th>{{i18n \"builds.name\"}}</th>\n      <th>{{i18n \"builds.branch\"}}</th>\n      <th>{{i18n \"builds.message\"}}</th>\n      <th>{{i18n \"builds.duration\"}}</th>\n      <th>{{i18n \"builds.finished_at\"}}</th>\n    </tr>\n  </thead>\n\n  {{#collection tagName=\"tbody\" contentBinding=\"builds\" itemViewClass=\"Ember.View\" itemClassBinding=\"content.color\"}}\n      <td class=\"number\"><a {{bindAttr href=\"content.url\"}}>{{content.number}}</a></td>\n      <td class=\"branch\">{{content.branch}}</td>\n      <td class=\"message\">{{{content.shortMessage}}}</td>\n      <td class=\"duration\" {{bindAttr title=\"content.started_at\"}}>{{content.formattedDuration}}</td>\n      <td class=\"finished_at timeago\" {{bindAttr title=\"content.finished_at\"}}>{{content.formattedFinishedAt}}</td>\n  {{/collection}}\n</table>\n\n{{#view Ember.Button targetBinding=\"builds\" action=\"showMore\" isVisibleBinding=\"builds.showMoreIsVisible\"}}Show More{{/view}}");Ember.TEMPLATES['app/templates/builds/show']=Ember.Handlebars.compile("<div {{bindAttr class=\"content.color\"}}>\n  <dl class=\"summary clearfix\">\n    <div class=\"left\">\n      <dt>{{i18n \"builds.name\"}}</dt>\n\n      <dd class=\"number\"><a {{bindAttr href=\"content.url\"}}>{{content.number}}</a></dd>\n      <dt class=\"finished_at_label\">{{i18n \"builds.finished_at\"}}</dt>\n      <dd class=\"finished_at timeago\" {{bindAttr title=\"content.finished_at\"}}>{{content.formattedFinishedAt}}</dd>\n      <dt>{{i18n \"builds.duration\"}}</dt>\n      <dd class=\"duration\" {{bindAttr title=\"content.started_at\"}}>{{content.formattedDuration}}</dd>\n    </div>\n\n    <div class=\"right\">\n      <dt>{{i18n \"builds.commit\"}}</dt>\n      <dd class=\"commit-hash\"><a {{bindAttr href=\"content.urlGithubCommit\"}}>{{content.formattedCommit}}</a></dd>\n      {{#if content.compare_url}}\n        <dt>{{i18n \"builds.compare\"}}</dt>\n        <dd class=\"compare_view\"><a {{bindAttr href=\"content.compare_url\"}}>{{content.formattedCompareUrl}}</a></dd>\n      {{/if}}\n      {{#if content.author_name}}\n        <dt>{{i18n \"builds.author\"}}</dt>\n        <dd class=\"author\"><a {{bindAttr href=\"content.urlAuthor\"}}>{{content.author_name}}</a></dd>\n      {{/if}}\n      {{#if content.committer_name}}\n        <dt>{{i18n \"builds.committer\"}}</dt>\n        <dd class=\"committer\"><a {{bindAttr href=\"content.urlCommitter\"}}>{{content.committer_name}}</a></dd>\n      {{/if}}\n    </div>\n\n    <dt>{{i18n \"builds.message\"}}</dt>\n    <dd class=\"commit-message\">{{{content.formattedMessage}}}</dd>\n\n    {{#if content.isMatrix}}\n    {{else}}\n      <dt>{{i18n \"builds.config\"}}</dt>\n      <dd class=\"config\">{{content.formattedConfig}}</dd>\n    {{/if}}\n  </dl>\n\n  {{#if content.isMatrix}}\n    {{view Ember.View templateName=\"app/templates/jobs/list\" repositoryBinding=\"repository\" contentBinding=\"content\"}}\n  {{else}}\n    <pre class=\"log\"><a href=\"#\" id=\"tail\" {{bindAttr class=\"Travis.tailing.active:active\"}} {{action \"toggle\" on=\"click\" target=\"Travis.tailing\"}}>\n      <span class=\"status\"></span>\n      <label>Follow logs</label>\n    </a>{{{content.matrix.firstObject.formattedLog}}}</pre>\n\n    <p class=\"sponsor\">\n      {{#if content.matrix.firstObject.sponsor.name}}\n        {{i18n \"builds.messages.sponsored_by\"}}\n        <a {{bindAttr href=\"content.matrix.firstObject.sponsor.url\"}}>{{content.matrix.firstObject.sponsor.name}}</a>\n      {{/if}}\n    </p>\n  {{/if}}\n</div>\n");Ember.TEMPLATES['app/templates/jobs/list']=Ember.Handlebars.compile("<table id=\"builds\" class=\"status_list\">\n  <caption>{{i18n \"jobs.build_matrix\"}}</caption>\n  <thead>\n    {{#collection tagName=\"tr\" contentBinding=\"content.formattedMatrixHeaders\" itemTagName=\"th\"}}\n      {{content}}\n    {{/collection}}\n  </thead>\n\n  {{#collection tagName=\"tbody\" contentBinding=\"content.required_matrix\" itemViewClass=\"Ember.View\" itemClassBinding=\"content.color\"}}\n    <td class=\"number\"><a {{bindAttr href=\"content.url\"}}>{{content.number}}</a></td>\n    <td class=\"duration\" {{bindAttr title=\"content.started_at\"}}>{{content.formattedDuration}}</td>\n    <td class=\"finished_at timeago\" {{bindAttr title=\"content.finished_at\"}}>{{content.formattedFinishedAt}}</td>\n    {{#each content.formattedConfigValues itemTagName=\"td\"}}\n      <td>{{value}}</td>\n    {{/each}}\n  {{/collection}}\n</table>\n\n{{#if content.hasFailureMatrix}}\n<table id=\"allow_failure_builds\">\n  <caption>{{i18n \"jobs.allowed_failures\"}}{{whats_this \"allow_failure_help\"}}\n</caption>\n  <thead>\n    {{#collection tagName=\"tr\" contentBinding=\"content.formattedMatrixHeaders\" itemTagName=\"th\"}}\n      {{content}}\n    {{/collection}}\n  </thead>\n\n  {{#collection tagName=\"tbody\" contentBinding=\"content.allow_failure_matrix\" itemViewClass=\"Ember.View\" itemClassBinding=\"content.color\"}}\n    <td class=\"number\"><a {{bindAttr href=\"content.url\"}}>{{content.number}}</a></td>\n    <td class=\"duration\" {{bindAttr title=\"content.started_at\"}}>{{content.formattedDuration}}</td>\n    <td class=\"finished_at timeago\" {{bindAttr title=\"content.finished_at\"}}>{{content.formattedFinishedAt}}</td>\n    {{#each content.formattedConfigValues itemTagName=\"td\"}}\n      <td>{{value}}</td>\n    {{/each}}\n  {{/collection}}\n</table>\n\n<div id=\"allow_failure_help\" class=\"context_help\">\n<div class=\"context_help_caption\">{{i18n \"jobs.allowed_failures\"}}</div>\n<div class=\"context_help_body\">Allowed Failures are items in your build matrix that are allowed to fail without causing the entire build to be shown as failed. This lets you add in experimental and preparatory builds to test against versions or configurations that you are not ready to officially support.<br><br>You can define allowed failures in the build matrix as follows:\n</br><pre>\nmatrix:\n  allow_failures:\n    - rvm: ruby-head\n</pre></div>\n</div>\n{{/if}}\n");Ember.TEMPLATES['app/templates/jobs/show']=Ember.Handlebars.compile("<div {{bindAttr class=\"content.color\"}}>\n  <dl class=\"summary clearfix\">\n    <div class=\"left\">\n      <dt>Job</dt>\n      <dd class=\"number\"><a {{bindAttr href=\"content.build.url\"}}>{{content.number}}</a></dd>\n      <dt class=\"finished_at_label\">{{i18n \"jobs.finished_at\"}}</dt>\n      <dd class=\"finished_at timeago\" {{bindAttr title=\"content.finished_at\"}}>{{content.formattedFinishedAt}}</dd>\n      <dt>{{i18n \"jobs.duration\"}}</dt>\n      <dd class=\"duration\" {{bindAttr title=\"content.started_at\"}}>{{content.formattedDuration}}</dd>\n    </div>\n\n    <div class=\"right\">\n      <dt>{{i18n \"jobs.commit\"}}</dt>\n      <dd class=\"commit-hash\"><a {{bindAttr href=\"content.build.urlGithubCommit\"}}>{{content.formattedCommit}}</a></dd>\n      {{#if content.compare_url}}\n        <dt>{{i18n \"jobs.compare\"}}</dt>\n        <dd class=\"compare_view\"><a {{bindAttr href=\"content.compare_url\"}}>{{content.formattedCompareUrl}}</a></dd>\n      {{/if}}\n      {{#if content.author_name}}\n        <dt>{{i18n \"jobs.author\"}}</dt>\n        <dd class=\"author\"><a {{bindAttr href=\"content.build.urlAuthor\"}}>{{content.author_name}}</a></dd>\n      {{/if}}\n      {{#if content.committer_name}}\n        <dt>{{i18n \"jobs.committer\"}}</dt>\n        <dd class=\"committer\"><a {{bindAttr href=\"content.build.urlCommitter\"}}>{{content.committer_name}}</a></dd>\n      {{/if}}\n    </div>\n\n    <dt>{{i18n \"jobs.message\"}}</dt>\n    <dd class=\"commit-message\">{{{content.formattedMessage}}}</dd>\n    <dt>{{i18n \"jobs.config\"}}</dt>\n    <dd class=\"config\">{{content.formattedConfig}}</dd>\n  </dl>\n\n  <pre class=\"log\"><a href=\"#\" id=\"tail\" {{bindAttr class=\"Travis.tailing.active:active\"}} {{action \"toggle\" on=\"click\" target=\"Travis.tailing\"}}>\n    <span class=\"status\"></span>\n    <label>Follow logs</label>\n  </a>{{{content.formattedLog}}}</pre>\n\n  <p class=\"sponsor\">\n    {{#if content.sponsor.name}}\n      {{i18n \"jobs.messages.sponsored_by\"}}\n      <a {{bindAttr href=\"content.sponsor.url\"}}>{{content.sponsor.name}}</a>\n    {{/if}}\n  </p>\n\n\n</div>\n");Ember.TEMPLATES['app/templates/queue/show']=Ember.Handlebars.compile("<h4>{{i18n \"queue\"}}: {{friendly_queue_name}}</h4>\n{{#collection tagName=\"ul\" classBinding=\"className\" itemClass=\"job\" contentBinding=\"jobs\"}}\n  {{content.repository.slug}}\n  {{#if content.number}}\n    #{{content.number}}\n  {{/if}}\n{{else}}\n  {{i18n \"no_job\"}}\n{{/collection}}\n\n");Ember.TEMPLATES['app/templates/repositories/branch_summary']=Ember.Handlebars.compile("<table id=\"branch_summary\" class=\"status_list\">\n  <thead>\n    <tr>\n      <th>{{i18n \"repositories.branch\"}}</th>\n      <th>{{i18n \"repositories.commit\"}}</th>\n      <th>{{i18n \"repositories.message\"}}</th>\n      <th>{{i18n \"repositories.finished_at\"}}</th>\n    </tr>\n{{content}}\n  </thead>\n  {{#collection tagName=\"tbody\" contentBinding=\"branches\" itemViewClass=\"Ember.View\" itemClassBinding=\"content.color\"}}\n      <td class=\"number\"><a {{bindAttr href=\"content.buildUrl\"}}>{{content.branch}}</a></td>\n      <td class=\"commit\">{{content.formattedCommit}}</td>\n      <td class=\"message\">{{{content.message}}}</td>\n      <td class=\"finished_at timeago\" {{bindAttr title=\"content.finished_at\"}}>{{content.formattedFinishedAt}}</td>\n  {{/collection}}\n</table>\n");Ember.TEMPLATES['app/templates/repositories/list']=Ember.Handlebars.compile("{{#collection tagName=\"ul\" id=\"repositories\" contentBinding=\"repositories\" itemViewClass=\"Ember.View\" itemClassBinding=\"content.cssClasses\"}}\n  <div class=\"wrapper\">\n    <a {{bindAttr href=\"content.urlCurrent\"}} class=\"slug\">{{content.slug}}</a>\n    <a {{bindAttr href=\"content.urlLastBuild\"}} class=\"build\">#{{content.last_build_number}}</a>\n    <p class=\"summary\">\n      <span class=\"duration_label\">{{i18n \"repositories.duration\"}}:</span> <abbr class=\"duration\" {{bindAttr title=\"content.last_build_started_at\"}}>{{content.formattedLastBuildDuration}}</abbr>,\n      <span class=\"finished_at_label\">{{i18n \"repositories.finished_at\"}}:</span> <abbr class=\"finished_at timeago\" {{bindAttr title=\"content.last_build_finished_at\"}}>{{content.formattedLastBuildFinishedAt}}</abbr>\n    </p>\n    {{#if content.description}}\n      <p class=\"description\">{{content.description}}</p>\n    {{/if}}\n    <span class=\"indicator\"></span>\n  </div>\n{{/collection}}\n\n{{^collection contentBinding=\"repositories\" id=\"list\" class=\"loading\"}}\n  <p></p>\n{{/collection}}\n");Ember.TEMPLATES['app/templates/repositories/show']=Ember.Handlebars.compile("<div id=\"repository\">\n  <h3>\n    <a {{bindAttr href=\"repository.urlGithub\"}}>{{repository.slug}}</a>\n  </h3>\n\n  <p class=\"description\">{{repository.description}}</p>\n\n  <!--\n  <ul class=\"github-stats\">\n    <li class=\"language\">{{repository.last_build_language}}</li>\n    <li><a class=\"watchers\" title=\"Watches\" {{bindAttr href=\"repository.urlGithubWatchers\"}}></a></li>\n    <li><a class=\"forks\" title=\"Forks\" {{bindAttr href=\"repository.urlGithubNetwork\"}}></a></li>\n  </ul>\n  -->\n\n  <ul class=\"tabs\">\n    <li id=\"tab_current\">\n      <h5><a {{bindAttr href=\"repository.urlCurrent\"}}>{{i18n \"repositories.tabs.current\"}}</a></h5>\n      <div class=\"tab\"></div>\n    </li>\n    <li id=\"tab_history\">\n      <h5><a {{bindAttr href=\"repository.urlBuilds\"}}>{{i18n \"repositories.tabs.build_history\"}}</a></h5>\n      <div class=\"tab\"></div>\n    </li>\n    <li id=\"tab_pull_requests\">\n      <h5><a {{bindAttr href=\"repository.urlPullRequests\"}}>{{i18n \"repositories.tabs.pull_requests\"}}</a></h5>\n      <div class=\"tab\"></div>\n    </li>\n    <li id=\"tab_branch_summary\">\n      <h5><a {{bindAttr href=\"repository.urlBranches\"}}>{{i18n \"repositories.tabs.branches\"}}</a></h5>\n      <div class=\"tab\"></div>\n    </li>\n    <li id=\"tab_build\">\n      <h5><a {{bindAttr href=\"build.url\"}}>{{i18n \"repositories.tabs.build\"}} #{{build.number}}</a></h5>\n      <div class=\"tab\"></div>\n    </li>\n    <li id=\"tab_job\">\n      <h5><a {{bindAttr href=\"job.url\"}}>{{i18n \"repositories.tabs.job\"}} #{{job.number}}</a></h5>\n      <div class=\"tab\"></div>\n    </li>\n  </ul>\n\n  <div class=\"tools\">\n    <a href=\"#\"></a>\n    <div class=\"content\">\n      <!-- <p><label>{{i18n \"repositories.branch\"}}:</label><select></select></p> -->\n      <p><label>{{i18n \"repositories.image_url\"}}:</label><input type=\"text\" class=\"url\"></input></p>\n      <p><label>{{i18n \"repositories.markdown\"}}:</label><input type=\"text\" class=\"markdown\"></input></p>\n      <p><label>{{i18n \"repositories.textile\"}}:</label><input type=\"text\" class=\"textile\"></input></p>\n      <p><label>{{i18n \"repositories.rdoc\"}}:</label><input type=\"text\" class=\"rdoc\"></input></p>\n    </div>\n  </div>\n</div>\n<script type=\"text/javascript\">\n    $('h5').tipsy();\n</script>\n\n");Ember.TEMPLATES['app/templates/service_hooks/list']=Ember.Handlebars.compile("<div class=\"message\">\n  {{#if service_hooks.isSyncing}}\n    <p class=\"sync\">\n      Synchronizing your data from GitHub\n    </p>\n  {{else}}\n    <p>\n      Last synchronized from GitHub: {{service_hooks.syncedAt}}\n      {{#view Ember.Button class=\"sync_now\" target=\"parentView.service_hooks\" action=\"sync\"}}\n        Sync now\n      {{/view}}\n    </p>\n  {{/if}}\n</div>\n\n{{#collection tagName=\"ul\" itemViewClass=\"Ember.View\" itemClass=\"repository\" contentBinding=\"service_hooks\" isLoadedBinding=\"service_hooks.isLoaded\"}}\n  <a {{bindAttr href=\"content.url\"}} rel=\"nofollow\">{{content.owner_name}}/{{content.name}}</a>\n  <p class=\"description\">{{content.description}}</p>\n\n  <div class=\"controls\">\n    <a {{bindAttr href=\"content.urlGithubAdmin\"}} class=\"github-admin tool-tip\" title=\"Github service hooks admin page\"></a>\n    {{#view Ember.Button tagName=\"a\" class=\"switch\" classBinding=\"content.active\" contentBinding=\"content\" target=\"content\" action=\"toggle\"}}{{/view}}\n  </div>\n{{else}}\n  {{#if Travis.service_hooks.isLoaded}}\n    You do not seem to have any repositories that we could sync.\n  {{else}}\n    Loading ...\n  {{/if}}\n{{/collection}}\n");Ember.TEMPLATES['app/templates/workers/list']=Ember.Handlebars.compile("<h4>{{i18n \"workers\"}}</h4>\n{{#collection tagName=\"ul\" itemClass=\"group\" contentBinding=\"content\"}}\n  <h5>{{content.host}}</h5>\n  {{#collection tagName=\"ul\" itemClass=\"worker\" itemClassBinding=\"content.state\" contentBinding=\"content.workers\"}}\n    <div class=\"icon\"></div>\n    {{#if content.isTesting}}\n      <a {{bindAttr href=\"content.urlJob\"}} {{bindAttr title=\"content.last_seen_at\"}}>{{content.display}}</a>\n    {{else}}\n      <span {{bindAttr title=\"content.last_seen_at\"}}>{{content.display}}</span>\n    {{/if}}\n  {{/collection}}\n{{else}}\n  No workers\n{{/collection}}\n");(function() {
+Ember.TEMPLATES['app/templates/builds/list']=Ember.Handlebars.compile("<table id=\"builds\" class=\"status_list\">\n  <thead>\n    <tr>\n      <th>{{i18n \"builds.name\"}}</th>\n      <th>{{i18n \"builds.branch\"}}</th>\n      <th>{{i18n \"builds.message\"}}</th>\n      <th>{{i18n \"builds.duration\"}}</th>\n      <th>{{i18n \"builds.finished_at\"}}</th>\n    </tr>\n  </thead>\n\n  {{#collection tagName=\"tbody\" contentBinding=\"builds\" itemViewClass=\"Ember.View\" itemClassBinding=\"content.color\"}}\n      <td class=\"number\"><a {{bindAttr href=\"content.url\"}}>{{content.number}}</a></td>\n      <td class=\"branch\">{{content.branch}}</td>\n      <td class=\"message\">{{{content.shortMessage}}}</td>\n      <td class=\"duration\" {{bindAttr title=\"content.started_at\"}}>{{content.formattedDuration}}</td>\n      <td class=\"finished_at timeago\" {{bindAttr title=\"content.finished_at\"}}>{{content.formattedFinishedAt}}</td>\n  {{/collection}}\n</table>\n\n{{#view Ember.Button targetBinding=\"builds\" action=\"showMore\" isVisibleBinding=\"builds.showMoreIsVisible\"}}Show More{{/view}}");Ember.TEMPLATES['app/templates/builds/show']=Ember.Handlebars.compile("<p style=\"display: none;\">\n  {{content.id}}\n</p>\n\n<div {{bindAttr class=\"content.color\"}}>\n  <dl class=\"summary clearfix\">\n    <div class=\"left\">\n      <dt>{{i18n \"builds.name\"}}</dt>\n\n      <dd class=\"number\"><a {{bindAttr href=\"content.url\"}}>{{content.number}}</a></dd>\n      <dt class=\"finished_at_label\">{{i18n \"builds.finished_at\"}}</dt>\n      <dd class=\"finished_at timeago\" {{bindAttr title=\"content.finished_at\"}}>{{content.formattedFinishedAt}}</dd>\n      <dt>{{i18n \"builds.duration\"}}</dt>\n      <dd class=\"duration\" {{bindAttr title=\"content.started_at\"}}>{{content.formattedDuration}}</dd>\n    </div>\n\n    <div class=\"right\">\n      <dt>{{i18n \"builds.commit\"}}</dt>\n      <dd class=\"commit-hash\"><a {{bindAttr href=\"content.urlGithubCommit\"}}>{{content.formattedCommit}}</a></dd>\n      {{#if content.compare_url}}\n        <dt>{{i18n \"builds.compare\"}}</dt>\n        <dd class=\"compare_view\"><a {{bindAttr href=\"content.compare_url\"}}>{{content.formattedCompareUrl}}</a></dd>\n      {{/if}}\n      {{#if content.author_name}}\n        <dt>{{i18n \"builds.author\"}}</dt>\n        <dd class=\"author\"><a {{bindAttr href=\"content.urlAuthor\"}}>{{content.author_name}}</a></dd>\n      {{/if}}\n      {{#if content.committer_name}}\n        <dt>{{i18n \"builds.committer\"}}</dt>\n        <dd class=\"committer\"><a {{bindAttr href=\"content.urlCommitter\"}}>{{content.committer_name}}</a></dd>\n      {{/if}}\n    </div>\n\n    <dt>{{i18n \"builds.message\"}}</dt>\n    <dd class=\"commit-message\">{{{content.formattedMessage}}}</dd>\n\n    {{#if content.isMatrix}}\n    {{else}}\n      <dt>{{i18n \"builds.config\"}}</dt>\n      <dd class=\"config\">{{content.formattedConfig}}</dd>\n    {{/if}}\n  </dl>\n\n  {{#if content.isMatrix}}\n    {{view Ember.View templateName=\"app/templates/jobs/list\" repositoryBinding=\"repository\" contentBinding=\"content\"}}\n  {{else}}\n    <pre class=\"log\"><a href=\"#\" id=\"tail\" {{bindAttr class=\"Travis.tailing.active:active\"}} {{action \"toggle\" on=\"click\" target=\"Travis.tailing\"}}>\n      <span class=\"status\"></span>\n      <label>Follow logs</label>\n    </a>{{{content.matrix.firstObject.formattedLog}}}</pre>\n\n    <p class=\"sponsor\">\n      {{#if content.matrix.firstObject.sponsor.name}}\n        {{i18n \"builds.messages.sponsored_by\"}}\n        <a {{bindAttr href=\"content.matrix.firstObject.sponsor.url\"}}>{{content.matrix.firstObject.sponsor.name}}</a>\n      {{/if}}\n    </p>\n  {{/if}}\n</div>\n");Ember.TEMPLATES['app/templates/jobs/list']=Ember.Handlebars.compile("<table id=\"builds\" class=\"status_list\">\n  <caption>{{i18n \"jobs.build_matrix\"}}</caption>\n  <thead>\n    {{#collection tagName=\"tr\" contentBinding=\"content.formattedMatrixHeaders\" itemTagName=\"th\"}}\n      {{content}}\n    {{/collection}}\n  </thead>\n\n  {{#collection tagName=\"tbody\" contentBinding=\"content.required_matrix\" itemViewClass=\"Ember.View\" itemClassBinding=\"content.color\"}}\n    <td class=\"number\"><a {{bindAttr href=\"content.url\"}}>{{content.number}}</a></td>\n    <td class=\"duration\" {{bindAttr title=\"content.started_at\"}}>{{content.formattedDuration}}</td>\n    <td class=\"finished_at timeago\" {{bindAttr title=\"content.finished_at\"}}>{{content.formattedFinishedAt}}</td>\n    {{#each content.formattedConfigValues itemTagName=\"td\"}}\n      <td>{{value}}</td>\n    {{/each}}\n  {{/collection}}\n</table>\n\n{{#if content.hasFailureMatrix}}\n<table id=\"allow_failure_builds\">\n  <caption>{{i18n \"jobs.allowed_failures\"}}{{whats_this \"allow_failure_help\"}}\n</caption>\n  <thead>\n    {{#collection tagName=\"tr\" contentBinding=\"content.formattedMatrixHeaders\" itemTagName=\"th\"}}\n      {{content}}\n    {{/collection}}\n  </thead>\n\n  {{#collection tagName=\"tbody\" contentBinding=\"content.allow_failure_matrix\" itemViewClass=\"Ember.View\" itemClassBinding=\"content.color\"}}\n    <td class=\"number\"><a {{bindAttr href=\"content.url\"}}>{{content.number}}</a></td>\n    <td class=\"duration\" {{bindAttr title=\"content.started_at\"}}>{{content.formattedDuration}}</td>\n    <td class=\"finished_at timeago\" {{bindAttr title=\"content.finished_at\"}}>{{content.formattedFinishedAt}}</td>\n    {{#each content.formattedConfigValues itemTagName=\"td\"}}\n      <td>{{value}}</td>\n    {{/each}}\n  {{/collection}}\n</table>\n\n<div id=\"allow_failure_help\" class=\"context_help\">\n<div class=\"context_help_caption\">{{i18n \"jobs.allowed_failures\"}}</div>\n<div class=\"context_help_body\">Allowed Failures are items in your build matrix that are allowed to fail without causing the entire build to be shown as failed. This lets you add in experimental and preparatory builds to test against versions or configurations that you are not ready to officially support.<br><br>You can define allowed failures in the build matrix as follows:\n</br><pre>\nmatrix:\n  allow_failures:\n    - rvm: ruby-head\n</pre></div>\n</div>\n{{/if}}\n");Ember.TEMPLATES['app/templates/jobs/show']=Ember.Handlebars.compile("<div {{bindAttr class=\"content.color\"}}>\n  <dl class=\"summary clearfix\">\n    <div class=\"left\">\n      <dt>Job</dt>\n      <dd class=\"number\"><a {{bindAttr href=\"content.build.url\"}}>{{content.number}}</a></dd>\n      <dt class=\"finished_at_label\">{{i18n \"jobs.finished_at\"}}</dt>\n      <dd class=\"finished_at timeago\" {{bindAttr title=\"content.finished_at\"}}>{{content.formattedFinishedAt}}</dd>\n      <dt>{{i18n \"jobs.duration\"}}</dt>\n      <dd class=\"duration\" {{bindAttr title=\"content.started_at\"}}>{{content.formattedDuration}}</dd>\n    </div>\n\n    <div class=\"right\">\n      <dt>{{i18n \"jobs.commit\"}}</dt>\n      <dd class=\"commit-hash\"><a {{bindAttr href=\"content.build.urlGithubCommit\"}}>{{content.formattedCommit}}</a></dd>\n      {{#if content.compare_url}}\n        <dt>{{i18n \"jobs.compare\"}}</dt>\n        <dd class=\"compare_view\"><a {{bindAttr href=\"content.compare_url\"}}>{{content.formattedCompareUrl}}</a></dd>\n      {{/if}}\n      {{#if content.author_name}}\n        <dt>{{i18n \"jobs.author\"}}</dt>\n        <dd class=\"author\"><a {{bindAttr href=\"content.build.urlAuthor\"}}>{{content.author_name}}</a></dd>\n      {{/if}}\n      {{#if content.committer_name}}\n        <dt>{{i18n \"jobs.committer\"}}</dt>\n        <dd class=\"committer\"><a {{bindAttr href=\"content.build.urlCommitter\"}}>{{content.committer_name}}</a></dd>\n      {{/if}}\n    </div>\n\n    <dt>{{i18n \"jobs.message\"}}</dt>\n    <dd class=\"commit-message\">{{{content.formattedMessage}}}</dd>\n    <dt>{{i18n \"jobs.config\"}}</dt>\n    <dd class=\"config\">{{content.formattedConfig}}</dd>\n  </dl>\n\n  <pre class=\"log\"><a href=\"#\" id=\"tail\" {{bindAttr class=\"Travis.tailing.active:active\"}} {{action \"toggle\" on=\"click\" target=\"Travis.tailing\"}}>\n    <span class=\"status\"></span>\n    <label>Follow logs</label>\n  </a>{{{content.formattedLog}}}</pre>\n\n  <p class=\"sponsor\">\n    {{#if content.sponsor.name}}\n      {{i18n \"jobs.messages.sponsored_by\"}}\n      <a {{bindAttr href=\"content.sponsor.url\"}}>{{content.sponsor.name}}</a>\n    {{/if}}\n  </p>\n\n\n</div>\n");Ember.TEMPLATES['app/templates/queue/show']=Ember.Handlebars.compile("<h4>{{i18n \"queue\"}}: {{friendly_queue_name}}</h4>\n{{#collection tagName=\"ul\" classBinding=\"className\" itemClass=\"job\" contentBinding=\"jobs\"}}\n  {{content.repository.slug}}\n  {{#if content.number}}\n    #{{content.number}}\n  {{/if}}\n{{else}}\n  {{i18n \"no_job\"}}\n{{/collection}}\n\n");Ember.TEMPLATES['app/templates/repositories/branch_summary']=Ember.Handlebars.compile("<table id=\"branch_summary\" class=\"status_list\">\n  <thead>\n    <tr>\n      <th>{{i18n \"repositories.branch\"}}</th>\n      <th>{{i18n \"repositories.commit\"}}</th>\n      <th>{{i18n \"repositories.message\"}}</th>\n      <th>{{i18n \"repositories.finished_at\"}}</th>\n    </tr>\n{{content}}\n  </thead>\n  {{#collection tagName=\"tbody\" contentBinding=\"branches\" itemViewClass=\"Ember.View\" itemClassBinding=\"content.color\"}}\n      <td class=\"number\"><a {{bindAttr href=\"content.buildUrl\"}}>{{content.branch}}</a></td>\n      <td class=\"commit\">{{content.formattedCommit}}</td>\n      <td class=\"message\">{{{content.message}}}</td>\n      <td class=\"finished_at timeago\" {{bindAttr title=\"content.finished_at\"}}>{{content.formattedFinishedAt}}</td>\n  {{/collection}}\n</table>\n");Ember.TEMPLATES['app/templates/repositories/list']=Ember.Handlebars.compile("{{#collection tagName=\"ul\" id=\"repositories\" contentBinding=\"repositories\" itemViewClass=\"Ember.View\" itemClassBinding=\"content.cssClasses\"}}\n  <div class=\"wrapper\">\n    <a {{bindAttr href=\"content.urlCurrent\"}} class=\"slug\">{{content.slug}}</a>\n    <a {{bindAttr href=\"content.urlLastBuild\"}} class=\"build\">#{{content.last_build_number}}</a>\n    <p class=\"summary\">\n      <span class=\"duration_label\">{{i18n \"repositories.duration\"}}:</span> <abbr class=\"duration\" {{bindAttr title=\"content.last_build_started_at\"}}>{{content.formattedLastBuildDuration}}</abbr>,\n      <span class=\"finished_at_label\">{{i18n \"repositories.finished_at\"}}:</span> <abbr class=\"finished_at timeago\" {{bindAttr title=\"content.last_build_finished_at\"}}>{{content.formattedLastBuildFinishedAt}}</abbr>\n    </p>\n    {{#if content.description}}\n      <p class=\"description\">{{content.description}}</p>\n    {{/if}}\n    <span class=\"indicator\"></span>\n  </div>\n{{/collection}}\n\n{{^collection contentBinding=\"repositories\" id=\"list\" class=\"loading\"}}\n  <p></p>\n{{/collection}}\n");Ember.TEMPLATES['app/templates/repositories/show']=Ember.Handlebars.compile("<div id=\"repository\">\n  <h3>\n    <a {{bindAttr href=\"repository.urlGithub\"}}>{{repository.slug}}</a>\n  </h3>\n\n  <p class=\"description\">{{repository.description}}</p>\n\n  <ul class=\"tabs\">\n    <li id=\"tab_current\">\n      <h5><a {{bindAttr href=\"repository.urlCurrent\"}}>{{i18n \"repositories.tabs.current\"}}</a></h5>\n      <div class=\"tab\"></div>\n    </li>\n    <li id=\"tab_history\">\n      <h5><a {{bindAttr href=\"repository.urlBuilds\"}}>{{i18n \"repositories.tabs.build_history\"}}</a></h5>\n      <div class=\"tab\"></div>\n    </li>\n    <li id=\"tab_pull_requests\">\n      <h5><a {{bindAttr href=\"repository.urlPullRequests\"}}>{{i18n \"repositories.tabs.pull_requests\"}}</a></h5>\n      <div class=\"tab\"></div>\n    </li>\n    <li id=\"tab_branch_summary\">\n      <h5><a {{bindAttr href=\"repository.urlBranches\"}}>{{i18n \"repositories.tabs.branches\"}}</a></h5>\n      <div class=\"tab\"></div>\n    </li>\n    <li id=\"tab_build\">\n      <h5><a {{bindAttr href=\"build.url\"}}>{{i18n \"repositories.tabs.build\"}} #{{build.number}}</a></h5>\n      <div class=\"tab\"></div>\n    </li>\n    <li id=\"tab_job\">\n      <h5><a {{bindAttr href=\"job.url\"}}>{{i18n \"repositories.tabs.job\"}} #{{job.number}}</a></h5>\n      <div class=\"tab\"></div>\n    </li>\n  </ul>\n\n  <div class=\"tools\">\n    <a href=\"#\"></a>\n    <div class=\"content\">\n      <!-- <p><label>{{i18n \"repositories.branch\"}}:</label><select></select></p> -->\n      <p><label>{{i18n \"repositories.image_url\"}}:</label><input type=\"text\" class=\"url\"></input></p>\n      <p><label>{{i18n \"repositories.markdown\"}}:</label><input type=\"text\" class=\"markdown\"></input></p>\n      <p><label>{{i18n \"repositories.textile\"}}:</label><input type=\"text\" class=\"textile\"></input></p>\n      <p><label>{{i18n \"repositories.rdoc\"}}:</label><input type=\"text\" class=\"rdoc\"></input></p>\n    </div>\n  </div>\n</div>\n<script type=\"text/javascript\">\n    $('h5').tipsy();\n</script>\n\n");Ember.TEMPLATES['app/templates/service_hooks/list']=Ember.Handlebars.compile("<div class=\"message\">\n  {{#if service_hooks.isSyncing}}\n    <p class=\"sync\">\n      Synchronizing your data from GitHub\n    </p>\n  {{else}}\n    <p>\n      Last synchronized from GitHub: {{service_hooks.syncedAt}}\n      {{#view Ember.Button class=\"sync_now\" target=\"parentView.service_hooks\" action=\"sync\"}}\n        Sync now\n      {{/view}}\n    </p>\n  {{/if}}\n</div>\n\n{{#collection tagName=\"ul\" itemViewClass=\"Ember.View\" itemClass=\"repository\" contentBinding=\"service_hooks\" isLoadedBinding=\"service_hooks.isLoaded\"}}\n  <a {{bindAttr href=\"content.url\"}} rel=\"nofollow\">{{content.owner_name}}/{{content.name}}</a>\n  <p class=\"description\">{{content.description}}</p>\n\n  <div class=\"controls\">\n    <a {{bindAttr href=\"content.urlGithubAdmin\"}} class=\"github-admin tool-tip\" title=\"Github service hooks admin page\"></a>\n    {{#view Ember.Button tagName=\"a\" class=\"switch\" classBinding=\"content.active\" contentBinding=\"content\" target=\"content\" action=\"toggle\"}}{{/view}}\n  </div>\n{{else}}\n  {{#if Travis.service_hooks.isLoaded}}\n    You do not seem to have any repositories that we could sync.\n  {{else}}\n    Loading ...\n  {{/if}}\n{{/collection}}\n");Ember.TEMPLATES['app/templates/workers/list']=Ember.Handlebars.compile("<h4>{{i18n \"workers\"}}</h4>\n{{#collection tagName=\"ul\" itemClass=\"group\" contentBinding=\"content\"}}\n  <h5>{{content.host}}</h5>\n  {{#collection tagName=\"ul\" itemClass=\"worker\" itemClassBinding=\"content.state\" contentBinding=\"content.workers\"}}\n    <div class=\"icon\"></div>\n    {{#if content.isTesting}}\n      <a {{bindAttr href=\"content.urlJob\"}} {{bindAttr title=\"content.last_seen_at\"}}>{{content.display}}</a>\n    {{else}}\n      <span {{bindAttr title=\"content.last_seen_at\"}}>{{content.display}}</span>\n    {{/if}}\n  {{/collection}}\n{{else}}\n  No workers\n{{/collection}}\n");(function() {
 
   window.Pagination = function(parent, element, collection, count) {
     this.parent = parent;

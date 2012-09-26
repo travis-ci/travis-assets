@@ -317,7 +317,7 @@ caption {
   height: 30px;
   margin: 4px 40px 0 22px;
   text-indent: -9999px;
-  background: url(/83863c39/images/logo.png) no-repeat;
+  background: url(/0f0fedc3/images/logo.png) no-repeat;
 }
 /* line 104, /output/application.css.scss.erb */
 #top ul {
@@ -602,7 +602,7 @@ caption {
 .status_list td:first-child a,
 #main #builds td:first-child a,
 #main #builds .build td:first-child a {
-  background-image: url(/83863c39/images/icons/status.yellow.png);
+  background-image: url(/0f0fedc3/images/icons/status.yellow.png);
   padding-left: 20px;
   background-repeat: no-repeat;
 }
@@ -613,7 +613,7 @@ caption {
 .status_list .green td:first-child a,
 #main #builds .green td:first-child a,
 #main #builds .build.green td:first-child a {
-  background-image: url(/83863c39/images/icons/status.green.png);
+  background-image: url(/0f0fedc3/images/icons/status.green.png);
   color: green;
   padding-left: 20px;
   background-repeat: no-repeat;
@@ -625,7 +625,7 @@ caption {
 .status_list .red td:first-child a,
 #main #builds .red td:first-child a,
 #main #builds .build.red td:first-child a {
-  background-image: url(/83863c39/images/icons/status.red.png);
+  background-image: url(/0f0fedc3/images/icons/status.red.png);
   color: #c00;
   padding-left: 20px;
   background-repeat: no-repeat;
@@ -636,7 +636,7 @@ caption {
 #main {
   z-index: 30;
   display: block;
-  padding: 60px 290px 60px 440px;
+  padding: 15px 290px 60px 440px;
   -webkit-transition: padding 0.5s ease-out;
   -moz-transition: padding 0.5s ease-out;
   -ms-transition: padding 0.5s ease-out;
@@ -692,7 +692,7 @@ caption {
 #main .sync {
   display: inline-block;
   padding-right: 25px;
-  background: url(/83863c39/images/spinner.gif) no-repeat right 6px;
+  background: url(/0f0fedc3/images/spinner.gif) no-repeat right 6px;
 }
 /* line 391, /output/application.css.scss.erb */
 #main .language {
@@ -719,11 +719,11 @@ caption {
 }
 /* line 409, /output/application.css.scss.erb */
 #main .github-stats a.watchers {
-  background-image: url(/83863c39/images/icons/github-watchers.png);
+  background-image: url(/0f0fedc3/images/icons/github-watchers.png);
 }
 /* line 412, /output/application.css.scss.erb */
 #main .github-stats a.forks {
-  background-image: url(/83863c39/images/icons/github-forks.png);
+  background-image: url(/0f0fedc3/images/icons/github-forks.png);
 }
 /* line 417, /output/application.css.scss.erb */
 #main .github-stats > * {
@@ -743,7 +743,7 @@ caption {
   text-decoration: none;
   text-align: right;
   color: #999;
-  background: url(/83863c39/images/icons/github-admin.png) no-repeat right 1px;
+  background: url(/0f0fedc3/images/icons/github-admin.png) no-repeat right 1px;
   text-indent: -999px;
   overflow: hidden;
   z-index: 60;
@@ -986,13 +986,13 @@ caption {
 #main .log .fold {
   height: 16px;
   overflow: hidden;
-  background: #444444 url(/83863c39/images/icons/log.fold.closed.2.png) no-repeat 99.5% 2px;
+  background: #444444 url(/0f0fedc3/images/icons/log.fold.closed.2.png) no-repeat 99.5% 2px;
   cursor: pointer;
 }
 /* line 633, /output/application.css.scss.erb */
 #main .log .fold.open {
   height: auto;
-  background-image: url(/83863c39/images/icons/log.fold.open.2.png);
+  background-image: url(/0f0fedc3/images/icons/log.fold.open.2.png);
 }
 /* line 641, /output/application.css.scss.erb */
 #main .log .bold {
@@ -1182,12 +1182,6 @@ caption {
 }
 
 /* line 781, /output/application.css.scss.erb */
-#home #main.loading {
-  opacity: .1;
-  min-height: 1000px;
-}
-
-/* line 786, /output/application.css.scss.erb */
 .emoji {
   vertical-align: middle;
   width: 20px;
@@ -1195,7 +1189,7 @@ caption {
 }
 
 /* main overrides */
-/* line 795, /output/application.css.scss.erb */
+/* line 790, /output/application.css.scss.erb */
 #stats #main {
   padding: 0;
   padding-top: 60px;
@@ -1205,7 +1199,7 @@ caption {
 }
 
 /* right */
-/* line 807, /output/application.css.scss.erb */
+/* line 802, /output/application.css.scss.erb */
 #right {
   z-index: 10;
   font-size: 13px;
@@ -1223,20 +1217,20 @@ caption {
   -o-transition: width 0.5s ease-out;
   transition: width 0.5s ease-out;
 }
-/* line 811, /output/application.css.scss.erb */
+/* line 806, /output/application.css.scss.erb */
 #right h4 {
   margin: 25px 0 0 0;
 }
-/* line 814, /output/application.css.scss.erb */
+/* line 809, /output/application.css.scss.erb */
 #right ul {
   margin-top: 10px;
 }
-/* line 817, /output/application.css.scss.erb */
+/* line 812, /output/application.css.scss.erb */
 #right li {
   list-style-type: square;
   margin-left: 15px;
 }
-/* line 822, /output/application.css.scss.erb */
+/* line 817, /output/application.css.scss.erb */
 #right #workers li,
 #right #jobs li {
   color: #666;
@@ -1245,7 +1239,7 @@ caption {
   margin: 0;
   list-style-type: none;
 }
-/* line 829, /output/application.css.scss.erb */
+/* line 824, /output/application.css.scss.erb */
 #right #workers li h5,
 #right #jobs li h5 {
   font-size: 13px;
@@ -1253,7 +1247,7 @@ caption {
   margin: 0px;
   cursor: pointer;
 }
-/* line 836, /output/application.css.scss.erb */
+/* line 831, /output/application.css.scss.erb */
 #right #workers li ul,
 #right #jobs li ul {
   margin-top: 2px;
@@ -1261,12 +1255,12 @@ caption {
   padding-left: 1px;
   display: none;
 }
-/* line 842, /output/application.css.scss.erb */
+/* line 837, /output/application.css.scss.erb */
 #right #workers li.open ul,
 #right #jobs li.open ul {
   display: block;
 }
-/* line 846, /output/application.css.scss.erb */
+/* line 841, /output/application.css.scss.erb */
 #right #workers li .icon,
 #right #jobs li .icon {
   clear: left;
@@ -1277,39 +1271,39 @@ caption {
   -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
   /* background: url(/assets/icons/status.square.gray.png); created, starting, stopping */
-  background: url(/83863c39/images/icons/status.square.green.png);
+  background: url(/0f0fedc3/images/icons/status.square.green.png);
 }
-/* line 857, /output/application.css.scss.erb */
+/* line 852, /output/application.css.scss.erb */
 #right #workers li.waiting .icon,
 #right #jobs li.waiting .icon {
-  background: url(/83863c39/images/icons/status.square.green.png);
+  background: url(/0f0fedc3/images/icons/status.square.green.png);
 }
-/* line 860, /output/application.css.scss.erb */
+/* line 855, /output/application.css.scss.erb */
 #right #workers li.working .icon,
 #right #jobs li.working .icon {
   /* background: url(/assets/images/icons/status.square.yellow.png); */
 }
-/* line 863, /output/application.css.scss.erb */
+/* line 858, /output/application.css.scss.erb */
 #right #workers li.errored .icon,
 #right #jobs li.errored .icon {
-  background: url(/83863c39/images/icons/status.square.red.png);
+  background: url(/0f0fedc3/images/icons/status.square.red.png);
 }
-/* line 866, /output/application.css.scss.erb */
+/* line 861, /output/application.css.scss.erb */
 #right #workers li.stopped .icon,
 #right #jobs li.stopped .icon {
-  background: url(/83863c39/images/icons/status.square.gray.png);
+  background: url(/0f0fedc3/images/icons/status.square.gray.png);
 }
-/* line 871, /output/application.css.scss.erb */
+/* line 866, /output/application.css.scss.erb */
 #right .placeholder,
 #right .indicator {
   display: none;
 }
-/* line 875, /output/application.css.scss.erb */
+/* line 870, /output/application.css.scss.erb */
 #right .empty .placeholder,
 #right .loading .indicator {
   display: none;
 }
-/* line 878, /output/application.css.scss.erb */
+/* line 873, /output/application.css.scss.erb */
 #right .box {
   margin-top: 25px;
   padding: 15px;
@@ -1321,30 +1315,30 @@ caption {
   -o-border-radius: 4px;
   border-radius: 4px;
 }
-/* line 885, /output/application.css.scss.erb */
+/* line 880, /output/application.css.scss.erb */
 #right .box h4 {
   margin: 0;
 }
-/* line 888, /output/application.css.scss.erb */
+/* line 883, /output/application.css.scss.erb */
 #right .box a {
   text-decoration: underline;
 }
-/* line 891, /output/application.css.scss.erb */
+/* line 886, /output/application.css.scss.erb */
 #right #alpha_warning {
   background-color: #ffffda;
 }
-/* line 894, /output/application.css.scss.erb */
+/* line 889, /output/application.css.scss.erb */
 #right #alpha_warning h4 {
   padding-left: 20px;
   /* background: url(/assets/construction.png) no-repeat top left; */
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAQCAYAAAAmlE46AAAACXBIWXMAAAsTAAALEwEAmpwYAAACLUlEQVQoFY1STWsTURQ9d+bNJNOYJmnSNKaIlC5KSpVSNFGzaeuipeBG3bkNlip0LQXB7NwVERd+/Aqhfm2liwraaGrVQtAuikSbalIwmTQzz/tiBTtR8MIb3tx3zrvn3PtISglvEMd6DncAjYYfuFcY0wESXpL6fzKOwWgQOZ1cLKWxyKkNL+6vREyeH9ejZQPSxZ4Rm/hvYv3E3HRlOAXbbqJWeD3NxLveipo3kcsv9hj+Q9mWq8GBDsMKnp7N34t5cR1SJ9ZuZZJHPiZ87ihM9nh082Vf+tWzDHB56U9yB7GnsTnV/+Y2rLeAEQQi34DyLqaYdIB4QGqeyPTrOAuC6gvUEDQT8AtMzhD5/lmxdv1mquFfG2q4q9AaFbiWRN2KoH7y2NBIdjTFxMJv8r5Uop159B9O5i846Vnjc3cXDNlkjETNBuxKVYSLLy6uzNB25jG2WIpsS91dwCnbRjFR3ViAJuCwvj0zhKYRhquzQl0g9OXDNXZQLF3CGVW1XdHVcc6RCEfWH6I35kAMZiEDfSC+VtS24Hu/DO3dUx0+hImxzFsmeYPPBFZ+bGOsVAJ6Q0AXFxFC8AzVa22hugN8KgMDA0A4idVQHBmy7yMlGyjwuVn/yn5qfF+LCdxRnTuq+8Fyf+2tOEABNFn9mCBLu2rGXRPcC1O9D0XkUONQQcoMm0M3rwAvC6bT1ObF80fuSCLKZxq1PRFXUjhSn/1QXtlbe64qXf4uj/8EGPmtIwXAubMAAAAASUVORK5CYII%3D) no-repeat top left;
 }
-/* line 899, /output/application.css.scss.erb */
+/* line 894, /output/application.css.scss.erb */
 #right #alpha_warning p {
   margin-bottom: 0;
   color: #666;
 }
-/* line 906, /output/application.css.scss.erb */
+/* line 901, /output/application.css.scss.erb */
 #right .sponsors .platinum li,
 #right .sponsors .gold li {
   width: 205px;
@@ -1358,12 +1352,12 @@ caption {
   overflow: hidden;
   border: 1px solid #ddd;
 }
-/* line 914, /output/application.css.scss.erb */
+/* line 909, /output/application.css.scss.erb */
 #right .sponsors .platinum li:nth-child(2),
 #right .sponsors .gold li:nth-child(2) {
   margin-top: 8px;
 }
-/* line 917, /output/application.css.scss.erb */
+/* line 912, /output/application.css.scss.erb */
 #right .sponsors .platinum li img,
 #right .sponsors .gold li img {
   width: 205px;
@@ -1374,38 +1368,38 @@ caption {
   border-radius: 8px;
   overflow: hidden;
 }
-/* line 924, /output/application.css.scss.erb */
+/* line 919, /output/application.css.scss.erb */
 #right .sponsors .platinum li {
   height: 130px;
 }
-/* line 926, /output/application.css.scss.erb */
+/* line 921, /output/application.css.scss.erb */
 #right .sponsors .platinum li img {
   height: 130px;
 }
-/* line 932, /output/application.css.scss.erb */
+/* line 927, /output/application.css.scss.erb */
 #right .sponsors .gold li {
   height: 60px;
 }
-/* line 934, /output/application.css.scss.erb */
+/* line 929, /output/application.css.scss.erb */
 #right .sponsors .gold li img {
   height: 60px;
 }
-/* line 940, /output/application.css.scss.erb */
+/* line 935, /output/application.css.scss.erb */
 #right .sponsors .silver h5 {
   margin: 0;
   font-size: 13px;
 }
-/* line 944, /output/application.css.scss.erb */
+/* line 939, /output/application.css.scss.erb */
 #right .sponsors .silver p {
   margin: 0;
 }
-/* line 949, /output/application.css.scss.erb */
+/* line 944, /output/application.css.scss.erb */
 #right .hint {
   margin: 4px 0 0 2px;
   font-size: 10px;
   text-align: left;
 }
-/* line 968, /output/application.css.scss.erb */
+/* line 963, /output/application.css.scss.erb */
 #right .slider {
   border-left: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
@@ -1415,7 +1409,7 @@ caption {
   left: -10px;
   width: 10px;
 }
-/* line 973, /output/application.css.scss.erb */
+/* line 968, /output/application.css.scss.erb */
 #right .slider .icon {
   width: 0;
   height: 0;
@@ -1427,69 +1421,74 @@ caption {
   margin-top: -5px;
   margin-left: 3px;
 }
-/* line 990, /output/application.css.scss.erb */
+/* line 985, /output/application.css.scss.erb */
 #right:hover .slider {
   background: #e1e2e6;
 }
-/* line 992, /output/application.css.scss.erb */
+/* line 987, /output/application.css.scss.erb */
 #right:hover .slider .icon {
   border-color: #e1e2e6 #e1e2e6 #e1e2e6 #999999;
 }
-/* line 999, /output/application.css.scss.erb */
+/* line 994, /output/application.css.scss.erb */
 #right .inner .wrapper {
   padding: 20px 20px 20px 10px;
   min-width: 190px;
 }
-/* line 1004, /output/application.css.scss.erb */
+/* line 999, /output/application.css.scss.erb */
 #right.maximized {
   width: 240px;
 }
-/* line 1007, /output/application.css.scss.erb */
+/* line 1002, /output/application.css.scss.erb */
 #right.minimized {
   width: 0px;
 }
-/* line 1010, /output/application.css.scss.erb */
+/* line 1005, /output/application.css.scss.erb */
 #right.minimized .slider {
   width: 20px;
   left: -21px;
   z-index: 50;
 }
-/* line 1014, /output/application.css.scss.erb */
+/* line 1009, /output/application.css.scss.erb */
 #right.minimized .slider .icon {
   border-color: #f2f4f9 #999999 #f2f4f9 #f2f4f9;
   border-width: 5px 5px 5px 0;
 }
-/* line 1019, /output/application.css.scss.erb */
+/* line 1014, /output/application.css.scss.erb */
 #right.minimized .slider:hover .icon {
   border-color: #e1e2e6 #999999 #e1e2e6 #e1e2e6;
 }
-/* line 1025, /output/application.css.scss.erb */
+/* line 1020, /output/application.css.scss.erb */
 #right.minimized .inner .wrapper {
   display: none;
 }
 
-/* line 1033, /output/application.css.scss.erb */
+/* line 1028, /output/application.css.scss.erb */
+.loading {
+  font-size: 13px;
+}
+
+/* line 1032, /output/application.css.scss.erb */
 .list.loading h4 {
-  background: url(/83863c39/images/spinner.gif) no-repeat 4px right;
+  background: url(/0f0fedc3/images/spinner.gif) no-repeat 4px right;
   padding-right: 15px;
 }
 
-/* line 1038, /output/application.css.scss.erb */
+/* line 1037, /output/application.css.scss.erb */
 .list ul {
   min-height: 1em;
 }
 
-/* line 1041, /output/application.css.scss.erb */
+/* line 1040, /output/application.css.scss.erb */
 .list li:not(.empty) ~ .empty {
   display: none;
 }
 
 /* tabs */
-/* line 1048, /output/application.css.scss.erb */
+/* line 1047, /output/application.css.scss.erb */
 #main .tabs, .tabs {
   position: relative;
 }
-/* line 1051, /output/application.css.scss.erb */
+/* line 1050, /output/application.css.scss.erb */
 #main .tabs h5, .tabs h5 {
   float: left;
   position: relative;
@@ -1510,17 +1509,17 @@ caption {
   -o-border-top-right-radius: 4px;
   border-top-right-radius: 4px;
 }
-/* line 1061, /output/application.css.scss.erb */
+/* line 1060, /output/application.css.scss.erb */
 #main .tabs h5:hover, .tabs h5:hover {
   background-color: white;
 }
-/* line 1065, /output/application.css.scss.erb */
+/* line 1064, /output/application.css.scss.erb */
 #main .tabs .active h5, .tabs .active h5 {
   background-color: #fff;
   border-bottom-color: #fff;
   z-index: 2;
 }
-/* line 1070, /output/application.css.scss.erb */
+/* line 1069, /output/application.css.scss.erb */
 #main .tabs h5 a, .tabs h5 a {
   padding: 0 10px;
   display: block;
@@ -1530,11 +1529,11 @@ caption {
   font-weight: normal;
   text-decoration: none;
 }
-/* line 1079, /output/application.css.scss.erb */
+/* line 1078, /output/application.css.scss.erb */
 #main .tabs #main-tabs-right-tab-0 h5, .tabs #main-tabs-right-tab-0 h5 {
   margin-right: 0px;
 }
-/* line 1082, /output/application.css.scss.erb */
+/* line 1081, /output/application.css.scss.erb */
 #main .tabs .tab, .tabs .tab {
   position: absolute;
   display: none;
@@ -1544,56 +1543,56 @@ caption {
   border-top: 1px solid #ccc;
   z-index: 1;
 }
-/* line 1091, /output/application.css.scss.erb */
+/* line 1090, /output/application.css.scss.erb */
 #main .tabs .active .tab, .tabs .active .tab {
   display: block;
 }
-/* line 1094, /output/application.css.scss.erb */
+/* line 1093, /output/application.css.scss.erb */
 #main .tabs li.right, .tabs li.right {
   float: right;
 }
-/* line 1098, /output/application.css.scss.erb */
+/* line 1097, /output/application.css.scss.erb */
 #main .tabs .box h4, .tabs .box h4 {
   margin: 0;
 }
-/* line 1102, /output/application.css.scss.erb */
+/* line 1101, /output/application.css.scss.erb */
 #main .tabs .box a, .tabs .box a {
   text-decoration: underline;
 }
-/* line 1107, /output/application.css.scss.erb */
+/* line 1106, /output/application.css.scss.erb */
 #main .tabs #alpha_warning, .tabs #alpha_warning {
   background-color: #ffffda;
 }
-/* line 1110, /output/application.css.scss.erb */
+/* line 1109, /output/application.css.scss.erb */
 #main .tabs #alpha_warning h4, .tabs #alpha_warning h4 {
   padding-left: 20px;
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAQCAYAAAAmlE46AAAACXBIWXMAAAsTAAALEwEAmpwYAAACLUlEQVQoFY1STWsTURQ9d+bNJNOYJmnSNKaIlC5KSpVSNFGzaeuipeBG3bkNlip0LQXB7NwVERd+/Aqhfm2liwraaGrVQtAuikSbalIwmTQzz/tiBTtR8MIb3tx3zrvn3PtISglvEMd6DncAjYYfuFcY0wESXpL6fzKOwWgQOZ1cLKWxyKkNL+6vREyeH9ejZQPSxZ4Rm/hvYv3E3HRlOAXbbqJWeD3NxLveipo3kcsv9hj+Q9mWq8GBDsMKnp7N34t5cR1SJ9ZuZZJHPiZ87ihM9nh082Vf+tWzDHB56U9yB7GnsTnV/+Y2rLeAEQQi34DyLqaYdIB4QGqeyPTrOAuC6gvUEDQT8AtMzhD5/lmxdv1mquFfG2q4q9AaFbiWRN2KoH7y2NBIdjTFxMJv8r5Uop159B9O5i846Vnjc3cXDNlkjETNBuxKVYSLLy6uzNB25jG2WIpsS91dwCnbRjFR3ViAJuCwvj0zhKYRhquzQl0g9OXDNXZQLF3CGVW1XdHVcc6RCEfWH6I35kAMZiEDfSC+VtS24Hu/DO3dUx0+hImxzFsmeYPPBFZ+bGOsVAJ6Q0AXFxFC8AzVa22hugN8KgMDA0A4idVQHBmy7yMlGyjwuVn/yn5qfF+LCdxRnTuq+8Fyf+2tOEABNFn9mCBLu2rGXRPcC1O9D0XkUONQQcoMm0M3rwAvC6bT1ObF80fuSCLKZxq1PRFXUjhSn/1QXtlbe64qXf4uj/8EGPmtIwXAubMAAAAASUVORK5CYII%3D) no-repeat top left;
 }
-/* line 1115, /output/application.css.scss.erb */
+/* line 1114, /output/application.css.scss.erb */
 #main .tabs #alpha_warning p, .tabs #alpha_warning p {
   margin-bottom: 0;
   color: #666;
 }
 
 /* scrollbars */
-/* line 1124, /output/application.css.scss.erb */
+/* line 1123, /output/application.css.scss.erb */
 pre::-webkit-scrollbar {
   height: 10px;
   width: 10px;
 }
 
-/* line 1128, /output/application.css.scss.erb */
+/* line 1127, /output/application.css.scss.erb */
 pre::-webkit-scrollbar-button:start:decrement, pre::-webkit-scrollbar-button:end:increment {
   display: none;
 }
 
-/* line 1131, /output/application.css.scss.erb */
+/* line 1130, /output/application.css.scss.erb */
 pre::-webkit-scrollbar-track-piece {
   background: #444;
   -webkit-border-radius: 4px;
 }
 
-/* line 1135, /output/application.css.scss.erb */
+/* line 1134, /output/application.css.scss.erb */
 pre::-webkit-scrollbar-thumb:horizontal {
   background: -webkit-gradient(linear, left top, left bottom, from(#85888e), to(#55585e));
   -webkit-border-radius: 4px;
@@ -1601,7 +1600,7 @@ pre::-webkit-scrollbar-thumb:horizontal {
 }
 
 /* graph containers */
-/* line 1144, /output/application.css.scss.erb */
+/* line 1143, /output/application.css.scss.erb */
 #repo_count_container, #build_count_container {
   width: 100%;
   height: 300px;
@@ -1609,12 +1608,12 @@ pre::-webkit-scrollbar-thumb:horizontal {
 }
 
 /* stuff */
-/* line 1152, /output/application.css.scss.erb */
+/* line 1151, /output/application.css.scss.erb */
 .eta, .eta_label {
   display: none;
 }
 
-/* line 1156, /output/application.css.scss.erb */
+/* line 1155, /output/application.css.scss.erb */
 .profile-avatar {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -1623,32 +1622,32 @@ pre::-webkit-scrollbar-thumb:horizontal {
   border-radius: 4px;
 }
 
-/* line 1161, /output/application.css.scss.erb */
+/* line 1160, /output/application.css.scss.erb */
 #profile #welcome {
   margin-top: -35px;
   margin-bottom: 35px;
   font-size: 13px;
 }
-/* line 1165, /output/application.css.scss.erb */
+/* line 1164, /output/application.css.scss.erb */
 #profile #welcome h4, #profile #welcome p {
   margin-bottom: 4px;
 }
-/* line 1169, /output/application.css.scss.erb */
+/* line 1168, /output/application.css.scss.erb */
 #profile p.notice {
   background-color: #a8eb75;
   padding: 10px;
 }
-/* line 1173, /output/application.css.scss.erb */
+/* line 1172, /output/application.css.scss.erb */
 #profile p.notice small {
   font-size: 13px;
   display: block;
 }
-/* line 1178, /output/application.css.scss.erb */
+/* line 1177, /output/application.css.scss.erb */
 #profile p.tip {
   font-size: 13px;
   margin-top: 20px;
 }
-/* line 1182, /output/application.css.scss.erb */
+/* line 1181, /output/application.css.scss.erb */
 #profile .highlight {
   color: #C7371A;
 }
@@ -1672,7 +1671,7 @@ ul#tokens > li:first-child {
   border-top: 1px solid #ddd;
 }
 
-/* line 1191, /output/application.css.scss.erb */
+/* line 1190, /output/application.css.scss.erb */
 #service_hooks ul {
   margin-top: 10px;
 }
@@ -1694,7 +1693,7 @@ ul#tokens > li:first-child {
 #service_hooks ul > li:first-child {
   border-top: 1px solid #ddd;
 }
-/* line 1194, /output/application.css.scss.erb */
+/* line 1193, /output/application.css.scss.erb */
 #service_hooks ul li {
   position: relative;
   height: 19px;
@@ -1704,14 +1703,14 @@ ul#tokens > li:first-child {
   color: #666;
   font-size: 14px;
 }
-/* line 1202, /output/application.css.scss.erb */
+/* line 1201, /output/application.css.scss.erb */
 #service_hooks ul li > a {
   float: left;
   font-size: 16px;
   color: #666;
   text-decoration: none;
 }
-/* line 1208, /output/application.css.scss.erb */
+/* line 1207, /output/application.css.scss.erb */
 #service_hooks ul li .description {
   display: none;
   margin-left: 10px;
@@ -1721,7 +1720,7 @@ ul#tokens > li:first-child {
   text-overflow: ellipsis;
   color: #999;
 }
-/* line 1217, /output/application.css.scss.erb */
+/* line 1216, /output/application.css.scss.erb */
 #service_hooks ul li .controls {
   position: absolute;
   top: 10px;
@@ -1729,45 +1728,45 @@ ul#tokens > li:first-child {
   white-space: nowrap;
   background: #fff;
 }
-/* line 1223, /output/application.css.scss.erb */
+/* line 1222, /output/application.css.scss.erb */
 #service_hooks ul li .controls a {
   float: left;
   display: block;
 }
-/* line 1227, /output/application.css.scss.erb */
+/* line 1226, /output/application.css.scss.erb */
 #service_hooks ul li .controls .github-admin {
   position: relative;
   height: 20px;
   width: 20px;
   padding-right: 0;
-  background: url(/83863c39/images/icons/github-admin.png) no-repeat 3px 4px;
+  background: url(/0f0fedc3/images/icons/github-admin.png) no-repeat 3px 4px;
 }
-/* line 1236, /output/application.css.scss.erb */
+/* line 1235, /output/application.css.scss.erb */
 #service_hooks ul li .controls .switch {
   height: 20px;
   width: 80px;
   margin-left: 10px;
-  background: url(/83863c39/images/off.png) no-repeat;
+  background: url(/0f0fedc3/images/off.png) no-repeat;
   cursor: pointer;
 }
-/* line 1242, /output/application.css.scss.erb */
+/* line 1241, /output/application.css.scss.erb */
 #service_hooks ul li .controls .switch.active {
-  background: url(/83863c39/images/on.png) no-repeat;
+  background: url(/0f0fedc3/images/on.png) no-repeat;
 }
-/* line 1247, /output/application.css.scss.erb */
+/* line 1246, /output/application.css.scss.erb */
 #service_hooks ul li:nth-child(odd) .controls {
   background: #fafbfc;
 }
-/* line 1251, /output/application.css.scss.erb */
+/* line 1250, /output/application.css.scss.erb */
 #service_hooks ul li:hover > a {
   color: #c7371a;
 }
-/* line 1254, /output/application.css.scss.erb */
+/* line 1253, /output/application.css.scss.erb */
 #service_hooks ul li:hover .description {
   display: inline;
 }
 
-/* line 1261, /output/application.css.scss.erb */
+/* line 1260, /output/application.css.scss.erb */
 #flash-messages {
   position: absolute;
   left: 400px;
@@ -1779,7 +1778,7 @@ ul#tokens > li:first-child {
 /**
  * Github Badge
  */
-/* line 1273, /output/application.css.scss.erb */
+/* line 1272, /output/application.css.scss.erb */
 #github {
   position: absolute;
   z-index: 100;
@@ -1789,7 +1788,7 @@ ul#tokens > li:first-child {
   height: 140px;
   overflow: hidden;
 }
-/* line 1282, /output/application.css.scss.erb */
+/* line 1281, /output/application.css.scss.erb */
 #github a {
   z-index: 100;
   display: block;
@@ -1816,105 +1815,105 @@ ul#tokens > li:first-child {
   box-shadow: rgba(0, 0, 0, 0.5) 1px 1px 10px, rgba(0, 0, 0, 0.07) 0 0 3px 1px inset;
 }
 
-/* line 1306, /output/application.css.scss.erb */
+/* line 1305, /output/application.css.scss.erb */
 #main #allow_failure_builds td:first-child a,
 #main #allow_failure_builds .build td:first-child a {
-  background-image: url(/83863c39/images/icons/status.yellow.png);
+  background-image: url(/0f0fedc3/images/icons/status.yellow.png);
   padding-left: 20px;
   background-repeat: no-repeat;
 }
 
-/* line 1312, /output/application.css.scss.erb */
+/* line 1311, /output/application.css.scss.erb */
 #main #allow_failure_builds .green td:first-child a,
 #main #allow_failure_builds .build.green td:first-child a {
-  background-image: url(/83863c39/images/icons/status.green.png);
+  background-image: url(/0f0fedc3/images/icons/status.green.png);
   color: green;
   padding-left: 20px;
   background-repeat: no-repeat;
 }
 
-/* line 1322, /output/application.css.scss.erb */
+/* line 1321, /output/application.css.scss.erb */
 #left #repositories li.red .wrapper,
 #main .red .summary .number a,
 #main #allow_failure_builds .red td:first-child a,
 #main #allow_failure_builds .build.red td:first-child a {
-  background-image: url(/83863c39/images/icons/status.red.png);
+  background-image: url(/0f0fedc3/images/icons/status.red.png);
   color: #c00;
   padding-left: 20px;
   background-repeat: no-repeat;
 }
 
-/* line 1329, /output/application.css.scss.erb */
+/* line 1328, /output/application.css.scss.erb */
 #allow_failure_builds {
   margin: 20px 0 0 -12px;
 }
 
-/* line 1332, /output/application.css.scss.erb */
+/* line 1331, /output/application.css.scss.erb */
 #allow_failure_builds caption {
   margin-left: 12px;
   margin-bottom: 8px;
 }
 
-/* line 1336, /output/application.css.scss.erb */
+/* line 1335, /output/application.css.scss.erb */
 #allow_failure_builds {
   width: 100%;
   margin: 25px 0 0 -12px;
 }
 
-/* line 1340, /output/application.css.scss.erb */
+/* line 1339, /output/application.css.scss.erb */
 #allow_failure_builds th {
   font-size: 13px;
   color: #666;
 }
 
-/* line 1345, /output/application.css.scss.erb */
+/* line 1344, /output/application.css.scss.erb */
 #allow_failure_builds th,
 #allow_failure_builds td {
   white-space: nowrap;
 }
 
-/* line 1348, /output/application.css.scss.erb */
+/* line 1347, /output/application.css.scss.erb */
 #allow_failure_builds td.message {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
 }
 
-/* line 1353, /output/application.css.scss.erb */
+/* line 1352, /output/application.css.scss.erb */
 #allow_failure_builds tr {
   max-height: 20px;
 }
 
-/* line 1356, /output/application.css.scss.erb */
+/* line 1355, /output/application.css.scss.erb */
 #allow_failure_builds tbody tr:nth-child(odd) {
   background-color: #f6f6f6;
 }
 
-/* line 1359, /output/application.css.scss.erb */
+/* line 1358, /output/application.css.scss.erb */
 #allow_failure_builds tbody tr.allow-failure {
   background-color: #BDBDBD;
 }
 
-/* line 1364, /output/application.css.scss.erb */
+/* line 1363, /output/application.css.scss.erb */
 #allow_failure_builds .green .number a {
   color: green;
 }
 
-/* line 1367, /output/application.css.scss.erb */
+/* line 1366, /output/application.css.scss.erb */
 #allow_failure_builds .red .number a {
   color: #C00;
 }
 
 /*  Whats this */
-/* line 1372, /output/application.css.scss.erb */
+/* line 1371, /output/application.css.scss.erb */
 .whats_this {
   margin-left: 10px;
   display: inline-block;
   width: 16px;
-  background: url(/83863c39/images/icons/help.png) no-repeat scroll 0 0 transparent;
+  background: url(/0f0fedc3/images/icons/help.png) no-repeat scroll 0 0 transparent;
 }
 
-/* line 1378, /output/application.css.scss.erb */
+/* line 1377, /output/application.css.scss.erb */
 .context_help_caption {
   text-align: left;
   font-size: 16px;
@@ -1923,19 +1922,19 @@ ul#tokens > li:first-child {
   border-bottom: 1px solid #CCCCCC;
 }
 
-/* line 1385, /output/application.css.scss.erb */
+/* line 1384, /output/application.css.scss.erb */
 .context_help {
   display: none;
 }
 
-/* line 1388, /output/application.css.scss.erb */
+/* line 1387, /output/application.css.scss.erb */
 .context_help_body {
   font-size: 1em;
   line-height: 1.4286;
   margin: 1.4286em 0;
 }
 
-/* line 1393, /output/application.css.scss.erb */
+/* line 1392, /output/application.css.scss.erb */
 pre {
   background: none repeat scroll 0 0 #FAFAFA;
   border: 1px solid #DDDDDD;
