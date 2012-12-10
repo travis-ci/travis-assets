@@ -42276,7 +42276,7 @@ Travis.DataSource = Ember.DataSource.extend({
   },
 
   _urlFor: function(recordType, id) {
-    return window.location.protocol + '//' + window.location.hostname.replace('mobile.', 'api.') + $.compact([recordType.resource, id]).join('/');
+    return window.location.protocol + '//' + window.location.hostname.replace('mobile.', 'api.') + '/' + $.compact([recordType.resource, id]).join('/');
   },
 
   _extractIds: function() {
