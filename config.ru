@@ -1,6 +1,7 @@
 $: << 'lib'
 
 require 'sinatra'
+require 'rack/ssl'
 # require 'travis/assets'
 
 class App < Sinatra::Base
@@ -25,5 +26,6 @@ class App < Sinatra::Base
   end
 end
 
+use Rack::SSL
 use Rack::Deflater
 run App
