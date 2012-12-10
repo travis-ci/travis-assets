@@ -1,3 +1,5 @@
+raise 'disabled for mobile. needs to be stripped down to mobile, properly compressed and use a recent ember version'
+
 $: << 'lib'
 
 require 'travis/assets'

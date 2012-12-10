@@ -1,7 +1,7 @@
 $: << 'lib'
 
 require 'sinatra'
-require 'travis/assets'
+# require 'travis/assets'
 
 class App < Sinatra::Base
   disable :protection
@@ -10,10 +10,14 @@ class App < Sinatra::Base
   set :public_folder, lambda { "#{root}/public" }
   set :static_cache_control, :public
 
-  configure :development do
-    $: << 'lib'
-    require 'travis/assets'
-    use Travis::Assets::Middleware, settings.root
+  # configure :development do
+  #   $: << 'lib'
+  #   require 'travis/assets'
+  #   use Travis::Assets::Middleware, settings.root
+  # end
+
+  get '/' do
+    File.new('public/index.html').readlines
   end
 
   not_found do
