@@ -43018,8 +43018,13 @@ Travis.Record.reopenClass({
 $.timeago.settings.allowFuture = false;
 
 Travis.Helpers.Common = {
-  colorForResult: function(result) {
-    return result == 0 ? 'green' : result == 1 ? 'red' : null;
+  colors: {
+    passed: 'green',
+    failed: 'red',
+    started: 'yellow'
+  },
+  colorForResult: function(state) {
+    return Travis.Helpers.Common.colors[state] || '';
   },
 
   timeAgoInWords: function(date) {
@@ -43141,7 +43146,7 @@ Travis.Branch = Travis.Record.extend(Travis.Helpers.Common, {
   }.property('repository_id').cacheable(),
 
   color: function() {
-    return Travis.Helpers.Common.colorForResult(this.get('result'));
+    return Travis.Helpers.Common.colorForResult(this.get('state'));
   }.property(),
 
   buildUrl: function() {
@@ -43235,7 +43240,7 @@ Travis.Build = Travis.Record.extend(Travis.Helpers.Common, {
   }.property('matrix.length').cacheable(),
 
   color: function() {
-    return this.colorForResult(this.get('result'));
+    return this.colorForResult(this.get('state'));
   }.property('result').cacheable(),
 
   // VIEW HELPERS
@@ -43373,7 +43378,7 @@ Travis.Job = Travis.Record.extend(Travis.Helpers.Common, {
   },
 
   color: function() {
-    return this.colorForResult(this.get('result'));
+    return this.colorForResult(this.get('state'));
   }.property('result').cacheable(),
 
   duration: function() {
@@ -43469,7 +43474,7 @@ Travis.Repository = Travis.Record.extend(Travis.Helpers.Common, {
   // VIEW HELPERS
 
   color: function() {
-    return this.colorForResult(this.get('last_build_result'));
+    return this.colorForResult(this.get('last_build_state'));
   }.property('last_build_result').cacheable(),
 
   formattedLastBuildDuration: function() {
