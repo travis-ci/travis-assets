@@ -42001,12 +42001,6 @@ $(function() {
   Travis.run();
 });
 
-$.ajaxSetup({
-  beforeSend: function(xhr) {
-    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-  }
-});
-
 if (window.console && window.console.log) {
   // Pusher.log = function(message) { window.console.log(arguments); };
 }
