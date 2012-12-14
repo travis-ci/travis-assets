@@ -42216,7 +42216,7 @@ Travis.DataSource = Ember.DataSource.extend({
     if(window.location.host.match('localhost')) {
       host = 'localhost:3000';
     } else {
-      host = window.location.host.replace('mobile.', 'api.');
+      host = window.location.host.replace(/^m(obile)?\./, 'api.');
     }
     return window.location.protocol + '//' + host;
   },
