@@ -9777,7 +9777,7 @@ window.ember_deprecate = function(message, test) {
     stackStr = "\n    " + stack.slice(2).join("\n    ");
   }
 
-  console.warn("DEPRECATION: "+message+stackStr);
+  /* console.warn("DEPRECATION: "+message+stackStr); */
 };
 
 
@@ -42210,10 +42210,21 @@ $.extend({
 // http://svarovsky-tomas.com/sproutcore-datasource.html
 
 Travis.DataSource = Ember.DataSource.extend({
+  api_endpoint: function() {
+    var host;
+
+    if(window.location.host.match('localhost')) {
+      host = 'localhost:3000';
+    } else {
+      host = window.location.host.replace('mobile.', 'api.');
+    }
+    return window.location.protocol + '//' + host;
+  },
+
   fetch: function(store, query) {
     var url;
     if(query && query.url) {
-      url = window.location.protocol + '//' + window.location.host.replace('mobile.', 'api.') + query.url;
+      url = this.api_endpoint() + query.url;
     } else
       url = this._urlFor(query.get('recordType')) + '.json';
 
@@ -42276,7 +42287,7 @@ Travis.DataSource = Ember.DataSource.extend({
   },
 
   _urlFor: function(recordType, id) {
-    return window.location.protocol + '//' + window.location.hostname.replace('mobile.', 'api.') + '/' + $.compact([recordType.resource, id]).join('/');
+    return this.api_endpoint() + '/' + $.compact([recordType.resource, id]).join('/');
   },
 
   _extractIds: function() {
@@ -43019,12 +43030,12 @@ $.timeago.settings.allowFuture = false;
 
 Travis.Helpers.Common = {
   colors: {
-    passed: 'green',
-    failed: 'red',
-    started: 'yellow'
+    0: 'green',
+    1: 'red',
+    default: 'yellow'
   },
-  colorForResult: function(state) {
-    return Travis.Helpers.Common.colors[state] || '';
+  colorForResult: function(result) {
+    return Travis.Helpers.Common.colors[result] || Travis.Helpers.Common.colors.default;
   },
 
   timeAgoInWords: function(date) {
@@ -43146,7 +43157,7 @@ Travis.Branch = Travis.Record.extend(Travis.Helpers.Common, {
   }.property('repository_id').cacheable(),
 
   color: function() {
-    return Travis.Helpers.Common.colorForResult(this.get('state'));
+    return Travis.Helpers.Common.colorForResult(this.get('result'));
   }.property(),
 
   buildUrl: function() {
@@ -43240,7 +43251,7 @@ Travis.Build = Travis.Record.extend(Travis.Helpers.Common, {
   }.property('matrix.length').cacheable(),
 
   color: function() {
-    return this.colorForResult(this.get('state'));
+    return this.colorForResult(this.get('result'));
   }.property('result').cacheable(),
 
   // VIEW HELPERS
@@ -43378,7 +43389,7 @@ Travis.Job = Travis.Record.extend(Travis.Helpers.Common, {
   },
 
   color: function() {
-    return this.colorForResult(this.get('state'));
+    return this.colorForResult(this.get('result'));
   }.property('result').cacheable(),
 
   duration: function() {
@@ -43474,7 +43485,8 @@ Travis.Repository = Travis.Record.extend(Travis.Helpers.Common, {
   // VIEW HELPERS
 
   color: function() {
-    return this.colorForResult(this.get('last_build_state'));
+    console.log(this.get('last_build_result'))
+    return this.colorForResult(this.get('last_build_result'));
   }.property('last_build_result').cacheable(),
 
   formattedLastBuildDuration: function() {

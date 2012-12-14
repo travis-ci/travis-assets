@@ -11,11 +11,10 @@ class App < Sinatra::Base
   set :public_folder, lambda { "#{root}/public" }
   set :static_cache_control, :public
 
-  # configure :development do
-  #   $: << 'lib'
-  #   require 'travis/assets'
-  #   use Travis::Assets::Middleware, settings.root
-  # end
+  configure :production do
+    use Rack::SSL
+    use Rack::Deflater
+  end
 
   get '/' do
     File.new('public/index.html').readlines
@@ -26,6 +25,4 @@ class App < Sinatra::Base
   end
 end
 
-use Rack::SSL
-use Rack::Deflater
 run App
