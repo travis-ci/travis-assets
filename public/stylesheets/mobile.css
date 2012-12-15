@@ -254,27 +254,39 @@ ul.info li a {
 }
 
 /* line 229, /output/mobile.css.scss.erb */
-#build.green h2 .status,
-.matrix li.green .status,
-#repository h2 .status.green,
-#builds li.green .status {
+#build.green h2 .result,
+.matrix li.green .result,
+#repository h2 .result.green,
+#builds li.green a .result,
+#job.green .result {
   background-image: url(/images/icons/status.green.png);
+  height: 14px;
+  width: 14px;
+  float: left;
 }
 
 /* line 236, /output/mobile.css.scss.erb */
-#build.red h2 .status,
-.matrix li.red .status,
-#repository h2 .status.red,
-#builds li.red .status {
+#build.red h2 .result,
+.matrix li.red .result,
+#repository h2 .result.red,
+#builds li.red .result,
+#job.red .result {
   background-image: url(/images/icons/status.red.png);
+  height: 14px;
+  width: 14px;
+  float: left;
 }
 
 /* line 243, /output/mobile.css.scss.erb */
-#build.yellow h2 .status,
-.matrix li.yellow .status,
-#repository h2 .status.yellow,
-#builds li.yellow .status {
+#build.yellow h2 .result,
+.matrix li.yellow .result,
+#repository h2 .result.yellow,
+#builds li.yellow .result,
+#job.yellow .result {
   background-image: url(/images/icons/status.yellow.png);
+  height: 14px;
+  width: 14px;
+  float: left;
 }
 
 /* line 247, /output/mobile.css.scss.erb */
@@ -294,16 +306,17 @@ ul.info li a {
   word-wrap: break-word;
 }
 /* line 263, /output/mobile.css.scss.erb */
-#build .matrix li a {
+#build .matrix li a, #builds li a {
   text-align: center;
   text-decoration: underline !important;
 }
 /* line 273, /output/mobile.css.scss.erb */
-#build .matrix li.green a {
+#build .matrix li.green a, #builds li.green a, #job.green h2 {
   color: green;
 }
+
 /* line 277, /output/mobile.css.scss.erb */
-#build .matrix li.red a {
+#build .matrix li.red a, #builds li.red a, #job.red h2 {
   color: #C00;
 }
 
