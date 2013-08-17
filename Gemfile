@@ -15,6 +15,7 @@ end
 
 group :development do
   gem 'faraday'
+  gem 'rake'
 end
 
 group :test do
