@@ -200,6 +200,7 @@ DEPENDENCIES
   jasmine!
   localeapp-i18n-js!
   mocha
+  rake
   rake-pipeline!
   rake-pipeline-web-filters!
   rspec
