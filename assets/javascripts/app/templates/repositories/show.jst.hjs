@@ -40,6 +40,7 @@
       <p><label>{{i18n "repositories.markdown"}}:</label><input type="text" class="markdown"></input></p>
       <p><label>{{i18n "repositories.textile"}}:</label><input type="text" class="textile"></input></p>
       <p><label>{{i18n "repositories.rdoc"}}:</label><input type="text" class="rdoc"></input></p>
+      <p><label>{{i18n "repositories.rest"}}:</label><input type="text" class="rest"></input></p>
     </div>
   </div>
 </div>

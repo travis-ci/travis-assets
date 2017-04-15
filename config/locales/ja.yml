@@ -8,6 +8,7 @@ ja:
     markdown: .md
     textile: .textile
     rdoc: .rdoc
+    rest: .rst
     commit: コミット
     message: メッセージ
     started_at: 開始時刻

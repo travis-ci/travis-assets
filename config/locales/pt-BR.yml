@@ -229,6 +229,7 @@ pt-BR:
       current: Atual
       job: Trabalho
     textile: Textile
+    rest: ReST
   repository:
     duration: Duração
   statistics:

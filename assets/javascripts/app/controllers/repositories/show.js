@@ -123,6 +123,7 @@ Travis.Controllers.Repositories.Show = Ember.Object.extend({
       $('.tools input.markdown').val('[![Build Status](' + imageUrl + ')](' + repositoryUrl + ')');
       $('.tools input.textile').val('!' + imageUrl + '(Build Status)!:' + repositoryUrl);
       $('.tools input.rdoc').val('{<img src="' + imageUrl + '" alt="Build Status" />}[' + repositoryUrl + ']');
+      $('.tools input.rest').val('.. image:: ' + imageUrl + ' :target: ' + repositoryUrl + ' :alt: Build Status');
     } else {
       $('.tools input').val('');
     }
