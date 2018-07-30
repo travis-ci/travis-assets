@@ -19,7 +19,7 @@ modify something, and your running instance of travis-ci should pick them up aut
 
 ## Running the tests
 
-Integration tests are implemented using [Jasmine](http://pivotal.github.com/jasmine) and can be run in the browser.
+Integration tests are implemented using [Jasmine](https://jasmine.github.io/) and can be run in the browser.
 
 To run the whole test suite, simply do:
 
